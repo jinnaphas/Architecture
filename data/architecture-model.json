@@ -1,0 +1,1064 @@
+{
+  "meta": {
+    "name": "Z-SGAM-L Architecture City",
+    "version": "3.0",
+    "owner": "Precise Corporation (PCC)",
+    "doc": "PCC-EA-SGL-002",
+    "purpose": "Federated model of four industry architectures aligned on eight common concern levels",
+    "totalCubes": 798,
+    "sgamInScope": 183,
+    "sgamCore": 79,
+    "sgamSeamEligible": 39,
+    "namedCouplings": 30,
+    "status": "workshop draft — ยังไม่ baseline ต้องผ่าน Architecture Review Board"
+  },
+  "commonLevels": [
+    {
+      "id": "L8",
+      "order": 8,
+      "name": "Purpose",
+      "th": "เจตนาธุรกิจ",
+      "coupling": "A"
+    },
+    {
+      "id": "L7",
+      "order": 7,
+      "name": "Capability",
+      "th": "ความสามารถ",
+      "coupling": "D"
+    },
+    {
+      "id": "L6",
+      "order": 6,
+      "name": "Cognition",
+      "th": "ปัญญาประดิษฐ์",
+      "coupling": "D"
+    },
+    {
+      "id": "L5",
+      "order": 5,
+      "name": "Semantics",
+      "th": "ความหมายข้อมูล",
+      "coupling": "C"
+    },
+    {
+      "id": "L4",
+      "order": 4,
+      "name": "Exchange",
+      "th": "การรับส่ง",
+      "coupling": "B"
+    },
+    {
+      "id": "L3",
+      "order": 3,
+      "name": "Trust",
+      "th": "ความปลอดภัย",
+      "coupling": "E"
+    },
+    {
+      "id": "L2",
+      "order": 2,
+      "name": "Digitization",
+      "th": "แปลงเป็นดิจิทัล",
+      "coupling": "B"
+    },
+    {
+      "id": "L1",
+      "order": 1,
+      "name": "Physical",
+      "th": "สินทรัพย์กายภาพ",
+      "coupling": "A"
+    }
+  ],
+  "couplingTypes": {
+    "A": {
+      "name": "Identity",
+      "th": "ผูกที่ตัวตนเดียวกัน",
+      "levels": [
+        "L1",
+        "L8"
+      ],
+      "risk": "low",
+      "direction": "bidirectional",
+      "requires": "รหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+      "desc": "ทั้งสองตึกอ้างถึงสิ่งเดียวกัน คู่กันได้โดยไม่ต้องเปิดโครงสร้างภายในให้กัน"
+    },
+    "B": {
+      "name": "Contract",
+      "th": "ผูกผ่านสัญญาอินเทอร์เฟซ",
+      "levels": [
+        "L2",
+        "L4"
+      ],
+      "risk": "medium",
+      "direction": "bidirectional via gateway",
+      "requires": "interface control document และ conformance test",
+      "desc": "คุยผ่าน protocol หรือ gateway ที่มีสัญญาและเวอร์ชันชัดเจน ถอดเปลี่ยนได้"
+    },
+    "C": {
+      "name": "Translation",
+      "th": "ผูกผ่านตารางแปลความหมาย",
+      "levels": [
+        "L5"
+      ],
+      "risk": "medium-high",
+      "direction": "directional, single source of truth",
+      "requires": "ระบุ source of truth ฝั่งเดียว และทดสอบ mapping เป็นรอบ",
+      "desc": "แปล semantic ข้ามโมเดล มีการสูญเสียความหมายเสมอ เสี่ยง semantic drift"
+    },
+    "D": {
+      "name": "Orchestration",
+      "th": "ผูกผ่าน use case หรือ agent ที่คร่อมสองตึก",
+      "levels": [
+        "L6",
+        "L7"
+      ],
+      "risk": "high",
+      "direction": "bidirectional, must be registered",
+      "requires": "ลงทะเบียนส่วนกลาง ระบุ decision rights และมีปุ่มหยุด",
+      "desc": "use case หรือ AI agent ตัวเดียวทำงานคร่อมสองสถาปัตยกรรม มูลค่าสูงสุดและเสี่ยงสูงสุดพร้อมกัน"
+    },
+    "E": {
+      "name": "Federated trust",
+      "th": "ผูกผ่านการยอมรับตัวตนข้ามตึก",
+      "levels": [
+        "L3"
+      ],
+      "risk": "high",
+      "direction": "one-way with trust anchor",
+      "requires": "ทางเดียวเท่านั้น มี trust anchor ชัดเจน ห้ามยอมรับกันไปกลับ",
+      "desc": "ตัวตนที่ออกในตึกหนึ่งถูกยอมรับในอีกตึกหนึ่ง ถ้าผิด ช่องโหว่จะลามทุกตึก"
+    }
+  },
+  "towers": [
+    {
+      "id": "SGAM",
+      "name": "SGAM · PCC extended",
+      "th": "สมาร์ทกริด",
+      "hero": true,
+      "plot": [
+        0,
+        0
+      ],
+      "xAxis": {
+        "label": "Domains",
+        "kind": "value-chain",
+        "items": [
+          [
+            "GEN",
+            "Generation",
+            "ผลิตไฟฟ้า"
+          ],
+          [
+            "TRA",
+            "Transmission",
+            "ระบบส่ง"
+          ],
+          [
+            "DIS",
+            "Distribution",
+            "ระบบจำหน่าย"
+          ],
+          [
+            "DER",
+            "DER",
+            "พลังงานกระจาย"
+          ],
+          [
+            "CUS",
+            "Customer premises",
+            "ฝั่งผู้ใช้ไฟ"
+          ]
+        ]
+      },
+      "yAxis": {
+        "label": "Zones",
+        "kind": "aggregation",
+        "items": [
+          [
+            "MKT",
+            "Market",
+            "ตลาด"
+          ],
+          [
+            "ENT",
+            "Enterprise",
+            "องค์กร"
+          ],
+          [
+            "OPS",
+            "Operation",
+            "ศูนย์ควบคุม"
+          ],
+          [
+            "STA",
+            "Station",
+            "สถานี"
+          ],
+          [
+            "FLD",
+            "Field",
+            "สนาม"
+          ],
+          [
+            "PRO",
+            "Process",
+            "กระบวนการ"
+          ]
+        ]
+      },
+      "layers": [
+        [
+          "BUS",
+          "Business",
+          "L8"
+        ],
+        [
+          "FUN",
+          "Function",
+          "L7"
+        ],
+        [
+          "INT",
+          "Intelligence",
+          "L6"
+        ],
+        [
+          "INF",
+          "Information",
+          "L5"
+        ],
+        [
+          "COM",
+          "Communication",
+          "L4"
+        ],
+        [
+          "CYB",
+          "Cyber",
+          "L3"
+        ],
+        [
+          "CMP",
+          "Component",
+          "L1"
+        ]
+      ],
+      "cubes": 210,
+      "missingLevels": [
+        "L2"
+      ],
+      "uniqueLevels": [
+        "L6",
+        "L3"
+      ]
+    },
+    {
+      "id": "RAMI",
+      "name": "RAMI 4.0",
+      "th": "โรงงานอัจฉริยะ",
+      "hero": false,
+      "plot": [
+        0,
+        10
+      ],
+      "xAxis": {
+        "label": "Hierarchy levels",
+        "kind": "aggregation",
+        "items": [
+          [
+            "PRD",
+            "Product",
+            ""
+          ],
+          [
+            "FLD",
+            "Field device",
+            ""
+          ],
+          [
+            "CTL",
+            "Control device",
+            ""
+          ],
+          [
+            "STA",
+            "Station",
+            ""
+          ],
+          [
+            "WC",
+            "Work centre",
+            ""
+          ],
+          [
+            "ENT",
+            "Enterprise",
+            ""
+          ],
+          [
+            "CW",
+            "Connected world",
+            ""
+          ]
+        ]
+      },
+      "yAxis": {
+        "label": "Life cycle & value stream",
+        "kind": "lifecycle",
+        "items": [
+          [
+            "T-DEV",
+            "Type · development",
+            ""
+          ],
+          [
+            "T-MNT",
+            "Type · maintenance",
+            ""
+          ],
+          [
+            "I-PRD",
+            "Instance · production",
+            ""
+          ],
+          [
+            "I-MNT",
+            "Instance · maintenance",
+            ""
+          ]
+        ]
+      },
+      "layers": [
+        [
+          "BUS",
+          "Business",
+          "L8"
+        ],
+        [
+          "FUN",
+          "Functional",
+          "L7"
+        ],
+        [
+          "INF",
+          "Information",
+          "L5"
+        ],
+        [
+          "COM",
+          "Communication",
+          "L4"
+        ],
+        [
+          "ITG",
+          "Integration",
+          "L2"
+        ],
+        [
+          "AST",
+          "Asset",
+          "L1"
+        ]
+      ],
+      "cubes": 168,
+      "missingLevels": [
+        "L6",
+        "L3"
+      ],
+      "uniqueLevels": []
+    },
+    {
+      "id": "SCIAM",
+      "name": "SCIAM",
+      "th": "เมืองอัจฉริยะ",
+      "hero": false,
+      "plot": [
+        10,
+        0
+      ],
+      "xAxis": {
+        "label": "Domains",
+        "kind": "value-chain",
+        "items": [
+          [
+            "SWM",
+            "Supply & waste",
+            ""
+          ],
+          [
+            "WAT",
+            "Water",
+            ""
+          ],
+          [
+            "MOB",
+            "Mobility",
+            ""
+          ],
+          [
+            "HLT",
+            "Healthcare AAL",
+            ""
+          ],
+          [
+            "SEC",
+            "Civil security",
+            ""
+          ],
+          [
+            "ENE",
+            "Energy",
+            ""
+          ],
+          [
+            "BLD",
+            "Buildings",
+            ""
+          ],
+          [
+            "IND",
+            "Industry",
+            ""
+          ]
+        ]
+      },
+      "yAxis": {
+        "label": "Zones",
+        "kind": "aggregation",
+        "items": [
+          [
+            "MKT",
+            "Market",
+            ""
+          ],
+          [
+            "ENT",
+            "Enterprise",
+            ""
+          ],
+          [
+            "OPS",
+            "Operation",
+            ""
+          ],
+          [
+            "STA",
+            "Station",
+            ""
+          ],
+          [
+            "FLD",
+            "Field",
+            ""
+          ],
+          [
+            "PRO",
+            "Process",
+            ""
+          ]
+        ]
+      },
+      "layers": [
+        [
+          "BUS",
+          "Business",
+          "L8"
+        ],
+        [
+          "FUN",
+          "Function",
+          "L7"
+        ],
+        [
+          "INF",
+          "Information",
+          "L5"
+        ],
+        [
+          "COM",
+          "Communication",
+          "L4"
+        ],
+        [
+          "CMP",
+          "Component",
+          "L1"
+        ]
+      ],
+      "cubes": 240,
+      "missingLevels": [
+        "L6",
+        "L3",
+        "L2"
+      ],
+      "uniqueLevels": []
+    },
+    {
+      "id": "SFAM",
+      "name": "SFAM",
+      "th": "เกษตรอัจฉริยะ",
+      "hero": false,
+      "plot": [
+        10,
+        10
+      ],
+      "xAxis": {
+        "label": "Domains",
+        "kind": "value-chain",
+        "items": [
+          [
+            "CUL",
+            "Cultivation area",
+            ""
+          ],
+          [
+            "LIV",
+            "Livestock",
+            ""
+          ],
+          [
+            "STO",
+            "Storage",
+            ""
+          ],
+          [
+            "PRC",
+            "Processing",
+            ""
+          ],
+          [
+            "DIS",
+            "Distribution",
+            ""
+          ]
+        ]
+      },
+      "yAxis": {
+        "label": "Zones",
+        "kind": "aggregation",
+        "items": [
+          [
+            "CW",
+            "Connected world",
+            ""
+          ],
+          [
+            "MI",
+            "Management information",
+            ""
+          ],
+          [
+            "OE",
+            "Operation execution",
+            ""
+          ],
+          [
+            "PC",
+            "Production control",
+            ""
+          ],
+          [
+            "SA",
+            "Sensing & actuation",
+            ""
+          ],
+          [
+            "PO",
+            "Physical objects",
+            ""
+          ]
+        ]
+      },
+      "layers": [
+        [
+          "BUS",
+          "Business",
+          "L8"
+        ],
+        [
+          "FUN",
+          "Function",
+          "L7"
+        ],
+        [
+          "INF",
+          "Information",
+          "L5"
+        ],
+        [
+          "COM",
+          "Communication",
+          "L4"
+        ],
+        [
+          "ITG",
+          "Integration",
+          "L2"
+        ],
+        [
+          "AST",
+          "Asset",
+          "L1"
+        ]
+      ],
+      "cubes": 180,
+      "missingLevels": [
+        "L6",
+        "L3"
+      ],
+      "uniqueLevels": []
+    }
+  ],
+  "sgamPopulation": {
+    "_note": "SGAM only. 5 strings = domains GEN,TRA,DIS,DER,CUS. 6 digits = zones MKT,ENT,OPS,STA,FLD,PRO. 3=core 2=supporting 1=reference 0=out of scope",
+    "BUS": [
+      "221000",
+      "232000",
+      "332000",
+      "333000",
+      "333000"
+    ],
+    "FUN": [
+      "122110",
+      "233211",
+      "233321",
+      "333321",
+      "333121"
+    ],
+    "INT": [
+      "112210",
+      "123321",
+      "223321",
+      "333332",
+      "323121"
+    ],
+    "INF": [
+      "122210",
+      "233321",
+      "233321",
+      "333321",
+      "333121"
+    ],
+    "COM": [
+      "012221",
+      "123332",
+      "123332",
+      "223332",
+      "223132"
+    ],
+    "CYB": [
+      "022210",
+      "133321",
+      "133321",
+      "233332",
+      "233121"
+    ],
+    "CMP": [
+      "001222",
+      "012333",
+      "012333",
+      "012333",
+      "012133"
+    ]
+  },
+  "couplings": [
+    {
+      "id": "CPL-01",
+      "from": "SGAM.CMP.TRA.FLD",
+      "to": "RAMI.AST.PRD.I-PRD",
+      "type": "A",
+      "mechanism": "Asset administration shell submodel",
+      "rationale": "switchgear 115 kV ที่ผลิตจากโรงงาน PEM แล้วไปติดตั้งในกริดของลูกค้า เป็นของชิ้นเดียวกันที่อยู่สองสถาปัตยกรรม",
+      "standards": "IEC 63278 · IEC 62890",
+      "flag": null
+    },
+    {
+      "id": "CPL-02",
+      "from": "SGAM.CMP.DIS.FLD",
+      "to": "RAMI.AST.PRD.I-PRD",
+      "type": "A",
+      "mechanism": "Asset administration shell submodel",
+      "rationale": "RMU และ recloser 22 kV ที่ PCC ผลิตเอง ต้องมีรหัสประจำตัวเดียวตั้งแต่โรงงานจนถึงหน้างาน",
+      "standards": "IEC 63278",
+      "flag": null
+    },
+    {
+      "id": "CPL-03",
+      "from": "SGAM.CMP.DER.FLD",
+      "to": "RAMI.AST.FLD.I-PRD",
+      "type": "A",
+      "mechanism": "Inverter product passport",
+      "rationale": "inverter และ BESS controller ที่ผลิตเองแล้วติดตั้งจริงในระบบพลังงานกระจาย",
+      "standards": "IEC 63278 · IEEE 1547",
+      "flag": null
+    },
+    {
+      "id": "CPL-04",
+      "from": "SGAM.CMP.TRA.STA",
+      "to": "RAMI.AST.STA.I-MNT",
+      "type": "A",
+      "mechanism": "Maintenance & spare part contract",
+      "rationale": "อุปกรณ์ในสถานีที่ต้องส่งกลับโรงงานเพื่อบำรุงรักษา วนกลับเข้าวงจรชีวิตฝั่งการผลิต",
+      "standards": "IEC 62890",
+      "flag": null
+    },
+    {
+      "id": "CPL-05",
+      "from": "SGAM.CMP.CUS.FLD",
+      "to": "SCIAM.CMP.BLD.FLD",
+      "type": "A",
+      "mechanism": "Building energy interface contract",
+      "rationale": "มิเตอร์ AMI และตู้ LV ที่ติดตั้งในอาคาร เป็นทั้งสินทรัพย์ของกริดและของอาคาร",
+      "standards": "IEEE 2030.5",
+      "flag": null
+    },
+    {
+      "id": "CPL-06",
+      "from": "SGAM.CMP.CUS.PRO",
+      "to": "SCIAM.CMP.MOB.PRO",
+      "type": "A",
+      "mechanism": "EV charging interface profile",
+      "rationale": "หัวจ่าย EV เป็นทั้งโหลดไฟฟ้าและบริการขนส่งของเมืองพร้อมกัน",
+      "standards": "IEC 61851 · OCPP",
+      "flag": null
+    },
+    {
+      "id": "CPL-07",
+      "from": "SGAM.CMP.GEN.PRO",
+      "to": "SFAM.AST.PRC.PO",
+      "type": "A",
+      "mechanism": "Biomass plant asset passport",
+      "rationale": "หม้อไอน้ำและ genset ที่ใช้เชื้อเพลิงจากไผ่ เป็นปลายทางของห่วงโซ่เกษตรและต้นทางของห่วงโซ่ไฟฟ้า",
+      "standards": "ISO 17225",
+      "flag": null
+    },
+    {
+      "id": "CPL-08",
+      "from": "SGAM.CMP.GEN.FLD",
+      "to": "SFAM.AST.DIS.SA",
+      "type": "A",
+      "mechanism": "Feedstock handling & metering",
+      "rationale": "ระบบชั่งและป้อนเชื้อเพลิงชีวมวลเข้าโรงไฟฟ้า",
+      "standards": "ISO 17225 · OIML R51",
+      "flag": null
+    },
+    {
+      "id": "CPL-09",
+      "from": "SGAM.CMP.DER.PRO",
+      "to": "SFAM.AST.CUL.PO",
+      "type": "A",
+      "mechanism": "Agrivoltaic structural interface",
+      "rationale": "แผง PV ที่ติดตั้งเหนือแปลงปลูก ใช้พื้นที่เดียวกันสองวัตถุประสงค์",
+      "standards": "IEC 61215 · DIN SPEC 91434",
+      "flag": null
+    },
+    {
+      "id": "CPL-10",
+      "from": "SGAM.BUS.TRA.ENT",
+      "to": "RAMI.BUS.ENT.T-DEV",
+      "type": "A",
+      "mechanism": "Product portfolio & standards roadmap",
+      "rationale": "แผนผลิตภัณฑ์ 115 kV กับแนวโน้ม SF6-free ต้องเป็นแผนเดียวกันทั้งฝั่งผลิตและฝั่งกริด",
+      "standards": "IEC 62271",
+      "flag": null
+    },
+    {
+      "id": "CPL-11",
+      "from": "SGAM.BUS.DIS.MKT",
+      "to": "RAMI.BUS.CW.I-PRD",
+      "type": "A",
+      "mechanism": "Market & order configuration",
+      "rationale": "ตลาดของอุปกรณ์จำหน่ายที่ผลิตเอง เชื่อมคำสั่งซื้อกับสายการผลิตโดยตรง",
+      "standards": "IEC 62264",
+      "flag": null
+    },
+    {
+      "id": "CPL-12",
+      "from": "SGAM.BUS.CUS.MKT",
+      "to": "SCIAM.BUS.ENE.MKT",
+      "type": "A",
+      "mechanism": "Energy service to city contract",
+      "rationale": "บริการพลังงานที่ขายให้ระบบเมือง เป็นเจตนาธุรกิจร่วมของสองสถาปัตยกรรม",
+      "standards": "ISO 37122",
+      "flag": null
+    },
+    {
+      "id": "CPL-13",
+      "from": "SGAM.BUS.CUS.ENT",
+      "to": "SCIAM.BUS.BLD.ENT",
+      "type": "A",
+      "mechanism": "Building service level agreement",
+      "rationale": "สัญญาบริการอาคารและรายได้ประจำจากฝั่งผู้ใช้ไฟ",
+      "standards": "ISO 50001",
+      "flag": null
+    },
+    {
+      "id": "CPL-14",
+      "from": "SGAM.BUS.DER.MKT",
+      "to": "SFAM.BUS.CUL.CW",
+      "type": "A",
+      "mechanism": "Agrivoltaic & irrigation load contract",
+      "rationale": "โมเดลรายได้ร่วมระหว่างพลังงานกับแปลงปลูก ทั้งค่าไฟและผลผลิต",
+      "standards": "—",
+      "flag": null
+    },
+    {
+      "id": "CPL-15",
+      "from": "SGAM.BUS.GEN.ENT",
+      "to": "SFAM.BUS.PRC.MI",
+      "type": "A",
+      "mechanism": "Biomass supply & energy yield contract",
+      "rationale": "สัญญาซื้อขายชีวมวลและผลตอบแทนพลังงานจากธุรกิจไผ่",
+      "standards": "ISO 17225",
+      "flag": null
+    },
+    {
+      "id": "CPL-16",
+      "from": "SGAM.FUN.DER.OPS",
+      "to": "SFAM.FUN.CUL.OE",
+      "type": "D",
+      "mechanism": "Cross-domain use case (IEC 62559)",
+      "rationale": "use case เดียวที่สั่งปั๊มน้ำชลประทานตามพยากรณ์ PV — ต้องออกแบบร่วมกันทั้งสองตึก ไม่ใช่ต่างคนต่างทำแล้วมาต่อทีหลัง",
+      "standards": "IEC 62559-2 · ISO 11783",
+      "flag": null
+    },
+    {
+      "id": "CPL-17",
+      "from": "SGAM.FUN.CUS.OPS",
+      "to": "SCIAM.FUN.BLD.OPS",
+      "type": "D",
+      "mechanism": "Demand response use case",
+      "rationale": "การลดโหลดอาคารตอบสนองสัญญาณกริด เป็น use case ที่คร่อมทั้งสองสถาปัตยกรรม",
+      "standards": "OpenADR 2.0b",
+      "flag": null
+    },
+    {
+      "id": "CPL-18",
+      "from": "SGAM.FUN.TRA.STA",
+      "to": "RAMI.FUN.STA.I-PRD",
+      "type": "D",
+      "mechanism": "FAT to SAT test case reuse",
+      "rationale": "test case ที่ใช้ทดสอบในโรงงาน (FAT) ต้องนำกลับมาใช้ที่หน้างาน (SAT) ได้ ไม่ต้องเขียนใหม่",
+      "standards": "IEC 61850-4 · IEC 62381",
+      "flag": null
+    },
+    {
+      "id": "CPL-19",
+      "from": "SGAM.FUN.CUS.MKT",
+      "to": "SCIAM.FUN.MOB.MKT",
+      "type": "D",
+      "mechanism": "EV smart charging tariff use case",
+      "rationale": "อัตราค่าชาร์จที่ขึ้นกับทั้งสภาพกริดและนโยบายจราจรของเมือง",
+      "standards": "IEC 63110 · ISO 15118",
+      "flag": null
+    },
+    {
+      "id": "CPL-20",
+      "from": "SGAM.INT.DER.OPS",
+      "to": "SFAM.FUN.CUL.OE",
+      "type": "D",
+      "mechanism": "Agent docking (asymmetric)",
+      "rationale": "agent ที่ optimise ทั้งพลังงานและการเพาะปลูก แต่ SFAM ไม่มีชั้น Intelligence ให้เชื่อม จึงต้อง dock ที่ชั้น Function แทน ทำให้การกำกับ agent อยู่ฝั่ง PCC ทั้งหมด",
+      "standards": "ISO/IEC 42001 · NIST AI RMF",
+      "flag": "asymmetric"
+    },
+    {
+      "id": "CPL-21",
+      "from": "SGAM.INT.CUS.OPS",
+      "to": "SCIAM.FUN.BLD.OPS",
+      "type": "D",
+      "mechanism": "Agent docking (asymmetric)",
+      "rationale": "agent จัดการโหลดอาคารต้อง dock ที่ชั้น Function ของ SCIAM เพราะ SCIAM ไม่มีชั้น Intelligence",
+      "standards": "ISO/IEC 42001",
+      "flag": "asymmetric"
+    },
+    {
+      "id": "CPL-22",
+      "from": "SGAM.INF.TRA.STA",
+      "to": "RAMI.INF.STA.I-PRD",
+      "type": "C",
+      "mechanism": "CIM ↔ AAS submodel mapping",
+      "rationale": "แปลง nameplate และ configuration ของอุปกรณ์ระหว่างโลก CIM ของกริดกับโลก AAS ของโรงงาน มีการสูญเสียความหมายที่ต้องบันทึกไว้",
+      "standards": "IEC 61970 · IEC 63278",
+      "flag": null
+    },
+    {
+      "id": "CPL-23",
+      "from": "SGAM.INF.CUS.ENT",
+      "to": "SCIAM.INF.BLD.ENT",
+      "type": "C",
+      "mechanism": "Building energy data model mapping",
+      "rationale": "แปลงข้อมูลการใช้พลังงานระหว่างโมเดลกริดกับโมเดลอาคาร",
+      "standards": "IEC 61968 · ASHRAE 223P",
+      "flag": null
+    },
+    {
+      "id": "CPL-24",
+      "from": "SGAM.INF.DER.OPS",
+      "to": "SFAM.INF.CUL.OE",
+      "type": "C",
+      "mechanism": "Agronomic ↔ energy data mapping",
+      "rationale": "แปลงข้อมูลความชื้นดินและตารางรดน้ำ ให้เป็นโปรไฟล์โหลดที่ระบบไฟฟ้าเข้าใจ",
+      "standards": "ISO 11783 · IEC 61970",
+      "flag": null
+    },
+    {
+      "id": "CPL-25",
+      "from": "SGAM.COM.TRA.STA",
+      "to": "RAMI.COM.STA.I-PRD",
+      "type": "B",
+      "mechanism": "IEC 61850 ↔ OPC UA gateway",
+      "rationale": "gateway ที่แปลง protocol ระหว่างโลกสถานีไฟฟ้ากับโลกโรงงาน มีสัญญาและเวอร์ชันชัดเจน",
+      "standards": "IEC 61850-8-1 · IEC 62541",
+      "flag": null
+    },
+    {
+      "id": "CPL-26",
+      "from": "SGAM.COM.CUS.FLD",
+      "to": "SCIAM.COM.BLD.FLD",
+      "type": "B",
+      "mechanism": "Demand response signalling",
+      "rationale": "ช่องสัญญาณสั่งลดโหลดจากกริดถึงระบบอาคาร",
+      "standards": "IEEE 2030.5 · OpenADR",
+      "flag": null
+    },
+    {
+      "id": "CPL-27",
+      "from": "SGAM.COM.DER.FLD",
+      "to": "SFAM.COM.CUL.SA",
+      "type": "B",
+      "mechanism": "Shared LPWAN backhaul",
+      "rationale": "ใช้เครือข่ายไร้สายชุดเดียวกันส่งทั้งค่าวัดไฟฟ้าและค่าเซ็นเซอร์ในแปลง ลดต้นทุนโครงข่ายลงครึ่งหนึ่ง",
+      "standards": "LoRaWAN · MQTT",
+      "flag": null
+    },
+    {
+      "id": "CPL-28",
+      "from": "SGAM.CYB.TRA.STA",
+      "to": "RAMI.ITG.STA.I-PRD",
+      "type": "E",
+      "mechanism": "Security level flow-down",
+      "rationale": "ข้อกำหนด security level ตาม IEC 62443 ไหลจากฝั่งกริดลงไปฝังในชั้น Integration ของโรงงาน เพราะ RAMI ไม่มีชั้น Trust แยก",
+      "standards": "IEC 62443-4-2",
+      "flag": "asymmetric"
+    },
+    {
+      "id": "CPL-29",
+      "from": "SGAM.CYB.CUS.ENT",
+      "to": "SCIAM.COM.BLD.ENT",
+      "type": "E",
+      "mechanism": "Identity federation to city platform",
+      "rationale": "ตัวตนของอุปกรณ์และผู้ใช้ที่ออกฝั่งกริด ถูกยอมรับบนแพลตฟอร์มเมือง ต้องเป็นทางเดียวเท่านั้น",
+      "standards": "IEC 62351 · OAuth 2.0",
+      "flag": "asymmetric"
+    },
+    {
+      "id": "CPL-30",
+      "from": "RAMI.ITG.FLD.I-PRD",
+      "to": "SFAM.ITG.CUL.SA",
+      "type": "B",
+      "mechanism": "Device digitization profile",
+      "rationale": "โรงงานกับฟาร์มใช้มาตรฐานแปลงเซ็นเซอร์และแอคชูเอเตอร์เป็นดิจิทัลชุดเดียวกันได้ — PCC เข้าร่วมไม่ได้เพราะไม่มีชั้น L2",
+      "standards": "IO-Link · ISO 11783",
+      "flag": "excluded"
+    }
+  ],
+  "designRules": [
+    {
+      "id": "D1",
+      "rule": "Normalize แกน Layer และ Zone ให้เป็นบัญญัติร่วม แต่ federate แกน Domain",
+      "why": "Domain คือเหตุผลที่แต่ละโมเดลมีอยู่ ถ้ายุบก็ไม่ต้องมีสี่โมเดล"
+    },
+    {
+      "id": "D2",
+      "rule": "หนึ่ง cube สังกัดหนึ่งโมเดลเท่านั้น ห้ามถือสองสัญชาติ",
+      "why": "ถ้าเป็นของสองฝ่าย จะไม่มีใครรับผิดชอบจริง"
+    },
+    {
+      "id": "D3",
+      "rule": "ทุกชั้นคู่กันได้ แต่ต้องใช้กลไกที่ถูกชนิด (A–E) — Hourglass เป็นเรื่องต้นทุน ไม่ใช่ข้อห้าม",
+      "why": "แก้จากฉบับแรกที่ระบุผิดว่าคู่ได้เฉพาะ L1 กับ L8 ชั้นกลางคู่ได้จริงแต่แพงและเปราะกว่า",
+      "revised": true
+    },
+    {
+      "id": "D4",
+      "rule": "ทุกรอยต่อต้องมี contract artifact ที่มีชื่อ เลขที่ และเจ้าของ",
+      "why": "รอยต่อที่ไม่มีเอกสารคือรอยต่อที่ไม่มีอยู่จริง"
+    },
+    {
+      "id": "D5",
+      "rule": "แกน Lifecycle บังคับสำหรับของที่ผลิต ไม่บังคับสำหรับของที่ดำเนินการ",
+      "why": "ไม่ต้องแบกความซับซ้อนที่ไม่ได้ใช้"
+    },
+    {
+      "id": "D6",
+      "rule": "Agent ข้ามโมเดลได้ แต่ต้องลงทะเบียนส่วนกลางและได้ cross-model decision rights",
+      "why": "agentic use case คร่อมโมเดลโดยธรรมชาติ ต้องคุมที่การลงทะเบียน ไม่ใช่ห้าม"
+    },
+    {
+      "id": "D7",
+      "rule": "วัด blast radius ข้ามโมเดล ไม่ใช่ภายในโมเดล",
+      "why": "ความเปราะบางซ่อนอยู่ที่รอยต่อเสมอ"
+    }
+  ],
+  "structuralFindings": [
+    {
+      "id": "F1",
+      "title": "SGAM ของ PCC ขาดชั้น L2 Digitization",
+      "impact": "high",
+      "detail": "RAMI และ SFAM มีชั้นนี้ SGAM มาตรฐานและ SCIAM ไม่มี PCC ผลิตอุปกรณ์เองจึงควรมี ผลคือ coupling CPL-30 (RAMI↔SFAM ที่ L2) เกิดขึ้นได้โดย PCC เข้าร่วมไม่ได้",
+      "decision": "เพิ่มเป็นชั้นที่ 8 (จะได้ 240 cubes) หรือประกาศชัดว่า Integration ถูกดูดเข้า Component layer แล้ว"
+    },
+    {
+      "id": "F2",
+      "title": "ชั้น L6 Intelligence และ L3 Trust ของ PCC ไม่มีคู่ให้เชื่อม",
+      "impact": "high",
+      "detail": "อีกสามตึกไม่มีสองชั้นนี้ agent และ identity จึงต้อง dock ลงมาที่ L7 หรือ L4 ของตึกปลายทาง (CPL-20, CPL-21, CPL-28, CPL-29) แบบไม่สมมาตร",
+      "decision": "ยอมรับภาระการกำกับที่ตกอยู่ฝั่ง PCC ทั้งหมด และตั้งงบ Agent Registrar ไว้"
+    },
+    {
+      "id": "F3",
+      "title": "แกนที่สามของ RAMI คือ Life Cycle ไม่ใช่ Zone",
+      "impact": "high",
+      "detail": "เป็นกับดักที่อันตรายที่สุดใน 4 โมเดล ถ้าเอาไปเทียบตรง ๆ จะได้สถาปัตยกรรมที่ผิดตั้งแต่ต้นและหาไม่เจอจนสร้างไปครึ่งทาง",
+      "decision": "ระบุไว้ในเอกสาร mapping ทุกฉบับ และห้ามใช้คำว่า Zone กับ RAMI"
+    },
+    {
+      "id": "F4",
+      "title": "รอยต่อ SGAM↔SFAM ผ่านธุรกิจไผ่คือทรัพย์สินที่ยังไม่ได้ใช้",
+      "impact": "strategic",
+      "detail": "ไผ่ → biochar → biomass → Generation domain และวนกลับผ่านโหลดชลประทาน คู่แข่งที่ทำสมาร์ทกริดอย่างเดียวไม่มีรอยต่อนี้",
+      "decision": "ตรวจกับทีมธุรกิจว่าแผน biomass power อยู่ระยะไหน ก่อนใช้เป็นข้อเสนอเชิงกลยุทธ์"
+    }
+  ],
+  "openQuestions": [
+    "ตัวเลข layer/domain/zone ของ SCIAM, SFAM, RAMI อ่านจากไดอะแกรมที่ผู้ใช้ส่งมา ต้องให้เจ้าภาพหัวข้อ 12–14 ยืนยัน",
+    "coupling ทั้ง 30 เส้นเป็นข้อเสนอจากบริบทธุรกิจ PCC ไม่ใช่มาตรฐาน — กลุ่ม A มั่นใจสุด กลุ่ม D ต้องตรวจสอบมากสุด",
+    "อีกสามตึกยังไม่มี population map ทุก cube ถูกวาดเท่ากันหมด ต้องมี Model Owner ของแต่ละตึกก่อน",
+    "blast radius ยังเป็นค่าประมาณเชิงโครงสร้าง ควรแทนที่ด้วยค่าที่วัดจาก dependency จริง",
+    "SGAM มี 39 cube ที่มีสิทธิ์เป็นรอยต่อ (ชั้น BUS+CMP) แต่ระบุสัญญาแล้วเพียง 15 — ส่วนต่าง 24 คือช่องว่างที่ยังไม่มีเจ้าภาพ"
+  ],
+  "governance": [
+    {
+      "role": "Architecture Review Board",
+      "who": "ประธาน + Model Owner ทั้งสี่",
+      "authority": "อนุมัติ coupling contract และตัดสินข้อขัดแย้งข้ามตึก"
+    },
+    {
+      "role": "Model Owner",
+      "who": "หนึ่งคนต่อตึก",
+      "authority": "baseline โมเดลของตัวเอง"
+    },
+    {
+      "role": "Layer Architect",
+      "who": "ตามชั้น L1–L8",
+      "authority": "เนื้อหา cube ในชั้นนั้น"
+    },
+    {
+      "role": "Agent Registrar",
+      "who": "ส่วนกลาง",
+      "authority": "อนุมัติ agent ที่ข้ามตึกตามกฎ D6 — บทบาทใหม่ที่ไม่มีในกรอบ EA ดั้งเดิม"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify coupling endpoints resolve
+        run: |
+          python3 - <<'PY'
+          import re, json
+          html = open('app/index.html', encoding='utf-8').read()
+          blk = html[html.index('const SEAMS=['):html.index('/* ============ build')]
+          rows = re.findall(r'^\["([^"]+)","([^"]+)","([A-E])"', blk, re.M)
+          model = json.load(open('data/architecture-model.json', encoding='utf-8'))
+          T = {t['id']: ({l[0] for l in t['layers']},
+                         {x[0] for x in t['xAxis']['items']},
+                         {y[0] for y in t['yAxis']['items']}) for t in model['towers']}
+          bad = [ref for a, b, _ in rows for ref in (a, b)
+                 if (lambda p: p[1] not in T[p[0]][0] or p[2] not in T[p[0]][1] or p[3] not in T[p[0]][2])(ref.split('.'))]
+          assert not bad, f"invalid endpoints: {bad}"
+          assert len(rows) == len(model['couplings']), "app and JSON are out of sync"
+          assert sum(t['cubes'] for t in model['towers']) == 798, "cube count changed"
+          print(f"couplings: {len(rows)}  invalid endpoints: none  app and JSON agree")
+          PY
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deploy
+        uses: actions/deploy-pages@v4
