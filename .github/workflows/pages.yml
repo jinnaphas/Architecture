@@ -17,6 +17,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
@@ -40,9 +41,15 @@ jobs:
           assert sum(t['cubes'] for t in model['towers']) == 798, "cube count changed"
           print(f"couplings: {len(rows)}  invalid endpoints: none  app and JSON agree")
           PY
+      - name: Stage the site
+        run: |
+          mkdir -p _site
+          cp -r index.html app data docs README.md _site/
+          touch _site/.nojekyll
+          find _site -type f | sort
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - id: deploy
         uses: actions/deploy-pages@v4
