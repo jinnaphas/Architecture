@@ -47,7 +47,8 @@ aws s3 sync . s3://YOUR-BUCKET/ --delete --exclude '.git/*' --exclude '.github/*
 
 | | |
 |---|---|
-| Drag | rotate azimuth |
+| Mode | **3D** isometric, or **2D ผังตึก** — four towers as columns, the eight levels as rows |
+| Drag | rotate azimuth (3D only) |
 | Wheel | zoom |
 | Click a node | cube detail — what it is, its cross-tower couplings, and why each of its six in-tower neighbours connects |
 | Click a line | coupling detail — mechanism, rationale, both endpoints, direction, risk, standards |
@@ -56,6 +57,12 @@ aws s3 sync . s3://YOUR-BUCKET/ --delete --exclude '.git/*' --exclude '.github/*
 | Level rows | isolate one of L1–L8 across all towers — this is how the missing floors become obvious |
 | Coupling type rows | filter A–E |
 | Theme | light (default) / dark |
+
+In 2D a level a tower does not have is drawn as a dashed ghost rather than left absent,
+and couplings between matching levels are horizontal — so the only sloped lines on
+screen are the four that dock onto a different level. That is finding F2, drawn rather
+than explained. Clicking a block opens that layer; clicking a line opens the couplings
+it bundles.
 
 Two entry paths into the same information: node-first or line-first. Both reach the same
 detail, so pick whichever matches how the question was asked.
