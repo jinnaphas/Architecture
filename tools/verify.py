@@ -98,6 +98,65 @@ def main() -> int:
     for lv in m["commonLevels"]:
         check(bool(lv.get("source")), f"{lv['id']}: no source recorded")
 
+
+    # 7 — derived analysis must still equal what the model would compute now, so a
+    #     stale figure cannot sit in the file pretending to be current.
+    RISK_BASE = {"A": 1, "B": 2, "C": 3, "D": 4, "E": 4}
+    for i, c in enumerate(m["couplings"]):
+        a = c.get("analysis")
+        check(bool(a), f"{c['id']}: no analysis block")
+        if not a:
+            continue
+        for k in ("risk", "impact", "functionality", "budget"):
+            check(k in a, f"{c['id']}: analysis missing {k}")
+        want = RISK_BASE[c["type"]] + (1 if c["flag"] in ("asymmetric", "excluded") else 0)
+        check(a["risk"]["score"] == want,
+              f"{c['id']}: risk score {a['risk']['score']} but the model implies {want}")
+        ends = {c["from"], c["to"]}
+        lay = {tuple(e.split(".")[:2]) for e in ends}
+        blast = [d["id"] for j, d in enumerate(m["couplings"]) if j != i
+                 and (ends & {d["from"], d["to"]}
+                      or {tuple(e.split(".")[:2]) for e in (d["from"], d["to"])} & lay)]
+        check(a["impact"]["blastRadius"] == len(blast),
+              f"{c['id']}: blast radius {a['impact']['blastRadius']} but recomputes to {len(blast)}")
+        check(a["impact"]["affects"] == blast, f"{c['id']}: affects list is stale")
+
+    # 8 — a zone axis carries response bands; a life cycle axis must not, because
+    #     RAMI's third axis is not a zone (invariant 2).
+    for t in m["towers"]:
+        lifecycle = t["yAxis"]["kind"] == "lifecycle"
+        check(t["yAxis"]["bandsApply"] != lifecycle, f"{t['id']}: bandsApply contradicts the axis kind")
+        for it in t["yAxis"]["items"]:
+            check(len(it) == 5, f"{t['id']}.{it[0]}: y-axis tuple should have 5 slots")
+            if lifecycle:
+                check(it[4] is None, f"{t['id']}.{it[0]}: a life cycle step must not carry a response band")
+            else:
+                check(isinstance(it[4], dict) and it[4].get("responseBand"),
+                      f"{t['id']}.{it[0]}: zone has no response band")
+
+    # 9 — the authored gap is counted honestly, not quietly filled. in_scope above is
+    #     SGAM alone, since only SGAM has a population map; these fields apply to every
+    #     in-scope cube in all four towers.
+    in_scope_all = 0
+    for t in m["towers"]:
+        nx, ny = len(t["xAxis"]["items"]), len(t["yAxis"]["items"])
+        for l in t["layers"]:
+            for xi in range(nx):
+                for yi in range(ny):
+                    v = int(pop[l[0]][xi][yi]) if t["id"] == "SGAM" else 3
+                    if v > 0:
+                        in_scope_all += 1
+    ca = m["cubeAttributes"]
+    check(ca["authored"]["of"] == in_scope_all * len(ca["authored"]["fields"]),
+          f"cubeAttributes.authored.of is {ca['authored']['of']}, "
+          f"but {in_scope_all} in-scope cubes x {len(ca['authored']['fields'])} fields "
+          f"= {in_scope_all * len(ca['authored']['fields'])}")
+    unassigned = sum(1 for c in m["couplings"] if c["analysis"]["budget"]["status"] == "unassigned")
+    print(f"  connection analysis: risk and blast radius recomputed for {len(m['couplings'])} couplings · "
+          f"budget unassigned {unassigned}/{len(m['couplings'])}")
+    print(f"  cube attributes: 2 derived · authored {ca['authored']['filled']}/{ca['authored']['of']} "
+          f"({', '.join(ca['authored']['fields'])})")
+
     print(f"  couplings: {len(ids)} · irregular: {sorted(irregular)} (all flagged)")
     if fail:
         print("\nFAILED:")

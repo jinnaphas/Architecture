@@ -135,6 +135,15 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
 .lim::before{content:"—";position:absolute;left:0;color:var(--ink3)}
 .lim.key{color:var(--ink);border-left:2px solid var(--hero);padding-left:11px;margin-left:-2px}
 .lim.key::before{content:""}
+.anx{margin-top:10px;border-top:1px solid var(--line);padding-top:9px}
+.anr{display:grid;grid-template-columns:66px 1fr;gap:4px 9px;font-size:11px;color:var(--ink2);margin-bottom:7px;line-height:1.55}
+.anr i{font-style:normal;font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);padding-top:2px}
+.anr .w{font-size:10px;color:var(--ink3);line-height:1.5}
+.bars{font-family:var(--mono);font-size:9px;letter-spacing:.5px;color:var(--ink3)}
+.chip{font-family:var(--mono);font-size:9px;padding:1px 5px;margin:1px 2px 1px 0;border:1px solid var(--line);
+  border-radius:2px;background:transparent;color:var(--ink2)}
+.chip:hover{border-color:var(--hero);color:var(--ink)}
+.chip.st{cursor:default;color:var(--ink3)}
 .seambox{margin-top:9px;border-radius:4px;padding:9px 11px;border:1px solid;background:var(--panel2)}
 .seambox b{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
 .seambox p{font-size:11.5px;line-height:1.6}
@@ -251,7 +260,7 @@ const LV=M.commonLevels.map(l=>({p:l.order,c:l.id,n:l.name,th:l.th,ct:l.coupling
 
 /* axis items are [code, en, th, standardDefinition]; layers are
    [code, name, "L#", standardDefinition, source, shortDesc] */
-const ax=i=>[i[0], i[1]||i[0], i[2]||"", i[3]||""];
+const ax=i=>[i[0], i[1]||i[0], i[2]||"", i[3]||"", i[4]||null];
 const TOWERS=M.towers.map(t=>({
   k:t.id, name:t.name, th:t.th, hero:!!t.hero, u0:t.plot[0], v0:t.plot[1],
   xa:t.xAxis.label, ya:t.yAxis.label,
@@ -272,6 +281,9 @@ const LVN=["Out of scope","Reference","Supporting","Core"];const LVC=["ref","ref
 const POP=Object.fromEntries(Object.entries(M.sgamPopulation).filter(([k])=>k[0]!=="_"));
 const SEAMS=M.couplings.map(c=>[c.from,c.to,c.type,c.mechanism,c.rationale,c.standards,c.flag||""]);
 const SEAM_ID=M.couplings.map(c=>c.id);
+const SEAM_AN=M.couplings.map(c=>c.analysis);
+const RULEKEY={"layer \u2191":"layer-up","layer \u2193":"layer-down","y \u2191":"zone-up","y \u2193":"zone-down","x \u2190":"x-left","x \u2192":"x-right"};
+const INRULE={};(M.inTowerConnections?.rules||[]).forEach(r=>INRULE[r.direction]=r);
 /* display helpers for the axis tuples — English carries the technical term, Thai the
    gloss. The embedded copy used to hold Thai in the English slot for SGAM only, so
    the panel labelled SGAM's domains in Thai and every other tower's in English. */
@@ -980,10 +992,34 @@ function seamCard(i,compact){
     <div class="mini"><i>ชั้น</i><span>${L.c} ${L.n} → ${BY[s[1]].pam===a.pam?"ชั้นเดียวกัน":"L"+BY[s[1]].pam+" ของอีกตึก"}</span>
       <i>ทิศทาง</i><span>${esc(C.dir)}</span><i>ความเสี่ยง</i><span>${esc(C.risk)}</span>
       <i>ต้องมี</i><span>${esc(C.g)}</span><i>มาตรฐาน</i><span>${esc(s[5])}</span></div>
-    ${compact?"":`<p style="color:var(--ink3);margin-top:8px;font-size:10.5px">${esc(C.d)}</p>`}</div>`;
+    ${compact?"":`<p style="color:var(--ink3);margin-top:8px;font-size:10.5px">${esc(C.d)}</p>`}
+    ${compact?"":anBlock(i)}</div>`;
 }
 const side=document.querySelector(".side");
 const detHead=lb=>`<div class="dethead"><span class="lb">${lb}</span><button class="xbtn" data-clear="1" title="ยกเลิกการเลือก (Esc)">ปิด ✕</button></div>`;
+/* Risk, impact, functionality and budget for one coupling. Risk and impact are
+   recomputed from the model by tools/verify.py, so a stale number cannot survive in
+   the file; budget has no basis in any of the three reference documents and is left
+   as a named gap with an owner slot rather than a made-up figure. */
+function anBlock(i){
+  const a=SEAM_AN[i];if(!a)return"";
+  const bars=n=>"\u25a0".repeat(n)+"\u25a1".repeat(6-n);
+  return `<div class="anx">
+    <div class="anr"><i>ความเสี่ยง</i><span><b style="color:var(--c${SEAMS[i][2]})">${esc(a.risk.level)}</b>
+      <span class="bars">${bars(a.risk.score)}</span> ${a.risk.score}/${a.risk.of}<br>
+      <span class="w">${esc(a.risk.basis)}</span></span></div>
+    <div class="anr"><i>ผลกระทบ</i><span><b>${a.impact.blastRadius}</b> เส้นต้องทบทวนตาม
+      ${a.impact.affects.length?a.impact.affects.map((id,k)=>
+        `<button class="chip" data-seamid="${esc(id)}">${esc(id)}</button>`).join(""):"—"}<br>
+      <span class="w">${esc(a.impact.caveat)}</span></span></div>
+    <div class="anr"><i>หน้าที่</i><span>${esc(a.functionality.provides)}<br>
+      <span class="w">${esc(a.functionality.class)} · ${esc(a.functionality.direction)}</span>
+      ${a.functionality.standards.length?`<br>${a.functionality.standards.map(s=>`<span class="chip st">${esc(s)}</span>`).join("")}`:""}</span></div>
+    <div class="anr"><i>งบประมาณ</i><span><b style="color:var(--ink3)">ยังไม่มีเจ้าภาพ</b>
+      <br><span class="w">ต้นทุนที่ต้องตั้ง: ${a.budget.drivers.map(esc).join(" · ")}</span>
+      <br><span class="w">${esc(a.budget.note)}</span></span></div>
+  </div>`;
+}
 function detail(){
   const picked=(S.sel!==null||S.selS!==null||S.selB||S.selP||S.tw.size<TOWERS.length);
   side.classList.toggle("sel",picked);
@@ -1071,8 +1107,11 @@ function detail(){
   const c=BY[S.sel],T=c.T,L=LV.find(l=>l.p===c.pam);
   const xi=T.xs[c.xi],yi=T.ys[c.yi],xn=axFull(xi),yn=axFull(yi);
   const nb=nbrs(c).map(n=>{const x=BY[n.id];
+    const rule=INRULE[RULEKEY[n.r]];
     return `<button class="lk" data-go="${n.id}"><span class="r">${n.r}</span><span class="t">
-      <span class="a">${x.lc}.${x.xc}.${x.yc}</span><span class="w">${esc(relWhy(c,n.r,x))}</span></span></button>`;}).join("");
+      <span class="a">${x.lc}.${x.xc}.${x.yc}</span><span class="w">${esc(relWhy(c,n.r,x))}</span>
+      ${rule?`<span class="w" style="opacity:.8">ความเสี่ยง ${esc(rule.risk)} — ${esc(rule.riskWhy)}</span>`:""}
+      </span></button>`;}).join("");
   det.innerHTML=detHead("รายละเอียด cube")+`
     <div class="adr">${T.k} · ${c.lc}.${c.xc}.${c.yc}</div>
     <div class="tags">${T.hero?`<span class="tg ${LVC[c.lvl]}">${LVN[c.lvl]}</span>`:""}
@@ -1083,6 +1122,8 @@ function detail(){
     <div class="kv"><b>Tower</b><span>${esc(T.name)} — ${esc(T.th)}</span>
       <b>${esc(T.xa)}</b><span>${esc(xn)}</span><b>${esc(T.ya)}</b><span>${esc(yn)}</span>
       <b>ชั้นร่วม</b><span>${L.c} ${L.n} — เชื่อมข้ามตึกได้แบบชนิด ${L.ct} (${esc(CT[L.ct].th)})</span>
+      ${yi[4]?`<b>Non-functional</b><span>ระดับ ${esc(yi[4].level)} · ต้องตอบสนองใน <em style="font-style:normal;font-weight:600;color:var(--ink)">${esc(yi[4].responseBand)}</em> (KNOWLEDGE §5)</span>`
+        :`<b>Non-functional</b><span style="color:var(--ink3)">แกน ${esc(T.ya)} เป็น Life Cycle ไม่ใช่ Zone — ไม่มีเวลาตอบสนอง</span>`}
       ${c.lsrc?`<b>ที่มาของชั้น</b><span${/PCC extension/.test(c.lsrc)?' style="color:var(--L6)"':''}>${esc(c.lsrc)}</span>`:""}</div>
     ${c.lstd?`<div class="std"><i>นิยามชั้น ${esc(c.ln)} ตามมาตรฐาน</i>${esc(c.lstd)}</div>`:""}
     ${xi[3]?`<div class="std"><i>${esc(T.xa)} · ${esc(xi[1])}</i>${esc(xi[3])}</div>`:""}
@@ -1096,6 +1137,9 @@ det.addEventListener("click",e=>{
   if(e.target.closest("[data-clear]")){S.sel=S.selB=S.selP=null;S.selS=null;detail();req();return;}
   const os=e.target.closest("[data-openseam]");
   if(os){S.sel=S.selB=S.selP=null;S.selS=+os.dataset.openseam;detail();req();return;}
+  const sid=e.target.closest("[data-seamid]");
+  if(sid){const k=SEAM_ID.indexOf(sid.dataset.seamid);
+    if(k>=0){S.sel=S.selB=S.selP=null;S.selS=k;detail();req();}return;}
   const sm=e.target.closest("[data-seam]");
   if(sm){S.sel=S.selB=S.selP=null;S.selS=+sm.dataset.seam;detail();req();return;}
   const g=e.target.closest("[data-go]");

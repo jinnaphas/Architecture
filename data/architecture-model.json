@@ -203,37 +203,61 @@
             "MKT",
             "Market",
             "ตลาด",
-            "Reflecting the market operations possible along the energy conversion chain, e.g. energy trading, retail market."
+            "Reflecting the market operations possible along the energy conversion chain, e.g. energy trading, retail market.",
+            {
+              "level": "H6",
+              "responseBand": "ชั่วโมง – วัน"
+            }
           ],
           [
             "ENT",
             "Enterprise",
             "องค์กร",
-            "Including commercial and organizational processes, services and infrastructures for enterprises (utilities, service providers, energy traders …), e.g. asset management, logistics, work force management, staff training, customer relation management, billing and procurement."
+            "Including commercial and organizational processes, services and infrastructures for enterprises (utilities, service providers, energy traders …), e.g. asset management, logistics, work force management, staff training, customer relation management, billing and procurement.",
+            {
+              "level": "H5",
+              "responseBand": "นาที – ชั่วโมง"
+            }
           ],
           [
             "OPS",
             "Operation",
             "ศูนย์ควบคุม",
-            "Hosting power system control operation in the respective domain, e.g. distribution management systems (DMS), energy management systems (EMS) in generation and transmission systems, microgrid management systems, virtual power plant management systems (aggregating several DER), electric vehicle (EV) fleet charging management systems."
+            "Hosting power system control operation in the respective domain, e.g. distribution management systems (DMS), energy management systems (EMS) in generation and transmission systems, microgrid management systems, virtual power plant management systems (aggregating several DER), electric vehicle (EV) fleet charging management systems.",
+            {
+              "level": "H4",
+              "responseBand": "วินาที"
+            }
           ],
           [
             "STA",
             "Station",
             "สถานี",
-            "Representing the areal aggregation level for field level, e.g. for data concentration, functional aggregation, substation automation, local SCADA systems, plant supervision."
+            "Representing the areal aggregation level for field level, e.g. for data concentration, functional aggregation, substation automation, local SCADA systems, plant supervision.",
+            {
+              "level": "H3",
+              "responseBand": "10 – 100 ms"
+            }
           ],
           [
             "FLD",
             "Field",
             "สนาม",
-            "Including equipment to protect, control and monitor the process of the power system, e.g. protection relays, bay controller, any kind of intelligent electronic devices which acquire and use process data from the power system."
+            "Including equipment to protect, control and monitor the process of the power system, e.g. protection relays, bay controller, any kind of intelligent electronic devices which acquire and use process data from the power system.",
+            {
+              "level": "H2",
+              "responseBand": "3 – 20 ms"
+            }
           ],
           [
             "PRO",
             "Process",
             "กระบวนการ",
-            "Including the physical, chemical or spatial transformations of energy (electricity, solar, heat, water, wind …) and the physical equipment directly involved (e.g. generators, transformers, circuit breakers, overhead lines, cables, electrical loads, any kind of sensors and actuators which are part or directly connected to the process)."
+            "Including the physical, chemical or spatial transformations of energy (electricity, solar, heat, water, wind …) and the physical equipment directly involved (e.g. generators, transformers, circuit breakers, overhead lines, cables, electrical loads, any kind of sensors and actuators which are part or directly connected to the process).",
+            {
+              "level": "H1",
+              "responseBand": "ต่ำกว่า 4 ms"
+            }
           ]
         ],
         "source": "SG-CG/M490/K Table 2",
@@ -241,7 +265,8 @@
           "aggregation": "zone สะท้อนการรวมศูนย์สองแบบ — data aggregation (ข้อมูลจาก field ถูกรวมที่ station เพื่อลดปริมาณที่ต้องส่งและประมวลผลที่ operation) และ spatial aggregation (จากจุดเดียวไปพื้นที่กว้าง เช่น bay → substation, DER → plant station)",
           "functionalSeparation": "นอกจากการรวมศูนย์ zone ยังแบ่งตามหน้าที่ — ฟังก์ชัน real-time อยู่ที่ field และ station เสมอ (protection, phasor measurement, automation) ส่วนฟังก์ชันที่ครอบคลุม พื้นที่กว้างหรือหลายสถานีอยู่ที่ operation (wide area monitoring, generation scheduling, load management, balancing, meter data management)",
           "basis": "IEC 62357-1:2012 · IEC 62264-1:2003 (Purdue Reference Model)"
-        }
+        },
+        "bandsApply": true
       },
       "layers": [
         [
@@ -372,26 +397,36 @@
           [
             "T-DEV",
             "Type · development",
-            ""
+            "",
+            "",
+            null
           ],
           [
             "T-MNT",
             "Type · maintenance",
-            ""
+            "",
+            "",
+            null
           ],
           [
             "I-PRD",
             "Instance · production",
-            ""
+            "",
+            "",
+            null
           ],
           [
             "I-MNT",
             "Instance · maintenance",
-            ""
+            "",
+            "",
+            null
           ]
         ],
         "standard": "IEC 62890",
-        "source": "RAMI 4.0 / OFFIS (Meister 2017) p.3"
+        "source": "RAMI 4.0 / OFFIS (Meister 2017) p.3",
+        "bandsApply": false,
+        "bandsNote": "แกนนี้เป็น Life Cycle ไม่ใช่ Zone — เวลาตอบสนองตาม KNOWLEDGE §5 ใช้กับแกนนี้ไม่ได้ และห้ามใส่"
       },
       "layers": [
         [
@@ -514,35 +549,66 @@
           [
             "MKT",
             "Market",
-            ""
+            "",
+            "",
+            {
+              "level": "H6",
+              "responseBand": "ชั่วโมง – วัน"
+            }
           ],
           [
             "ENT",
             "Enterprise",
-            ""
+            "",
+            "",
+            {
+              "level": "H5",
+              "responseBand": "นาที – ชั่วโมง"
+            }
           ],
           [
             "OPS",
             "Operation",
-            ""
+            "",
+            "",
+            {
+              "level": "H4",
+              "responseBand": "วินาที"
+            }
           ],
           [
             "STA",
             "Station",
-            ""
+            "",
+            "",
+            {
+              "level": "H3",
+              "responseBand": "10 – 100 ms"
+            }
           ],
           [
             "FLD",
             "Field",
-            ""
+            "",
+            "",
+            {
+              "level": "H2",
+              "responseBand": "3 – 20 ms"
+            }
           ],
           [
             "PRO",
             "Process",
-            ""
+            "",
+            "",
+            {
+              "level": "H1",
+              "responseBand": "ต่ำกว่า 4 ms"
+            }
           ]
         ],
-        "source": "unverified — read from published diagrams, pending topic 12–14 owners"
+        "source": "unverified — read from published diagrams, pending topic 12–14 owners",
+        "bandsApply": true
       },
       "layers": [
         [
@@ -643,35 +709,66 @@
           [
             "CW",
             "Connected world",
-            ""
+            "",
+            "",
+            {
+              "level": "H6",
+              "responseBand": "ชั่วโมง – วัน"
+            }
           ],
           [
             "MI",
             "Management information",
-            ""
+            "",
+            "",
+            {
+              "level": "H5",
+              "responseBand": "นาที – ชั่วโมง"
+            }
           ],
           [
             "OE",
             "Operation execution",
-            ""
+            "",
+            "",
+            {
+              "level": "H4",
+              "responseBand": "วินาที"
+            }
           ],
           [
             "PC",
             "Production control",
-            ""
+            "",
+            "",
+            {
+              "level": "H3",
+              "responseBand": "10 – 100 ms"
+            }
           ],
           [
             "SA",
             "Sensing & actuation",
-            ""
+            "",
+            "",
+            {
+              "level": "H2",
+              "responseBand": "3 – 20 ms"
+            }
           ],
           [
             "PO",
             "Physical objects",
-            ""
+            "",
+            "",
+            {
+              "level": "H1",
+              "responseBand": "ต่ำกว่า 4 ms"
+            }
           ]
         ],
-        "source": "unverified — read from published diagrams, pending topic 12–14 owners"
+        "source": "unverified — read from published diagrams, pending topic 12–14 owners",
+        "bandsApply": true
       },
       "layers": [
         [
@@ -793,7 +890,64 @@
       "mechanism": "Asset administration shell submodel",
       "rationale": "switchgear 115 kV ที่ผลิตจากโรงงาน PEM แล้วไปติดตั้งในกริดของลูกค้า เป็นของชิ้นเดียวกันที่อยู่สองสถาปัตยกรรม",
       "standards": "IEC 63278 · IEC 62890",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "ต่ำ",
+          "score": 1,
+          "of": 6,
+          "basis": "ชนิด A (ต่ำ)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 8,
+          "affects": [
+            "CPL-02",
+            "CPL-03",
+            "CPL-04",
+            "CPL-05",
+            "CPL-06",
+            "CPL-07",
+            "CPL-08",
+            "CPL-09"
+          ],
+          "towers": [
+            "RAMI",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Asset administration shell submodel",
+          "class": "Identity",
+          "direction": "สองทาง",
+          "requires": "ต้องมีรหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+          "standards": [
+            "IEC 63278",
+            "IEC 62890"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "รหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+            "การกระทบยอดทะเบียนสินทรัพย์"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-02",
@@ -803,7 +957,63 @@
       "mechanism": "Asset administration shell submodel",
       "rationale": "RMU และ recloser 22 kV ที่ PCC ผลิตเอง ต้องมีรหัสประจำตัวเดียวตั้งแต่โรงงานจนถึงหน้างาน",
       "standards": "IEC 63278",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "ต่ำ",
+          "score": 1,
+          "of": 6,
+          "basis": "ชนิด A (ต่ำ)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 8,
+          "affects": [
+            "CPL-01",
+            "CPL-03",
+            "CPL-04",
+            "CPL-05",
+            "CPL-06",
+            "CPL-07",
+            "CPL-08",
+            "CPL-09"
+          ],
+          "towers": [
+            "RAMI",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Asset administration shell submodel",
+          "class": "Identity",
+          "direction": "สองทาง",
+          "requires": "ต้องมีรหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+          "standards": [
+            "IEC 63278"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "รหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+            "การกระทบยอดทะเบียนสินทรัพย์"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-03",
@@ -813,7 +1023,64 @@
       "mechanism": "Inverter product passport",
       "rationale": "inverter และ BESS controller ที่ผลิตเองแล้วติดตั้งจริงในระบบพลังงานกระจาย",
       "standards": "IEC 63278 · IEEE 1547",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "ต่ำ",
+          "score": 1,
+          "of": 6,
+          "basis": "ชนิด A (ต่ำ)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 8,
+          "affects": [
+            "CPL-01",
+            "CPL-02",
+            "CPL-04",
+            "CPL-05",
+            "CPL-06",
+            "CPL-07",
+            "CPL-08",
+            "CPL-09"
+          ],
+          "towers": [
+            "RAMI",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Inverter product passport",
+          "class": "Identity",
+          "direction": "สองทาง",
+          "requires": "ต้องมีรหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+          "standards": [
+            "IEC 63278",
+            "IEEE 1547"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "รหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+            "การกระทบยอดทะเบียนสินทรัพย์"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-04",
@@ -823,7 +1090,63 @@
       "mechanism": "Maintenance & spare part contract",
       "rationale": "อุปกรณ์ในสถานีที่ต้องส่งกลับโรงงานเพื่อบำรุงรักษา วนกลับเข้าวงจรชีวิตฝั่งการผลิต",
       "standards": "IEC 62890",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "ต่ำ",
+          "score": 1,
+          "of": 6,
+          "basis": "ชนิด A (ต่ำ)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 8,
+          "affects": [
+            "CPL-01",
+            "CPL-02",
+            "CPL-03",
+            "CPL-05",
+            "CPL-06",
+            "CPL-07",
+            "CPL-08",
+            "CPL-09"
+          ],
+          "towers": [
+            "RAMI",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Maintenance & spare part contract",
+          "class": "Identity",
+          "direction": "สองทาง",
+          "requires": "ต้องมีรหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+          "standards": [
+            "IEC 62890"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "รหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+            "การกระทบยอดทะเบียนสินทรัพย์"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-05",
@@ -833,7 +1156,63 @@
       "mechanism": "Building energy interface contract",
       "rationale": "มิเตอร์ AMI และตู้ LV ที่ติดตั้งในอาคาร เป็นทั้งสินทรัพย์ของกริดและของอาคาร",
       "standards": "IEEE 2030.5",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "ต่ำ",
+          "score": 1,
+          "of": 6,
+          "basis": "ชนิด A (ต่ำ)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 8,
+          "affects": [
+            "CPL-01",
+            "CPL-02",
+            "CPL-03",
+            "CPL-04",
+            "CPL-06",
+            "CPL-07",
+            "CPL-08",
+            "CPL-09"
+          ],
+          "towers": [
+            "SCIAM",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Building energy interface contract",
+          "class": "Identity",
+          "direction": "สองทาง",
+          "requires": "ต้องมีรหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+          "standards": [
+            "IEEE 2030.5"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "รหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+            "การกระทบยอดทะเบียนสินทรัพย์"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-06",
@@ -843,7 +1222,64 @@
       "mechanism": "EV charging interface profile",
       "rationale": "หัวจ่าย EV เป็นทั้งโหลดไฟฟ้าและบริการขนส่งของเมืองพร้อมกัน",
       "standards": "IEC 61851 · OCPP",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "ต่ำ",
+          "score": 1,
+          "of": 6,
+          "basis": "ชนิด A (ต่ำ)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 8,
+          "affects": [
+            "CPL-01",
+            "CPL-02",
+            "CPL-03",
+            "CPL-04",
+            "CPL-05",
+            "CPL-07",
+            "CPL-08",
+            "CPL-09"
+          ],
+          "towers": [
+            "SCIAM",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "EV charging interface profile",
+          "class": "Identity",
+          "direction": "สองทาง",
+          "requires": "ต้องมีรหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+          "standards": [
+            "IEC 61851",
+            "OCPP"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "รหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+            "การกระทบยอดทะเบียนสินทรัพย์"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-07",
@@ -853,7 +1289,63 @@
       "mechanism": "Biomass plant asset passport",
       "rationale": "หม้อไอน้ำและ genset ที่ใช้เชื้อเพลิงจากไผ่ เป็นปลายทางของห่วงโซ่เกษตรและต้นทางของห่วงโซ่ไฟฟ้า",
       "standards": "ISO 17225",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "ต่ำ",
+          "score": 1,
+          "of": 6,
+          "basis": "ชนิด A (ต่ำ)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 8,
+          "affects": [
+            "CPL-01",
+            "CPL-02",
+            "CPL-03",
+            "CPL-04",
+            "CPL-05",
+            "CPL-06",
+            "CPL-08",
+            "CPL-09"
+          ],
+          "towers": [
+            "SFAM",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            2
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Biomass plant asset passport",
+          "class": "Identity",
+          "direction": "สองทาง",
+          "requires": "ต้องมีรหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+          "standards": [
+            "ISO 17225"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "รหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+            "การกระทบยอดทะเบียนสินทรัพย์"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-08",
@@ -863,7 +1355,64 @@
       "mechanism": "Feedstock handling & metering",
       "rationale": "ระบบชั่งและป้อนเชื้อเพลิงชีวมวลเข้าโรงไฟฟ้า",
       "standards": "ISO 17225 · OIML R51",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "ต่ำ",
+          "score": 1,
+          "of": 6,
+          "basis": "ชนิด A (ต่ำ)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 8,
+          "affects": [
+            "CPL-01",
+            "CPL-02",
+            "CPL-03",
+            "CPL-04",
+            "CPL-05",
+            "CPL-06",
+            "CPL-07",
+            "CPL-09"
+          ],
+          "towers": [
+            "SFAM",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            2
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Feedstock handling & metering",
+          "class": "Identity",
+          "direction": "สองทาง",
+          "requires": "ต้องมีรหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+          "standards": [
+            "ISO 17225",
+            "OIML R51"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "รหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+            "การกระทบยอดทะเบียนสินทรัพย์"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-09",
@@ -873,7 +1422,64 @@
       "mechanism": "Agrivoltaic structural interface",
       "rationale": "แผง PV ที่ติดตั้งเหนือแปลงปลูก ใช้พื้นที่เดียวกันสองวัตถุประสงค์",
       "standards": "IEC 61215 · DIN SPEC 91434",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "ต่ำ",
+          "score": 1,
+          "of": 6,
+          "basis": "ชนิด A (ต่ำ)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 8,
+          "affects": [
+            "CPL-01",
+            "CPL-02",
+            "CPL-03",
+            "CPL-04",
+            "CPL-05",
+            "CPL-06",
+            "CPL-07",
+            "CPL-08"
+          ],
+          "towers": [
+            "SFAM",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Agrivoltaic structural interface",
+          "class": "Identity",
+          "direction": "สองทาง",
+          "requires": "ต้องมีรหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+          "standards": [
+            "IEC 61215",
+            "DIN SPEC 91434"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "รหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+            "การกระทบยอดทะเบียนสินทรัพย์"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-10",
@@ -883,7 +1489,60 @@
       "mechanism": "Product portfolio & standards roadmap",
       "rationale": "แผนผลิตภัณฑ์ 115 kV กับแนวโน้ม SF6-free ต้องเป็นแผนเดียวกันทั้งฝั่งผลิตและฝั่งกริด",
       "standards": "IEC 62271",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "ต่ำ",
+          "score": 1,
+          "of": 6,
+          "basis": "ชนิด A (ต่ำ)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 5,
+          "affects": [
+            "CPL-11",
+            "CPL-12",
+            "CPL-13",
+            "CPL-14",
+            "CPL-15"
+          ],
+          "towers": [
+            "RAMI",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Product portfolio & standards roadmap",
+          "class": "Identity",
+          "direction": "สองทาง",
+          "requires": "ต้องมีรหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+          "standards": [
+            "IEC 62271"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "รหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+            "การกระทบยอดทะเบียนสินทรัพย์"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-11",
@@ -893,7 +1552,60 @@
       "mechanism": "Market & order configuration",
       "rationale": "ตลาดของอุปกรณ์จำหน่ายที่ผลิตเอง เชื่อมคำสั่งซื้อกับสายการผลิตโดยตรง",
       "standards": "IEC 62264",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "ต่ำ",
+          "score": 1,
+          "of": 6,
+          "basis": "ชนิด A (ต่ำ)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 5,
+          "affects": [
+            "CPL-10",
+            "CPL-12",
+            "CPL-13",
+            "CPL-14",
+            "CPL-15"
+          ],
+          "towers": [
+            "RAMI",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Market & order configuration",
+          "class": "Identity",
+          "direction": "สองทาง",
+          "requires": "ต้องมีรหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+          "standards": [
+            "IEC 62264"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "รหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+            "การกระทบยอดทะเบียนสินทรัพย์"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-12",
@@ -903,7 +1615,60 @@
       "mechanism": "Energy service to city contract",
       "rationale": "บริการพลังงานที่ขายให้ระบบเมือง เป็นเจตนาธุรกิจร่วมของสองสถาปัตยกรรม",
       "standards": "ISO 37122",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "ต่ำ",
+          "score": 1,
+          "of": 6,
+          "basis": "ชนิด A (ต่ำ)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 5,
+          "affects": [
+            "CPL-10",
+            "CPL-11",
+            "CPL-13",
+            "CPL-14",
+            "CPL-15"
+          ],
+          "towers": [
+            "SCIAM",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Energy service to city contract",
+          "class": "Identity",
+          "direction": "สองทาง",
+          "requires": "ต้องมีรหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+          "standards": [
+            "ISO 37122"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "รหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+            "การกระทบยอดทะเบียนสินทรัพย์"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-13",
@@ -913,7 +1678,60 @@
       "mechanism": "Building service level agreement",
       "rationale": "สัญญาบริการอาคารและรายได้ประจำจากฝั่งผู้ใช้ไฟ",
       "standards": "ISO 50001",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "ต่ำ",
+          "score": 1,
+          "of": 6,
+          "basis": "ชนิด A (ต่ำ)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 5,
+          "affects": [
+            "CPL-10",
+            "CPL-11",
+            "CPL-12",
+            "CPL-14",
+            "CPL-15"
+          ],
+          "towers": [
+            "SCIAM",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Building service level agreement",
+          "class": "Identity",
+          "direction": "สองทาง",
+          "requires": "ต้องมีรหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+          "standards": [
+            "ISO 50001"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "รหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+            "การกระทบยอดทะเบียนสินทรัพย์"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-14",
@@ -923,7 +1741,58 @@
       "mechanism": "Agrivoltaic & irrigation load contract",
       "rationale": "โมเดลรายได้ร่วมระหว่างพลังงานกับแปลงปลูก ทั้งค่าไฟและผลผลิต",
       "standards": "—",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "ต่ำ",
+          "score": 1,
+          "of": 6,
+          "basis": "ชนิด A (ต่ำ)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 5,
+          "affects": [
+            "CPL-10",
+            "CPL-11",
+            "CPL-12",
+            "CPL-13",
+            "CPL-15"
+          ],
+          "towers": [
+            "SFAM",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Agrivoltaic & irrigation load contract",
+          "class": "Identity",
+          "direction": "สองทาง",
+          "requires": "ต้องมีรหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+          "standards": [],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "รหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+            "การกระทบยอดทะเบียนสินทรัพย์"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-15",
@@ -933,7 +1802,60 @@
       "mechanism": "Biomass supply & energy yield contract",
       "rationale": "สัญญาซื้อขายชีวมวลและผลตอบแทนพลังงานจากธุรกิจไผ่",
       "standards": "ISO 17225",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "ต่ำ",
+          "score": 1,
+          "of": 6,
+          "basis": "ชนิด A (ต่ำ)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 5,
+          "affects": [
+            "CPL-10",
+            "CPL-11",
+            "CPL-12",
+            "CPL-13",
+            "CPL-14"
+          ],
+          "towers": [
+            "SFAM",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            2
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Biomass supply & energy yield contract",
+          "class": "Identity",
+          "direction": "สองทาง",
+          "requires": "ต้องมีรหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+          "standards": [
+            "ISO 17225"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "รหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+            "การกระทบยอดทะเบียนสินทรัพย์"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-16",
@@ -943,7 +1865,61 @@
       "mechanism": "Cross-domain use case (IEC 62559)",
       "rationale": "use case เดียวที่สั่งปั๊มน้ำชลประทานตามพยากรณ์ PV — ต้องออกแบบร่วมกันทั้งสองตึก ไม่ใช่ต่างคนต่างทำแล้วมาต่อทีหลัง",
       "standards": "IEC 62559-2 · ISO 11783",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "สูง",
+          "score": 4,
+          "of": 6,
+          "basis": "ชนิด D (สูง)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 4,
+          "affects": [
+            "CPL-17",
+            "CPL-18",
+            "CPL-19",
+            "CPL-20"
+          ],
+          "towers": [
+            "SFAM",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Cross-domain use case (IEC 62559)",
+          "class": "Orchestration",
+          "direction": "สองทาง ต้องลงทะเบียน",
+          "requires": "ต้องลงทะเบียนที่ส่วนกลาง ระบุ decision rights และมีปุ่มหยุด",
+          "standards": [
+            "IEC 62559-2",
+            "ISO 11783"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "การลงทะเบียนส่วนกลาง",
+            "การกำหนด decision rights",
+            "ปุ่มหยุดและการเฝ้าระวัง agent"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-17",
@@ -953,7 +1929,60 @@
       "mechanism": "Demand response use case",
       "rationale": "การลดโหลดอาคารตอบสนองสัญญาณกริด เป็น use case ที่คร่อมทั้งสองสถาปัตยกรรม",
       "standards": "OpenADR 2.0b",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "สูง",
+          "score": 4,
+          "of": 6,
+          "basis": "ชนิด D (สูง)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 4,
+          "affects": [
+            "CPL-16",
+            "CPL-18",
+            "CPL-19",
+            "CPL-21"
+          ],
+          "towers": [
+            "SCIAM",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Demand response use case",
+          "class": "Orchestration",
+          "direction": "สองทาง ต้องลงทะเบียน",
+          "requires": "ต้องลงทะเบียนที่ส่วนกลาง ระบุ decision rights และมีปุ่มหยุด",
+          "standards": [
+            "OpenADR 2.0b"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "การลงทะเบียนส่วนกลาง",
+            "การกำหนด decision rights",
+            "ปุ่มหยุดและการเฝ้าระวัง agent"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-18",
@@ -963,7 +1992,60 @@
       "mechanism": "FAT to SAT test case reuse",
       "rationale": "test case ที่ใช้ทดสอบในโรงงาน (FAT) ต้องนำกลับมาใช้ที่หน้างาน (SAT) ได้ ไม่ต้องเขียนใหม่",
       "standards": "IEC 61850-4 · IEC 62381",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "สูง",
+          "score": 4,
+          "of": 6,
+          "basis": "ชนิด D (สูง)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 3,
+          "affects": [
+            "CPL-16",
+            "CPL-17",
+            "CPL-19"
+          ],
+          "towers": [
+            "RAMI",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            2
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "FAT to SAT test case reuse",
+          "class": "Orchestration",
+          "direction": "สองทาง ต้องลงทะเบียน",
+          "requires": "ต้องลงทะเบียนที่ส่วนกลาง ระบุ decision rights และมีปุ่มหยุด",
+          "standards": [
+            "IEC 61850-4",
+            "IEC 62381"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "การลงทะเบียนส่วนกลาง",
+            "การกำหนด decision rights",
+            "ปุ่มหยุดและการเฝ้าระวัง agent"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-19",
@@ -973,7 +2055,61 @@
       "mechanism": "EV smart charging tariff use case",
       "rationale": "อัตราค่าชาร์จที่ขึ้นกับทั้งสภาพกริดและนโยบายจราจรของเมือง",
       "standards": "IEC 63110 · ISO 15118",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "สูง",
+          "score": 4,
+          "of": 6,
+          "basis": "ชนิด D (สูง)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 4,
+          "affects": [
+            "CPL-16",
+            "CPL-17",
+            "CPL-18",
+            "CPL-21"
+          ],
+          "towers": [
+            "SCIAM",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "EV smart charging tariff use case",
+          "class": "Orchestration",
+          "direction": "สองทาง ต้องลงทะเบียน",
+          "requires": "ต้องลงทะเบียนที่ส่วนกลาง ระบุ decision rights และมีปุ่มหยุด",
+          "standards": [
+            "IEC 63110",
+            "ISO 15118"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "การลงทะเบียนส่วนกลาง",
+            "การกำหนด decision rights",
+            "ปุ่มหยุดและการเฝ้าระวัง agent"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-20",
@@ -983,7 +2119,59 @@
       "mechanism": "Agent docking (asymmetric)",
       "rationale": "agent ที่ optimise ทั้งพลังงานและการเพาะปลูก แต่ SFAM ไม่มีชั้น Intelligence ให้เชื่อม จึงต้อง dock ที่ชั้น Function แทน ทำให้การกำกับ agent อยู่ฝั่ง PCC ทั้งหมด",
       "standards": "ISO/IEC 42001 · NIST AI RMF",
-      "flag": "asymmetric"
+      "flag": "asymmetric",
+      "analysis": {
+        "risk": {
+          "level": "สูงมาก",
+          "score": 5,
+          "of": 6,
+          "basis": "ชนิด D (สูง) · ไม่สมมาตร — ปลายทางอยู่คนละชั้น ภาระกำกับตกฝั่งเดียว",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 2,
+          "affects": [
+            "CPL-16",
+            "CPL-21"
+          ],
+          "towers": [
+            "SFAM",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Agent docking (asymmetric)",
+          "class": "Orchestration",
+          "direction": "สองทาง ต้องลงทะเบียน",
+          "requires": "ต้องลงทะเบียนที่ส่วนกลาง ระบุ decision rights และมีปุ่มหยุด",
+          "standards": [
+            "ISO/IEC 42001",
+            "NIST AI RMF"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "การลงทะเบียนส่วนกลาง",
+            "การกำหนด decision rights",
+            "ปุ่มหยุดและการเฝ้าระวัง agent"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-21",
@@ -993,7 +2181,59 @@
       "mechanism": "Agent docking (asymmetric)",
       "rationale": "agent จัดการโหลดอาคารต้อง dock ที่ชั้น Function ของ SCIAM เพราะ SCIAM ไม่มีชั้น Intelligence",
       "standards": "ISO/IEC 42001",
-      "flag": "asymmetric"
+      "flag": "asymmetric",
+      "analysis": {
+        "risk": {
+          "level": "สูงมาก",
+          "score": 5,
+          "of": 6,
+          "basis": "ชนิด D (สูง) · ไม่สมมาตร — ปลายทางอยู่คนละชั้น ภาระกำกับตกฝั่งเดียว",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 3,
+          "affects": [
+            "CPL-17",
+            "CPL-19",
+            "CPL-20"
+          ],
+          "towers": [
+            "SCIAM",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Agent docking (asymmetric)",
+          "class": "Orchestration",
+          "direction": "สองทาง ต้องลงทะเบียน",
+          "requires": "ต้องลงทะเบียนที่ส่วนกลาง ระบุ decision rights และมีปุ่มหยุด",
+          "standards": [
+            "ISO/IEC 42001"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "การลงทะเบียนส่วนกลาง",
+            "การกำหนด decision rights",
+            "ปุ่มหยุดและการเฝ้าระวัง agent"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-22",
@@ -1003,7 +2243,59 @@
       "mechanism": "CIM ↔ AAS submodel mapping",
       "rationale": "แปลง nameplate และ configuration ของอุปกรณ์ระหว่างโลก CIM ของกริดกับโลก AAS ของโรงงาน มีการสูญเสียความหมายที่ต้องบันทึกไว้",
       "standards": "IEC 61970 · IEC 63278",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "ปานกลาง–สูง",
+          "score": 3,
+          "of": 6,
+          "basis": "ชนิด C (ปานกลาง–สูง)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 2,
+          "affects": [
+            "CPL-23",
+            "CPL-24"
+          ],
+          "towers": [
+            "RAMI",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "CIM ↔ AAS submodel mapping",
+          "class": "Translation",
+          "direction": "มีทิศทาง ต้นทางเดียว",
+          "requires": "ต้องระบุ source of truth ฝั่งเดียว และทดสอบ mapping เป็นรอบ",
+          "standards": [
+            "IEC 61970",
+            "IEC 63278"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "ตาราง mapping",
+            "การทดสอบ mapping เป็นรอบ",
+            "การเฝ้าระวัง semantic drift"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-23",
@@ -1013,7 +2305,59 @@
       "mechanism": "Building energy data model mapping",
       "rationale": "แปลงข้อมูลการใช้พลังงานระหว่างโมเดลกริดกับโมเดลอาคาร",
       "standards": "IEC 61968 · ASHRAE 223P",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "ปานกลาง–สูง",
+          "score": 3,
+          "of": 6,
+          "basis": "ชนิด C (ปานกลาง–สูง)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 2,
+          "affects": [
+            "CPL-22",
+            "CPL-24"
+          ],
+          "towers": [
+            "SCIAM",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Building energy data model mapping",
+          "class": "Translation",
+          "direction": "มีทิศทาง ต้นทางเดียว",
+          "requires": "ต้องระบุ source of truth ฝั่งเดียว และทดสอบ mapping เป็นรอบ",
+          "standards": [
+            "IEC 61968",
+            "ASHRAE 223P"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "ตาราง mapping",
+            "การทดสอบ mapping เป็นรอบ",
+            "การเฝ้าระวัง semantic drift"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-24",
@@ -1023,7 +2367,59 @@
       "mechanism": "Agronomic ↔ energy data mapping",
       "rationale": "แปลงข้อมูลความชื้นดินและตารางรดน้ำ ให้เป็นโปรไฟล์โหลดที่ระบบไฟฟ้าเข้าใจ",
       "standards": "ISO 11783 · IEC 61970",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "ปานกลาง–สูง",
+          "score": 3,
+          "of": 6,
+          "basis": "ชนิด C (ปานกลาง–สูง)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 2,
+          "affects": [
+            "CPL-22",
+            "CPL-23"
+          ],
+          "towers": [
+            "SFAM",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Agronomic ↔ energy data mapping",
+          "class": "Translation",
+          "direction": "มีทิศทาง ต้นทางเดียว",
+          "requires": "ต้องระบุ source of truth ฝั่งเดียว และทดสอบ mapping เป็นรอบ",
+          "standards": [
+            "ISO 11783",
+            "IEC 61970"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "ตาราง mapping",
+            "การทดสอบ mapping เป็นรอบ",
+            "การเฝ้าระวัง semantic drift"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-25",
@@ -1033,7 +2429,59 @@
       "mechanism": "IEC 61850 ↔ OPC UA gateway",
       "rationale": "gateway ที่แปลง protocol ระหว่างโลกสถานีไฟฟ้ากับโลกโรงงาน มีสัญญาและเวอร์ชันชัดเจน",
       "standards": "IEC 61850-8-1 · IEC 62541",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "ปานกลาง",
+          "score": 2,
+          "of": 6,
+          "basis": "ชนิด B (ปานกลาง)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 2,
+          "affects": [
+            "CPL-26",
+            "CPL-27"
+          ],
+          "towers": [
+            "RAMI",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "IEC 61850 ↔ OPC UA gateway",
+          "class": "Contract",
+          "direction": "สองทางผ่าน gateway",
+          "requires": "ต้องมี interface control document และ conformance test",
+          "standards": [
+            "IEC 61850-8-1",
+            "IEC 62541"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "interface control document",
+            "conformance test",
+            "การคุมเวอร์ชันของ gateway"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-26",
@@ -1043,7 +2491,60 @@
       "mechanism": "Demand response signalling",
       "rationale": "ช่องสัญญาณสั่งลดโหลดจากกริดถึงระบบอาคาร",
       "standards": "IEEE 2030.5 · OpenADR",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "ปานกลาง",
+          "score": 2,
+          "of": 6,
+          "basis": "ชนิด B (ปานกลาง)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 3,
+          "affects": [
+            "CPL-25",
+            "CPL-27",
+            "CPL-29"
+          ],
+          "towers": [
+            "SCIAM",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Demand response signalling",
+          "class": "Contract",
+          "direction": "สองทางผ่าน gateway",
+          "requires": "ต้องมี interface control document และ conformance test",
+          "standards": [
+            "IEEE 2030.5",
+            "OpenADR"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "interface control document",
+            "conformance test",
+            "การคุมเวอร์ชันของ gateway"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-27",
@@ -1053,7 +2554,59 @@
       "mechanism": "Shared LPWAN backhaul",
       "rationale": "ใช้เครือข่ายไร้สายชุดเดียวกันส่งทั้งค่าวัดไฟฟ้าและค่าเซ็นเซอร์ในแปลง ลดต้นทุนโครงข่ายลงครึ่งหนึ่ง",
       "standards": "LoRaWAN · MQTT",
-      "flag": null
+      "flag": null,
+      "analysis": {
+        "risk": {
+          "level": "ปานกลาง",
+          "score": 2,
+          "of": 6,
+          "basis": "ชนิด B (ปานกลาง)",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 2,
+          "affects": [
+            "CPL-25",
+            "CPL-26"
+          ],
+          "towers": [
+            "SFAM",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Shared LPWAN backhaul",
+          "class": "Contract",
+          "direction": "สองทางผ่าน gateway",
+          "requires": "ต้องมี interface control document และ conformance test",
+          "standards": [
+            "LoRaWAN",
+            "MQTT"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "interface control document",
+            "conformance test",
+            "การคุมเวอร์ชันของ gateway"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-28",
@@ -1063,7 +2616,58 @@
       "mechanism": "Security level flow-down",
       "rationale": "ข้อกำหนด security level ตาม IEC 62443 ไหลจากฝั่งกริดลงไปฝังในชั้น Integration ของโรงงาน เพราะ RAMI ไม่มีชั้น Trust แยก",
       "standards": "IEC 62443-4-2",
-      "flag": "asymmetric"
+      "flag": "asymmetric",
+      "analysis": {
+        "risk": {
+          "level": "สูงมาก",
+          "score": 5,
+          "of": 6,
+          "basis": "ชนิด E (สูง) · ไม่สมมาตร — ปลายทางอยู่คนละชั้น ภาระกำกับตกฝั่งเดียว",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 2,
+          "affects": [
+            "CPL-29",
+            "CPL-30"
+          ],
+          "towers": [
+            "RAMI",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Security level flow-down",
+          "class": "Federated trust",
+          "direction": "ทางเดียว มี trust anchor",
+          "requires": "ต้องเป็นทางเดียว มี trust anchor ชัดเจน ห้ามยอมรับกันไปกลับ",
+          "standards": [
+            "IEC 62443-4-2"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "trust anchor",
+            "การจัดการวงจรชีวิตใบรับรอง",
+            "การตรวจสอบทางเดียว"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-29",
@@ -1073,7 +2677,59 @@
       "mechanism": "Identity federation to city platform",
       "rationale": "ตัวตนของอุปกรณ์และผู้ใช้ที่ออกฝั่งกริด ถูกยอมรับบนแพลตฟอร์มเมือง ต้องเป็นทางเดียวเท่านั้น",
       "standards": "IEC 62351 · OAuth 2.0",
-      "flag": "asymmetric"
+      "flag": "asymmetric",
+      "analysis": {
+        "risk": {
+          "level": "สูงมาก",
+          "score": 5,
+          "of": 6,
+          "basis": "ชนิด E (สูง) · ไม่สมมาตร — ปลายทางอยู่คนละชั้น ภาระกำกับตกฝั่งเดียว",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 2,
+          "affects": [
+            "CPL-26",
+            "CPL-28"
+          ],
+          "towers": [
+            "SCIAM",
+            "SGAM"
+          ],
+          "sgamEndpointPopulation": [
+            3
+          ],
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Identity federation to city platform",
+          "class": "Federated trust",
+          "direction": "ทางเดียว มี trust anchor",
+          "requires": "ต้องเป็นทางเดียว มี trust anchor ชัดเจน ห้ามยอมรับกันไปกลับ",
+          "standards": [
+            "IEC 62351",
+            "OAuth 2.0"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "trust anchor",
+            "การจัดการวงจรชีวิตใบรับรอง",
+            "การตรวจสอบทางเดียว"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     },
     {
       "id": "CPL-30",
@@ -1083,7 +2739,56 @@
       "mechanism": "Device digitization profile",
       "rationale": "โรงงานกับฟาร์มใช้มาตรฐานแปลงเซ็นเซอร์และแอคชูเอเตอร์เป็นดิจิทัลชุดเดียวกันได้ — PCC เข้าร่วมไม่ได้เพราะไม่มีชั้น L2",
       "standards": "IO-Link · ISO 11783",
-      "flag": "excluded"
+      "flag": "excluded",
+      "analysis": {
+        "risk": {
+          "level": "ปานกลาง–สูง",
+          "score": 3,
+          "of": 6,
+          "basis": "ชนิด B (ปานกลาง) · PCC เข้าร่วมไม่ได้ — ไม่มีชั้นที่ตรงกัน",
+          "source": "derived"
+        },
+        "impact": {
+          "blastRadius": 1,
+          "affects": [
+            "CPL-28"
+          ],
+          "towers": [
+            "RAMI",
+            "SFAM"
+          ],
+          "sgamEndpointPopulation": null,
+          "basis": "coupling อื่นที่แตะ cube เดียวกันหรือชั้นเดียวกันของตึกเดียวกัน",
+          "caveat": "ค่าเชิงโครงสร้างตามกฎ D7 — openQuestions ข้อ 4 ระบุว่าควรแทนด้วยค่าที่วัดจาก dependency จริง",
+          "source": "derived"
+        },
+        "functionality": {
+          "provides": "Device digitization profile",
+          "class": "Contract",
+          "direction": "สองทางผ่าน gateway",
+          "requires": "ต้องมี interface control document และ conformance test",
+          "standards": [
+            "IO-Link",
+            "ISO 11783"
+          ],
+          "source": "derived"
+        },
+        "budget": {
+          "drivers": [
+            "interface control document",
+            "conformance test",
+            "การคุมเวอร์ชันของ gateway"
+          ],
+          "estimate": null,
+          "currency": null,
+          "period": null,
+          "owner": null,
+          "contractId": null,
+          "status": "unassigned",
+          "note": "ตัวเลขงบไม่มีในมาตรฐานทั้งสามฉบับ — ต้องมาจาก PCC และผ่าน Architecture Review Board",
+          "source": "authored — ยังว่าง"
+        }
+      }
     }
   ],
   "designRules": [
@@ -1265,5 +2970,87 @@
   "_tupleSchema": {
     "layers": "[code, name, commonLevel, standardDefinition|null, source, shortDesc]",
     "axisItems": "[code, en, th, standardDefinition?]  — positions 0..2 are stable; the README verification reads index 0"
+  },
+  "inTowerConnections": {
+    "_note": "เส้นเชื่อมภายในตึกมี 1,901 เส้น จึงอธิบายด้วยกฎตามทิศทาง ไม่ใช่เขียนทีละเส้น แอปประกอบข้อความจากกฎเหล่านี้ตอน render",
+    "rules": [
+      {
+        "direction": "layer-up",
+        "functionality": "ชั้นบนกำหนดว่าชั้นนี้ต้องทำอะไร — cube นี้รับข้อกำหนดลงมา",
+        "risk": "ต่ำ",
+        "riskWhy": "อยู่ในตึกเดียวกัน เจ้าของเดียวกัน เปลี่ยนพร้อมกันได้",
+        "impact": "จำกัดอยู่ในคอลัมน์เดียวของตึกนี้",
+        "budgetDriver": "การทวนสอบว่าข้อกำหนดถูกส่งต่อครบ"
+      },
+      {
+        "direction": "layer-down",
+        "functionality": "ส่งข้อกำหนดต่อให้ชั้นล่างไปทำให้เป็นจริงในระดับที่รูปธรรมกว่า",
+        "risk": "ต่ำ",
+        "riskWhy": "อยู่ในตึกเดียวกัน เจ้าของเดียวกัน",
+        "impact": "จำกัดอยู่ในคอลัมน์เดียวของตึกนี้",
+        "budgetDriver": "การทวนสอบว่าสิ่งที่สร้างตรงกับข้อกำหนด"
+      },
+      {
+        "direction": "zone-up",
+        "functionality": "รวมศูนย์ขึ้นไป — ขอบเขตกว้างขึ้น รอบเวลายาวขึ้น (data + spatial aggregation)",
+        "risk": "ปานกลาง",
+        "riskWhy": "ข้ามขอบเขตเวลาตอบสนอง ต้องมี buffering และ backpressure",
+        "impact": "กระทบทุก cube ที่ป้อนข้อมูลขึ้นมา",
+        "budgetDriver": "ตัวรวมข้อมูล ความจุจัดเก็บ และการกระทบยอด",
+        "basis": "SG-CG/M490/K §426–438"
+      },
+      {
+        "direction": "zone-down",
+        "functionality": "กระจายลงไป — ขอบเขตแคบลง ต้องตอบสนองเร็วขึ้น (functional separation)",
+        "risk": "ปานกลาง–สูง",
+        "riskWhy": "ข้อกำหนดเวลาตอบสนองเข้มขึ้นทุกขั้นที่ลง ฟังก์ชัน real-time ต้องอยู่ที่ field/station",
+        "impact": "กระทบทุก cube ที่รับคำสั่งลงไป",
+        "budgetDriver": "ช่องสัญญาณที่รับประกันเวลา และการทดสอบ latency",
+        "basis": "SG-CG/M490/K §432–438"
+      },
+      {
+        "direction": "x-left",
+        "functionality": "ไหลย้อนกลับตามห่วงโซ่คุณค่าหรือลำดับชั้นของระบบ",
+        "risk": "ปานกลาง",
+        "riskWhy": "ข้าม domain — คนละเจ้าของกระบวนการ แม้อยู่ตึกเดียวกัน",
+        "impact": "จำกัดอยู่ในชั้นและ zone เดียวกัน",
+        "budgetDriver": "ข้อตกลงระหว่างหน่วยงานภายใน"
+      },
+      {
+        "direction": "x-right",
+        "functionality": "ไหลต่อไปตามห่วงโซ่คุณค่าหรือลำดับชั้นของระบบ",
+        "risk": "ปานกลาง",
+        "riskWhy": "ข้าม domain — คนละเจ้าของกระบวนการ แม้อยู่ตึกเดียวกัน",
+        "impact": "จำกัดอยู่ในชั้นและ zone เดียวกัน",
+        "budgetDriver": "ข้อตกลงระหว่างหน่วยงานภายใน"
+      }
+    ]
+  },
+  "cubeAttributes": {
+    "_note": "มุมมองต่อ cube ตามคำศัพท์ของ ISO/IEC/IEEE 42010 และ ArchiMate — ไม่ใช่คำของ SG-CG เอกสารมาตรฐานทั้งสามฉบับที่ใช้อ้างอิงในโปรเจกต์นี้ไม่ได้นิยามคำเหล่านี้ไว้",
+    "derived": {
+      "functionality": {
+        "from": "ชั้นของ cube — นิยามชั้นตามมาตรฐานและคำอธิบายสั้นของ PCC",
+        "coverage": "771/771 cubes ในขอบเขต"
+      },
+      "nonFunctionality": {
+        "from": "zone ของ cube — ระดับ H1–H6 และเวลาตอบสนองตาม docs/KNOWLEDGE.md §5",
+        "coverage": "630/798 cubes",
+        "excluded": "RAMI 4.0 — แกนที่สามเป็น Life Cycle ไม่ใช่ Zone จึงไม่มีเวลาตอบสนอง"
+      }
+    },
+    "authored": {
+      "_note": "ต้องมีคนตัดสิน สร้างเองไม่ได้ ช่องว่างนี้คือ backlog ที่วัดได้ ไม่ใช่ความบกพร่องที่ซ่อนไว้",
+      "fields": [
+        "goal",
+        "concern",
+        "constraint",
+        "requiredResources"
+      ],
+      "filled": 0,
+      "of": 3084,
+      "owner": null,
+      "nextStep": "ต้องมี Layer Architect ต่อชั้น L1–L8 และ Model Owner ต่อตึกก่อน ตาม governance"
+    }
   }
 }
