@@ -178,6 +178,9 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
       <div class="grp"><span class="lb">Mode</span>
         <button class="vb" data-v="m3d" aria-pressed="true">3D</button>
         <button class="vb" data-v="m2d">2D ผังตึก</button></div>
+      <div class="grp" id="layGrp"><span class="lb">Layout</span>
+        <button class="vb" data-v="lgrid" aria-pressed="true">ตาราง 2×2</button>
+        <button class="vb" data-v="lrow">เรียงแถว + hub</button></div>
       <div class="grp" id="rotGrp"><span class="lb">View</span>
         <button class="vb" data-v="iso" aria-pressed="true">Iso</button>
         <button class="vb" data-v="r90">90°</button>
@@ -284,8 +287,24 @@ SEAMS.forEach((s,i)=>{if(BY[s[0]])BY[s[0]].seams.push(i);if(BY[s[1]])BY[s[1]].se
 const NTOT=CUBES.length;
 /* ============ state ============ */
 const S={az:0,zoom:1,explode:1,seams:true,guides:true,sel:null,selS:null,
-  tw:new Set(TOWERS.map(t=>t.k)),lv:new Set(),ct:new Set(),dragging:false,story:false,view:"iso",selB:null,selP:null};
+  tw:new Set(TOWERS.map(t=>t.k)),lv:new Set(),ct:new Set(),dragging:false,story:false,view:"iso",layout:"grid",selB:null,selP:null};
 const CX=540,CY=420,CU=8.5,CV=7.5;
+/* Two arrangements for the same four towers. The grid is the default 2x2 plot. The
+   row places every tower centre on the line u+v=16, which is exactly the set of
+   points the projection maps to a constant depth, so at azimuth 0 they land side by
+   side on screen — a hub-and-spoke elevation with the shared level scale standing in
+   the middle. Rotating away from 0 still works; the row simply stops being a row. */
+const PLOT_GRID=TOWERS.map(T=>[T.u0,T.v0]);
+const ROW_K=[-14,-6.4,6.4,14];
+const HUB_U=8,HUB_V=8;
+function applyLayout(){
+  TOWERS.forEach((T,i)=>{
+    if(S.layout==="row"){
+      T.u0=HUB_U+ROW_K[i]-(T.xs.length-1)/2;
+      T.v0=HUB_V-ROW_K[i]-(T.ys.length-1)/2;
+    }else{[T.u0,T.v0]=PLOT_GRID[i];}
+  });
+}
 const isDark=()=>document.body.classList.contains("dark");
 const TH=()=>isDark()
   ? {pf:.06,phf:.10,ps:.30,phs:.50,gl:.10,dim:.15,off:.012,offs:.06,lnOn:.62,lnOff:.10,nbr:"#FFFFFF",nbrOp:.45}
@@ -293,7 +312,11 @@ const TH=()=>isDark()
 function proj(u,v,pam){
   const X=u-CU,Y=v-CV,a=S.az;
   const Xr=X*Math.cos(a)-Y*Math.sin(a),Yr=X*Math.sin(a)+Y*Math.cos(a);
-  const s=23*S.zoom,dz=30*S.zoom*S.explode;
+  /* the row needs more air than the grid: horizontally so the four footprints clear
+     each other, and vertically because at the grid's spacing a level's plane is
+     taller than the gap to the next one, which is what turned the towers to mush */
+  const row=S.layout==="row";
+  const s=23*S.zoom*(row?0.55:1),dz=30*S.zoom*S.explode*(row?2.6:1);
   return {x:CX+(Xr-Yr)*0.866*s,y:CY+(Xr+Yr)*0.5*s-(pam-4.5)*dz,d:Xr+Yr};
 }
 const towerOn=k=>S.tw.has(k),lvOn=p=>!S.lv.size||S.lv.has(p);
@@ -346,7 +369,7 @@ function build(){
      phase on each separate element but runs continuously across a polyline's
      vertices, which shifts every dash after the first bend. */
   const guides=LV.map(L=>{
-    const segs=Array.from({length:TOWERS.length-1},()=>{
+    const segs=Array.from({length:TOWERS.length},()=>{
       const e=mk("line",{stroke:`var(--L${L.p})`,"stroke-opacity":".22","stroke-width":".9","stroke-dasharray":"3 5"});
       f.appendChild(e);return e;});
     return{L,segs};});
@@ -375,13 +398,26 @@ function build(){
     const hit=mk("path",{class:"sl","data-si":i,fill:"none",stroke:"transparent","stroke-width":"14",style:"cursor:pointer;pointer-events:stroke"});
     const line=mk("path",{fill:"none","pointer-events":"none",stroke:`var(--c${s[2]})`,"stroke-dasharray":s[6]?"6 4":""});
     f.append(hit,line);return{s,i,hit,line};});
+  /* the Z backbone as an object in the scene: one plate per shared level, standing
+     where the four towers' row converges. Only drawn in the row arrangement. */
+  const hub=LV.map(L=>{
+    const plate=mk("polygon",{fill:`var(--L${L.p})`,"fill-opacity":".22",stroke:`var(--L${L.p})`,
+      "stroke-opacity":".75","stroke-width":"1.2"});
+    const tag=mk("text",{"text-anchor":"middle","dominant-baseline":"central","font-family":"var(--mono)",
+      "font-size":"9","font-weight":"600",fill:`var(--L${L.p})`,"pointer-events":"none"});
+    tag.textContent=L.c;
+    f.append(plate,tag);return{L,plate,tag};});
+  const hubTitle=mk("text",{"text-anchor":"middle","font-family":"var(--mono)","font-size":"10",
+    "font-weight":"600","letter-spacing":".07em",fill:"var(--ink2)","pointer-events":"none"});
+  hubTitle.textContent="Z BACKBONE";
+  f.appendChild(hubTitle);
   const seamLabel=mk("text",{"text-anchor":"middle","font-family":"var(--mono)","font-size":"10","font-weight":"600","pointer-events":"none"});
   f.appendChild(seamLabel);
   const nbr=Array.from({length:6},()=>{const e=mk("line",{"stroke-width":"1.2","pointer-events":"none"});f.appendChild(e);return e;});
   const selText=mk("text",{"text-anchor":"middle","font-family":"var(--mono)","font-size":"10","font-weight":"600",fill:"var(--ink)","pointer-events":"none"});
   f.appendChild(selText);
   const isoG=mk('g',{id:'isoG'});isoG.appendChild(f);svg.appendChild(isoG);
-  SC={guides,layers,tws,seams,seamLabel,nbr,selText,isoG};
+  SC={guides,layers,tws,seams,seamLabel,nbr,selText,isoG,hub,hubTitle};
 }
 function drawIso(){
   if(!SC)build();
@@ -394,16 +430,40 @@ function drawIso(){
   const anySel=!!(selC||selS);
 
   SC.guides.forEach(({L,segs})=>{
-    const pts=(!S.guides||lite||!lvOn(L.p))?[]
-      :TOWERS.filter(T=>T.ls.some(l=>l[2]===L.p)&&towerOn(T.k))
-        .map(T=>proj(T.u0+(T.xs.length-1)/2,T.v0+(T.ys.length-1)/2,L.p));
+    const live=(S.guides&&!lite&&lvOn(L.p));
+    const pts=live?TOWERS.filter(T=>T.ls.some(l=>l[2]===L.p)&&towerOn(T.k))
+      .map(T=>proj(T.u0+(T.xs.length-1)/2,T.v0+(T.ys.length-1)/2,L.p)):[];
+    /* grid: chain the towers. row: a spoke from the backbone out to each tower. */
+    const pairs=[];
+    if(S.layout==="row"&&pts.length){
+      const c=proj(HUB_U,HUB_V,L.p);
+      pts.forEach(q=>pairs.push([c,q]));
+    }else for(let i=0;i<pts.length-1;i++)pairs.push([pts[i],pts[i+1]]);
     segs.forEach((e,i)=>{
-      if(i>=pts.length-1){show(e,false);return;}
+      if(i>=pairs.length){show(e,false);return;}
       show(e,true);
-      e.setAttribute("x1",pts[i].x.toFixed(1));e.setAttribute("y1",pts[i].y.toFixed(1));
-      e.setAttribute("x2",pts[i+1].x.toFixed(1));e.setAttribute("y2",pts[i+1].y.toFixed(1));
+      e.setAttribute("x1",pairs[i][0].x.toFixed(1));e.setAttribute("y1",pairs[i][0].y.toFixed(1));
+      e.setAttribute("x2",pairs[i][1].x.toFixed(1));e.setAttribute("y2",pairs[i][1].y.toFixed(1));
     });
   });
+
+  const rowMode=(S.layout==="row");
+  SC.hub.forEach(({L,plate,tag})=>{
+    const on=rowMode&&lvOn(L.p)&&TOWERS.some(T=>T.ls.some(l=>l[2]===L.p)&&towerOn(T.k));
+    show(plate,on);show(tag,on);
+    if(!on)return;
+    const r=1.15,q=[proj(HUB_U-r,HUB_V-r,L.p),proj(HUB_U+r,HUB_V-r,L.p),
+                    proj(HUB_U+r,HUB_V+r,L.p),proj(HUB_U-r,HUB_V+r,L.p)];
+    plate.setAttribute("points",q.map(a=>a.x.toFixed(1)+","+a.y.toFixed(1)).join(" "));
+    const c=proj(HUB_U,HUB_V,L.p);
+    tag.setAttribute("x",c.x.toFixed(1));tag.setAttribute("y",c.y.toFixed(1));
+  });
+  show(SC.hubTitle,rowMode);
+  if(rowMode){
+    const c=proj(HUB_U,HUB_V,8);
+    SC.hubTitle.setAttribute("x",c.x.toFixed(1));
+    SC.hubTitle.setAttribute("y",(c.y-42).toFixed(1));
+  }
 
   SC.layers.forEach(({T,p,poly,grid,code,cs})=>{
     const on=towerOn(T.k)&&lvOn(p);
@@ -447,7 +507,11 @@ function drawIso(){
   SC.tws.forEach(({T,g,t1,t2})=>{
     if(!towerOn(T.k)){show(g,false);return;}
     show(g,true);
-    const q=proj(T.u0+(T.xs.length-1)/2,T.v0+T.ys.length+1.4,1);
+    /* the grid puts the caption diagonally off the tower's near corner; in the row
+       that direction runs into the neighbour, so drop it straight down instead */
+    const q=S.layout==="row"
+      ? (c=>({x:c.x,y:c.y+64}))(proj(T.u0+(T.xs.length-1)/2,T.v0+(T.ys.length-1)/2,1))
+      : proj(T.u0+(T.xs.length-1)/2,T.v0+T.ys.length+1.4,1);
     t1.setAttribute("x",q.x.toFixed(1));t1.setAttribute("y",q.y.toFixed(1));
     t2.setAttribute("x",q.x.toFixed(1));t2.setAttribute("y",(q.y+13).toFixed(1));
   });
@@ -524,17 +588,59 @@ function buildFlat(){
   const g=mk("g",{id:"flatG"});
   const f=document.createDocumentFragment();
 
+  /* The Z backbone. The shared level scale is what makes four separate models one
+     city, and it used to be implied by faint guide lines rather than stated. Here it
+     is a column of its own that every tower aligns to, with a tie line running out
+     across the towers at each level — the spoke of the hub-and-spoke reading.
+     A level's chip is solid when all four towers carry it and dashed when they do
+     not, so "universal" and "somebody's extension" are told apart by shape. Colour
+     stays reserved for the level itself, per the convention in CLAUDE.md. */
+  const HUBX0=18, HUBX1=142;
+  const hubTitle=mk("text",{x:(HUBX0+HUBX1)/2,y:96,"text-anchor":"middle","font-family":"var(--mono)",
+    "font-size":"11","font-weight":"600","letter-spacing":".08em",fill:"var(--ink2)"});
+  hubTitle.textContent="Z BACKBONE";
+  const hubSub=mk("text",{x:(HUBX0+HUBX1)/2,y:113,"text-anchor":"middle","font-size":"10",fill:"var(--ink3)"});
+  hubSub.textContent="แกนร่วม 8 ชั้น";
+  const hubSub2=mk("text",{x:(HUBX0+HUBX1)/2,y:130,"text-anchor":"middle","font-family":"var(--mono)",
+    "font-size":"9",fill:"var(--ink3)"});
+  hubSub2.textContent="ทุกตึกอ้างอิงเสานี้";
+  f.append(hubTitle,hubSub,hubSub2);
+  const spine=mk("line",{x1:(HUBX0+HUBX1)/2,x2:(HUBX0+HUBX1)/2,y1:142,y2:FLAT.yBot+4,
+    stroke:"var(--ink3)","stroke-opacity":".22","stroke-width":"1.5"});
+  f.appendChild(spine);
   LV.forEach(L=>{
-    const y=FLAT.rowY(L.p);
-    const rule=mk("line",{x1:FLAT.x0-14,x2:FLAT.x1,y1:y,y2:y,stroke:"var(--line)","stroke-opacity":".55"});
-    const code=mk("text",{x:36,y:y-4,"font-family":"var(--mono)","font-size":"12","font-weight":"600",fill:`var(--L${L.p})`});
+    const y=FLAT.rowY(L.p), nHave=TOWERS.filter(T=>T.ls.some(l=>l[2]===L.p)).length;
+    const universal=nHave===TOWERS.length;
+    const tie=mk("line",{x1:HUBX1,x2:FLAT.x1,y1:y,y2:y,stroke:`var(--L${L.p})`,"stroke-opacity":".20",
+      "stroke-width":"1","stroke-dasharray":universal?"":"3 5"});
+    const chip=mk("rect",{x:HUBX0,y:y-FLAT.bh,width:HUBX1-HUBX0,height:FLAT.bh,rx:3,
+      fill:`var(--L${L.p})`,"fill-opacity":".10",stroke:`var(--L${L.p})`,"stroke-opacity":".62",
+      "stroke-width":universal?1.4:1,"stroke-dasharray":universal?"":"4 3"});
+    const code=mk("text",{x:HUBX0+10,y:y-FLAT.bh/2-1,"font-family":"var(--mono)","font-size":"12",
+      "font-weight":"600",fill:`var(--L${L.p})`});
     code.textContent=L.c;
-    const nm=mk("text",{x:36,y:y+12,"font-size":"11",fill:"var(--ink3)"});
+    const nm=mk("text",{x:HUBX0+10,y:y-FLAT.bh/2+13,"font-size":"10",fill:"var(--ink3)"});
     nm.textContent=L.th;
-    const ct=mk("text",{x:132,y:y-4,"text-anchor":"end","font-family":"var(--mono)","font-size":"9",fill:"var(--ink3)"});
+    const ct=mk("text",{x:HUBX1-9,y:y-FLAT.bh/2-1,"text-anchor":"end","font-family":"var(--mono)",
+      "font-size":"9.5","font-weight":"600",fill:`var(--c${L.ct})`});
     ct.textContent=L.ct;
-    f.append(rule,code,nm,ct);
-    FLAT[`row${L.p}`]={rule,code,nm,ct};
+    const cnt=mk("text",{x:HUBX1-9,y:y-FLAT.bh/2+13,"text-anchor":"end","font-family":"var(--mono)",
+      "font-size":"9",fill:"var(--ink3)"});
+    cnt.textContent=`${nHave}/${TOWERS.length}`;
+    f.append(tie,chip,code,nm,ct,cnt);
+    FLAT[`row${L.p}`]={rule:tie,chip,code,nm,ct,cnt};
+  });
+  /* legend: shape carries universality, since colour is spoken for */
+  const lg=[["solid","ชั้นร่วมทุกตึก"],["dash","มีบางตึกเท่านั้น"],["ghost","ตึกนั้นไม่มีชั้นนี้"]];
+  lg.forEach(([kind,label],i)=>{
+    const x=HUBX0+i*230, y=FLAT.yBot+40;
+    const sw=mk("rect",{x,y:y-10,width:22,height:13,rx:2,
+      fill:kind==="ghost"?"none":"var(--ink3)","fill-opacity":kind==="ghost"?"0":".12",
+      stroke:"var(--ink3)","stroke-opacity":kind==="ghost"?".32":".6",
+      "stroke-dasharray":kind==="solid"?"":"4 3"});
+    const tx=mk("text",{x:x+30,y,"font-size":"10.5",fill:"var(--ink3)"});
+    tx.textContent=label;
+    f.append(sw,tx);
   });
 
   const cols=TOWERS.map((T,i)=>{
@@ -611,7 +717,7 @@ function drawFlat(){
 
   LV.forEach(L=>{
     const r=FLAT[`row${L.p}`],on=lvOn(L.p);
-    [r.rule,r.code,r.nm,r.ct].forEach(e=>e.style.opacity=on?1:.22);
+    [r.rule,r.chip,r.code,r.nm,r.ct,r.cnt].forEach(e=>e.style.opacity=on?1:.22);
   });
 
   FLAT.cols.forEach(({T,hd})=>{hd.style.opacity=towerOn(T.k)?1:.3;});
@@ -779,12 +885,19 @@ document.querySelectorAll(".vb").forEach(b=>b.onclick=()=>{
   else if(v==="seams"){S.seams=!S.seams;b.setAttribute("aria-pressed",S.seams);}
   else if(v==="guides"){S.guides=!S.guides;b.setAttribute("aria-pressed",S.guides);}
   else if(v==="explode"){S.explode=S.explode>1?1:1.7;b.setAttribute("aria-pressed",S.explode>1);}
+  else if(v==="lgrid"||v==="lrow"){
+    S.layout=(v==="lrow")?"row":"grid";S.az=0;applyLayout();
+    document.querySelector('[data-v="lgrid"]').setAttribute("aria-pressed",S.layout==="grid");
+    document.querySelector('[data-v="lrow"]').setAttribute("aria-pressed",S.layout==="row");
+    req();return;
+  }
   else if(v==="m3d"||v==="m2d"){
     S.view=(v==="m2d")?"flat":"iso";
     S.sel=S.selB=S.selP=null;S.selS=null;
     document.querySelector('[data-v="m3d"]').setAttribute("aria-pressed",S.view==="iso");
     document.querySelector('[data-v="m2d"]').setAttribute("aria-pressed",S.view==="flat");
     $("rotGrp").style.display=S.view==="flat"?"none":"";
+    $("layGrp").style.display=S.view==="flat"?"none":"";
     $("hint").innerHTML=S.view==="flat"
       ? "<b>คลิกบล็อก</b> = ดูชั้นนั้น · <b>คลิกเส้น</b> = ดูการเชื่อม · <b>ล้อ</b> = ซูม · กรอบประคือชั้นที่ตึกนั้นไม่มี · เส้นเอียง = เชื่อมข้ามชั้น"
       : "<b>ลาก</b> = หมุน · <b>ล้อ</b> = ซูม · <b>คลิกจุด</b> = ดู cube · <b>คลิกเส้น</b> = ดูรายละเอียดการเชื่อม · เลือกตึก 2–3 ตึกเพื่อดูเฉพาะคู่นั้น";
@@ -793,6 +906,9 @@ document.querySelectorAll(".vb").forEach(b=>b.onclick=()=>{
   else if(v==="story"){storyOn(!S.story);return;}
   else if(v==="theme"){const d=isDark();document.body.className=d?"light":"dark";b.textContent=d?"Dark":"Light";}
   else if(v==="reset"){if(S.story)storyOn(false);
+    S.layout="grid";applyLayout();
+    document.querySelector('[data-v="lgrid"]').setAttribute("aria-pressed","true");
+    document.querySelector('[data-v="lrow"]').setAttribute("aria-pressed","false");
     S.az=0;S.zoom=1;S.explode=1;S.sel=null;S.selS=null;S.selB=null;S.selP=null;S.lv.clear();S.ct.clear();
     S.tw=new Set(TOWERS.map(x=>x.k));S.seams=true;S.guides=true;
     document.querySelectorAll('[data-v="seams"],[data-v="guides"]').forEach(x=>x.setAttribute("aria-pressed","true"));
@@ -1004,7 +1120,7 @@ if(M.scopeLimits){
 $("refList").innerHTML=(M.references||[]).map(r=>
   `<span title="${esc(r.title)}${r.restriction?" — "+esc(r.restriction):""}">${esc(r.id)} <b>${esc(r.publisher)}</b>${r.restriction?" ⚠":""}</span>`).join("");
 syncUI();stats();detail();draw();
-Object.assign(window,{M,S,CT,LV,TOWERS,TW,BLOCKLINKS,FLAT,drawFlat,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs});
+Object.assign(window,{M,S,SC,applyLayout,ROW_K,HUB_U,HUB_V,CT,LV,TOWERS,TW,BLOCKLINKS,FLAT,drawFlat,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs});
 </script>
 </body>
 </html>
