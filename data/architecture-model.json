@@ -18,56 +18,64 @@
       "order": 8,
       "name": "Purpose",
       "th": "เจตนาธุรกิจ",
-      "coupling": "A"
+      "coupling": "A",
+      "source": "common to two or more of the four models"
     },
     {
       "id": "L7",
       "order": 7,
       "name": "Capability",
       "th": "ความสามารถ",
-      "coupling": "D"
+      "coupling": "D",
+      "source": "common to two or more of the four models"
     },
     {
       "id": "L6",
       "order": 6,
       "name": "Cognition",
       "th": "ปัญญาประดิษฐ์",
-      "coupling": "D"
+      "coupling": "D",
+      "source": "PCC extension — not in SGAM standard"
     },
     {
       "id": "L5",
       "order": 5,
       "name": "Semantics",
       "th": "ความหมายข้อมูล",
-      "coupling": "C"
+      "coupling": "C",
+      "source": "common to two or more of the four models"
     },
     {
       "id": "L4",
       "order": 4,
       "name": "Exchange",
       "th": "การรับส่ง",
-      "coupling": "B"
+      "coupling": "B",
+      "source": "common to two or more of the four models"
     },
     {
       "id": "L3",
       "order": 3,
       "name": "Trust",
       "th": "ความปลอดภัย",
-      "coupling": "E"
+      "coupling": "E",
+      "source": "PCC extension — not in SGAM standard"
     },
     {
       "id": "L2",
       "order": 2,
       "name": "Digitization",
       "th": "แปลงเป็นดิจิทัล",
-      "coupling": "B"
+      "coupling": "B",
+      "source": "common to two or more of the four models"
     },
     {
       "id": "L1",
       "order": 1,
       "name": "Physical",
       "th": "สินทรัพย์กายภาพ",
-      "coupling": "A"
+      "coupling": "A",
+      "source": "common to two or more of the four models"
     }
   ],
   "couplingTypes": {
@@ -147,29 +155,35 @@
           [
             "GEN",
             "Generation",
-            "ผลิตไฟฟ้า"
+            "ผลิตไฟฟ้า",
+            "Representing generation of electrical energy in bulk quantities typically connected to the transmission system, such as by fossil, nuclear and hydro power plants, off-shore wind farms, large scale solar power plant (i.e. PV, CSP)."
           ],
           [
             "TRA",
             "Transmission",
-            "ระบบส่ง"
+            "ระบบส่ง",
+            "Representing the infrastructure which transports electricity over long distances."
           ],
           [
             "DIS",
             "Distribution",
-            "ระบบจำหน่าย"
+            "ระบบจำหน่าย",
+            "Representing the infrastructure which distributes electricity to customers."
           ],
           [
             "DER",
             "DER",
-            "พลังงานกระจาย"
+            "พลังงานกระจาย",
+            "Representing distributed electrical resources directly connected to the public distribution grid, applying small-scale power generation and consumption technologies (typically in the range of 3 kW to 10,000 kW). These distributed electrical resources may be directly controlled by e.g. a TSO, DSO, an aggregator or Balance Responsible Party (BRP)."
           ],
           [
             "CUS",
             "Customer premises",
-            "ฝั่งผู้ใช้ไฟ"
+            "ฝั่งผู้ใช้ไฟ",
+            "Hosting both end users of electricity and also local producers of electricity. The premises include industrial, commercial and home facilities (e.g. chemical plants, airports, harbors, shopping centers, homes). Also generation in form of e.g. photovoltaic generation, electric vehicles storage, batteries, micro turbines."
           ]
-        ]
+        ],
+        "source": "SG-CG/M490/K Table 1"
       },
       "yAxis": {
         "label": "Zones",
@@ -178,70 +192,96 @@
           [
             "MKT",
             "Market",
-            "ตลาด"
+            "ตลาด",
+            "Reflecting the market operations possible along the energy conversion chain, e.g. energy trading, retail market."
           ],
           [
             "ENT",
             "Enterprise",
-            "องค์กร"
+            "องค์กร",
+            "Including commercial and organizational processes, services and infrastructures for enterprises (utilities, service providers, energy traders …), e.g. asset management, logistics, work force management, staff training, customer relation management, billing and procurement."
           ],
           [
             "OPS",
             "Operation",
-            "ศูนย์ควบคุม"
+            "ศูนย์ควบคุม",
+            "Hosting power system control operation in the respective domain, e.g. distribution management systems (DMS), energy management systems (EMS) in generation and transmission systems, microgrid management systems, virtual power plant management systems (aggregating several DER), electric vehicle (EV) fleet charging management systems."
           ],
           [
             "STA",
             "Station",
-            "สถานี"
+            "สถานี",
+            "Representing the areal aggregation level for field level, e.g. for data concentration, functional aggregation, substation automation, local SCADA systems, plant supervision."
           ],
           [
             "FLD",
             "Field",
-            "สนาม"
+            "สนาม",
+            "Including equipment to protect, control and monitor the process of the power system, e.g. protection relays, bay controller, any kind of intelligent electronic devices which acquire and use process data from the power system."
           ],
           [
             "PRO",
             "Process",
-            "กระบวนการ"
+            "กระบวนการ",
+            "Including the physical, chemical or spatial transformations of energy (electricity, solar, heat, water, wind …) and the physical equipment directly involved (e.g. generators, transformers, circuit breakers, overhead lines, cables, electrical loads, any kind of sensors and actuators which are part or directly connected to the process)."
           ]
-        ]
+        ],
+        "source": "SG-CG/M490/K Table 2",
+        "concepts": {
+          "aggregation": "zone สะท้อนการรวมศูนย์สองแบบ — data aggregation (ข้อมูลจาก field ถูกรวมที่ station เพื่อลดปริมาณที่ต้องส่งและประมวลผลที่ operation) และ spatial aggregation (จากจุดเดียวไปพื้นที่กว้าง เช่น bay → substation, DER → plant station)",
+          "functionalSeparation": "นอกจากการรวมศูนย์ zone ยังแบ่งตามหน้าที่ — ฟังก์ชัน real-time อยู่ที่ field และ station เสมอ (protection, phasor measurement, automation) ส่วนฟังก์ชันที่ครอบคลุม พื้นที่กว้างหรือหลายสถานีอยู่ที่ operation (wide area monitoring, generation scheduling, load management, balancing, meter data management)",
+          "basis": "IEC 62357-1:2012 · IEC 62264-1:2003 (Purdue Reference Model)"
+        }
       },
       "layers": [
         [
           "BUS",
           "Business",
-          "L8"
+          "L8",
+          "The business layer represents the business view on the information exchange related to smart grids. SGAM can be used to map regulatory and economic (market) structures (using harmonized roles and responsibilities) and policies, business models and use cases, business portfolios (products & services) of market parties involved. Also business capabilities, use cases and business processes can be represented in this layer.",
+          "SG-CG/M490/K Table 3"
         ],
         [
           "FUN",
           "Function",
-          "L7"
+          "L7",
+          "The function layer describes system use cases, functions and services including their relationships from an architectural viewpoint. The functions are represented independent from actors and physical implementations in applications, systems and components. The functions are derived by extracting the use case functionality that is independent from actors.",
+          "SG-CG/M490/K Table 3"
         ],
         [
           "INT",
           "Intelligence",
-          "L6"
+          "L6",
+          "ชั้นที่ PCC เพิ่มเอง — agent ตัดสินใจอะไรได้ ระดับไหน ใครกำกับ ไม่มีใน SGAM มาตรฐาน",
+          "PCC extension — not in SGAM standard"
         ],
         [
           "INF",
           "Information",
-          "L5"
+          "L5",
+          "The information layer describes the information that is being used and exchanged between functions, services and components. It contains information objects and the underlying canonical data models. These information objects and canonical data models represent the common semantics for functions and services in order to allow an interoperable information exchange via communication means.",
+          "SG-CG/M490/K Table 3"
         ],
         [
           "COM",
           "Communication",
-          "L4"
+          "L4",
+          "The emphasis of the communication layer is to describe protocols and mechanisms for the interoperable exchange of information between components in the context of the underlying use case, function or service and related information objects or data models.",
+          "SG-CG/M490/K Table 3"
         ],
         [
           "CYB",
           "Cyber",
-          "L3"
+          "L3",
+          "ชั้นที่ PCC เพิ่มเอง — ตัวตน สิทธิ์ และร่องรอยตรวจสอบ ดู deviations DEV-02: SG-CG ถือว่า security เป็นข้อกำหนดที่พาดขวางทุกชั้น ไม่ใช่ชั้นแยก",
+          "PCC extension — not in SGAM standard"
         ],
         [
           "CMP",
           "Component",
-          "L1"
+          "L1",
+          "The emphasis of the component layer is the physical distribution of all participating components in the smart grid context. This includes system & device actors, power system equipment (typically located at process and field level), protection and tele-control devices, network infrastructure (wired / wireless communication connections, routers, switches, servers) and any kind of computers.",
+          "SG-CG/M490/K Table 3"
         ]
       ],
       "cubes": 210,
@@ -251,7 +291,9 @@
       "uniqueLevels": [
         "L6",
         "L3"
-      ]
+      ],
+      "layerNote": "SGAM มาตรฐานมี 5 ชั้น (BUS, FUN, INF, COM, CMP) ตาม SG-CG/M490/K Table 3 ชั้น INT และ CYB เป็นส่วนที่ PCC เพิ่มเอง ดู deviations",
+      "domainBoundaryRule": "DER กับ Customer Premises แยกกันที่ **เจตนาทางธุรกิจ ไม่ใช่เทคโนโลยี** — ทั้งสอง domain ผลิตไฟได้เหมือนกัน DER คือของที่มีเป้าหมายธุรกิจหลักคือป้อนเข้ากริด (production / storage / ancillary services) ส่วน Customer Premises คือกระบวนการที่ ไม่ได้มีเป้าหมายนั้น แต่ใช้กริดเป็นแหล่งพลังงาน เช่น home / building / industry management หรือ e-mobility (SG-CG/M490/K §412–418)"
     },
     {
       "id": "RAMI",
@@ -301,7 +343,9 @@
             "Connected world",
             ""
           ]
-        ]
+        ],
+        "standard": "IEC 62264",
+        "source": "RAMI 4.0 / OFFIS (Meister 2017) p.3"
       },
       "yAxis": {
         "label": "Life cycle & value stream",
@@ -327,38 +371,52 @@
             "Instance · maintenance",
             ""
           ]
-        ]
+        ],
+        "standard": "IEC 62890",
+        "source": "RAMI 4.0 / OFFIS (Meister 2017) p.3"
       },
       "layers": [
         [
           "BUS",
           "Business",
-          "L8"
+          "L8",
+          null,
+          "RAMI 4.0"
         ],
         [
           "FUN",
           "Functional",
-          "L7"
+          "L7",
+          null,
+          "RAMI 4.0"
         ],
         [
           "INF",
           "Information",
-          "L5"
+          "L5",
+          null,
+          "RAMI 4.0"
         ],
         [
           "COM",
           "Communication",
-          "L4"
+          "L4",
+          null,
+          "RAMI 4.0"
         ],
         [
           "ITG",
           "Integration",
-          "L2"
+          "L2",
+          null,
+          "RAMI 4.0"
         ],
         [
           "AST",
           "Asset",
-          "L1"
+          "L1",
+          null,
+          "RAMI 4.0"
         ]
       ],
       "cubes": 168,
@@ -421,7 +479,8 @@
             "Industry",
             ""
           ]
-        ]
+        ],
+        "source": "unverified — read from published diagrams, pending topic 12–14 owners"
       },
       "yAxis": {
         "label": "Zones",
@@ -457,33 +516,44 @@
             "Process",
             ""
           ]
-        ]
+        ],
+        "source": "unverified — read from published diagrams, pending topic 12–14 owners"
       },
       "layers": [
         [
           "BUS",
           "Business",
-          "L8"
+          "L8",
+          null,
+          "unverified — read from published diagrams, pending topic 12–14 owners"
         ],
         [
           "FUN",
           "Function",
-          "L7"
+          "L7",
+          null,
+          "unverified — read from published diagrams, pending topic 12–14 owners"
         ],
         [
           "INF",
           "Information",
-          "L5"
+          "L5",
+          null,
+          "unverified — read from published diagrams, pending topic 12–14 owners"
         ],
         [
           "COM",
           "Communication",
-          "L4"
+          "L4",
+          null,
+          "unverified — read from published diagrams, pending topic 12–14 owners"
         ],
         [
           "CMP",
           "Component",
-          "L1"
+          "L1",
+          null,
+          "unverified — read from published diagrams, pending topic 12–14 owners"
         ]
       ],
       "cubes": 240,
@@ -532,7 +602,8 @@
             "Distribution",
             ""
           ]
-        ]
+        ],
+        "source": "unverified — read from published diagrams, pending topic 12–14 owners"
       },
       "yAxis": {
         "label": "Zones",
@@ -568,38 +639,51 @@
             "Physical objects",
             ""
           ]
-        ]
+        ],
+        "source": "unverified — read from published diagrams, pending topic 12–14 owners"
       },
       "layers": [
         [
           "BUS",
           "Business",
-          "L8"
+          "L8",
+          null,
+          "unverified — read from published diagrams, pending topic 12–14 owners"
         ],
         [
           "FUN",
           "Function",
-          "L7"
+          "L7",
+          null,
+          "unverified — read from published diagrams, pending topic 12–14 owners"
         ],
         [
           "INF",
           "Information",
-          "L5"
+          "L5",
+          null,
+          "unverified — read from published diagrams, pending topic 12–14 owners"
         ],
         [
           "COM",
           "Communication",
-          "L4"
+          "L4",
+          null,
+          "unverified — read from published diagrams, pending topic 12–14 owners"
         ],
         [
           "ITG",
           "Integration",
-          "L2"
+          "L2",
+          null,
+          "unverified — read from published diagrams, pending topic 12–14 owners"
         ],
         [
           "AST",
           "Asset",
-          "L1"
+          "L1",
+          null,
+          "unverified — read from published diagrams, pending topic 12–14 owners"
         ]
       ],
       "cubes": 180,
@@ -1033,7 +1117,7 @@
     }
   ],
   "openQuestions": [
-    "ตัวเลข layer/domain/zone ของ SCIAM, SFAM, RAMI อ่านจากไดอะแกรมที่ผู้ใช้ส่งมา ต้องให้เจ้าภาพหัวข้อ 12–14 ยืนยัน",
+    "ตัวเลข layer/domain/zone ของ SCIAM และ SFAM อ่านจากไดอะแกรมที่ผู้ใช้ส่งมา ต้องให้เจ้าภาพหัวข้อ 12–14 ยืนยัน — ส่วน RAMI ยืนยันแล้วจาก R2: แกน Hierarchy Levels ตาม IEC 62264 และแกน Life Cycle & Value Stream ตาม IEC 62890",
     "coupling ทั้ง 30 เส้นเป็นข้อเสนอจากบริบทธุรกิจ PCC ไม่ใช่มาตรฐาน — กลุ่ม A มั่นใจสุด กลุ่ม D ต้องตรวจสอบมากสุด",
     "อีกสามตึกยังไม่มี population map ทุก cube ถูกวาดเท่ากันหมด ต้องมี Model Owner ของแต่ละตึกก่อน",
     "blast radius ยังเป็นค่าประมาณเชิงโครงสร้าง ควรแทนที่ด้วยค่าที่วัดจาก dependency จริง",
@@ -1059,6 +1143,85 @@
       "role": "Agent Registrar",
       "who": "ส่วนกลาง",
       "authority": "อนุมัติ agent ที่ข้ามตึกตามกฎ D6 — บทบาทใหม่ที่ไม่มีในกรอบ EA ดั้งเดิม"
+    }
+  ],
+  "scopeLimits": {
+    "_source": "SG-CG/M490/K §383–391 — ข้อจำกัดที่ SGAM ประกาศไว้เอง",
+    "items": [
+      {
+        "id": "SL-1",
+        "limit": "SGAM ไม่จำเป็นต้องทำให้สถาปัตยกรรมของ domain เดียวหรือ zone เดียวดีขึ้น แต่แสดงพลังเต็มที่ ตอนโมเดล interaction ระหว่าง domain และ zone",
+        "note": "ข้อนี้คือเหตุผลของ Architecture City ทั้งแอป — มาตรฐานพูดเองว่าคุณค่าอยู่ที่รอยต่อ"
+      },
+      {
+        "id": "SL-2",
+        "limit": "SGAM ช่วย derive system requirement แต่ไม่แทน requirements specification ที่ละเอียด"
+      },
+      {
+        "id": "SL-3",
+        "limit": "SGAM ไม่แทน development specification ที่ละเอียด"
+      },
+      {
+        "id": "SL-4",
+        "limit": "SGAM เน้นสถาปัตยกรรม ไม่ได้โมเดลระบบไฟฟ้าใน process zone อย่างละเอียด เช่น harmonics หรือ voltage sag"
+      },
+      {
+        "id": "SL-5",
+        "limit": "SGAM ไม่แทนข้อกำหนดความปลอดภัยหรือเงื่อนไขการเดินระบบ"
+      }
+    ]
+  },
+  "deviations": [
+    {
+      "id": "DEV-01",
+      "title": "PCC เพิ่มชั้น L6 Intelligence เข้าไปใน SGAM",
+      "standard": "SG-CG/M490/K Table 3 กำหนด interoperability layer ไว้ 5 ชั้น ไม่มีชั้น Intelligence",
+      "pcc": "เพิ่ม INT เป็นชั้นที่หก วางที่ระดับร่วม L6 Cognition",
+      "why": "agentic use case คร่อมโมเดลโดยธรรมชาติ ต้องมีที่ทางให้ระบุ decision rights และการกำกับ agent ถ้าไม่มีชั้นนี้ agent จะถูกซ่อนอยู่ในชั้น Function โดยไม่มีใครกำกับ",
+      "cost": "อีกสามตึกไม่มีชั้นนี้ agent จึงต้อง dock ลงชั้น L7 ของตึกปลายทางแบบไม่สมมาตร (CPL-20, CPL-21) ภาระการกำกับตกอยู่ที่ PCC ฝ่ายเดียว — ดู structuralFindings F2",
+      "status": "ยอมรับแล้ว ต้องตั้ง Agent Registrar ตามกฎ D6"
+    },
+    {
+      "id": "DEV-02",
+      "title": "PCC เพิ่มชั้น L3 Cyber — แต่ SG-CG ถือว่า security เป็น cross-cutting ไม่ใช่ชั้น",
+      "standard": "SG-CG/M490/K §6.3 (Figure 10–11) วาง security requirement พาดขวางทุกชั้น ไล่จาก risk level → security level ตามแนวคิด SGIS → functional requirement → mechanism → technical และ procedural requirement ไม่มีชั้น Cyber แยกใน SGAM มาตรฐาน",
+      "pcc": "เพิ่ม CYB เป็นชั้นหนึ่ง วางที่ระดับร่วม L3 Trust",
+      "why": "ทำให้ federated identity ข้ามตึกมีที่อยู่ที่ชี้ได้ และบังคับให้ trust anchor เป็นของที่ต้องออกแบบ ไม่ใช่ของที่แถมมากับ protocol",
+      "cost": "เบี่ยงจาก SG-CG อย่างมีนัยสำคัญ คนที่อ่านมาตรฐานมาจะหาชั้นนี้ไม่เจอ และ security requirement ที่ควรพาดทุกชั้นอาจถูกเข้าใจผิดว่าอยู่แค่ชั้น L3 — ต้องอธิบายทุกครั้งที่นำเสนอ",
+      "status": "ยอมรับแล้ว แต่ยังไม่มี security overlay ที่แสดง requirement รายชั้นตาม §6.3"
+    },
+    {
+      "id": "DEV-03",
+      "title": "population map ของ SGAM เป็นสเกลความครบของเอกสาร ไม่ใช่ระดับ abstraction ของมาตรฐาน",
+      "standard": "SG-CG/M490/K §5.5 นิยาม SGAM analysis pattern — แต่ละชั้นมีระดับ abstraction ของตัวเอง ไล่จาก concept ไปจนถึงระดับ product บนชั้น component และ business case บนชั้น business",
+      "pcc": "ใช้สเกล 0–3 (out of scope / reference / supporting / core) ซึ่งวัดว่าเอกสารครบแค่ไหน",
+      "why": "ตอบคำถามที่ PCC ต้องการจริงคือ cube ไหนมีเอกสารพร้อมทำงาน",
+      "cost": "สองแกนนี้คนละความหมายแต่ถูกยุบเป็นตัวเลขเดียว cube หนึ่งอาจมีเอกสารครบแต่ยังอยู่ระดับ concept ก็ได้",
+      "status": "ยังไม่แก้ — เสนอให้แยกเป็น completeness กับ abstractionLevel"
+    }
+  ],
+  "references": [
+    {
+      "id": "R1",
+      "title": "SG-CG/M490/K_ SGAM User Manual — Applying, testing & refining the Smart Grid Architecture Model, Version 3.0",
+      "publisher": "CEN-CENELEC-ETSI Smart Grid Coordination Group",
+      "date": "2014-11",
+      "role": "มาตรฐาน — แหล่งอ้างอิงหลักของตึก SGAM"
+    },
+    {
+      "id": "R2",
+      "title": "RAMI 4.0 and OFFIS Tools for Editing and Visualization of RAMI 4.0 Models",
+      "publisher": "OFFIS (Dr.-Ing. Jürgen Meister)",
+      "date": "2017-04-29",
+      "role": "สไลด์นำเสนอ — ยืนยันที่มาของแกน RAMI (IEC 62264, IEC 62890)"
+    },
+    {
+      "id": "R3",
+      "title": "How to Build a Digital Business Technology Platform (G00743206)",
+      "publisher": "Gartner",
+      "date": "2021-03-23",
+      "role": "บทวิเคราะห์เชิงบริหาร ไม่ใช่มาตรฐานสถาปัตยกรรม",
+      "restriction": "เอกสารมีลิขสิทธิ์จำกัด ระบุ 'restricted to the personal use of' และห้ามทำซ้ำหรือเผยแพร่ โดยไม่ได้รับอนุญาต — ห้ามฝังรูป ตาราง หรือข้อความลงในแอปที่ deploy สาธารณะ"
     }
   ]
 }
