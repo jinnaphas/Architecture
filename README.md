@@ -48,6 +48,7 @@ aws s3 sync . s3://YOUR-BUCKET/ --delete --exclude '.git/*' --exclude '.github/*
 | | |
 |---|---|
 | Mode | **3D** isometric, or **2D ผังตึก** — four towers as columns, the eight levels as rows |
+| Layout (3D) | **ตาราง 2×2**, or **เรียงแถว + hub** — the towers on one line with the shared level scale standing between them, each level's guide becoming a spoke out to every tower |
 | Drag | rotate azimuth (3D only) |
 | Wheel | zoom |
 | Click a node | cube detail — what it is, its cross-tower couplings, and why each of its six in-tower neighbours connects |
@@ -57,6 +58,12 @@ aws s3 sync . s3://YOUR-BUCKET/ --delete --exclude '.git/*' --exclude '.github/*
 | Level rows | isolate one of L1–L8 across all towers — this is how the missing floors become obvious |
 | Coupling type rows | filter A–E |
 | Theme | light (default) / dark |
+
+Both modes carry the **Z backbone**: the shared level scale as a thing you can see rather
+than a set of faint guide lines. In 2D it is a column on the left whose chip is solid when
+all four towers carry that level and dashed when they do not; in the row layout it stands
+in the middle of the towers with spokes running out to each. Shape carries that
+distinction because colour is already spoken for by the level itself.
 
 In 2D a level a tower does not have is drawn as a dashed ghost rather than left absent,
 and couplings between matching levels are horizontal — so the only sloped lines on
