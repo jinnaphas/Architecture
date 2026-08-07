@@ -88,8 +88,10 @@
       ],
       "risk": "low",
       "direction": "bidirectional",
-      "requires": "รหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
-      "desc": "ทั้งสองตึกอ้างถึงสิ่งเดียวกัน คู่กันได้โดยไม่ต้องเปิดโครงสร้างภายในให้กัน"
+      "requires": "ต้องมีรหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ",
+      "desc": "ทั้งสองตึกอ้างถึงสิ่งเดียวกัน — ของกายภาพชิ้นเดียวกัน หรือเจตนาธุรกิจเดียวกัน คู่กันได้โดยไม่ต้องเปิดโครงสร้างภายในให้กัน จึงเสี่ยงต่ำที่สุด",
+      "riskTh": "ต่ำ",
+      "directionTh": "สองทาง"
     },
     "B": {
       "name": "Contract",
@@ -100,8 +102,10 @@
       ],
       "risk": "medium",
       "direction": "bidirectional via gateway",
-      "requires": "interface control document และ conformance test",
-      "desc": "คุยผ่าน protocol หรือ gateway ที่มีสัญญาและเวอร์ชันชัดเจน ถอดเปลี่ยนได้"
+      "requires": "ต้องมี interface control document และ conformance test",
+      "desc": "คุยกันผ่าน protocol หรือ gateway ที่มีสัญญาชัดเจนและมีเวอร์ชัน ถอดเปลี่ยนได้ถ้าคุมเวอร์ชันดี",
+      "riskTh": "ปานกลาง",
+      "directionTh": "สองทางผ่าน gateway"
     },
     "C": {
       "name": "Translation",
@@ -111,8 +115,10 @@
       ],
       "risk": "medium-high",
       "direction": "directional, single source of truth",
-      "requires": "ระบุ source of truth ฝั่งเดียว และทดสอบ mapping เป็นรอบ",
-      "desc": "แปล semantic ข้ามโมเดล มีการสูญเสียความหมายเสมอ เสี่ยง semantic drift"
+      "requires": "ต้องระบุ source of truth ฝั่งเดียว และทดสอบ mapping เป็นรอบ",
+      "desc": "ข้อมูลข้ามตึกโดยผ่านการแปล semantic ซึ่งมีการสูญเสียความหมายเสมอ ความเสี่ยงคือ semantic drift ที่ค่อย ๆ เพี้ยนโดยไม่มีใครรู้",
+      "riskTh": "ปานกลาง–สูง",
+      "directionTh": "มีทิศทาง ต้นทางเดียว"
     },
     "D": {
       "name": "Orchestration",
@@ -123,8 +129,10 @@
       ],
       "risk": "high",
       "direction": "bidirectional, must be registered",
-      "requires": "ลงทะเบียนส่วนกลาง ระบุ decision rights และมีปุ่มหยุด",
-      "desc": "use case หรือ AI agent ตัวเดียวทำงานคร่อมสองสถาปัตยกรรม มูลค่าสูงสุดและเสี่ยงสูงสุดพร้อมกัน"
+      "requires": "ต้องลงทะเบียนที่ส่วนกลาง ระบุ decision rights และมีปุ่มหยุด",
+      "desc": "มี use case หรือ AI agent ตัวเดียวที่ทำงานคร่อมสองสถาปัตยกรรม เป็นการเชื่อมที่ให้มูลค่าสูงสุดและเสี่ยงสูงสุดพร้อมกัน",
+      "riskTh": "สูง",
+      "directionTh": "สองทาง ต้องลงทะเบียน"
     },
     "E": {
       "name": "Federated trust",
@@ -134,8 +142,10 @@
       ],
       "risk": "high",
       "direction": "one-way with trust anchor",
-      "requires": "ทางเดียวเท่านั้น มี trust anchor ชัดเจน ห้ามยอมรับกันไปกลับ",
-      "desc": "ตัวตนที่ออกในตึกหนึ่งถูกยอมรับในอีกตึกหนึ่ง ถ้าผิด ช่องโหว่จะลามทุกตึก"
+      "requires": "ต้องเป็นทางเดียว มี trust anchor ชัดเจน ห้ามยอมรับกันไปกลับ",
+      "desc": "ตัวตนและสิทธิ์ที่ออกในตึกหนึ่งถูกยอมรับในอีกตึกหนึ่ง ถ้าออกแบบผิด ช่องโหว่ของตึกหนึ่งจะกลายเป็นช่องโหว่ของทุกตึก",
+      "riskTh": "สูง",
+      "directionTh": "ทางเดียว มี trust anchor"
     }
   },
   "towers": [
@@ -239,49 +249,56 @@
           "Business",
           "L8",
           "The business layer represents the business view on the information exchange related to smart grids. SGAM can be used to map regulatory and economic (market) structures (using harmonized roles and responsibilities) and policies, business models and use cases, business portfolios (products & services) of market parties involved. Also business capabilities, use cases and business processes can be represented in this layer.",
-          "SG-CG/M490/K Table 3"
+          "SG-CG/M490/K Table 3",
+          "เหตุผลทางธุรกิจ กฎเกณฑ์ และผู้จ่ายเงิน"
         ],
         [
           "FUN",
           "Function",
           "L7",
           "The function layer describes system use cases, functions and services including their relationships from an architectural viewpoint. The functions are represented independent from actors and physical implementations in applications, systems and components. The functions are derived by extracting the use case functionality that is independent from actors.",
-          "SG-CG/M490/K Table 3"
+          "SG-CG/M490/K Table 3",
+          "use case และ test case ที่ทดสอบได้จริง"
         ],
         [
           "INT",
           "Intelligence",
           "L6",
           "ชั้นที่ PCC เพิ่มเอง — agent ตัดสินใจอะไรได้ ระดับไหน ใครกำกับ ไม่มีใน SGAM มาตรฐาน",
-          "PCC extension — not in SGAM standard"
+          "PCC extension — not in SGAM standard",
+          "agent ตัดสินใจอะไรได้ ระดับไหน ใครกำกับ"
         ],
         [
           "INF",
           "Information",
           "L5",
           "The information layer describes the information that is being used and exchanged between functions, services and components. It contains information objects and the underlying canonical data models. These information objects and canonical data models represent the common semantics for functions and services in order to allow an interoperable information exchange via communication means.",
-          "SG-CG/M490/K Table 3"
+          "SG-CG/M490/K Table 3",
+          "ความหมายข้อมูลที่ตรงกันทุกระบบ"
         ],
         [
           "COM",
           "Communication",
           "L4",
           "The emphasis of the communication layer is to describe protocols and mechanisms for the interoperable exchange of information between components in the context of the underlying use case, function or service and related information objects or data models.",
-          "SG-CG/M490/K Table 3"
+          "SG-CG/M490/K Table 3",
+          "protocol และเวลาที่ข้อมูลต้องถึง"
         ],
         [
           "CYB",
           "Cyber",
           "L3",
           "ชั้นที่ PCC เพิ่มเอง — ตัวตน สิทธิ์ และร่องรอยตรวจสอบ ดู deviations DEV-02: SG-CG ถือว่า security เป็นข้อกำหนดที่พาดขวางทุกชั้น ไม่ใช่ชั้นแยก",
-          "PCC extension — not in SGAM standard"
+          "PCC extension — not in SGAM standard",
+          "ตัวตน สิทธิ์ และร่องรอยตรวจสอบ"
         ],
         [
           "CMP",
           "Component",
           "L1",
           "The emphasis of the component layer is the physical distribution of all participating components in the smart grid context. This includes system & device actors, power system equipment (typically located at process and field level), protection and tele-control devices, network infrastructure (wired / wireless communication connections, routers, switches, servers) and any kind of computers.",
-          "SG-CG/M490/K Table 3"
+          "SG-CG/M490/K Table 3",
+          "อุปกรณ์จริงและสถานะสอบเทียบ"
         ]
       ],
       "cubes": 210,
@@ -293,7 +310,8 @@
         "L3"
       ],
       "layerNote": "SGAM มาตรฐานมี 5 ชั้น (BUS, FUN, INF, COM, CMP) ตาม SG-CG/M490/K Table 3 ชั้น INT และ CYB เป็นส่วนที่ PCC เพิ่มเอง ดู deviations",
-      "domainBoundaryRule": "DER กับ Customer Premises แยกกันที่ **เจตนาทางธุรกิจ ไม่ใช่เทคโนโลยี** — ทั้งสอง domain ผลิตไฟได้เหมือนกัน DER คือของที่มีเป้าหมายธุรกิจหลักคือป้อนเข้ากริด (production / storage / ancillary services) ส่วน Customer Premises คือกระบวนการที่ ไม่ได้มีเป้าหมายนั้น แต่ใช้กริดเป็นแหล่งพลังงาน เช่น home / building / industry management หรือ e-mobility (SG-CG/M490/K §412–418)"
+      "domainBoundaryRule": "DER กับ Customer Premises แยกกันที่ **เจตนาทางธุรกิจ ไม่ใช่เทคโนโลยี** — ทั้งสอง domain ผลิตไฟได้เหมือนกัน DER คือของที่มีเป้าหมายธุรกิจหลักคือป้อนเข้ากริด (production / storage / ancillary services) ส่วน Customer Premises คือกระบวนการที่ ไม่ได้มีเป้าหมายนั้น แต่ใช้กริดเป็นแหล่งพลังงาน เช่น home / building / industry management หรือ e-mobility (SG-CG/M490/K §412–418)",
+      "note": "7 ชั้น × 5 domain × 6 zone = 210 cubes · เพิ่ม Intelligence และ Cyber จาก SGAM มาตรฐาน แต่ขาดชั้น L2 Digitization ทั้งที่ PCC ผลิตอุปกรณ์เอง"
     },
     {
       "id": "RAMI",
@@ -381,42 +399,48 @@
           "Business",
           "L8",
           null,
-          "RAMI 4.0"
+          "RAMI 4.0",
+          "เป้าหมายธุรกิจและกฎเกณฑ์ของการผลิต"
         ],
         [
           "FUN",
           "Functional",
           "L7",
           null,
-          "RAMI 4.0"
+          "RAMI 4.0",
+          "หน้าที่และ workflow ของสายการผลิต"
         ],
         [
           "INF",
           "Information",
           "L5",
           null,
-          "RAMI 4.0"
+          "RAMI 4.0",
+          "ข้อมูลของ asset ตลอดวงจรชีวิต"
         ],
         [
           "COM",
           "Communication",
           "L4",
           null,
-          "RAMI 4.0"
+          "RAMI 4.0",
+          "การรับส่งข้อมูลระหว่างเครื่องจักร"
         ],
         [
           "ITG",
           "Integration",
           "L2",
           null,
-          "RAMI 4.0"
+          "RAMI 4.0",
+          "แปลงเครื่องจักรกายภาพให้มีตัวตนดิจิทัล"
         ],
         [
           "AST",
           "Asset",
           "L1",
           null,
-          "RAMI 4.0"
+          "RAMI 4.0",
+          "เครื่องจักรและชิ้นงานจริง"
         ]
       ],
       "cubes": 168,
@@ -424,7 +448,8 @@
         "L6",
         "L3"
       ],
-      "uniqueLevels": []
+      "uniqueLevels": [],
+      "note": "6 ชั้น × 7 hierarchy × 4 life cycle = 168 cubes · ตึกเดียวที่แกนที่สามเป็น Life Cycle ไม่ใช่ Zone อย่าเอาไปเทียบกับ Zone ของตึกอื่นตรง ๆ"
     },
     {
       "id": "SCIAM",
@@ -525,35 +550,40 @@
           "Business",
           "L8",
           null,
-          "unverified — read from published diagrams, pending topic 12–14 owners"
+          "unverified — read from published diagrams, pending topic 12–14 owners",
+          "นโยบายเมืองและโมเดลบริการสาธารณะ"
         ],
         [
           "FUN",
           "Function",
           "L7",
           null,
-          "unverified — read from published diagrams, pending topic 12–14 owners"
+          "unverified — read from published diagrams, pending topic 12–14 owners",
+          "บริการเมืองและ use case ข้ามหน่วยงาน"
         ],
         [
           "INF",
           "Information",
           "L5",
           null,
-          "unverified — read from published diagrams, pending topic 12–14 owners"
+          "unverified — read from published diagrams, pending topic 12–14 owners",
+          "ข้อมูลเมืองและ open data"
         ],
         [
           "COM",
           "Communication",
           "L4",
           null,
-          "unverified — read from published diagrams, pending topic 12–14 owners"
+          "unverified — read from published diagrams, pending topic 12–14 owners",
+          "เครือข่ายและ IoT ของเมือง"
         ],
         [
           "CMP",
           "Component",
           "L1",
           null,
-          "unverified — read from published diagrams, pending topic 12–14 owners"
+          "unverified — read from published diagrams, pending topic 12–14 owners",
+          "โครงสร้างพื้นฐานกายภาพของเมือง"
         ]
       ],
       "cubes": 240,
@@ -562,7 +592,8 @@
         "L3",
         "L2"
       ],
-      "uniqueLevels": []
+      "uniqueLevels": [],
+      "note": "5 ชั้น × 8 domain × 6 zone = 240 cubes · ตึกที่กว้างที่สุดแต่เตี้ยที่สุด เน้นความกว้างของบริการมากกว่าความลึกทางเทคนิค"
     },
     {
       "id": "SFAM",
@@ -648,42 +679,48 @@
           "Business",
           "L8",
           null,
-          "unverified — read from published diagrams, pending topic 12–14 owners"
+          "unverified — read from published diagrams, pending topic 12–14 owners",
+          "โมเดลธุรกิจเกษตรและห่วงโซ่อาหาร"
         ],
         [
           "FUN",
           "Function",
           "L7",
           null,
-          "unverified — read from published diagrams, pending topic 12–14 owners"
+          "unverified — read from published diagrams, pending topic 12–14 owners",
+          "กระบวนการเพาะปลูกและแปรรูป"
         ],
         [
           "INF",
           "Information",
           "L5",
           null,
-          "unverified — read from published diagrams, pending topic 12–14 owners"
+          "unverified — read from published diagrams, pending topic 12–14 owners",
+          "ข้อมูลเกษตรและการสอบกลับผลผลิต"
         ],
         [
           "COM",
           "Communication",
           "L4",
           null,
-          "unverified — read from published diagrams, pending topic 12–14 owners"
+          "unverified — read from published diagrams, pending topic 12–14 owners",
+          "การสื่อสารในแปลงและโรงงานแปรรูป"
         ],
         [
           "ITG",
           "Integration",
           "L2",
           null,
-          "unverified — read from published diagrams, pending topic 12–14 owners"
+          "unverified — read from published diagrams, pending topic 12–14 owners",
+          "แปลงเครื่องจักรเกษตรและเซ็นเซอร์ให้เป็นดิจิทัล"
         ],
         [
           "AST",
           "Asset",
           "L1",
           null,
-          "unverified — read from published diagrams, pending topic 12–14 owners"
+          "unverified — read from published diagrams, pending topic 12–14 owners",
+          "แปลงปลูก เครื่องจักร และผลผลิตจริง"
         ]
       ],
       "cubes": 180,
@@ -691,7 +728,8 @@
         "L6",
         "L3"
       ],
-      "uniqueLevels": []
+      "uniqueLevels": [],
+      "note": "6 ชั้น × 5 domain × 6 zone = 180 cubes · รอยต่อผ่านธุรกิจไผ่ของ PCC — เพาะเลี้ยงเนื้อเยื่อ แปลงปลูก biochar และ biomass power"
     }
   ],
   "sgamPopulation": {
@@ -1150,7 +1188,7 @@
     "items": [
       {
         "id": "SL-1",
-        "limit": "SGAM ไม่จำเป็นต้องทำให้สถาปัตยกรรมของ domain เดียวหรือ zone เดียวดีขึ้น แต่แสดงพลังเต็มที่ ตอนโมเดล interaction ระหว่าง domain และ zone",
+        "limit": "SGAM ไม่จำเป็นต้องทำให้สถาปัตยกรรมของ domain เดียวหรือ zone เดียวดีขึ้น แต่แสดงพลังเต็มที่ตอนโมเดล interaction ระหว่าง domain และ zone",
         "note": "ข้อนี้คือเหตุผลของ Architecture City ทั้งแอป — มาตรฐานพูดเองว่าคุณค่าอยู่ที่รอยต่อ"
       },
       {
@@ -1223,5 +1261,9 @@
       "role": "บทวิเคราะห์เชิงบริหาร ไม่ใช่มาตรฐานสถาปัตยกรรม",
       "restriction": "เอกสารมีลิขสิทธิ์จำกัด ระบุ 'restricted to the personal use of' และห้ามทำซ้ำหรือเผยแพร่ โดยไม่ได้รับอนุญาต — ห้ามฝังรูป ตาราง หรือข้อความลงในแอปที่ deploy สาธารณะ"
     }
-  ]
+  ],
+  "_tupleSchema": {
+    "layers": "[code, name, commonLevel, standardDefinition|null, source, shortDesc]",
+    "axisItems": "[code, en, th, standardDefinition?]  — positions 0..2 are stable; the README verification reads index 0"
+  }
 }

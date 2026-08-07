@@ -29,6 +29,14 @@ body.dark{
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow:hidden;transition:background .2s,color .2s}
 button{font-family:inherit;color:inherit;cursor:pointer}
 .app{display:grid;grid-template-rows:auto 1fr;height:100vh}
+.boot{position:fixed;inset:0;z-index:99;display:grid;place-items:center;padding:24px;background:var(--bg)}
+.boot[hidden]{display:none}
+.boot>div{max-width:560px;border:1px solid var(--line);border-radius:6px;background:var(--panel);padding:20px 22px}
+.boot h2{font-size:15px;font-weight:600;margin-bottom:8px}
+.boot p{font-size:12.5px;color:var(--ink2);margin:9px 0}
+.boot code{font-family:var(--mono);font-size:11px;color:var(--ink)}
+.boot pre{font-family:var(--mono);font-size:11px;background:var(--panel2);border:1px solid var(--line);
+  border-radius:3px;padding:8px 10px;overflow-x:auto;color:var(--ink2);white-space:pre-wrap;word-break:break-all}
 .bar{display:flex;align-items:center;gap:11px;padding:8px 15px;border-bottom:1px solid var(--line);background:var(--panel);flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:8px}
 .brand i{width:5px;height:19px;background:var(--hero);border-radius:1px}
@@ -114,6 +122,19 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
 .kv b{font-family:var(--mono);font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);font-weight:500;padding-top:2px;white-space:nowrap}
 .kv span{color:var(--ink2);line-height:1.5}
 .sub{font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin:14px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--line)}
+/* text quoted from a standard, kept visually distinct from PCC's own copy */
+.std{margin-top:9px;padding:8px 10px;border-left:2px solid var(--line);background:var(--panel2);
+  border-radius:0 3px 3px 0;font-size:11px;line-height:1.6;color:var(--ink2)}
+.std i{display:block;font-style:normal;font-family:var(--mono);font-size:8.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:3px}
+.dev{border:1px solid var(--line);border-radius:4px;padding:9px 11px;margin-bottom:6px;background:var(--panel2)}
+.dev b{display:block;font-size:11.5px;font-weight:600;line-height:1.4;margin-bottom:5px}
+.dev .who{display:grid;grid-template-columns:auto 1fr;gap:3px 9px;font-size:10.5px;color:var(--ink2);line-height:1.5}
+.dev .who i{font-style:normal;font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+.lim{font-size:11px;color:var(--ink2);line-height:1.6;padding:5px 0 5px 13px;position:relative}
+.lim::before{content:"—";position:absolute;left:0;color:var(--ink3)}
+.lim.key{color:var(--ink);border-left:2px solid var(--hero);padding-left:11px;margin-left:-2px}
+.lim.key::before{content:""}
 .seambox{margin-top:9px;border-radius:4px;padding:9px 11px;border:1px solid;background:var(--panel2)}
 .seambox b{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
 .seambox p{font-size:11.5px;line-height:1.6}
@@ -140,6 +161,16 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
 </style>
 </head>
 <body class="light">
+<div class="boot" id="boot" hidden>
+  <div>
+    <h2>โหลดโมเดลไม่สำเร็จ</h2>
+    <p>แอปอ่านข้อมูลจาก <code id="bootUrl"></code> ซึ่งต้องเปิดผ่าน http — เปิดไฟล์ตรง ๆ
+       (<code>file://</code>) เบราว์เซอร์จะบล็อก fetch</p>
+    <pre id="bootWhy"></pre>
+    <p>รันคำสั่งนี้ที่รากของโปรเจกต์ แล้วเปิด <code>http://localhost:8080/app/</code></p>
+    <pre>python3 -m http.server 8080</pre>
+  </div>
+</div>
 <div class="app">
   <div class="bar">
     <div class="brand"><i></i><h1>Architecture City</h1><span>v3 · 4 towers · 798 cubes · 30 couplings</span></div>
@@ -177,112 +208,74 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
       <div class="sec"><h2>ตึก · เลือกได้หลายตึก</h2><div id="twList"></div><div class="pair" id="pairs"></div><div class="stat" id="stat"></div></div>
       <div class="sec"><h2>ชั้นร่วม <em>คลิกเพื่อแยกดู</em></h2><div id="lvList"></div></div>
       <div class="sec"><h2>ประเภทการเชื่อม <em>coupling type</em></h2><div id="ctList"></div></div>
+      <div class="sec"><h2>เบี่ยงจากมาตรฐาน <em>ประกาศไว้ ไม่ได้ซ่อน</em></h2><div id="devList"></div></div>
+      <div class="sec"><h2>ขอบเขตที่ SGAM ไม่ทำ <em id="limSrc"></em></h2><div id="limList"></div>
+        <div id="refList" class="stat"></div></div>
       <div class="det" id="det"></div>
     </aside>
   </div>
 </div>
 
-<script>
-/* ============ coupling types ============ */
-const CT={
- A:{k:"A",n:"Identity",th:"ผูกที่ตัวตนเดียวกัน",lv:"L1, L8",risk:"ต่ำ",dir:"สองทาง",
-    d:"ทั้งสองตึกอ้างถึงสิ่งเดียวกัน — ของกายภาพชิ้นเดียวกัน หรือเจตนาธุรกิจเดียวกัน คู่กันได้โดยไม่ต้องเปิดโครงสร้างภายในให้กัน จึงเสี่ยงต่ำที่สุด",
-    g:"ต้องมีรหัสประจำตัวเดียวที่ทั้งสองฝ่ายยอมรับ"},
- B:{k:"B",n:"Contract",th:"ผูกผ่านสัญญาอินเทอร์เฟซ",lv:"L2, L4",risk:"ปานกลาง",dir:"สองทางผ่าน gateway",
-    d:"คุยกันผ่าน protocol หรือ gateway ที่มีสัญญาชัดเจนและมีเวอร์ชัน ถอดเปลี่ยนได้ถ้าคุมเวอร์ชันดี",
-    g:"ต้องมี interface control document และ conformance test"},
- C:{k:"C",n:"Translation",th:"ผูกผ่านตารางแปลความหมาย",lv:"L5",risk:"ปานกลาง–สูง",dir:"มีทิศทาง ต้นทางเดียว",
-    d:"ข้อมูลข้ามตึกโดยผ่านการแปล semantic ซึ่งมีการสูญเสียความหมายเสมอ ความเสี่ยงคือ semantic drift ที่ค่อย ๆ เพี้ยนโดยไม่มีใครรู้",
-    g:"ต้องระบุ source of truth ฝั่งเดียว และทดสอบ mapping เป็นรอบ"},
- D:{k:"D",n:"Orchestration",th:"ผูกผ่าน use case หรือ agent ที่คร่อมสองตึก",lv:"L6, L7",risk:"สูง",dir:"สองทาง ต้องลงทะเบียน",
-    d:"มี use case หรือ AI agent ตัวเดียวที่ทำงานคร่อมสองสถาปัตยกรรม เป็นการเชื่อมที่ให้มูลค่าสูงสุดและเสี่ยงสูงสุดพร้อมกัน",
-    g:"ต้องลงทะเบียนที่ส่วนกลาง ระบุ decision rights และมีปุ่มหยุด"},
- E:{k:"E",n:"Federated trust",th:"ผูกผ่านการยอมรับตัวตนข้ามตึก",lv:"L3",risk:"สูง",dir:"ทางเดียว มี trust anchor",
-    d:"ตัวตนและสิทธิ์ที่ออกในตึกหนึ่งถูกยอมรับในอีกตึกหนึ่ง ถ้าออกแบบผิด ช่องโหว่ของตึกหนึ่งจะกลายเป็นช่องโหว่ของทุกตึก",
-    g:"ต้องเป็นทางเดียว มี trust anchor ชัดเจน ห้ามยอมรับกันไปกลับ"}
-};
-const LV=[
- {p:8,c:"L8",n:"Purpose",th:"เจตนาธุรกิจ",ct:"A"},{p:7,c:"L7",n:"Capability",th:"ความสามารถ",ct:"D"},
- {p:6,c:"L6",n:"Cognition",th:"ปัญญาประดิษฐ์",ct:"D"},{p:5,c:"L5",n:"Semantics",th:"ความหมายข้อมูล",ct:"C"},
- {p:4,c:"L4",n:"Exchange",th:"การรับส่ง",ct:"B"},{p:3,c:"L3",n:"Trust",th:"ความปลอดภัย",ct:"E"},
- {p:2,c:"L2",n:"Digitization",th:"แปลงเป็นดิจิทัล",ct:"B"},{p:1,c:"L1",n:"Physical",th:"สินทรัพย์กายภาพ",ct:"A"}
-];
-/* ============ towers ============ */
-const TOWERS=[
-{k:"SGAM",name:"SGAM · PCC",th:"สมาร์ทกริด",hero:true,u0:0,v0:0,xa:"Domains",ya:"Zones",ykind:"agg",
- xs:[["GEN","ผลิตไฟฟ้า"],["TRA","ระบบส่ง"],["DIS","ระบบจำหน่าย"],["DER","พลังงานกระจาย"],["CUS","ฝั่งผู้ใช้ไฟ"]],
- ys:[["MKT","ตลาด"],["ENT","องค์กร"],["OPS","ศูนย์ควบคุม"],["STA","สถานี"],["FLD","สนาม"],["PRO","กระบวนการ"]],
- ls:[["BUS","Business",8,"เหตุผลทางธุรกิจ กฎเกณฑ์ และผู้จ่ายเงิน"],["FUN","Function",7,"use case และ test case ที่ทดสอบได้จริง"],
-     ["INT","Intelligence",6,"agent ตัดสินใจอะไรได้ ระดับไหน ใครกำกับ"],["INF","Information",5,"ความหมายข้อมูลที่ตรงกันทุกระบบ"],
-     ["COM","Communication",4,"protocol และเวลาที่ข้อมูลต้องถึง"],["CYB","Cyber",3,"ตัวตน สิทธิ์ และร่องรอยตรวจสอบ"],
-     ["CMP","Component",1,"อุปกรณ์จริงและสถานะสอบเทียบ"]],
- note:"7 ชั้น × 5 domain × 6 zone = 210 cubes · เพิ่ม Intelligence และ Cyber จาก SGAM มาตรฐาน แต่ขาดชั้น L2 Digitization ทั้งที่ PCC ผลิตอุปกรณ์เอง"},
-{k:"RAMI",name:"RAMI 4.0",th:"โรงงานอัจฉริยะ",hero:false,u0:0,v0:10,xa:"Hierarchy levels",ya:"Life cycle & value stream",ykind:"life",
- xs:[["PRD","Product"],["FLD","Field device"],["CTL","Control device"],["STA","Station"],["WC","Work centre"],["ENT","Enterprise"],["CW","Connected world"]],
- ys:[["T-DEV","Type · development"],["T-MNT","Type · maintenance"],["I-PRD","Instance · production"],["I-MNT","Instance · maintenance"]],
- ls:[["BUS","Business",8,"เป้าหมายธุรกิจและกฎเกณฑ์ของการผลิต"],["FUN","Functional",7,"หน้าที่และ workflow ของสายการผลิต"],
-     ["INF","Information",5,"ข้อมูลของ asset ตลอดวงจรชีวิต"],["COM","Communication",4,"การรับส่งข้อมูลระหว่างเครื่องจักร"],
-     ["ITG","Integration",2,"แปลงเครื่องจักรกายภาพให้มีตัวตนดิจิทัล"],["AST","Asset",1,"เครื่องจักรและชิ้นงานจริง"]],
- note:"6 ชั้น × 7 hierarchy × 4 life cycle = 168 cubes · ตึกเดียวที่แกนที่สามเป็น Life Cycle ไม่ใช่ Zone อย่าเอาไปเทียบกับ Zone ของตึกอื่นตรง ๆ"},
-{k:"SCIAM",name:"SCIAM",th:"เมืองอัจฉริยะ",hero:false,u0:10,v0:0,xa:"Domains",ya:"Zones",ykind:"agg",
- xs:[["SWM","Supply & waste"],["WAT","Water"],["MOB","Mobility"],["HLT","Healthcare AAL"],["SEC","Civil security"],["ENE","Energy"],["BLD","Buildings"],["IND","Industry"]],
- ys:[["MKT","Market"],["ENT","Enterprise"],["OPS","Operation"],["STA","Station"],["FLD","Field"],["PRO","Process"]],
- ls:[["BUS","Business",8,"นโยบายเมืองและโมเดลบริการสาธารณะ"],["FUN","Function",7,"บริการเมืองและ use case ข้ามหน่วยงาน"],
-     ["INF","Information",5,"ข้อมูลเมืองและ open data"],["COM","Communication",4,"เครือข่ายและ IoT ของเมือง"],
-     ["CMP","Component",1,"โครงสร้างพื้นฐานกายภาพของเมือง"]],
- note:"5 ชั้น × 8 domain × 6 zone = 240 cubes · ตึกที่กว้างที่สุดแต่เตี้ยที่สุด เน้นความกว้างของบริการมากกว่าความลึกทางเทคนิค"},
-{k:"SFAM",name:"SFAM",th:"เกษตรอัจฉริยะ",hero:false,u0:10,v0:10,xa:"Domains",ya:"Zones",ykind:"agg",
- xs:[["CUL","Cultivation area"],["LIV","Livestock"],["STO","Storage"],["PRC","Processing"],["DIS","Distribution"]],
- ys:[["CW","Connected world"],["MI","Management information"],["OE","Operation execution"],["PC","Production control"],["SA","Sensing & actuation"],["PO","Physical objects"]],
- ls:[["BUS","Business",8,"โมเดลธุรกิจเกษตรและห่วงโซ่อาหาร"],["FUN","Function",7,"กระบวนการเพาะปลูกและแปรรูป"],
-     ["INF","Information",5,"ข้อมูลเกษตรและการสอบกลับผลผลิต"],["COM","Communication",4,"การสื่อสารในแปลงและโรงงานแปรรูป"],
-     ["ITG","Integration",2,"แปลงเครื่องจักรเกษตรและเซ็นเซอร์ให้เป็นดิจิทัล"],["AST","Asset",1,"แปลงปลูก เครื่องจักร และผลผลิตจริง"]],
- note:"6 ชั้น × 5 domain × 6 zone = 180 cubes · รอยต่อผ่านธุรกิจไผ่ของ PCC — เพาะเลี้ยงเนื้อเยื่อ แปลงปลูก biochar และ biomass power"}
-];
+<script type="module">
+/* ============ model ============ */
+/* data/architecture-model.json is the single source of truth. The app used to embed
+   its own copy of all of this as JS literals, so every edit had to be made twice and
+   the standards provenance added to the JSON could not reach the screen at all.
+   Needs to be served over http — see README. Opening the file directly gives a
+   file:// origin, where fetch is blocked, and the boot panel says so. */
+const MODEL_URL = new URL("../data/architecture-model.json", import.meta.url);
+let M;
+try{
+  const res = await fetch(MODEL_URL);
+  if(!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
+  M = await res.json();
+}catch(err){
+  const b=document.getElementById("boot");
+  b.hidden=false;
+  document.getElementById("bootWhy").textContent=String(err&&err.message||err);
+  document.getElementById("bootUrl").textContent=MODEL_URL.href;
+  throw err;
+}
+
+const CT={};
+for(const [k,v] of Object.entries(M.couplingTypes))
+  CT[k]={k,n:v.name,th:v.th,lv:v.levels.join(", "),risk:v.riskTh,dir:v.directionTh,d:v.desc,g:v.requires};
+
+const LV=M.commonLevels.map(l=>({p:l.order,c:l.id,n:l.name,th:l.th,ct:l.coupling,src:l.source}));
+
+/* axis items are [code, en, th, standardDefinition]; layers are
+   [code, name, "L#", standardDefinition, source, shortDesc] */
+const ax=i=>[i[0], i[1]||i[0], i[2]||"", i[3]||""];
+const TOWERS=M.towers.map(t=>({
+  k:t.id, name:t.name, th:t.th, hero:!!t.hero, u0:t.plot[0], v0:t.plot[1],
+  xa:t.xAxis.label, ya:t.yAxis.label,
+  ykind:t.yAxis.kind==="lifecycle"?"life":"agg",
+  xs:t.xAxis.items.map(ax),
+  ys:t.yAxis.items.map(ax),
+  ls:t.layers.map(l=>[l[0], l[1], +String(l[2]).slice(1), l[5]||"", l[3]||"", l[4]||""]),
+  note:t.note||"",
+  layerNote:t.layerNote||"",
+  domainRule:t.domainBoundaryRule||"",
+  zoneConcepts:t.yAxis.concepts||null,
+  axSrc:{x:t.xAxis.source||"", y:t.yAxis.source||"", xStd:t.xAxis.standard||"", yStd:t.yAxis.standard||""},
+}));
+
 const TW={};TOWERS.forEach(t=>TW[t.k]=t);
-const POP={BUS:["221000","232000","332000","333000","333000"],FUN:["122110","233211","233321","333321","333121"],
- INT:["112210","123321","223321","333332","323121"],INF:["122210","233321","233321","333321","333121"],
- COM:["012221","123332","123332","223332","223132"],CYB:["022210","133321","133321","233332","233121"],
- CMP:["001222","012333","012333","012333","012133"]};
+/* SGAM population scale: 0 out of scope, 1 reference, 2 supporting, 3 core */
 const LVN=["Out of scope","Reference","Supporting","Core"];const LVC=["ref","ref","sup","core"];
-/* ============ couplings ============ */
-const SEAMS=[
-["SGAM.CMP.TRA.FLD","RAMI.AST.PRD.I-PRD","A","Asset administration shell submodel","switchgear 115 kV ที่ผลิตจากโรงงาน PEM แล้วไปติดตั้งในกริดของลูกค้า เป็นของชิ้นเดียวกันที่อยู่สองสถาปัตยกรรม","IEC 63278 · IEC 62890",""],
-["SGAM.CMP.DIS.FLD","RAMI.AST.PRD.I-PRD","A","Asset administration shell submodel","RMU และ recloser 22 kV ที่ PCC ผลิตเอง ต้องมีรหัสประจำตัวเดียวตั้งแต่โรงงานจนถึงหน้างาน","IEC 63278",""],
-["SGAM.CMP.DER.FLD","RAMI.AST.FLD.I-PRD","A","Inverter product passport","inverter และ BESS controller ที่ผลิตเองแล้วติดตั้งจริงในระบบพลังงานกระจาย","IEC 63278 · IEEE 1547",""],
-["SGAM.CMP.TRA.STA","RAMI.AST.STA.I-MNT","A","Maintenance & spare part contract","อุปกรณ์ในสถานีที่ต้องส่งกลับโรงงานเพื่อบำรุงรักษา วนกลับเข้าวงจรชีวิตฝั่งการผลิต","IEC 62890",""],
-["SGAM.CMP.CUS.FLD","SCIAM.CMP.BLD.FLD","A","Building energy interface contract","มิเตอร์ AMI และตู้ LV ที่ติดตั้งในอาคาร เป็นทั้งสินทรัพย์ของกริดและของอาคาร","IEEE 2030.5",""],
-["SGAM.CMP.CUS.PRO","SCIAM.CMP.MOB.PRO","A","EV charging interface profile","หัวจ่าย EV เป็นทั้งโหลดไฟฟ้าและบริการขนส่งของเมืองพร้อมกัน","IEC 61851 · OCPP",""],
-["SGAM.CMP.GEN.PRO","SFAM.AST.PRC.PO","A","Biomass plant asset passport","หม้อไอน้ำและ genset ที่ใช้เชื้อเพลิงจากไผ่ เป็นปลายทางของห่วงโซ่เกษตรและต้นทางของห่วงโซ่ไฟฟ้า","ISO 17225",""],
-["SGAM.CMP.GEN.FLD","SFAM.AST.DIS.SA","A","Feedstock handling & metering","ระบบชั่งและป้อนเชื้อเพลิงชีวมวลเข้าโรงไฟฟ้า","ISO 17225 · OIML R51",""],
-["SGAM.CMP.DER.PRO","SFAM.AST.CUL.PO","A","Agrivoltaic structural interface","แผง PV ที่ติดตั้งเหนือแปลงปลูก ใช้พื้นที่เดียวกันสองวัตถุประสงค์","IEC 61215 · DIN SPEC 91434",""],
-["SGAM.BUS.TRA.ENT","RAMI.BUS.ENT.T-DEV","A","Product portfolio & standards roadmap","แผนผลิตภัณฑ์ 115 kV กับแนวโน้ม SF6-free ต้องเป็นแผนเดียวกันทั้งฝั่งผลิตและฝั่งกริด","IEC 62271",""],
-["SGAM.BUS.DIS.MKT","RAMI.BUS.CW.I-PRD","A","Market & order configuration","ตลาดของอุปกรณ์จำหน่ายที่ผลิตเอง เชื่อมคำสั่งซื้อกับสายการผลิตโดยตรง","IEC 62264",""],
-["SGAM.BUS.CUS.MKT","SCIAM.BUS.ENE.MKT","A","Energy service to city contract","บริการพลังงานที่ขายให้ระบบเมือง เป็นเจตนาธุรกิจร่วมของสองสถาปัตยกรรม","ISO 37122",""],
-["SGAM.BUS.CUS.ENT","SCIAM.BUS.BLD.ENT","A","Building service level agreement","สัญญาบริการอาคารและรายได้ประจำจากฝั่งผู้ใช้ไฟ","ISO 50001",""],
-["SGAM.BUS.DER.MKT","SFAM.BUS.CUL.CW","A","Agrivoltaic & irrigation load contract","โมเดลรายได้ร่วมระหว่างพลังงานกับแปลงปลูก ทั้งค่าไฟและผลผลิต","—",""],
-["SGAM.BUS.GEN.ENT","SFAM.BUS.PRC.MI","A","Biomass supply & energy yield contract","สัญญาซื้อขายชีวมวลและผลตอบแทนพลังงานจากธุรกิจไผ่","ISO 17225",""],
-["SGAM.FUN.DER.OPS","SFAM.FUN.CUL.OE","D","Cross-domain use case (IEC 62559)","use case เดียวที่สั่งปั๊มน้ำชลประทานตามพยากรณ์ PV — ต้องออกแบบร่วมกันทั้งสองตึก ไม่ใช่ต่างคนต่างทำแล้วมาต่อทีหลัง","IEC 62559-2 · ISO 11783",""],
-["SGAM.FUN.CUS.OPS","SCIAM.FUN.BLD.OPS","D","Demand response use case","การลดโหลดอาคารตอบสนองสัญญาณกริด เป็น use case ที่คร่อมทั้งสองสถาปัตยกรรม","OpenADR 2.0b",""],
-["SGAM.FUN.TRA.STA","RAMI.FUN.STA.I-PRD","D","FAT to SAT test case reuse","test case ที่ใช้ทดสอบในโรงงาน (FAT) ต้องนำกลับมาใช้ที่หน้างาน (SAT) ได้ ไม่ต้องเขียนใหม่","IEC 61850-4 · IEC 62381",""],
-["SGAM.FUN.CUS.MKT","SCIAM.FUN.MOB.MKT","D","EV smart charging tariff use case","อัตราค่าชาร์จที่ขึ้นกับทั้งสภาพกริดและนโยบายจราจรของเมือง","IEC 63110 · ISO 15118",""],
-["SGAM.INT.DER.OPS","SFAM.FUN.CUL.OE","D","Agent docking (asymmetric)","agent ที่ optimise ทั้งพลังงานและการเพาะปลูก แต่ SFAM ไม่มีชั้น Intelligence ให้เชื่อม จึงต้อง dock ที่ชั้น Function แทน ทำให้การกำกับ agent อยู่ฝั่ง PCC ทั้งหมด","ISO/IEC 42001 · NIST AI RMF","asymmetric"],
-["SGAM.INT.CUS.OPS","SCIAM.FUN.BLD.OPS","D","Agent docking (asymmetric)","agent จัดการโหลดอาคารต้อง dock ที่ชั้น Function ของ SCIAM เพราะ SCIAM ไม่มีชั้น Intelligence","ISO/IEC 42001","asymmetric"],
-["SGAM.INF.TRA.STA","RAMI.INF.STA.I-PRD","C","CIM ↔ AAS submodel mapping","แปลง nameplate และ configuration ของอุปกรณ์ระหว่างโลก CIM ของกริดกับโลก AAS ของโรงงาน มีการสูญเสียความหมายที่ต้องบันทึกไว้","IEC 61970 · IEC 63278",""],
-["SGAM.INF.CUS.ENT","SCIAM.INF.BLD.ENT","C","Building energy data model mapping","แปลงข้อมูลการใช้พลังงานระหว่างโมเดลกริดกับโมเดลอาคาร","IEC 61968 · ASHRAE 223P",""],
-["SGAM.INF.DER.OPS","SFAM.INF.CUL.OE","C","Agronomic ↔ energy data mapping","แปลงข้อมูลความชื้นดินและตารางรดน้ำ ให้เป็นโปรไฟล์โหลดที่ระบบไฟฟ้าเข้าใจ","ISO 11783 · IEC 61970",""],
-["SGAM.COM.TRA.STA","RAMI.COM.STA.I-PRD","B","IEC 61850 ↔ OPC UA gateway","gateway ที่แปลง protocol ระหว่างโลกสถานีไฟฟ้ากับโลกโรงงาน มีสัญญาและเวอร์ชันชัดเจน","IEC 61850-8-1 · IEC 62541",""],
-["SGAM.COM.CUS.FLD","SCIAM.COM.BLD.FLD","B","Demand response signalling","ช่องสัญญาณสั่งลดโหลดจากกริดถึงระบบอาคาร","IEEE 2030.5 · OpenADR",""],
-["SGAM.COM.DER.FLD","SFAM.COM.CUL.SA","B","Shared LPWAN backhaul","ใช้เครือข่ายไร้สายชุดเดียวกันส่งทั้งค่าวัดไฟฟ้าและค่าเซ็นเซอร์ในแปลง ลดต้นทุนโครงข่ายลงครึ่งหนึ่ง","LoRaWAN · MQTT",""],
-["SGAM.CYB.TRA.STA","RAMI.ITG.STA.I-PRD","E","Security level flow-down","ข้อกำหนด security level ตาม IEC 62443 ไหลจากฝั่งกริดลงไปฝังในชั้น Integration ของโรงงาน เพราะ RAMI ไม่มีชั้น Trust แยก","IEC 62443-4-2","asymmetric"],
-["SGAM.CYB.CUS.ENT","SCIAM.COM.BLD.ENT","E","Identity federation to city platform","ตัวตนของอุปกรณ์และผู้ใช้ที่ออกฝั่งกริด ถูกยอมรับบนแพลตฟอร์มเมือง ต้องเป็นทางเดียวเท่านั้น","IEC 62351 · OAuth 2.0","asymmetric"],
-["RAMI.ITG.FLD.I-PRD","SFAM.ITG.CUL.SA","B","Device digitization profile","โรงงานกับฟาร์มใช้มาตรฐานแปลงเซ็นเซอร์และแอคชูเอเตอร์เป็นดิจิทัลชุดเดียวกันได้ — PCC เข้าร่วมไม่ได้เพราะไม่มีชั้น L2","IO-Link · ISO 11783","excluded"]
-];
+const POP=Object.fromEntries(Object.entries(M.sgamPopulation).filter(([k])=>k[0]!=="_"));
+const SEAMS=M.couplings.map(c=>[c.from,c.to,c.type,c.mechanism,c.rationale,c.standards,c.flag||""]);
+const SEAM_ID=M.couplings.map(c=>c.id);
+/* display helpers for the axis tuples — English carries the technical term, Thai the
+   gloss. The embedded copy used to hold Thai in the English slot for SGAM only, so
+   the panel labelled SGAM's domains in Thai and every other tower's in English. */
+const axFull=i=>i[2]?`${i[1]} · ${i[2]}`:i[1];
+const axShort=i=>i[2]||i[1];
 /* ============ build ============ */
 const CUBES=[];const BY={};
-TOWERS.forEach(T=>T.ls.forEach(([lc,ln,pam,lp])=>T.xs.forEach(([xc],xi)=>T.ys.forEach(([yc],yi)=>{
+TOWERS.forEach(T=>T.ls.forEach(([lc,ln,pam,lp,lstd,lsrc])=>T.xs.forEach(([xc],xi)=>T.ys.forEach(([yc],yi)=>{
   const id=`${T.k}.${lc}.${xc}.${yc}`,lvl=T.k==="SGAM"?+POP[lc][xi][yi]:3;
-  const o={id,T,lc,ln,pam,lp,xi,yi,xc,yc,lvl,seams:[]};CUBES.push(o);BY[id]=o;
+  const o={id,T,lc,ln,pam,lp,lstd,lsrc,xi,yi,xc,yc,lvl,seams:[]};CUBES.push(o);BY[id]=o;
 }))));
 SEAMS.forEach((s,i)=>{if(BY[s[0]])BY[s[0]].seams.push(i);if(BY[s[1]])BY[s[1]].seams.push(i);});
 const NTOT=CUBES.length;
@@ -324,11 +317,11 @@ function relWhy(c,r,t){
   const T=c.T;
   if(r==="layer ↑")return `${t.ln} กำหนดว่าชั้น ${c.ln} ตรงนี้ต้องทำอะไร — cube นี้รับข้อกำหนดลงมา`;
   if(r==="layer ↓")return `cube นี้ส่งข้อกำหนดต่อให้ ${t.ln} ไปทำให้เป็นจริงในระดับที่รูปธรรมกว่า`;
-  if(r==="y ↑")return T.ykind==="life"?`ย้อนกลับไปช่วง ${T.ys[t.yi][1]} ของวงจรชีวิต — ข้อมูลจากช่วงนี้ต้องป้อนกลับไปปรับการออกแบบ`
-    :`รวมศูนย์ขึ้นไปที่ ${T.ys[t.yi][1]} — ขอบเขตกว้างขึ้น รอบเวลายาวขึ้น`;
-  if(r==="y ↓")return T.ykind==="life"?`เดินหน้าไปช่วง ${T.ys[t.yi][1]} ของวงจรชีวิต — สิ่งที่ตัดสินใจตรงนี้ถูกส่งต่อไปใช้จริง`
-    :`กระจายลงไปที่ ${T.ys[t.yi][1]} — ขอบเขตแคบลง ต้องตอบสนองเร็วขึ้น`;
-  return `ไหลต่อไปยัง ${T.xs[t.xi][1]} ตามห่วงโซ่${T.xa==="Hierarchy levels"?"ลำดับชั้นของระบบ":"คุณค่า"}`;
+  if(r==="y ↑")return T.ykind==="life"?`ย้อนกลับไปช่วง ${axShort(T.ys[t.yi])} ของวงจรชีวิต — ข้อมูลจากช่วงนี้ต้องป้อนกลับไปปรับการออกแบบ`
+    :`รวมศูนย์ขึ้นไปที่ ${axShort(T.ys[t.yi])} — ขอบเขตกว้างขึ้น รอบเวลายาวขึ้น`;
+  if(r==="y ↓")return T.ykind==="life"?`เดินหน้าไปช่วง ${axShort(T.ys[t.yi])} ของวงจรชีวิต — สิ่งที่ตัดสินใจตรงนี้ถูกส่งต่อไปใช้จริง`
+    :`กระจายลงไปที่ ${axShort(T.ys[t.yi])} — ขอบเขตแคบลง ต้องตอบสนองเร็วขึ้น`;
+  return `ไหลต่อไปยัง ${axShort(T.xs[t.xi])} ตามห่วงโซ่${T.xa==="Hierarchy levels"?"ลำดับชั้นของระบบ":"คุณค่า"}`;
 }
 /* ============ draw ============ */
 const svg=document.getElementById("scene");
@@ -662,7 +655,7 @@ function endCard(id,role){
   const c=BY[id],T=c.T;
   return `<button class="end" data-go="${id}"><span class="tk">${role} · ${T.k}</span>
     <span class="ad">${c.lc}.${c.xc}.${c.yc}</span>
-    <span class="ax">${esc(c.ln)} layer<br>${esc(T.xs[c.xi][1])}<br>${esc(T.ys[c.yi][1])}</span></button>`;
+    <span class="ax">${esc(c.ln)} layer<br>${esc(axFull(T.xs[c.xi]))}<br>${esc(axFull(T.ys[c.yi]))}</span></button>`;
 }
 function seamCard(i,compact){
   const s=SEAMS[i],C=CT[s[2]],a=BY[s[0]],b=BY[s[1]],L=LV.find(l=>l.p===a.pam);
@@ -680,7 +673,9 @@ function seamCard(i,compact){
 const side=document.querySelector(".side");
 const detHead=lb=>`<div class="dethead"><span class="lb">${lb}</span><button class="xbtn" data-clear="1" title="ยกเลิกการเลือก (Esc)">ปิด ✕</button></div>`;
 function detail(){
-  const picked=(S.sel!==null||S.selS!==null);
+  /* the panel is promoted whenever it holds an answer — a selected cube or coupling,
+     and also a tower filter, where it carries that tower's note and provenance */
+  const picked=(S.sel!==null||S.selS!==null||S.tw.size<TOWERS.length);
   side.classList.toggle("sel",picked);
   if(picked)side.scrollTop=0;
   if(S.selS!==null){
@@ -698,7 +693,12 @@ function detail(){
       const byT={};rel.forEach(([s])=>byT[s[2]]=(byT[s[2]]||0)+1);
       det.innerHTML=`<div class="adr">${ts.map(t=>t.k).join("  ×  ")}</div>
         <div class="tags">${ts.map(t=>`<span class="tg">${t.th}</span>`).join("")}</div>
-        <p>รอยต่อระหว่างตึกที่เลือก <b style="color:var(--ink)">${rel.length}</b> เส้น — คลิกเพื่อดูรายละเอียด</p>
+        ${ts.map(t=>`<div class="std"><i>${esc(t.name)}</i>${esc(t.note)}
+          ${t.layerNote?`<br><br>${esc(t.layerNote)}`:""}
+          ${t.axSrc.xStd||t.axSrc.yStd?`<br><br>แกน ${esc(t.xa)} ตาม ${esc(t.axSrc.xStd||"—")} · แกน ${esc(t.ya)} ตาม ${esc(t.axSrc.yStd||"—")}`:""}
+          ${/^unverified/.test(t.axSrc.x)?`<br><br>⚠ ${esc(t.axSrc.x)}`:""}</div>`).join("")}
+        ${ts.length===1&&ts[0].domainRule?`<div class="std"><i>เส้นแบ่ง domain</i>${esc(ts[0].domainRule)}</div>`:""}
+        <p style="margin-top:10px">รอยต่อระหว่างตึกที่เลือก <b style="color:var(--ink)">${rel.length}</b> เส้น — คลิกเพื่อดูรายละเอียด</p>
         <div class="kv">${Object.entries(byT).map(([k,v])=>`<b>ชนิด ${k}</b><span>${v} เส้น · ${esc(CT[k].th)}</span>`).join("")||"<b>—</b><span>ไม่มีรอยต่อระหว่างตึกที่เลือก</span>"}</div>
         <div class="sub">รายการ</div>
         ${rel.map(([s,i])=>{const a=BY[s[0]],b=BY[s[1]];
@@ -712,7 +712,7 @@ function detail(){
       จุดที่มีขอบสีคือ cube ที่มีรอยต่อข้ามตึก สีบอกชนิดการเชื่อม</p>`;return;
   }
   const c=BY[S.sel],T=c.T,L=LV.find(l=>l.p===c.pam);
-  const xn=T.xs[c.xi][1],yn=T.ys[c.yi][1];
+  const xi=T.xs[c.xi],yi=T.ys[c.yi],xn=axFull(xi),yn=axFull(yi);
   const nb=nbrs(c).map(n=>{const x=BY[n.id];
     return `<button class="lk" data-go="${n.id}"><span class="r">${n.r}</span><span class="t">
       <span class="a">${x.lc}.${x.xc}.${x.yc}</span><span class="w">${esc(relWhy(c,n.r,x))}</span></span></button>`;}).join("");
@@ -725,7 +725,11 @@ function detail(){
     <p>${esc(c.lp)}</p>
     <div class="kv"><b>Tower</b><span>${esc(T.name)} — ${esc(T.th)}</span>
       <b>${esc(T.xa)}</b><span>${esc(xn)}</span><b>${esc(T.ya)}</b><span>${esc(yn)}</span>
-      <b>ชั้นร่วม</b><span>${L.c} ${L.n} — เชื่อมข้ามตึกได้แบบชนิด ${L.ct} (${esc(CT[L.ct].th)})</span></div>
+      <b>ชั้นร่วม</b><span>${L.c} ${L.n} — เชื่อมข้ามตึกได้แบบชนิด ${L.ct} (${esc(CT[L.ct].th)})</span>
+      ${c.lsrc?`<b>ที่มาของชั้น</b><span${/PCC extension/.test(c.lsrc)?' style="color:var(--L6)"':''}>${esc(c.lsrc)}</span>`:""}</div>
+    ${c.lstd?`<div class="std"><i>นิยามชั้น ${esc(c.ln)} ตามมาตรฐาน</i>${esc(c.lstd)}</div>`:""}
+    ${xi[3]?`<div class="std"><i>${esc(T.xa)} · ${esc(xi[1])}</i>${esc(xi[3])}</div>`:""}
+    ${yi[3]?`<div class="std"><i>${esc(T.ya)} · ${esc(yi[1])}</i>${esc(yi[3])}</div>`:""}
     ${c.seams.length?`<div class="sub">เชื่อมข้ามตึก · ${c.seams.length} เส้น</div>
       ${c.seams.map(i=>`<div data-openseam="${i}" style="cursor:pointer">${seamCard(i,true)}</div>`).join("")}`
       :`<div class="sub">เชื่อมข้ามตึก</div><p style="color:var(--ink3)">cube นี้ยังไม่มีรอยต่อข้ามสถาปัตยกรรมที่ระบุสัญญาไว้ — เชื่อมเฉพาะภายในตึกของตัวเอง</p>`}
@@ -741,7 +745,25 @@ det.addEventListener("click",e=>{
   if(g){const x=BY[g.dataset.go];if(x&&!S.tw.has(x.T.k)){S.tw.add(x.T.k);syncUI();}
     S.selS=null;S.sel=g.dataset.go;detail();stats();req();}
 });
+/* Standards provenance, straight from the model. None of this could reach the screen
+   before — the app had no way to read it and the tower notes were written but never
+   rendered anywhere. */
+$("devList").innerHTML=(M.deviations||[]).map(d=>`<div class="dev">
+  <b>${esc(d.id)} · ${esc(d.title)}</b>
+  <div class="who"><i>มาตรฐาน</i><span>${esc(d.standard)}</span>
+    <i>PCC ทำ</i><span>${esc(d.pcc)}</span>
+    <i>เพราะ</i><span>${esc(d.why)}</span>
+    <i>ราคาที่จ่าย</i><span>${esc(d.cost)}</span>
+    <i>สถานะ</i><span>${esc(d.status)}</span></div></div>`).join("");
+if(M.scopeLimits){
+  $("limSrc").textContent=(M.scopeLimits._source||"").replace(/^SG-CG\/M490\/K /,"");
+  $("limList").innerHTML=M.scopeLimits.items.map((l,i)=>
+    `<div class="lim${i===0?" key":""}">${esc(l.limit)}${l.note?`<br><span style="color:var(--ink3)">${esc(l.note)}</span>`:""}</div>`).join("");
+}
+$("refList").innerHTML=(M.references||[]).map(r=>
+  `<span title="${esc(r.title)}${r.restriction?" — "+esc(r.restriction):""}">${esc(r.id)} <b>${esc(r.publisher)}</b>${r.restriction?" ⚠":""}</span>`).join("");
 syncUI();stats();detail();draw();
+Object.assign(window,{M,S,CT,LV,TOWERS,TW,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs});
 </script>
 </body>
 </html>

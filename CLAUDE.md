@@ -26,14 +26,15 @@ CLAUDE.md                      ← you are here
 README.md                      ← how to run and deploy
 index.html                     ← redirect stub so the site root opens app/
 app/index.html                 ← the whole app, single file, no build, no deps
-data/architecture-model.json   ← machine-readable model (source of truth for content)
+data/architecture-model.json   ← the model · single source of truth · fetched at runtime
+tools/verify.py                ← invariant checks (run after any model edit)
 docs/KNOWLEDGE.md              ← the architecture knowledge base
-.github/workflows/pages.yml    ← runs the README verification, then deploys to Pages
+.github/workflows/pages.yml    ← runs tools/verify.py, then deploys to Pages
 ```
 
-`app/index.html` currently embeds its own copy of the data as JS literals.
-`data/architecture-model.json` was generated **from** that file, so the two agree today.
-**First refactor should be to make the app fetch the JSON** so there is one source of truth.
+`app/index.html` fetches `data/architecture-model.json` at startup, so the JSON is the
+only copy of the data. The app must be served over http — `file://` blocks the fetch and
+the app says so. Run `python3 tools/verify.py` after editing the model.
 
 ---
 
@@ -49,8 +50,8 @@ docs/KNOWLEDGE.md              ← the architecture knowledge base
    Other towers have no population data — every node renders uniformly. Do not invent it.
 5. **Coupling types A–E** each map to specific levels. A coupling's type must match the
    level it sits on, except the four deliberately asymmetric ones (see below).
-6. **Coupling endpoints must resolve to real cubes.** There is a check for this in README.
-   Run it after any edit to the coupling list.
+6. **Coupling endpoints must resolve to real cubes.** `tools/verify.py` checks this and
+   every other invariant on this list. Run it after any edit to the model.
 
 ## Deliberate irregularities — these are correct, do not "fix" them
 
@@ -79,7 +80,6 @@ docs/KNOWLEDGE.md              ← the architecture knowledge base
 
 ## Known gaps worth building next
 
-- Fetch `data/architecture-model.json` instead of embedding data (highest value).
 - Seam Contract Register export (CSV/XLSX): 39 eligible positions, 15 named contracts,
   24 unassigned — the gap is the agenda item for the Architecture Review Board.
 - Population editor for the three non-SGAM towers.
