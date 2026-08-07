@@ -107,7 +107,8 @@ CLAUDE.md                      project context for Claude Code — read first
 README.md
 index.html                     redirect to app/ so the site root works
 app/index.html                 the app
-data/architecture-model.json   towers, levels, coupling types, couplings, population, findings
+data/architecture-model.json   towers, levels, coupling types, couplings, population, findings,
+                               plus standards provenance: scopeLimits, deviations, references
 docs/KNOWLEDGE.md              the architecture reasoning behind all of it
 .github/workflows/pages.yml    verify, then deploy to GitHub Pages
 .nojekyll                      serve files as-is, no Jekyll processing
