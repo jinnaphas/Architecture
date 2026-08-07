@@ -175,7 +175,10 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
   <div class="bar">
     <div class="brand"><i></i><h1>Architecture City</h1><span>v3 · 4 towers · 798 cubes · 30 couplings</span></div>
     <div class="right">
-      <div class="grp"><span class="lb">View</span>
+      <div class="grp"><span class="lb">Mode</span>
+        <button class="vb" data-v="m3d" aria-pressed="true">3D</button>
+        <button class="vb" data-v="m2d">2D ผังตึก</button></div>
+      <div class="grp" id="rotGrp"><span class="lb">View</span>
         <button class="vb" data-v="iso" aria-pressed="true">Iso</button>
         <button class="vb" data-v="r90">90°</button>
         <button class="vb" data-v="r180">180°</button>
@@ -281,7 +284,7 @@ SEAMS.forEach((s,i)=>{if(BY[s[0]])BY[s[0]].seams.push(i);if(BY[s[1]])BY[s[1]].se
 const NTOT=CUBES.length;
 /* ============ state ============ */
 const S={az:0,zoom:1,explode:1,seams:true,guides:true,sel:null,selS:null,
-  tw:new Set(TOWERS.map(t=>t.k)),lv:new Set(),ct:new Set(),dragging:false,story:false};
+  tw:new Set(TOWERS.map(t=>t.k)),lv:new Set(),ct:new Set(),dragging:false,story:false,view:"iso",selB:null,selP:null};
 const CX=540,CY=420,CU=8.5,CV=7.5;
 const isDark=()=>document.body.classList.contains("dark");
 const TH=()=>isDark()
@@ -377,10 +380,10 @@ function build(){
   const nbr=Array.from({length:6},()=>{const e=mk("line",{"stroke-width":"1.2","pointer-events":"none"});f.appendChild(e);return e;});
   const selText=mk("text",{"text-anchor":"middle","font-family":"var(--mono)","font-size":"10","font-weight":"600",fill:"var(--ink)","pointer-events":"none"});
   f.appendChild(selText);
-  svg.appendChild(f);
-  SC={guides,layers,tws,seams,seamLabel,nbr,selText};
+  const isoG=mk('g',{id:'isoG'});isoG.appendChild(f);svg.appendChild(isoG);
+  SC={guides,layers,tws,seams,seamLabel,nbr,selText,isoG};
 }
-function draw(){
+function drawIso(){
   if(!SC)build();
   const t=TH(),lite=S.dragging;
   const selC=S.sel?BY[S.sel]:null;
@@ -489,6 +492,177 @@ function draw(){
     show(SC.selText,false);
   }
 }
+/* ============ flat view ============ */
+/* An elevation of the same model: four towers as columns, the eight shared levels as
+   rows, for an audience that should not have to read an isometric projection to see
+   the argument. Two things become obvious here that the 3D view makes you work for:
+   the gaps — a level a tower does not have is drawn as a dashed ghost rather than
+   left absent — and asymmetry, because a coupling between matching levels is
+   horizontal, so the only sloped lines on screen are the four that dock onto a
+   different level. That is finding F2, drawn rather than explained.
+   The 30 couplings collapse to 20 block-to-block pairs and no pair mixes coupling
+   types, so one line carries one colour. */
+const FLAT={x0:158,x1:1042,yTop:182,yBot:744,bh:34,built:false};
+FLAT.pitch=(FLAT.x1-FLAT.x0)/TOWERS.length;
+FLAT.bw=FLAT.pitch-52;
+FLAT.rowY=p=>FLAT.yBot-(p-1)*((FLAT.yBot-FLAT.yTop)/7);
+FLAT.colX=i=>FLAT.x0+i*FLAT.pitch+FLAT.pitch/2;
+
+/* group the couplings by the pair of blocks they join */
+const BLOCKLINKS=(()=>{
+  const by=new Map();
+  SEAMS.forEach((s,i)=>{
+    const a=BY[s[0]],b=BY[s[1]];
+    const key=`${a.T.k}:${a.pam}>${b.T.k}:${b.pam}`;
+    if(!by.has(key))by.set(key,{key,a:{k:a.T.k,p:a.pam},b:{k:b.T.k,p:b.pam},type:s[2],list:[]});
+    by.get(key).list.push(i);
+  });
+  return [...by.values()];
+})();
+
+function buildFlat(){
+  const g=mk("g",{id:"flatG"});
+  const f=document.createDocumentFragment();
+
+  LV.forEach(L=>{
+    const y=FLAT.rowY(L.p);
+    const rule=mk("line",{x1:FLAT.x0-14,x2:FLAT.x1,y1:y,y2:y,stroke:"var(--line)","stroke-opacity":".55"});
+    const code=mk("text",{x:36,y:y-4,"font-family":"var(--mono)","font-size":"12","font-weight":"600",fill:`var(--L${L.p})`});
+    code.textContent=L.c;
+    const nm=mk("text",{x:36,y:y+12,"font-size":"11",fill:"var(--ink3)"});
+    nm.textContent=L.th;
+    const ct=mk("text",{x:132,y:y-4,"text-anchor":"end","font-family":"var(--mono)","font-size":"9",fill:"var(--ink3)"});
+    ct.textContent=L.ct;
+    f.append(rule,code,nm,ct);
+    FLAT[`row${L.p}`]={rule,code,nm,ct};
+  });
+
+  const cols=TOWERS.map((T,i)=>{
+    const x=FLAT.colX(i);
+    const hd=mk("g",{class:"fth","data-tw":T.k,style:"cursor:pointer"});
+    const t1=mk("text",{x,y:96,"text-anchor":"middle","font-family":"var(--mono)","font-size":T.hero?15:14,"font-weight":"600",fill:T.hero?"var(--hero)":"var(--ink2)"});
+    t1.textContent=T.k;
+    const t2=mk("text",{x,y:116,"text-anchor":"middle","font-size":"11",fill:"var(--ink2)"});
+    t2.textContent=T.th;
+    const t3=mk("text",{x,y:133,"text-anchor":"middle","font-family":"var(--mono)","font-size":"9.5",fill:"var(--ink3)"});
+    t3.textContent=`${T.ls.length}L · ${T.ls.length*T.xs.length*T.ys.length} cubes`;
+    hd.append(t1,t2,t3);f.appendChild(hd);
+    return{T,x,hd};
+  });
+
+  /* one cell per tower per level: a real block, or a ghost marking the gap */
+  const cells=[];
+  for(const L of LV) for(const [i,T] of TOWERS.entries()){
+    const ly=T.ls.find(l=>l[2]===L.p);
+    const x=FLAT.colX(i)-FLAT.bw/2, y=FLAT.rowY(L.p)-FLAT.bh;
+    if(!ly){
+      const ghost=mk("rect",{x,y,width:FLAT.bw,height:FLAT.bh,rx:3,fill:"none",
+        stroke:"var(--ink3)","stroke-opacity":".28","stroke-dasharray":"4 4","stroke-width":"1"});
+      const q=mk("text",{x:x+FLAT.bw/2,y:y+FLAT.bh/2+4,"text-anchor":"middle","font-family":"var(--mono)",
+        "font-size":"9.5",fill:"var(--ink3)","fill-opacity":".62"});
+      q.textContent="ไม่มีชั้นนี้";
+      f.append(ghost,q);
+      cells.push({T,L,ghost:true,el:ghost});
+      continue;
+    }
+    const el=mk("rect",{class:"fb","data-fb":`${T.k}:${L.p}`,x,y,width:FLAT.bw,height:FLAT.bh,rx:3,
+      fill:`var(--L${L.p})`,stroke:`var(--L${L.p})`,"stroke-width":T.hero?1.4:1,style:"cursor:pointer"});
+    const code=mk("text",{x:x+11,y:y+FLAT.bh/2+4,"font-family":"var(--mono)","font-size":"11",
+      "font-weight":"600",fill:`var(--L${L.p})`,"pointer-events":"none"});
+    code.textContent=ly[0];
+    const nm=mk("text",{x:x+FLAT.bw-11,y:y+FLAT.bh/2+4,"text-anchor":"end","font-size":"10.5",
+      fill:"var(--ink2)","pointer-events":"none"});
+    nm.textContent=ly[1];
+    f.append(el,code,nm);
+    cells.push({T,L,ghost:false,el,code,nm,ly});
+  }
+
+  /* couplings. Same-level links would be collinear, so they arc into the gap above
+     the row by an amount proportional to how many columns they span. */
+  const links=BLOCKLINKS.map(P=>{
+    const ia=TOWERS.findIndex(t=>t.k===P.a.k), ib=TOWERS.findIndex(t=>t.k===P.b.k);
+    const hit=mk("path",{class:"fl","data-fp":P.key,fill:"none",stroke:"transparent","stroke-width":"11",
+      style:"cursor:pointer;pointer-events:stroke"});
+    const line=mk("path",{fill:"none","pointer-events":"none",stroke:`var(--c${P.type})`,
+      "stroke-dasharray":P.a.p!==P.b.p?"6 4":""});
+    const badge=mk("text",{"text-anchor":"middle","font-family":"var(--mono)","font-size":"9.5",
+      "font-weight":"600",fill:`var(--c${P.type})`,"pointer-events":"none"});
+    badge.textContent=P.list.length>1?`${P.list.length}×${P.type}`:P.type;
+    f.append(hit,line,badge);
+    return{P,ia,ib,hit,line,badge};
+  });
+
+  g.appendChild(f);
+  svg.appendChild(g);
+  FLAT.g=g;FLAT.cols=cols;FLAT.cells=cells;FLAT.links=links;FLAT.built=true;
+}
+
+function drawFlat(){
+  if(!FLAT.built)buildFlat();
+  const t=TH();
+  const selB=S.selB, selP=S.selP;
+  const anySel=!!(selB||selP||S.selS!==null);
+  const litPairs=new Set();
+  if(S.selS!==null){const s=SEAMS[S.selS],a=BY[s[0]],b=BY[s[1]];
+    litPairs.add(`${a.T.k}:${a.pam}>${b.T.k}:${b.pam}`);}
+  if(selP)litPairs.add(selP);
+
+  FLAT.g.setAttribute("transform",`translate(${(1-S.zoom)*540} ${(1-S.zoom)*400}) scale(${S.zoom})`);
+
+  LV.forEach(L=>{
+    const r=FLAT[`row${L.p}`],on=lvOn(L.p);
+    [r.rule,r.code,r.nm,r.ct].forEach(e=>e.style.opacity=on?1:.22);
+  });
+
+  FLAT.cols.forEach(({T,hd})=>{hd.style.opacity=towerOn(T.k)?1:.3;});
+
+  FLAT.cells.forEach(c=>{
+    const on=towerOn(c.T.k)&&lvOn(c.L.p);
+    if(c.ghost){c.el.style.opacity=on?1:.18;return;}
+    const key=`${c.T.k}:${c.L.p}`;
+    const isSel=selB===key;
+    const touched=[...litPairs].some(k=>k.startsWith(key+">")||k.endsWith(">"+key));
+    let op=on?(c.T.hero?1:.82):.16;
+    if(on&&anySel&&!isSel&&!touched)op=.26;
+    c.el.setAttribute("fill-opacity",(op*(t.pf*3.1)).toFixed(3));
+    c.el.setAttribute("stroke-opacity",op.toFixed(2));
+    c.el.setAttribute("stroke-width",isSel?2.6:(c.T.hero?1.4:1));
+    c.code.style.opacity=op;c.nm.style.opacity=op;
+  });
+
+  FLAT.links.forEach(({P,ia,ib,hit,line,badge})=>{
+    const vis=towerOn(P.a.k)&&towerOn(P.b.k)&&S.seams
+      &&(!S.ct.size||S.ct.has(P.type))
+      &&(!S.lv.size||S.lv.has(P.a.p)||S.lv.has(P.b.p));
+    [hit,line,badge].forEach(e=>e.style.display=vis?"":"none");
+    if(!vis)return;
+    const xa=FLAT.colX(ia)+FLAT.bw/2, xb=FLAT.colX(ib)-FLAT.bw/2;
+    const span=Math.abs(ib-ia);
+    /* every link out of one block leaves the same edge, so without fanning the
+       attachment points the three arcs of a row overlap near their origin and the
+       one on top swallows the clicks meant for the others */
+    const off=(span-2)*8;
+    const ya=FLAT.rowY(P.a.p)-FLAT.bh/2+off, yb=FLAT.rowY(P.b.p)-FLAT.bh/2+off;
+    const lift=P.a.p===P.b.p?12+span*8:0;       /* only same-level links need arcing apart */
+    const mx=(xa+xb)/2, my=(ya+yb)/2-lift;
+    hit.setAttribute("d",`M${xa} ${ya} Q${mx} ${my} ${xb} ${yb}`);
+    line.setAttribute("d",`M${xa} ${ya} Q${mx} ${my} ${xb} ${yb}`);
+    const lit=!anySel||litPairs.has(P.key);
+    line.setAttribute("stroke-width",litPairs.has(P.key)?3:(lit?1.8:0.8));
+    line.setAttribute("stroke-opacity",lit?t.lnOn:t.lnOff);
+    badge.setAttribute("x",mx);
+    badge.setAttribute("y",(ya+yb)/2-lift/2-5);
+    badge.style.opacity=lit?.95:.25;
+  });
+}
+
+function draw(){
+  if(!SC)build();
+  const flat=S.view==="flat";
+  SC.isoG.style.display=flat?"none":"";
+  if(flat)drawFlat(); else drawIso();
+  if(FLAT.g)FLAT.g.style.display=flat?"":"none";
+}
 /* ============ interaction ============ */
 let drag=false,lx=0,moved=0;
 svg.addEventListener("pointerdown",e=>{drag=true;S.dragging=true;moved=0;lx=e.clientX;svg.classList.add("drag");svg.setPointerCapture(e.pointerId);});
@@ -528,8 +702,19 @@ svg.addEventListener("click",e=>{
   if(n){S.selS=null;S.sel=(S.sel===n.dataset.id?null:n.dataset.id);detail();req();return;}
   const l=pick(".sl");
   if(l){const i=+l.dataset.si;S.sel=null;S.selS=(S.selS===i?null:i);detail();req();return;}
-  const t=pick(".twl");if(t){S.tw=new Set([t.dataset.tw]);S.sel=null;S.selS=null;syncUI();stats();detail();req();return;}
-  S.sel=null;S.selS=null;detail();req();
+  const t=pick(".twl")||pick(".fth");
+  if(t){S.tw=new Set([t.dataset.tw]);S.sel=S.selB=S.selP=null;S.selS=null;syncUI();stats();detail();req();return;}
+  const fb=pick(".fb");
+  if(fb){S.sel=null;S.selS=null;S.selP=null;S.selB=(S.selB===fb.dataset.fb?null:fb.dataset.fb);detail();req();return;}
+  const fl=pick(".fl");
+  if(fl){
+    const P=BLOCKLINKS.find(x=>x.key===fl.dataset.fp);
+    S.sel=null;S.selB=null;
+    if(P.list.length===1){S.selP=null;S.selS=(S.selS===P.list[0]?null:P.list[0]);}
+    else{S.selS=null;S.selP=(S.selP===P.key?null:P.key);}
+    detail();req();return;
+  }
+  S.sel=null;S.selS=null;S.selB=null;S.selP=null;detail();req();
 });
 /* ============ story mode ============ */
 /* The single-device walk from docs/KNOWLEDGE.md §12 — one RMU followed all the way
@@ -580,8 +765,8 @@ addEventListener("keydown",e=>{
   if(e.target.matches("input,textarea"))return;
   if(e.key==="Escape"){
     if(S.story){storyOn(false);return;}
-    if(S.sel===null&&S.selS===null)return;
-    S.sel=null;S.selS=null;detail();req();return;
+    if(S.sel===null&&S.selS===null&&!S.selB&&!S.selP)return;
+    S.sel=S.selB=S.selP=null;S.selS=null;detail();req();return;
   }
   if(!S.story)return;
   if(e.key==="ArrowLeft"){e.preventDefault();storyGo(stIdx-1);}
@@ -594,10 +779,21 @@ document.querySelectorAll(".vb").forEach(b=>b.onclick=()=>{
   else if(v==="seams"){S.seams=!S.seams;b.setAttribute("aria-pressed",S.seams);}
   else if(v==="guides"){S.guides=!S.guides;b.setAttribute("aria-pressed",S.guides);}
   else if(v==="explode"){S.explode=S.explode>1?1:1.7;b.setAttribute("aria-pressed",S.explode>1);}
+  else if(v==="m3d"||v==="m2d"){
+    S.view=(v==="m2d")?"flat":"iso";
+    S.sel=S.selB=S.selP=null;S.selS=null;
+    document.querySelector('[data-v="m3d"]').setAttribute("aria-pressed",S.view==="iso");
+    document.querySelector('[data-v="m2d"]').setAttribute("aria-pressed",S.view==="flat");
+    $("rotGrp").style.display=S.view==="flat"?"none":"";
+    $("hint").innerHTML=S.view==="flat"
+      ? "<b>คลิกบล็อก</b> = ดูชั้นนั้น · <b>คลิกเส้น</b> = ดูการเชื่อม · <b>ล้อ</b> = ซูม · กรอบประคือชั้นที่ตึกนั้นไม่มี · เส้นเอียง = เชื่อมข้ามชั้น"
+      : "<b>ลาก</b> = หมุน · <b>ล้อ</b> = ซูม · <b>คลิกจุด</b> = ดู cube · <b>คลิกเส้น</b> = ดูรายละเอียดการเชื่อม · เลือกตึก 2–3 ตึกเพื่อดูเฉพาะคู่นั้น";
+    detail();stats();req();return;
+  }
   else if(v==="story"){storyOn(!S.story);return;}
   else if(v==="theme"){const d=isDark();document.body.className=d?"light":"dark";b.textContent=d?"Dark":"Light";}
   else if(v==="reset"){if(S.story)storyOn(false);
-    S.az=0;S.zoom=1;S.explode=1;S.sel=null;S.selS=null;S.lv.clear();S.ct.clear();
+    S.az=0;S.zoom=1;S.explode=1;S.sel=null;S.selS=null;S.selB=null;S.selP=null;S.lv.clear();S.ct.clear();
     S.tw=new Set(TOWERS.map(x=>x.k));S.seams=true;S.guides=true;
     document.querySelectorAll('[data-v="seams"],[data-v="guides"]').forEach(x=>x.setAttribute("aria-pressed","true"));
     document.querySelector('[data-v="explode"]').setAttribute("aria-pressed","false");syncUI();detail();}
@@ -673,11 +869,56 @@ function seamCard(i,compact){
 const side=document.querySelector(".side");
 const detHead=lb=>`<div class="dethead"><span class="lb">${lb}</span><button class="xbtn" data-clear="1" title="ยกเลิกการเลือก (Esc)">ปิด ✕</button></div>`;
 function detail(){
-  /* the panel is promoted whenever it holds an answer — a selected cube or coupling,
-     and also a tower filter, where it carries that tower's note and provenance */
-  const picked=(S.sel!==null||S.selS!==null||S.tw.size<TOWERS.length);
+  const picked=(S.sel!==null||S.selS!==null||S.selB||S.selP||S.tw.size<TOWERS.length);
   side.classList.toggle("sel",picked);
   if(picked)side.scrollTop=0;
+
+  /* a layer block in the flat view — the tower/level cell, not a single cube */
+  if(S.selB){
+    const [tk,lp]=S.selB.split(":"),T=TW[tk],L=LV.find(l=>l.p===+lp),ly=T.ls.find(l=>l[2]===+lp);
+    const touching=SEAMS.map((s,i)=>[s,i]).filter(([s])=>{
+      const a=BY[s[0]],b=BY[s[1]];
+      return (a.T.k===tk&&a.pam===+lp)||(b.T.k===tk&&b.pam===+lp);});
+    const n=T.xs.length*T.ys.length;
+    det.innerHTML=detHead("รายละเอียดชั้น")+`
+      <div class="adr">${T.k} · ${ly[0]}</div>
+      <div class="tags"><span class="tg" style="border-color:var(--L${lp});color:var(--L${lp})">${L.c} ${L.n}</span>
+        <span class="tg">${n} cubes</span>
+        ${/PCC extension/.test(ly[5])?`<span class="tg" style="border-color:var(--L6);color:var(--L6)">PCC extension</span>`:""}</div>
+      <h3>${esc(ly[1])}</h3>
+      <p>${esc(ly[3])}</p>
+      <div class="kv"><b>Tower</b><span>${esc(T.name)} — ${esc(T.th)}</span>
+        <b>ชั้นร่วม</b><span>${L.c} ${L.n} · ${esc(L.th)} — ชนิด ${L.ct} (${esc(CT[L.ct].th)})</span>
+        <b>ขนาด</b><span>${T.xs.length} ${esc(T.xa)} × ${T.ys.length} ${esc(T.ya)} = ${n} cubes</span>
+        <b>ที่มา</b><span${/PCC extension/.test(ly[5])?' style="color:var(--L6)"':''}>${esc(ly[5])}</span></div>
+      ${ly[4]?`<div class="std"><i>นิยามตามมาตรฐาน</i>${esc(ly[4])}</div>`:""}
+      <div class="sub">เชื่อมข้ามตึกจากชั้นนี้ · ${touching.length} เส้น</div>
+      ${touching.map(([s,i])=>{const a=BY[s[0]],b=BY[s[1]];
+        return `<button class="lk" data-seam="${i}"><span class="r" style="color:var(--c${s[2]})">${SEAM_ID[i]}</span>
+          <span class="t"><span class="a">${a.T.k}.${a.lc} → ${b.T.k}.${b.lc}</span>
+          <span class="w">${esc(s[3])}</span></span></button>`;}).join("")
+        ||`<p style="color:var(--ink3)">ชั้นนี้ยังไม่มีรอยต่อข้ามตึกที่ระบุสัญญาไว้</p>`}`;
+    return;
+  }
+
+  /* an aggregated line in the flat view — several couplings joining the same pair */
+  if(S.selP){
+    const P=BLOCKLINKS.find(x=>x.key===S.selP);
+    det.innerHTML=detHead("รายละเอียดการเชื่อม")+`
+      <div class="adr">${P.a.k} L${P.a.p} ↔ ${P.b.k} L${P.b.p}</div>
+      <div class="tags"><span class="tg" style="border-color:var(--c${P.type});color:var(--c${P.type})">coupling ${P.type}</span>
+        <span class="tg">${P.list.length} เส้น</span>
+        ${P.a.p!==P.b.p?`<span class="tg" style="border-color:var(--L6);color:var(--L6)">ไม่สมมาตร</span>`:""}</div>
+      <p>${esc(CT[P.type].d)}</p>
+      ${P.a.p!==P.b.p?`<div class="std"><i>ทำไมเส้นนี้เอียง</i>ชั้น ${P.a.k} L${P.a.p} ไม่มีคู่ที่ ${P.b.k} จึงต้อง dock ลงชั้น L${P.b.p} แทน — ภาระการกำกับตกอยู่ฝั่ง ${P.a.k} ดู structuralFindings F2</div>`:""}
+      <div class="sub">รายการ · คลิกเพื่อดูทีละเส้น</div>
+      ${P.list.map(i=>{const s=SEAMS[i],a=BY[s[0]],b=BY[s[1]];
+        return `<button class="lk" data-seam="${i}"><span class="r" style="color:var(--c${s[2]})">${SEAM_ID[i]}</span>
+          <span class="t"><span class="a">${a.lc}.${a.xc}.${a.yc} → ${b.lc}.${b.xc}.${b.yc}</span>
+          <span class="w">${esc(s[3])}</span></span></button>`;}).join("")}`;
+    return;
+  }
+
   if(S.selS!==null){
     const s=SEAMS[S.selS],a=BY[s[0]],b=BY[s[1]];
     det.innerHTML=detHead("รายละเอียดการเชื่อม")+`<div class="adr">${a.T.k} ↔ ${b.T.k}</div>
@@ -736,14 +977,14 @@ function detail(){
     <div class="sub">เชื่อมภายในตึก · ${nbrs(c).length} ทิศทาง</div>${nb}`;
 }
 det.addEventListener("click",e=>{
-  if(e.target.closest("[data-clear]")){S.sel=null;S.selS=null;detail();req();return;}
+  if(e.target.closest("[data-clear]")){S.sel=S.selB=S.selP=null;S.selS=null;detail();req();return;}
   const os=e.target.closest("[data-openseam]");
-  if(os){S.sel=null;S.selS=+os.dataset.openseam;detail();req();return;}
+  if(os){S.sel=S.selB=S.selP=null;S.selS=+os.dataset.openseam;detail();req();return;}
   const sm=e.target.closest("[data-seam]");
-  if(sm){S.sel=null;S.selS=+sm.dataset.seam;detail();req();return;}
+  if(sm){S.sel=S.selB=S.selP=null;S.selS=+sm.dataset.seam;detail();req();return;}
   const g=e.target.closest("[data-go]");
   if(g){const x=BY[g.dataset.go];if(x&&!S.tw.has(x.T.k)){S.tw.add(x.T.k);syncUI();}
-    S.selS=null;S.sel=g.dataset.go;detail();stats();req();}
+    S.selS=null;S.selB=S.selP=null;S.sel=g.dataset.go;detail();stats();req();}
 });
 /* Standards provenance, straight from the model. None of this could reach the screen
    before — the app had no way to read it and the tower notes were written but never
@@ -763,7 +1004,7 @@ if(M.scopeLimits){
 $("refList").innerHTML=(M.references||[]).map(r=>
   `<span title="${esc(r.title)}${r.restriction?" — "+esc(r.restriction):""}">${esc(r.id)} <b>${esc(r.publisher)}</b>${r.restriction?" ⚠":""}</span>`).join("");
 syncUI();stats();detail();draw();
-Object.assign(window,{M,S,CT,LV,TOWERS,TW,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs});
+Object.assign(window,{M,S,CT,LV,TOWERS,TW,BLOCKLINKS,FLAT,drawFlat,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs});
 </script>
 </body>
 </html>
