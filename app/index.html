@@ -48,11 +48,34 @@ svg#scene{width:100%;height:100%;display:block;cursor:grab;touch-action:none}
 svg#scene.drag{cursor:grabbing}
 .hint{position:absolute;left:13px;bottom:11px;font-family:var(--mono);font-size:9.5px;color:var(--ink3);pointer-events:none}
 .hint b{color:var(--ink2);font-weight:400}
+.story{position:absolute;left:50%;transform:translateX(-50%);bottom:34px;z-index:6;
+  display:flex;align-items:center;gap:10px;max-width:min(760px,calc(100% - 28px));
+  padding:9px 11px;border:1px solid var(--line);border-radius:5px;background:var(--panel);
+  box-shadow:0 6px 22px rgba(0,0,0,.17)}
+.story[hidden]{display:none}
+.story .sb{font-family:var(--mono);font-size:13px;line-height:1;padding:7px 10px;border:1px solid var(--line);
+  border-radius:3px;background:transparent;color:var(--ink2)}
+.story .sb:hover:not(:disabled){border-color:var(--hero);color:var(--ink)}
+.story .sb:disabled{opacity:.32;cursor:default}
+.story .sb:focus-visible{outline:2px solid var(--hero);outline-offset:1px}
+.stnum{font-family:var(--mono);font-size:10px;color:var(--ink3);white-space:nowrap}
+.stbody{min-width:0;flex:1}
+.stbody b{display:block;font-size:12.5px;font-weight:600;line-height:1.35}
+.stbody span{display:block;font-family:var(--mono);font-size:9.5px;color:var(--ink3);margin-top:2px}
 .tip{position:absolute;pointer-events:none;opacity:0;transition:opacity .1s;z-index:5}
 .tip.on{opacity:1}
 .tip div{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:5px 9px;font-family:var(--mono);font-size:10px;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.16)}
 .tip .a{color:var(--ink)} .tip .b{color:var(--ink3);font-size:9px}
-.side{border-left:1px solid var(--line);background:var(--panel);overflow-y:auto;overscroll-behavior:contain}
+.side{border-left:1px solid var(--line);background:var(--panel);overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column}
+/* the answer to a click used to render below three filter sections, i.e. off the
+   bottom of the screen. When something is selected it comes first instead. */
+.side.sel .det{order:-1;border-bottom:1px solid var(--line)}
+.side.sel .sec{order:1}
+.dethead{display:flex;align-items:center;gap:8px;margin:-2px 0 8px}
+.dethead .lb{font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+.xbtn{margin-left:auto;font-family:var(--mono);font-size:10px;line-height:1;padding:4px 8px;border:1px solid var(--line);border-radius:3px;background:transparent;color:var(--ink3)}
+.xbtn:hover{border-color:var(--ink3);color:var(--ink)}
+.xbtn:focus-visible{outline:2px solid var(--hero);outline-offset:1px}
 .sec{padding:12px 14px;border-bottom:1px solid var(--line)}
 .sec h2{font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;font-weight:500;display:flex;align-items:baseline;gap:6px}
 .sec h2 em{font-style:normal;margin-left:auto;letter-spacing:0;text-transform:none;font-family:var(--body);font-size:10px}
@@ -130,6 +153,8 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
         <button class="vb" data-v="seams" aria-pressed="true">Couplings</button>
         <button class="vb" data-v="guides" aria-pressed="true">Level guides</button>
         <button class="vb" data-v="explode">Explode</button></div>
+      <div class="grp"><span class="lb">Story</span>
+        <button class="vb" data-v="story">เดินตาม RMU</button></div>
       <div class="grp"><span class="lb">Theme</span>
         <button class="vb" data-v="theme">Dark</button>
         <button class="vb" data-v="reset">Reset</button></div>
@@ -139,7 +164,14 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
     <div class="stage" id="stage">
       <svg id="scene" viewBox="0 0 1080 800" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Four architecture towers with cross-model couplings"></svg>
       <div class="tip" id="tip"><div><span class="a"></span><br><span class="b"></span></div></div>
-      <div class="hint"><b>ลาก</b> = หมุน · <b>ล้อ</b> = ซูม · <b>คลิกจุด</b> = ดู cube · <b>คลิกเส้น</b> = ดูรายละเอียดการเชื่อม · เลือกตึก 2–3 ตึกเพื่อดูเฉพาะคู่นั้น</div>
+      <div class="hint" id="hint"><b>ลาก</b> = หมุน · <b>ล้อ</b> = ซูม · <b>คลิกจุด</b> = ดู cube · <b>คลิกเส้น</b> = ดูรายละเอียดการเชื่อม · เลือกตึก 2–3 ตึกเพื่อดูเฉพาะคู่นั้น</div>
+      <div class="story" id="story" hidden>
+        <button class="sb" id="stPrev" title="ก่อนหน้า (←)">←</button>
+        <span class="stnum" id="stNum"></span>
+        <div class="stbody"><b id="stTitle"></b><span id="stWhere"></span></div>
+        <button class="sb" id="stNext" title="ถัดไป (→)">→</button>
+        <button class="sb" id="stExit" title="ออกจากโหมดเล่าเรื่อง (Esc)">✕</button>
+      </div>
     </div>
     <aside class="side">
       <div class="sec"><h2>ตึก · เลือกได้หลายตึก</h2><div id="twList"></div><div class="pair" id="pairs"></div><div class="stat" id="stat"></div></div>
@@ -256,7 +288,7 @@ SEAMS.forEach((s,i)=>{if(BY[s[0]])BY[s[0]].seams.push(i);if(BY[s[1]])BY[s[1]].se
 const NTOT=CUBES.length;
 /* ============ state ============ */
 const S={az:0,zoom:1,explode:1,seams:true,guides:true,sel:null,selS:null,
-  tw:new Set(TOWERS.map(t=>t.k)),lv:new Set(),ct:new Set(),dragging:false};
+  tw:new Set(TOWERS.map(t=>t.k)),lv:new Set(),ct:new Set(),dragging:false,story:false};
 const CX=540,CY=420,CU=8.5,CV=7.5;
 const isDark=()=>document.body.classList.contains("dark");
 const TH=()=>isDark()
@@ -300,8 +332,64 @@ function relWhy(c,r,t){
 }
 /* ============ draw ============ */
 const svg=document.getElementById("scene");
+/* The scene used to be rebuilt as a ~170 KB innerHTML string on every frame, so the
+   browser reparsed the markup and reconstructed ~880 elements each time. The set of
+   drawables never actually changes — only geometry and styling do. So build the DOM
+   once and write attributes after that.
+   The old code also depth-sorted the nodes of each tower-layer every frame. Those
+   nodes are coplanar on a regular grid whose screen spacing is 8.1px at the minimum
+   zoom against a maximum radius of 2.15px, so they cannot overlap at any zoom or
+   azimuth and the sort could never change a pixel. It is gone. */
+const NS="http://www.w3.org/2000/svg";
+function mk(n,a){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;}
+const show=(e,v)=>{e.style.display=v?"":"none";};
+let SC=null;
+function build(){
+  const f=document.createDocumentFragment();
+  /* one line per gap rather than a single polyline: stroke-dasharray restarts its
+     phase on each separate element but runs continuously across a polyline's
+     vertices, which shifts every dash after the first bend. */
+  const guides=LV.map(L=>{
+    const segs=Array.from({length:TOWERS.length-1},()=>{
+      const e=mk("line",{stroke:`var(--L${L.p})`,"stroke-opacity":".22","stroke-width":".9","stroke-dasharray":"3 5"});
+      f.appendChild(e);return e;});
+    return{L,segs};});
+  const layers=[];
+  for(let p=1;p<=8;p++)TOWERS.forEach(T=>{
+    const L=T.ls.find(l=>l[2]===p);if(!L)return;
+    const g=mk("g",{});f.appendChild(g);
+    const poly=mk("polygon",{fill:`var(--L${p})`,stroke:`var(--L${p})`,"stroke-width":T.hero?1.1:0.8});
+    const grid=mk("path",{fill:"none",stroke:`var(--L${p})`,"stroke-width":".5"});
+    const code=mk("text",{"text-anchor":"middle","dominant-baseline":"central","font-family":"var(--mono)","font-size":"9",fill:`var(--L${p})`,"fill-opacity":".9"});
+    code.textContent=L[0];
+    g.append(poly,grid,code);
+    const cs=CUBES.filter(c=>c.T===T&&c.pam===p&&c.lvl>0).map(c=>{
+      const e=mk("circle",{class:"nd","data-id":c.id,fill:`var(--L${p})`,style:"cursor:pointer"});
+      g.appendChild(e);return{c,e};});
+    layers.push({T,p,poly,grid,code,cs});
+  });
+  const tws=TOWERS.map(T=>{
+    const g=mk("g",{class:"twl","data-tw":T.k,style:"cursor:pointer"});
+    const t1=mk("text",{"text-anchor":"middle","font-family":"var(--mono)","font-size":T.hero?12:11,"font-weight":"600",fill:T.hero?"var(--hero)":"var(--ink2)"});
+    t1.textContent=T.name;
+    const t2=mk("text",{"text-anchor":"middle","font-family":"var(--mono)","font-size":"9",fill:"var(--ink3)"});
+    t2.textContent=`${T.ls.length}L × ${T.xs.length} × ${T.ys.length} = ${T.ls.length*T.xs.length*T.ys.length}`;
+    g.append(t1,t2);f.appendChild(g);return{T,g,t1,t2};});
+  const seams=SEAMS.map((s,i)=>{
+    const hit=mk("path",{class:"sl","data-si":i,fill:"none",stroke:"transparent","stroke-width":"14",style:"cursor:pointer;pointer-events:stroke"});
+    const line=mk("path",{fill:"none","pointer-events":"none",stroke:`var(--c${s[2]})`,"stroke-dasharray":s[6]?"6 4":""});
+    f.append(hit,line);return{s,i,hit,line};});
+  const seamLabel=mk("text",{"text-anchor":"middle","font-family":"var(--mono)","font-size":"10","font-weight":"600","pointer-events":"none"});
+  f.appendChild(seamLabel);
+  const nbr=Array.from({length:6},()=>{const e=mk("line",{"stroke-width":"1.2","pointer-events":"none"});f.appendChild(e);return e;});
+  const selText=mk("text",{"text-anchor":"middle","font-family":"var(--mono)","font-size":"10","font-weight":"600",fill:"var(--ink)","pointer-events":"none"});
+  f.appendChild(selText);
+  svg.appendChild(f);
+  SC={guides,layers,tws,seams,seamLabel,nbr,selText};
+}
 function draw(){
-  const O=[],t=TH(),lite=S.dragging;
+  if(!SC)build();
+  const t=TH(),lite=S.dragging;
   const selC=S.sel?BY[S.sel]:null;
   const selS=S.selS!==null?SEAMS[S.selS]:null;
   const nbset=selC?new Set(nbrs(selC).map(n=>n.id)):new Set();
@@ -309,66 +397,104 @@ function draw(){
   const endSet=selS?new Set([selS[0],selS[1]]):new Set();
   const anySel=!!(selC||selS);
 
-  if(S.guides&&!lite){
-    LV.forEach(L=>{if(!lvOn(L.p))return;
-      const pts=TOWERS.filter(T=>T.ls.some(l=>l[2]===L.p)&&towerOn(T.k)).map(T=>proj(T.u0+(T.xs.length-1)/2,T.v0+(T.ys.length-1)/2,L.p));
-      for(let i=0;i<pts.length-1;i++)
-        O.push(`<line x1="${pts[i].x.toFixed(1)}" y1="${pts[i].y.toFixed(1)}" x2="${pts[i+1].x.toFixed(1)}" y2="${pts[i+1].y.toFixed(1)}" stroke="var(--L${L.p})" stroke-opacity=".22" stroke-width=".9" stroke-dasharray="3 5"/>`);});
-  }
-  for(let p=1;p<=8;p++){
-    TOWERS.forEach(T=>{
-      const L=T.ls.find(l=>l[2]===p);if(!L)return;
-      const on=towerOn(T.k)&&lvOn(p);
-      const q=[proj(T.u0-0.6,T.v0-0.6,p),proj(T.u0+T.xs.length-0.4,T.v0-0.6,p),
-               proj(T.u0+T.xs.length-0.4,T.v0+T.ys.length-0.4,p),proj(T.u0-0.6,T.v0+T.ys.length-0.4,p)];
-      O.push(`<polygon points="${q.map(a=>a.x.toFixed(1)+","+a.y.toFixed(1)).join(" ")}" fill="var(--L${p})" fill-opacity="${on?(T.hero?t.phf:t.pf):t.off}" stroke="var(--L${p})" stroke-opacity="${on?(T.hero?t.phs:t.ps):t.offs}" stroke-width="${T.hero?1.1:0.8}"/>`);
-      if(!on)return;
-      if(!lite){
-        for(let i=0;i<=T.xs.length;i++){const a=proj(T.u0+i-0.6,T.v0-0.6,p),b=proj(T.u0+i-0.6,T.v0+T.ys.length-0.4,p);
-          O.push(`<line x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" x2="${b.x.toFixed(1)}" y2="${b.y.toFixed(1)}" stroke="var(--L${p})" stroke-opacity="${t.gl}" stroke-width=".5"/>`);}
-        for(let j=0;j<=T.ys.length;j++){const a=proj(T.u0-0.6,T.v0+j-0.6,p),b=proj(T.u0+T.xs.length-0.4,T.v0+j-0.6,p);
-          O.push(`<line x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" x2="${b.x.toFixed(1)}" y2="${b.y.toFixed(1)}" stroke="var(--L${p})" stroke-opacity="${t.gl}" stroke-width=".5"/>`);}
-      }
-      const lp=proj(T.u0-1.7,T.v0-1.7,p);
-      O.push(`<text x="${lp.x.toFixed(1)}" y="${lp.y.toFixed(1)}" text-anchor="middle" dominant-baseline="central" font-family="var(--mono)" font-size="9" fill="var(--L${p})" fill-opacity=".9">${L[0]}</text>`);
-      CUBES.filter(c=>c.T===T&&c.pam===p&&c.lvl>0).map(c=>({c,q:proj(T.u0+c.xi,T.v0+c.yi,p)})).sort((a,b)=>a.q.d-b.q.d)
-      .forEach(({c,q})=>{
-        const isSel=S.sel===c.id,isEnd=endSet.has(c.id);
-        let op=T.hero?1:0.74;
-        if(anySel&&!isSel&&!isEnd&&!nbset.has(c.id)&&!linked.has(c.id))op=t.dim;
-        const hs=c.seams.length>0;
-        const r=(T.hero?(c.lvl===3?4.3:c.lvl===2?3.4:2.6):2.7)*Math.min(1.5,S.zoom);
-        O.push(`<circle class="nd" data-id="${c.id}" cx="${q.x.toFixed(1)}" cy="${q.y.toFixed(1)}" r="${(r*(isSel||isEnd?1.9:1)).toFixed(1)}" fill="var(--L${p})" fill-opacity="${op.toFixed(2)}" stroke="${isSel||isEnd?"var(--ink)":(hs?"var(--c"+SEAMS[c.seams[0]][2]+")":"none")}" stroke-width="${isSel||isEnd?2:(hs?1.4:0)}" stroke-opacity="${op.toFixed(2)}" style="cursor:pointer"/>`);
-      });
+  SC.guides.forEach(({L,segs})=>{
+    const pts=(!S.guides||lite||!lvOn(L.p))?[]
+      :TOWERS.filter(T=>T.ls.some(l=>l[2]===L.p)&&towerOn(T.k))
+        .map(T=>proj(T.u0+(T.xs.length-1)/2,T.v0+(T.ys.length-1)/2,L.p));
+    segs.forEach((e,i)=>{
+      if(i>=pts.length-1){show(e,false);return;}
+      show(e,true);
+      e.setAttribute("x1",pts[i].x.toFixed(1));e.setAttribute("y1",pts[i].y.toFixed(1));
+      e.setAttribute("x2",pts[i+1].x.toFixed(1));e.setAttribute("y2",pts[i+1].y.toFixed(1));
     });
-  }
-  TOWERS.forEach(T=>{if(!towerOn(T.k))return;
+  });
+
+  SC.layers.forEach(({T,p,poly,grid,code,cs})=>{
+    const on=towerOn(T.k)&&lvOn(p);
+    const q=[proj(T.u0-0.6,T.v0-0.6,p),proj(T.u0+T.xs.length-0.4,T.v0-0.6,p),
+             proj(T.u0+T.xs.length-0.4,T.v0+T.ys.length-0.4,p),proj(T.u0-0.6,T.v0+T.ys.length-0.4,p)];
+    poly.setAttribute("points",q.map(a=>a.x.toFixed(1)+","+a.y.toFixed(1)).join(" "));
+    poly.setAttribute("fill-opacity",on?(T.hero?t.phf:t.pf):t.off);
+    poly.setAttribute("stroke-opacity",on?(T.hero?t.phs:t.ps):t.offs);
+    show(grid,on&&!lite);show(code,on);
+    if(!on){cs.forEach(({e})=>show(e,false));return;}
+    if(!lite){
+      let d="";
+      for(let i=0;i<=T.xs.length;i++){
+        const a=proj(T.u0+i-0.6,T.v0-0.6,p),b=proj(T.u0+i-0.6,T.v0+T.ys.length-0.4,p);
+        d+=`M${a.x.toFixed(1)} ${a.y.toFixed(1)}L${b.x.toFixed(1)} ${b.y.toFixed(1)}`;}
+      for(let j=0;j<=T.ys.length;j++){
+        const a=proj(T.u0-0.6,T.v0+j-0.6,p),b=proj(T.u0+T.xs.length-0.4,T.v0+j-0.6,p);
+        d+=`M${a.x.toFixed(1)} ${a.y.toFixed(1)}L${b.x.toFixed(1)} ${b.y.toFixed(1)}`;}
+      grid.setAttribute("d",d);
+      grid.setAttribute("stroke-opacity",t.gl);
+    }
+    const lp=proj(T.u0-1.7,T.v0-1.7,p);
+    code.setAttribute("x",lp.x.toFixed(1));code.setAttribute("y",lp.y.toFixed(1));
+    cs.forEach(({c,e})=>{
+      show(e,true);
+      const g=proj(T.u0+c.xi,T.v0+c.yi,p);
+      const isSel=S.sel===c.id,isEnd=endSet.has(c.id),big=isSel||isEnd;
+      let op=T.hero?1:0.74;
+      if(anySel&&!big&&!nbset.has(c.id)&&!linked.has(c.id))op=t.dim;
+      const hs=c.seams.length>0;
+      const r=(T.hero?(c.lvl===3?4.3:c.lvl===2?3.4:2.6):2.7)*Math.min(1.5,S.zoom);
+      e.setAttribute("cx",g.x.toFixed(1));e.setAttribute("cy",g.y.toFixed(1));
+      e.setAttribute("r",(r*(big?1.9:1)).toFixed(1));
+      e.setAttribute("fill-opacity",op.toFixed(2));
+      e.setAttribute("stroke",big?"var(--ink)":(hs?"var(--c"+SEAMS[c.seams[0]][2]+")":"none"));
+      e.setAttribute("stroke-width",big?2:(hs?1.4:0));
+      e.setAttribute("stroke-opacity",op.toFixed(2));
+    });
+  });
+
+  SC.tws.forEach(({T,g,t1,t2})=>{
+    if(!towerOn(T.k)){show(g,false);return;}
+    show(g,true);
     const q=proj(T.u0+(T.xs.length-1)/2,T.v0+T.ys.length+1.4,1);
-    O.push(`<g class="twl" data-tw="${T.k}" style="cursor:pointer">
-      <text x="${q.x.toFixed(1)}" y="${q.y.toFixed(1)}" text-anchor="middle" font-family="var(--mono)" font-size="${T.hero?12:11}" font-weight="600" fill="${T.hero?"var(--hero)":"var(--ink2)"}">${T.name}</text>
-      <text x="${q.x.toFixed(1)}" y="${(q.y+13).toFixed(1)}" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink3)">${T.ls.length}L × ${T.xs.length} × ${T.ys.length} = ${T.ls.length*T.xs.length*T.ys.length}</text></g>`);});
-  if(S.seams){
-    SEAMS.forEach((s,i)=>{
-      if(!seamOn(s))return;
-      const a=BY[s[0]],b=BY[s[1]];
-      const p1=proj(a.T.u0+a.xi,a.T.v0+a.yi,a.pam),p2=proj(b.T.u0+b.xi,b.T.v0+b.yi,b.pam);
-      const on=!anySel||S.selS===i||(selC&&selC.seams.includes(i));
-      const mx=(p1.x+p2.x)/2,my=(p1.y+p2.y)/2-34*S.zoom;
-      const d=`M${p1.x.toFixed(1)} ${p1.y.toFixed(1)} Q${mx.toFixed(1)} ${my.toFixed(1)} ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}`;
-      O.push(`<path class="sl" data-si="${i}" d="${d}" fill="none" stroke="transparent" stroke-width="14" style="cursor:pointer;pointer-events:stroke"/>`);
-      O.push(`<path d="${d}" fill="none" pointer-events="none" stroke="var(--c${s[2]})" stroke-width="${S.selS===i?2.8:(on?1.5:0.7)}" stroke-opacity="${on?t.lnOn:t.lnOff}" stroke-dasharray="${s[6]?"6 4":""}"/>`);
-      if(S.selS===i){
-        O.push(`<text x="${mx.toFixed(1)}" y="${(my-6).toFixed(1)}" text-anchor="middle" font-family="var(--mono)" font-size="10" font-weight="600" fill="var(--c${s[2]})">${s[2]} · ${s[3].slice(0,34)}</text>`);
-      }
-    });
-  }
+    t1.setAttribute("x",q.x.toFixed(1));t1.setAttribute("y",q.y.toFixed(1));
+    t2.setAttribute("x",q.x.toFixed(1));t2.setAttribute("y",(q.y+13).toFixed(1));
+  });
+
+  let lab=null;
+  SC.seams.forEach(({s,i,hit,line})=>{
+    if(!S.seams||!seamOn(s)){show(hit,false);show(line,false);return;}
+    show(hit,true);show(line,true);
+    const a=BY[s[0]],b=BY[s[1]];
+    const p1=proj(a.T.u0+a.xi,a.T.v0+a.yi,a.pam),p2=proj(b.T.u0+b.xi,b.T.v0+b.yi,b.pam);
+    const on=!anySel||S.selS===i||(selC&&selC.seams.includes(i));
+    const mx=(p1.x+p2.x)/2,my=(p1.y+p2.y)/2-34*S.zoom;
+    const d=`M${p1.x.toFixed(1)} ${p1.y.toFixed(1)} Q${mx.toFixed(1)} ${my.toFixed(1)} ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}`;
+    hit.setAttribute("d",d);line.setAttribute("d",d);
+    line.setAttribute("stroke-width",S.selS===i?2.8:(on?1.5:0.7));
+    line.setAttribute("stroke-opacity",on?t.lnOn:t.lnOff);
+    if(S.selS===i)lab={s,mx,my};
+  });
+  if(lab){
+    show(SC.seamLabel,true);
+    SC.seamLabel.setAttribute("x",lab.mx.toFixed(1));
+    SC.seamLabel.setAttribute("y",(lab.my-6).toFixed(1));
+    SC.seamLabel.setAttribute("fill",`var(--c${lab.s[2]})`);
+    SC.seamLabel.textContent=`${lab.s[2]} · ${lab.s[3].slice(0,34)}`;
+  }else show(SC.seamLabel,false);
+
   if(selC){
-    const p0=proj(selC.T.u0+selC.xi,selC.T.v0+selC.yi,selC.pam);
-    nbrs(selC).forEach(n=>{const x=BY[n.id],q=proj(x.T.u0+x.xi,x.T.v0+x.yi,x.pam);
-      O.push(`<line x1="${p0.x.toFixed(1)}" y1="${p0.y.toFixed(1)}" x2="${q.x.toFixed(1)}" y2="${q.y.toFixed(1)}" stroke="${t.nbr}" stroke-opacity="${t.nbrOp}" stroke-width="1.2"/>`);});
-    O.push(`<text x="${p0.x.toFixed(1)}" y="${(p0.y-15).toFixed(1)}" text-anchor="middle" font-family="var(--mono)" font-size="10" font-weight="600" fill="var(--ink)">${selC.lc}.${selC.xc}.${selC.yc}</text>`);
+    const p0=proj(selC.T.u0+selC.xi,selC.T.v0+selC.yi,selC.pam),ns=nbrs(selC);
+    SC.nbr.forEach((e,k)=>{
+      if(k>=ns.length){show(e,false);return;}
+      show(e,true);
+      const x=BY[ns[k].id],q=proj(x.T.u0+x.xi,x.T.v0+x.yi,x.pam);
+      e.setAttribute("x1",p0.x.toFixed(1));e.setAttribute("y1",p0.y.toFixed(1));
+      e.setAttribute("x2",q.x.toFixed(1));e.setAttribute("y2",q.y.toFixed(1));
+      e.setAttribute("stroke",t.nbr);e.setAttribute("stroke-opacity",t.nbrOp);
+    });
+    show(SC.selText,true);
+    SC.selText.setAttribute("x",p0.x.toFixed(1));SC.selText.setAttribute("y",(p0.y-15).toFixed(1));
+    SC.selText.textContent=`${selC.lc}.${selC.xc}.${selC.yc}`;
+  }else{
+    SC.nbr.forEach(e=>show(e,false));
+    show(SC.selText,false);
   }
-  svg.innerHTML=O.join("");
 }
 /* ============ interaction ============ */
 let drag=false,lx=0,moved=0;
@@ -412,6 +538,62 @@ svg.addEventListener("click",e=>{
   const t=pick(".twl");if(t){S.tw=new Set([t.dataset.tw]);S.sel=null;S.selS=null;syncUI();stats();detail();req();return;}
   S.sel=null;S.selS=null;detail();req();
 });
+/* ============ story mode ============ */
+/* The single-device walk from docs/KNOWLEDGE.md §12 — one RMU followed all the way
+   round until the loop closes at the bamboo plot that feeds the power station. Each
+   step is a camera angle plus a tower filter plus a selection, so the narrative
+   replays identically every time instead of being clicked together live.
+   Step 8 is worth a note: §12 describes it as SGAM Customer to SFAM Cultivation,
+   but the coupling that actually carries it is CPL-16, which sits on DER. The step
+   points at the real coupling. */
+const STORY=[
+ {t:"ออกแบบ RMU 22 kV",                     w:"RAMI 4.0 · Type · Development",        tw:["RAMI"],          sel:"RAMI.FUN.PRD.T-DEV", az:-0.50},
+ {t:"ผลิตที่โรงงาน PEM",                      w:"RAMI 4.0 · Instance · Production",     tw:["RAMI"],          sel:"RAMI.AST.PRD.I-PRD", az:-0.50},
+ {t:"ได้ Digital Product Passport",          w:"รอยต่อ 1 · RAMI Asset ↔ SGAM Component", tw:["SGAM","RAMI"],  seam:1,                   az:-0.25},
+ {t:"ติดตั้งบน feeder 22 kV",                 w:"SGAM · CMP.DIS.FLD",                   tw:["SGAM"],          sel:"SGAM.CMP.DIS.FLD",   az: 0},
+ {t:"ส่งค่าวัดตาม IEC 61850",                  w:"SGAM · ไต่จากชั้น COM ขึ้น INF",           tw:["SGAM"],          sel:"SGAM.COM.DIS.STA",   az: 0},
+ {t:"Agent สับ feeder ใหม่ตอนไฟตก",           w:"SGAM · INT.DIS.OPS",                   tw:["SGAM"],          sel:"SGAM.INT.DIS.OPS",   az: 0},
+ {t:"Feeder จ่ายไฟให้อาคาร",                  w:"รอยต่อ 2 · SGAM Customer ↔ SCIAM Buildings", tw:["SGAM","SCIAM"], seam:4,             az: 0.30},
+ {t:"Feeder จ่ายไฟให้ปั๊มน้ำแปลงไผ่",            w:"รอยต่อ 3 · SGAM DER ↔ SFAM Cultivation", tw:["SGAM","SFAM"],  seam:15,                  az: 0.50},
+ {t:"ไผ่แปรเป็น biochar และ biomass",         w:"SFAM · Processing",                    tw:["SFAM"],          sel:"SFAM.FUN.PRC.OE",    az: 0.50},
+ {t:"Biomass เข้าโรงไฟฟ้า → กลับไปข้อ 4",      w:"รอยต่อ 4 · SFAM Distribution ↔ SGAM Generation", tw:["SGAM","SFAM"], seam:7,         az: 0.35},
+];
+let stIdx=-1;
+const $=id=>document.getElementById(id);
+function storyGo(i){
+  if(i<0||i>=STORY.length)return;
+  stIdx=i;const s=STORY[i];
+  S.tw=new Set(s.tw);S.az=s.az;
+  S.sel=s.sel||null;S.selS=("seam" in s)?s.seam:null;
+  $("stNum").textContent=`${i+1} / ${STORY.length}`;
+  $("stTitle").textContent=s.t;
+  $("stWhere").textContent=s.w;
+  $("stPrev").disabled=(i===0);
+  $("stNext").disabled=(i===STORY.length-1);
+  syncUI();stats();detail();req();
+}
+function storyOn(on){
+  S.story=on;
+  $("story").hidden=!on;
+  $("hint").style.display=on?"none":"";
+  document.querySelector('[data-v="story"]').setAttribute("aria-pressed",on);
+  if(on)storyGo(0);
+  else{stIdx=-1;S.sel=null;S.selS=null;detail();req();}
+}
+$("stPrev").onclick=()=>storyGo(stIdx-1);
+$("stNext").onclick=()=>storyGo(stIdx+1);
+$("stExit").onclick=()=>storyOn(false);
+addEventListener("keydown",e=>{
+  if(e.target.matches("input,textarea"))return;
+  if(e.key==="Escape"){
+    if(S.story){storyOn(false);return;}
+    if(S.sel===null&&S.selS===null)return;
+    S.sel=null;S.selS=null;detail();req();return;
+  }
+  if(!S.story)return;
+  if(e.key==="ArrowLeft"){e.preventDefault();storyGo(stIdx-1);}
+  else if(e.key==="ArrowRight"||e.key===" "){e.preventDefault();storyGo(stIdx+1);}
+});
 let pend=false;function req(){if(pend)return;pend=true;requestAnimationFrame(()=>{pend=false;draw();});}
 document.querySelectorAll(".vb").forEach(b=>b.onclick=()=>{
   const v=b.dataset.v;
@@ -419,8 +601,10 @@ document.querySelectorAll(".vb").forEach(b=>b.onclick=()=>{
   else if(v==="seams"){S.seams=!S.seams;b.setAttribute("aria-pressed",S.seams);}
   else if(v==="guides"){S.guides=!S.guides;b.setAttribute("aria-pressed",S.guides);}
   else if(v==="explode"){S.explode=S.explode>1?1:1.7;b.setAttribute("aria-pressed",S.explode>1);}
+  else if(v==="story"){storyOn(!S.story);return;}
   else if(v==="theme"){const d=isDark();document.body.className=d?"light":"dark";b.textContent=d?"Dark":"Light";}
-  else if(v==="reset"){S.az=0;S.zoom=1;S.explode=1;S.sel=null;S.selS=null;S.lv.clear();S.ct.clear();
+  else if(v==="reset"){if(S.story)storyOn(false);
+    S.az=0;S.zoom=1;S.explode=1;S.sel=null;S.selS=null;S.lv.clear();S.ct.clear();
     S.tw=new Set(TOWERS.map(x=>x.k));S.seams=true;S.guides=true;
     document.querySelectorAll('[data-v="seams"],[data-v="guides"]').forEach(x=>x.setAttribute("aria-pressed","true"));
     document.querySelector('[data-v="explode"]').setAttribute("aria-pressed","false");syncUI();detail();}
@@ -493,10 +677,15 @@ function seamCard(i,compact){
       <i>ต้องมี</i><span>${esc(C.g)}</span><i>มาตรฐาน</i><span>${esc(s[5])}</span></div>
     ${compact?"":`<p style="color:var(--ink3);margin-top:8px;font-size:10.5px">${esc(C.d)}</p>`}</div>`;
 }
+const side=document.querySelector(".side");
+const detHead=lb=>`<div class="dethead"><span class="lb">${lb}</span><button class="xbtn" data-clear="1" title="ยกเลิกการเลือก (Esc)">ปิด ✕</button></div>`;
 function detail(){
+  const picked=(S.sel!==null||S.selS!==null);
+  side.classList.toggle("sel",picked);
+  if(picked)side.scrollTop=0;
   if(S.selS!==null){
     const s=SEAMS[S.selS],a=BY[s[0]],b=BY[s[1]];
-    det.innerHTML=`<div class="adr">${a.T.k} ↔ ${b.T.k}</div>
+    det.innerHTML=detHead("รายละเอียดการเชื่อม")+`<div class="adr">${a.T.k} ↔ ${b.T.k}</div>
       <div class="tags"><span class="tg" style="border-color:var(--c${s[2]});color:var(--c${s[2]})">coupling ${s[2]}</span>
         <span class="tg" style="border-color:var(--L${a.pam});color:var(--L${a.pam})">L${a.pam}</span>
         ${s[6]?`<span class="tg">${s[6]==="asymmetric"?"asymmetric":"excluded"}</span>`:""}</div>
@@ -527,7 +716,7 @@ function detail(){
   const nb=nbrs(c).map(n=>{const x=BY[n.id];
     return `<button class="lk" data-go="${n.id}"><span class="r">${n.r}</span><span class="t">
       <span class="a">${x.lc}.${x.xc}.${x.yc}</span><span class="w">${esc(relWhy(c,n.r,x))}</span></span></button>`;}).join("");
-  det.innerHTML=`
+  det.innerHTML=detHead("รายละเอียด cube")+`
     <div class="adr">${T.k} · ${c.lc}.${c.xc}.${c.yc}</div>
     <div class="tags">${T.hero?`<span class="tg ${LVC[c.lvl]}">${LVN[c.lvl]}</span>`:""}
       <span class="tg" style="border-color:var(--L${c.pam});color:var(--L${c.pam})">${L.c} ${L.n}</span>
@@ -543,6 +732,7 @@ function detail(){
     <div class="sub">เชื่อมภายในตึก · ${nbrs(c).length} ทิศทาง</div>${nb}`;
 }
 det.addEventListener("click",e=>{
+  if(e.target.closest("[data-clear]")){S.sel=null;S.selS=null;detail();req();return;}
   const os=e.target.closest("[data-openseam]");
   if(os){S.sel=null;S.selS=+os.dataset.openseam;detail();req();return;}
   const sm=e.target.closest("[data-seam]");
