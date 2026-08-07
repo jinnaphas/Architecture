@@ -389,13 +389,27 @@ svg.addEventListener("pointermove",e=>{
 });
 ["pointerup","pointercancel","pointerleave"].forEach(ev=>svg.addEventListener(ev,()=>{drag=false;if(S.dragging){S.dragging=false;req();}svg.classList.remove("drag");}));
 svg.addEventListener("wheel",e=>{e.preventDefault();S.zoom=Math.max(.5,Math.min(2.6,S.zoom*(1-e.deltaY*0.0012)));req();},{passive:false});
+/* pointerdown calls setPointerCapture on the svg so a drag survives leaving the
+   element. A side effect is that the browser retargets the resulting click to the
+   capturing element, so e.target is always <svg> and never the node or line under
+   the cursor. Resolve the hit from the coordinates instead. elementsFromPoint gives
+   the whole stack, which lets a node keep priority over a seam line drawn across it
+   — seam hit areas are 14px wide and sit above the nodes. */
+function hitAt(x,y){
+  const stack=document.elementsFromPoint(x,y);
+  return sel=>{
+    for(const el of stack){const m=el.closest&&el.closest(sel);if(m)return m;}
+    return null;
+  };
+}
 svg.addEventListener("click",e=>{
   if(moved>6)return;
-  const n=e.target.closest(".nd");
+  const pick=hitAt(e.clientX,e.clientY);
+  const n=pick(".nd");
   if(n){S.selS=null;S.sel=(S.sel===n.dataset.id?null:n.dataset.id);detail();req();return;}
-  const l=e.target.closest(".sl");
+  const l=pick(".sl");
   if(l){const i=+l.dataset.si;S.sel=null;S.selS=(S.selS===i?null:i);detail();req();return;}
-  const t=e.target.closest(".twl");if(t){S.tw=new Set([t.dataset.tw]);S.sel=null;S.selS=null;syncUI();stats();detail();req();return;}
+  const t=pick(".twl");if(t){S.tw=new Set([t.dataset.tw]);S.sel=null;S.selS=null;syncUI();stats();detail();req();return;}
   S.sel=null;S.selS=null;detail();req();
 });
 let pend=false;function req(){if(pend)return;pend=true;requestAnimationFrame(()=>{pend=false;draw();});}
