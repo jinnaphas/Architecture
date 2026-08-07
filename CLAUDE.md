@@ -28,6 +28,7 @@ index.html                     ← redirect stub so the site root opens app/
 app/index.html                 ← the whole app, single file, no build, no deps
 data/architecture-model.json   ← the model · single source of truth · fetched at runtime
 tools/verify.py                ← invariant checks (run after any model edit)
+tools/derive_analysis.py       ← regenerates derived risk / impact / response bands
 docs/KNOWLEDGE.md              ← the architecture knowledge base
 .github/workflows/pages.yml    ← runs tools/verify.py, then deploys to Pages
 ```
@@ -86,9 +87,27 @@ the app says so. Run `python3 tools/verify.py` after editing the model.
 - Print / PDF export at a fixed camera angle.
 - Deep links (`?tower=SGAM,SFAM&coupling=CPL-16`) for jumping straight to a slide state.
 
+## Three buckets, kept apart
+
+Connection and cube attributes are split by where the value comes from, and the split is
+enforced rather than described:
+
+- **derived** — computed from the model. Coupling risk score, blast radius, zone response
+  bands. `tools/verify.py` recomputes each one and fails if the stored value drifted.
+- **rule** — a few authored rules applied across many items. The six in-tower directions
+  carry risk and cost drivers this way; 1,901 edges, six rules.
+- **authored** — needs a person. `goal`, `concern`, `constraint`, `requiredResources` per
+  cube, and every coupling's budget. **0 of 3,084 filled.** Left empty on purpose and
+  counted; filling them with generated text would produce architecture nobody owns.
+
+Response bands come from the zone, so a life cycle axis must never carry one. RAMI is
+excluded by construction, not by discipline — verify.py fails if a band appears there.
+
 ## Never do
 
 - Do not present the numbers as verified. Axis counts for SCIAM, SFAM and RAMI were read
   off diagrams and still need confirmation from the workshop's topic 12–14 owners.
+- Do not fill the authored cube attributes or coupling budgets with generated text. The
+  gap is the finding; 12,350 plausible sentences would bury it.
 - Do not describe the 30 couplings as standards-based. They are proposals derived from
   PCC's business context. Type A is the most defensible; type D needs the most scrutiny.
