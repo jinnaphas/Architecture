@@ -47,7 +47,7 @@ aws s3 sync . s3://YOUR-BUCKET/ --delete --exclude '.git/*' --exclude '.github/*
 
 | | |
 |---|---|
-| Mode | **3D** isometric, or **2D ผังตึก** — four towers as columns, the eight levels as rows |
+| Mode | **3D** isometric · **2D ผังตึก** — four towers as columns, the eight levels as rows · **รายงานบอร์ด** — the Smart Architecture team's report, for the executive meeting |
 | Layout (3D) | **ตาราง 2×2**, or **เรียงแถว + hub** — the towers on one line with the shared level scale standing between them, each level's guide becoming a spoke out to every tower |
 | Drag | rotate azimuth (3D only) |
 | Wheel | zoom |
@@ -74,6 +74,17 @@ it bundles.
 Two entry paths into the same information: node-first or line-first. Both reach the same
 detail, so pick whichever matches how the question was asked.
 
+**รายงานบอร์ด** is the third mode and the only one that is not a drawing. It reports what
+the Smart Architecture team has actually delivered per architecture: which towers have a
+team reporting against them, the three of five SGAM domains that have filed a report, who
+owns each interoperability layer and each domain, the 52 standards the team has mapped
+onto the seven layers, and the five things it is asking the board to decide. Every number
+on the page is recomputed from the model when it renders — none of them are typed in — so
+the page cannot drift from the data the other two modes draw.
+
+Coverage is shown as coverage: a domain with no owner gets a highlighted row and a `ยังไม่ระบุ`
+pill rather than being left off the table, and the footer states the authored gap in full.
+
 ---
 
 ## Verify after editing the model
@@ -96,6 +107,13 @@ matching the level it sits on with exactly the four documented asymmetries flagg
 the SGAM population map's shape and its 183 / 79 / 39 headline numbers, and that every
 layer and shared level records where it came from. The Pages workflow runs the same
 script before deploying.
+
+It also checks the team's reporting: every layer with a standards list is a real SGAM
+layer and all seven are covered, every domain report cites a reference that exists and
+names only real zones and layers, the team tables list every layer and domain in order,
+and — the one that matters — `team.unresolved` must keep describing a genuine gap. If the
+number of owner groups ever equals the number of candidate domains, no domain is left
+unowned, and `verify.py` fails until the stale note is removed.
 
 ---
 

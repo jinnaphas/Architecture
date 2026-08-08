@@ -166,6 +166,57 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
 .lk .w{font-size:10.5px;color:var(--ink3);line-height:1.45;display:block;margin-top:1px}
 .stat{display:flex;flex-wrap:wrap;gap:9px;font-family:var(--mono);font-size:9.5px;color:var(--ink3);margin-top:7px}
 .stat b{color:var(--ink);font-weight:500}
+/* board — the Smart Architecture team's report, read top to bottom */
+.brd{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;background:var(--bg);padding:20px 26px 60px}
+.brd .w{max-width:1000px;margin:0 auto}
+.brd h2{font-size:12px;font-weight:600;letter-spacing:.01em;margin:26px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line);color:var(--ink)}
+.brd h2 s{font-family:var(--mono);font-size:9px;color:var(--ink3);text-decoration:none;float:right;font-weight:400;padding-top:3px}
+.brd .hd{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding-bottom:14px;border-bottom:2px solid var(--ink)}
+.brd .hd b{font-size:15px;font-weight:600}
+.brd .hd span{font-family:var(--mono);font-size:9.5px;color:var(--ink3)}
+.brd .lead{font-size:11px;color:var(--ink2);line-height:1.6;margin:9px 0 0}
+.brd .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px}
+.brd .cd{border:1px solid var(--line);border-radius:5px;padding:11px 12px;background:var(--panel)}
+.brd .cd .k{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.04em}
+.brd .cd .st{font-family:var(--mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:99px;float:right}
+.brd .st.on{background:color-mix(in srgb,var(--L4) 22%,transparent);color:var(--L4)}
+.brd .st.off{background:var(--panel2);color:var(--ink3)}
+.brd .cd .n{display:flex;gap:12px;margin-top:9px;flex-wrap:wrap}
+.brd .cd .n div{font-family:var(--mono)}
+.brd .cd .n em{display:block;font-style:normal;font-size:14px;color:var(--ink);font-weight:600}
+.brd .cd .n i{font-style:normal;font-size:8.5px;color:var(--ink3);letter-spacing:.04em}
+.brd .cd p{font-size:10.5px;color:var(--ink2);line-height:1.55;margin:8px 0 0}
+.brd table{width:100%;border-collapse:collapse;font-size:10.5px}
+.brd th{text-align:left;font-family:var(--mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink3);font-weight:400;padding:0 8px 5px;border-bottom:1px solid var(--line)}
+.brd td{padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5}
+.brd td.c{font-family:var(--mono);font-size:10px;white-space:nowrap}
+.brd tr.gap td{background:color-mix(in srgb,var(--L3) 8%,transparent)}
+.brd .pill{display:inline-block;font-family:var(--mono);font-size:8.5px;letter-spacing:.05em;
+  padding:1px 6px;border-radius:99px;border:1px solid var(--line);color:var(--ink3);margin:1px 3px 1px 0}
+.brd .pill.w{border-color:var(--L3);color:var(--L3)}
+.brd .lvb{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.brd details{border:1px solid var(--line);border-radius:5px;margin-top:7px;background:var(--panel)}
+.brd summary{cursor:pointer;padding:9px 12px;font-size:11px;display:flex;align-items:center;gap:8px;list-style:none}
+.brd summary::-webkit-details-marker{display:none}
+.brd summary::before{content:"▸";font-size:9px;color:var(--ink3);transition:.12s}
+.brd details[open] summary::before{transform:rotate(90deg)}
+.brd summary b{font-family:var(--mono);font-size:10.5px;font-weight:600}
+.brd summary span{color:var(--ink3);font-size:10px;margin-left:auto;font-family:var(--mono)}
+.brd .dbody{padding:2px 13px 13px;border-top:1px solid var(--line)}
+.brd .dbody p.v{font-size:10.5px;color:var(--ink2);line-height:1.6;margin:10px 0}
+.brd .grid{overflow-x:auto;margin-top:9px}
+.brd .grid table{min-width:840px;font-size:9.5px}
+.brd .grid td{padding:5px 7px}
+.brd .grid td u{text-decoration:none;display:block;color:var(--ink2)}
+.brd .grid th.z{font-size:8px}
+.brd .ask{display:flex;gap:11px;padding:9px 0;border-bottom:1px solid var(--line);align-items:flex-start}
+.brd .ask .id{font-family:var(--mono);font-size:9.5px;color:var(--hero);flex-shrink:0;width:52px;padding-top:1px}
+.brd .ask .tx{flex:1;font-size:11px;line-height:1.55}
+.brd .ask .ow{font-family:var(--mono);font-size:9px;color:var(--ink3);flex-shrink:0;text-align:right;max-width:160px;line-height:1.4}
+.brd .cov{height:4px;border-radius:99px;background:var(--panel2);overflow:hidden;margin-top:7px}
+.brd .cov i{display:block;height:100%;background:var(--L4);border-radius:99px}
+.brd .foot{margin-top:30px;padding-top:12px;border-top:1px solid var(--line);font-size:10px;color:var(--ink3);line-height:1.6}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -186,7 +237,8 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
     <div class="right">
       <div class="grp"><span class="lb">Mode</span>
         <button class="vb" data-v="m3d" aria-pressed="true">3D</button>
-        <button class="vb" data-v="m2d">2D ผังตึก</button></div>
+        <button class="vb" data-v="m2d">2D ผังตึก</button>
+        <button class="vb" data-v="mbd">รายงานบอร์ด</button></div>
       <div class="grp" id="layGrp"><span class="lb">Layout</span>
         <button class="vb" data-v="lgrid" aria-pressed="true">ตาราง 2×2</button>
         <button class="vb" data-v="lrow">เรียงแถว + hub</button></div>
@@ -209,6 +261,7 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
   <div class="body">
     <div class="stage" id="stage">
       <svg id="scene" viewBox="0 0 1080 800" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Four architecture towers with cross-model couplings"></svg>
+      <div class="brd" id="brd" hidden></div>
       <div class="tip" id="tip"><div><span class="a"></span><br><span class="b"></span></div></div>
       <div class="hint" id="hint"><b>ลาก</b> = หมุน · <b>ล้อ</b> = ซูม · <b>คลิกจุด</b> = ดู cube · <b>คลิกเส้น</b> = ดูรายละเอียดการเชื่อม · เลือกตึก 2–3 ตึกเพื่อดูเฉพาะคู่นั้น</div>
       <div class="story" id="story" hidden>
@@ -774,9 +827,149 @@ function drawFlat(){
   });
 }
 
+/* ============ board — the team's report, for the executive meeting ============ */
+const TEAM=M.team,LSTD=M.layerStandards,DREP=M.domainReports,BRD=M.boardReport;
+const REF={};M.references.forEach(r=>REF[r.id]=r);
+const lvDot=p=>`<i class="lvb" style="background:var(--L${p})"></i>`;
+const owners=o=>o.length?o.join(" · "):"—";
+
+/* a tower's own numbers, recomputed here rather than copied out of meta */
+function twStats(T){
+  const cubes=T.ls.length*T.xs.length*T.ys.length;
+  const lv=new Set(T.ls.map(l=>l[2]));
+  const cpl=SEAMS.filter(s=>BY[s[0]].T===T||BY[s[1]].T===T).length;
+  return {cubes,levels:lv.size,cpl};
+}
+function boardTeam(){
+  const lay=TEAM.layerExperts.map(x=>{
+    const L=TW.SGAM.ls.find(l=>l[0]===x.layer);
+    const gap=!x.owners.length&&x.confidence!=="byDesign";
+    return `<tr class="${gap?"gap":""}">
+      <td class="c">${lvDot(L[2])}${esc(x.layer)}</td>
+      <td>${esc(L[1])} <span style="color:var(--ink3)">L${L[2]}</span></td>
+      <td>${esc(owners(x.owners))}</td>
+      <td class="c">${x.confidence==="byDesign"
+        ? `<span class="pill" title="${esc(x.why||"")}">by design</span>`
+        : x.owners.length?`<span class="pill">measured</span>`:`<span class="pill w">ว่าง</span>`}</td></tr>`;}).join("");
+  const dom=TEAM.domainExperts.map(x=>{
+    const X=TW.SGAM.xs.find(i=>i[0]===x.domain),gap=!x.owners.length;
+    return `<tr class="${gap?"gap":""}">
+      <td class="c">${esc(x.domain)}</td><td>${esc(X[1])}</td>
+      <td>${esc(owners(x.owners))}</td>
+      <td class="c">${x.owners.length?`<span class="pill">measured</span>`:`<span class="pill w">ยังไม่ระบุ</span>`}</td></tr>`;}).join("");
+  const u=TEAM.unresolved,nOwned=TEAM.domainExperts.filter(x=>x.owners.length).length;
+  return `<h2>ทีม Smart Architecture<s>R4 สไลด์ 5–8</s></h2>
+  <p class="lead">${esc(TEAM.roles.layerExpert)}<br>${esc(TEAM.roles.domainExpert)}</p>
+  <h2 style="border:0;margin:18px 0 4px;font-size:10.5px;color:var(--ink3)">Interoperability Layer Expert</h2>
+  <table><thead><tr><th>Layer</th><th>ชื่อชั้น</th><th>ผู้รับผิดชอบ</th><th>ที่มา</th></tr></thead><tbody>${lay}</tbody></table>
+  <h2 style="border:0;margin:18px 0 4px;font-size:10.5px;color:var(--ink3)">Domain Expert</h2>
+  <table><thead><tr><th>Domain</th><th>ชื่อโดเมน</th><th>ผู้รับผิดชอบ</th><th>ที่มา</th></tr></thead><tbody>${dom}</tbody></table>
+  <div class="cov"><i style="width:${nOwned/TEAM.domainExperts.length*100}%"></i></div>
+  <p class="lead"><b>${nOwned} จาก ${TEAM.domainExperts.length} โดเมนระบุเจ้าของได้</b> — ${esc(u.why)}
+  เหลือ ${u.groups.length} กลุ่ม (${u.groups.map(g=>esc(g.join("/"))).join(", ")})
+  ต่อ ${u.candidates.length} โดเมน (${u.candidates.join(", ")})</p>`;
+}
+function boardStandards(){
+  const blocks=TW.SGAM.ls.map(L=>{
+    const b=LSTD.byLayer[L[0]];
+    const rows=b.items.map(it=>`<tr><td class="c">${esc(it.code)}</td><td>${esc(it.th)}</td>
+      <td class="c">${it.scope==="all"?`<span class="pill">ทุกตึก</span>`:`<span class="pill">${esc(it.scope)}</span>`}</td></tr>`).join("");
+    return `<details><summary>${lvDot(L[2])}<b>${esc(L[0])}</b> ${esc(L[1])} Layer<span>${b.items.length} มาตรฐาน</span></summary>
+      <div class="dbody"><p class="v">${esc(b.view)}</p>
+      <table><thead><tr><th>มาตรฐาน</th><th>ใช้ทำอะไร</th><th>ของตึก</th></tr></thead><tbody>${rows}</tbody></table></div></details>`;
+  }).join("");
+  const n=Object.values(LSTD.byLayer).reduce((a,b)=>a+b.items.length,0);
+  return `<h2>มาตรฐานต่อ Interoperability Layer<s>${n} รายการ · R4 สไลด์ 15–21</s></h2>
+    <p class="lead">${esc(LSTD.note)}</p>${blocks}`;
+}
+function repCUS(r){
+  const cards=r.pillars.map(p=>`<div class="cd"><div class="k">${esc(p.name)}</div>
+    <p>${p.capabilities.map(esc).join(" · ")}</p>
+    <p style="margin-top:7px">${p.standards.map(s=>`<span class="pill">${esc(s)}</span>`).join("")}</p></div>`).join("");
+  return `<div class="cards">${cards}</div>
+    <p class="v"><b>${esc(r.lifecycle.title)}</b> — ${esc(r.lifecycle.th)}<br>
+    ${r.lifecycle.stages.map(s=>`<span class="pill">${esc(s)}</span>`).join(" → ")}</p>`;
+}
+function repDIS(r){
+  const z=r.byZone.map(x=>`<tr><td class="c">${esc(x.zone)}</td><td>${esc(x.th)}</td></tr>`).join("");
+  const l=r.byLayer.map(x=>{const L=TW.SGAM.ls.find(y=>y[0]===x.layer);
+    return `<tr><td class="c">${lvDot(L[2])}${esc(x.layer)}</td><td class="c">${esc(x.q)}</td><td>${esc(x.th)}</td></tr>`;}).join("");
+  return `<p class="v"><b>เป้าหมาย</b> — ${esc(r.goal)}</p>
+    <p class="v">${r.scope.map(s=>`<span class="pill">${esc(s)}</span>`).join("")}</p>
+    <table><thead><tr><th>Zone</th><th>อยู่ระดับไหน</th></tr></thead><tbody>${z}</tbody></table>
+    <table style="margin-top:14px"><thead><tr><th>Layer</th><th>คำถาม</th><th>ต้องเชื่อมอะไร</th></tr></thead><tbody>${l}</tbody></table>
+    <p class="v"><b>ข้อสรุป</b> — ${esc(r.keyPoint)}</p>`;
+}
+function repTRA(r){
+  const Z=TW.SGAM.ys.map(y=>y[0]);
+  const head=Z.map(z=>`<th class="z">${esc(z)}</th>`).join("");
+  const body=TW.SGAM.ls.filter(L=>r.grid[L[0]]).map(L=>{
+    const row=Z.map(z=>`<td>${(r.grid[L[0]][z]||[]).map(v=>`<u>${esc(v)}</u>`).join("")}</td>`).join("");
+    return `<tr><td class="c">${lvDot(L[2])}${esc(L[0])}</td>${row}</tr>`;}).join("");
+  const fl=r.flows.map(f=>`<span class="pill">${esc(f.a)} ${f.dir==="down"?"→":"↔"} ${esc(f.b)} · ${esc(f.what)}</span>`).join("");
+  const cd=r.crossDomain.map(c=>`<tr><td class="c">${esc(c.with)}</td><td>${c.what.map(esc).join(" · ")}
+    ${c.note?`<br><span style="color:var(--ink3)">${esc(c.note)}</span>`:""}</td></tr>`).join("");
+  return `<p class="v"><b>เป้าหมาย</b> — ${esc(r.goal)}</p>
+    <div class="grid"><table><thead><tr><th>Layer</th>${head}</tr></thead><tbody>${body}</tbody></table></div>
+    <p class="v"><b>ตัวอย่าง information flow</b><br>${fl}</p>
+    <p class="v"><b>มาตรฐานที่อ้างในผัง</b><br>${r.standards.map(s=>`<span class="pill">${esc(s.code)} · ${esc(s.where)}</span>`).join("")}</p>
+    <p class="v"><b>เชื่อมข้ามโดเมน</b></p>
+    <table><thead><tr><th>กับ</th><th>แลกอะไร</th></tr></thead><tbody>${cd}</tbody></table>`;
+}
+function boardDomains(){
+  const done=DREP.reports.filter(r=>r.status==="reported").length;
+  const cards=DREP.reports.map(r=>{
+    const X=TW.SGAM.xs.find(i=>i[0]===r.domain);
+    if(r.status!=="reported")
+      return `<details><summary><b>${esc(r.domain)}</b> ${esc(X?X[1]:r.title)}
+        <span><span class="pill w">ยังไม่รายงาน</span></span></summary>
+        <div class="dbody"><p class="v">${esc(r.summary)}</p></div></details>`;
+    const inner=r.domain==="CUS"?repCUS(r):r.domain==="DIS"?repDIS(r):repTRA(r);
+    return `<details><summary><b>${esc(r.domain)}</b> ${esc(r.title)}<span>${esc(r.ref)} · ${esc(REF[r.ref].title.slice(0,34))}…</span></summary>
+      <div class="dbody"><p class="v">${esc(r.summary)}</p>${inner}</div></details>`;
+  }).join("");
+  return `<h2>รายงานรายโดเมน — SGAM<s>${done} จาก ${DREP.reports.length} โดเมน</s></h2>
+    <div class="cov"><i style="width:${done/DREP.reports.length*100}%"></i></div>${cards}`;
+}
+function boardTowers(){
+  const st={};BRD.towerStatus.forEach(t=>st[t.tower]=t);
+  return `<h2>สถานะรายสถาปัตยกรรม<s>${BRD.towerStatus.filter(t=>t.reporting==="active").length} ตึกมีทีมรายงาน</s></h2>
+  <div class="cards">${TOWERS.map(T=>{const s=twStats(T),b=st[T.k],on=b.reporting==="active";
+    return `<div class="cd"><span class="st ${on?"on":"off"}">${on?"รายงานแล้ว":"อ้างอิง"}</span>
+      <div class="k">${esc(T.k)}</div>
+      <div class="n"><div><em>${s.cubes}</em><i>CUBES</i></div>
+        <div><em>${s.levels}/8</em><i>ระดับที่มี</i></div>
+        <div><em>${s.cpl}</em><i>คู่เชื่อม</i></div></div>
+      <p>${esc(b.th)}</p></div>`;}).join("")}</div>`;
+}
+function boardAsks(){
+  return `<h2>ประเด็นเสนอบอร์ด<s>${BRD.asks.length} ข้อ</s></h2>`+
+    BRD.asks.map(a=>`<div class="ask"><div class="id">${esc(a.id)}</div>
+      <div class="tx">${esc(a.th)}</div><div class="ow">${esc(a.owner)}</div></div>`).join("");
+}
+let brdDone=false;
+function drawBoard(){
+  if(brdDone)return;
+  const authored=M.cubeAttributes.authored;
+  $("brd").innerHTML=`<div class="w">
+    <div class="hd"><b>${esc(BRD.meeting)}</b>
+      <span>${esc(M.meta.doc)} · v${esc(M.meta.version)} · ณ ${esc(BRD.asOf)}</span>
+      <span style="margin-left:auto">${esc(M.meta.status)}</span></div>
+    <p class="lead">${esc(BRD.note)}</p>
+    ${boardTowers()}${boardDomains()}${boardTeam()}${boardStandards()}${boardAsks()}
+    <div class="foot">ช่องที่ต้องมีคนเขียน — ${authored.filled} จาก ${authored.of}
+      (${authored.fields.join(", ")}) · งบของคู่เชื่อม ${M.couplings.filter(c=>c.analysis.budget.status==="unassigned").length}
+      จาก ${M.couplings.length} ยังไม่มีเจ้าของ · เว้นว่างไว้ตั้งใจ ตัวเลขนี้คือประเด็น ไม่ใช่ความบกพร่องของเครื่องมือ<br>
+      ที่มา: ${M.references.map(r=>esc(r.id)+" "+esc(r.title.slice(0,46))).join(" · ")}</div></div>`;
+  brdDone=true;
+}
 function draw(){
   if(!SC)build();
-  const flat=S.view==="flat";
+  const board=S.view==="board",flat=S.view==="flat";
+  $("brd").hidden=!board;
+  svg.style.display=board?"none":"";
+  $("hint").style.display=board?"none":"";
+  if(board){drawBoard();return;}
   SC.isoG.style.display=flat?"none":"";
   if(flat)drawFlat(); else drawIso();
   if(FLAT.g)FLAT.g.style.display=flat?"":"none";
@@ -903,13 +1096,15 @@ document.querySelectorAll(".vb").forEach(b=>b.onclick=()=>{
     document.querySelector('[data-v="lrow"]').setAttribute("aria-pressed",S.layout==="row");
     req();return;
   }
-  else if(v==="m3d"||v==="m2d"){
-    S.view=(v==="m2d")?"flat":"iso";
+  else if(v==="m3d"||v==="m2d"||v==="mbd"){
+    if(S.story)storyOn(false);
+    S.view=(v==="m2d")?"flat":(v==="mbd")?"board":"iso";
     S.sel=S.selB=S.selP=null;S.selS=null;
     document.querySelector('[data-v="m3d"]').setAttribute("aria-pressed",S.view==="iso");
     document.querySelector('[data-v="m2d"]').setAttribute("aria-pressed",S.view==="flat");
-    $("rotGrp").style.display=S.view==="flat"?"none":"";
-    $("layGrp").style.display=S.view==="flat"?"none":"";
+    document.querySelector('[data-v="mbd"]').setAttribute("aria-pressed",S.view==="board");
+    $("rotGrp").style.display=S.view==="iso"?"":"none";
+    $("layGrp").style.display=S.view==="iso"?"":"none";
     $("hint").innerHTML=S.view==="flat"
       ? "<b>คลิกบล็อก</b> = ดูชั้นนั้น · <b>คลิกเส้น</b> = ดูการเชื่อม · <b>ล้อ</b> = ซูม · กรอบประคือชั้นที่ตึกนั้นไม่มี · เส้นเอียง = เชื่อมข้ามชั้น"
       : "<b>ลาก</b> = หมุน · <b>ล้อ</b> = ซูม · <b>คลิกจุด</b> = ดู cube · <b>คลิกเส้น</b> = ดูรายละเอียดการเชื่อม · เลือกตึก 2–3 ตึกเพื่อดูเฉพาะคู่นั้น";
@@ -1164,7 +1359,7 @@ if(M.scopeLimits){
 $("refList").innerHTML=(M.references||[]).map(r=>
   `<span title="${esc(r.title)}${r.restriction?" — "+esc(r.restriction):""}">${esc(r.id)} <b>${esc(r.publisher)}</b>${r.restriction?" ⚠":""}</span>`).join("");
 syncUI();stats();detail();draw();
-Object.assign(window,{M,S,SC,applyLayout,ROW_K,HUB_U,HUB_V,CT,LV,TOWERS,TW,BLOCKLINKS,FLAT,drawFlat,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs});
+Object.assign(window,{M,S,SC,applyLayout,ROW_K,HUB_U,HUB_V,CT,LV,TOWERS,TW,BLOCKLINKS,FLAT,drawFlat,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs,drawBoard,TEAM,LSTD,DREP,BRD,twStats});
 </script>
 </body>
 </html>

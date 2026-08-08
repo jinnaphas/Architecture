@@ -274,7 +274,7 @@
           "Business",
           "L8",
           "The business layer represents the business view on the information exchange related to smart grids. SGAM can be used to map regulatory and economic (market) structures (using harmonized roles and responsibilities) and policies, business models and use cases, business portfolios (products & services) of market parties involved. Also business capabilities, use cases and business processes can be represented in this layer.",
-          "SG-CG/M490/K Table 3",
+          "SG-CG/M490/K Table 3 · รับเป็นมาตรฐาน IEC SRD 63200:2021 (R4 สไลด์ 2)",
           "เหตุผลทางธุรกิจ กฎเกณฑ์ และผู้จ่ายเงิน"
         ],
         [
@@ -282,7 +282,7 @@
           "Function",
           "L7",
           "The function layer describes system use cases, functions and services including their relationships from an architectural viewpoint. The functions are represented independent from actors and physical implementations in applications, systems and components. The functions are derived by extracting the use case functionality that is independent from actors.",
-          "SG-CG/M490/K Table 3",
+          "SG-CG/M490/K Table 3 · รับเป็นมาตรฐาน IEC SRD 63200:2021 (R4 สไลด์ 2)",
           "use case และ test case ที่ทดสอบได้จริง"
         ],
         [
@@ -290,7 +290,7 @@
           "Intelligence",
           "L6",
           "ชั้นที่ PCC เพิ่มเอง — agent ตัดสินใจอะไรได้ ระดับไหน ใครกำกับ ไม่มีใน SGAM มาตรฐาน",
-          "PCC extension — not in SGAM standard",
+          "ชั้นที่ทีม Smart Architecture เสนอเพิ่ม (R4 สไลด์ 3) — ยังไม่อยู่ใน 5 layer ฐานของ IEC SRD 63200:2021 เพื่อรองรับ Active and Intelligent Agents (Agentic AI)",
           "agent ตัดสินใจอะไรได้ ระดับไหน ใครกำกับ"
         ],
         [
@@ -298,7 +298,7 @@
           "Information",
           "L5",
           "The information layer describes the information that is being used and exchanged between functions, services and components. It contains information objects and the underlying canonical data models. These information objects and canonical data models represent the common semantics for functions and services in order to allow an interoperable information exchange via communication means.",
-          "SG-CG/M490/K Table 3",
+          "SG-CG/M490/K Table 3 · รับเป็นมาตรฐาน IEC SRD 63200:2021 (R4 สไลด์ 2)",
           "ความหมายข้อมูลที่ตรงกันทุกระบบ"
         ],
         [
@@ -306,7 +306,7 @@
           "Communication",
           "L4",
           "The emphasis of the communication layer is to describe protocols and mechanisms for the interoperable exchange of information between components in the context of the underlying use case, function or service and related information objects or data models.",
-          "SG-CG/M490/K Table 3",
+          "SG-CG/M490/K Table 3 · รับเป็นมาตรฐาน IEC SRD 63200:2021 (R4 สไลด์ 2)",
           "protocol และเวลาที่ข้อมูลต้องถึง"
         ],
         [
@@ -314,7 +314,7 @@
           "Cyber",
           "L3",
           "ชั้นที่ PCC เพิ่มเอง — ตัวตน สิทธิ์ และร่องรอยตรวจสอบ ดู deviations DEV-02: SG-CG ถือว่า security เป็นข้อกำหนดที่พาดขวางทุกชั้น ไม่ใช่ชั้นแยก",
-          "PCC extension — not in SGAM standard",
+          "ชั้นที่ทีม Smart Architecture เสนอเพิ่ม (R4 สไลด์ 3) — ยังไม่อยู่ใน 5 layer ฐานของ IEC SRD 63200:2021 เพื่อแยกซอฟต์แวร์/ระบบดิจิทัลออกจากฮาร์ดแวร์กายภาพ",
           "ตัวตน สิทธิ์ และร่องรอยตรวจสอบ"
         ],
         [
@@ -322,7 +322,7 @@
           "Component",
           "L1",
           "The emphasis of the component layer is the physical distribution of all participating components in the smart grid context. This includes system & device actors, power system equipment (typically located at process and field level), protection and tele-control devices, network infrastructure (wired / wireless communication connections, routers, switches, servers) and any kind of computers.",
-          "SG-CG/M490/K Table 3",
+          "SG-CG/M490/K Table 3 · รับเป็นมาตรฐาน IEC SRD 63200:2021 (R4 สไลด์ 2)",
           "อุปกรณ์จริงและสถานะสอบเทียบ"
         ]
       ],
@@ -2965,6 +2965,34 @@
       "date": "2021-03-23",
       "role": "บทวิเคราะห์เชิงบริหาร ไม่ใช่มาตรฐานสถาปัตยกรรม",
       "restriction": "เอกสารมีลิขสิทธิ์จำกัด ระบุ 'restricted to the personal use of' และห้ามทำซ้ำหรือเผยแพร่ โดยไม่ได้รับอนุญาต — ห้ามฝังรูป ตาราง หรือข้อความลงในแอปที่ deploy สาธารณะ"
+    },
+    {
+      "id": "R4",
+      "title": "IEC SRD 63200 – SGAM: Apply SGAM for RAMI 4.0, SFAM and SCIAM",
+      "publisher": "Precise Corporation — Smart Architecture team",
+      "date": "2026-08",
+      "role": "สไลด์ภายใน 21 หน้า — concept, standard ต่อ layer, และผังทีม"
+    },
+    {
+      "id": "R5",
+      "title": "SMART GRID for Customer Premise",
+      "publisher": "Precise Corporation — Smart Architecture team",
+      "date": "2026-08",
+      "role": "รายงาน domain Customer Premises — 4 เสาหลักและ Total Lifecycle Costing"
+    },
+    {
+      "id": "R6",
+      "title": "SGAM Domain — Distribution",
+      "publisher": "Precise Corporation — Smart Architecture team",
+      "date": "2026-08",
+      "role": "รายงาน domain Distribution — zone, layer และความสัมพันธ์"
+    },
+    {
+      "id": "R7",
+      "title": "SGAM – Transmission Domain: Architecture Across Interoperability Layers, Zones and Cross-Domain Interactions",
+      "publisher": "Precise Corporation — Smart Architecture team",
+      "date": "2026-08",
+      "role": "รายงาน domain Transmission — ผังเต็ม 7 layer × 6 zone"
     }
   ],
   "_tupleSchema": {
@@ -3052,5 +3080,1072 @@
       "owner": null,
       "nextStep": "ต้องมี Layer Architect ต่อชั้น L1–L8 และ Model Owner ต่อตึกก่อน ตาม governance"
     }
+  },
+  "team": {
+    "note": "อ่านจาก R4 สไลด์ 5–8 · ชื่อเป็นชื่อเล่นตามที่ปรากฏในสไลด์",
+    "roles": {
+      "layerExpert": "Interoperability Layer Expert — แต่ละ layer เข้าไปทำงานร่วมกับ Domain Expert เพื่อพัฒนา feature ของ product & service ใน domain นั้น (R4 สไลด์ 5)",
+      "domainExpert": "Domain Expert — แต่ละ domain ของ Component Layer รับผิดชอบทุก zone ของ domain ตัวเอง (R4 สไลด์ 5)"
+    },
+    "layerExperts": [
+      {
+        "layer": "BUS",
+        "owners": [
+          "หญิง",
+          "แอม"
+        ],
+        "confidence": "measured"
+      },
+      {
+        "layer": "FUN",
+        "owners": [
+          "หญิง",
+          "แพรวรุ่ง"
+        ],
+        "confidence": "measured"
+      },
+      {
+        "layer": "INT",
+        "owners": [
+          "แพรวรุ่ง"
+        ],
+        "confidence": "measured"
+      },
+      {
+        "layer": "INF",
+        "owners": [
+          "เบียร์",
+          "อู๋",
+          "เติ้ล"
+        ],
+        "confidence": "measured"
+      },
+      {
+        "layer": "COM",
+        "owners": [
+          "ท๊อป",
+          "เอี่ยว"
+        ],
+        "confidence": "measured"
+      },
+      {
+        "layer": "CYB",
+        "owners": [
+          "พีค",
+          "ไอซ์",
+          "กานต์"
+        ],
+        "confidence": "measured"
+      },
+      {
+        "layer": "CMP",
+        "owners": [],
+        "confidence": "byDesign",
+        "why": "Component Layer ไม่มี Layer Expert เพราะ Domain Expert รับผิดชอบ layer นี้ทุก domain อยู่แล้ว (R4 สไลด์ 5)"
+      }
+    ],
+    "domainExperts": [
+      {
+        "domain": "GEN",
+        "owners": [
+          "เบิ้ม"
+        ],
+        "confidence": "measured"
+      },
+      {
+        "domain": "TRA",
+        "owners": [],
+        "confidence": "unresolved"
+      },
+      {
+        "domain": "DIS",
+        "owners": [],
+        "confidence": "unresolved"
+      },
+      {
+        "domain": "DER",
+        "owners": [],
+        "confidence": "unresolved"
+      },
+      {
+        "domain": "CUS",
+        "owners": [
+          "อุ๊บอิ๊บ",
+          "ไอซ์"
+        ],
+        "confidence": "measured"
+      }
+    ],
+    "unresolved": {
+      "groups": [
+        [
+          "โบ",
+          "เต้",
+          "โจ"
+        ],
+        [
+          "หญิง"
+        ]
+      ],
+      "candidates": [
+        "TRA",
+        "DIS",
+        "DER"
+      ],
+      "why": "R4 สไลด์ 6 วางชื่อไว้บนลูกศรแกน Domains ไม่ได้วางใต้ชื่อ domain จึงระบุได้แน่ชัดแค่หัวและท้ายแกน · เหลือ 2 กลุ่มกับ 3 domain แปลว่ามี 1 domain ที่ยังไม่มีเจ้าของ — ต้องให้ทีมยืนยัน"
+    }
+  },
+  "layerStandards": {
+    "source": "R4 สไลด์ 15–21",
+    "note": "สไลด์ชุดนี้ครอบคลุม SGAM ที่เอาไปใช้กับ RAMI 4.0, SFAM และ SCIAM รายการในแต่ละ layer จึงปนมาตรฐานของหลายตึก · ช่อง scope บอกว่าอันไหนของตึกไหน",
+    "byLayer": {
+      "BUS": {
+        "view": "มองระบบในมิติของ โครงสร้างตลาด (Market Structures), โมเดลธุรกิจ (Business Models), กฎระเบียบ (Regulations)",
+        "items": [
+          {
+            "code": "IEC 62559",
+            "th": "Use Case Methodology — template วิเคราะห์ business requirements และ actors/roles แปลงนโยบายเป็นฟังก์ชันทางเทคนิค",
+            "scope": "SGAM"
+          },
+          {
+            "code": "ENTSO-E HEM-RM",
+            "th": "Harmonized Electricity Market Role Model — นิยามบทบาทผู้เล่นในตลาดไฟฟ้าเสรี เช่น BRP, Metered Data Aggregator, Grid Operator",
+            "scope": "SGAM"
+          },
+          {
+            "code": "eBIX / EFET / ENTSO-E",
+            "th": "กฎการแลกเปลี่ยนข้อมูลธุรกิจและการหักล้างมูลค่าพลังงาน (Clearing and Settlement) ตลาดค้าปลีก–ค้าส่ง",
+            "scope": "SGAM"
+          },
+          {
+            "code": "ISO/IEC 27001 · ISO 22301",
+            "th": "ISMS และ BCM — รองรับความเสี่ยงด้านการลงทุนและความมั่นใจของผู้ใช้บริการ",
+            "scope": "all"
+          },
+          {
+            "code": "ISO 9001 · ISO 22000",
+            "th": "การบริหารงานคุณภาพ และความปลอดภัยอาหารตลอดห่วงโซ่อุปทานเกษตร",
+            "scope": "SFAM"
+          },
+          {
+            "code": "UN/CEFACT · OASIS ebXML",
+            "th": "e-Business & e-Commerce — ซื้อขายผลผลิตและสัญญาซื้อขายล่วงหน้า",
+            "scope": "SFAM"
+          }
+        ]
+      },
+      "FUN": {
+        "view": "มองระบบในมิติของ ระบบปฏิบัติการณ์ (Logical operations), บริการ (Services) และ Use Cases ทางเทคนิค",
+        "items": [
+          {
+            "code": "IEC 61850",
+            "th": "Logical Nodes & Functions — เช่น Overcurrent Protection, Telecontrol Function แบ่งหน้าที่เป็น Logical Nodes (เช่น PDIS)",
+            "scope": "SGAM"
+          },
+          {
+            "code": "IEC 62746",
+            "th": "Systems Interface for Demand Response — ระหว่าง Customer Energy Management System กับโครงข่ายหลัก",
+            "scope": "SGAM"
+          },
+          {
+            "code": "ISO/IEC/IEEE 42010",
+            "th": "Systems and Software Engineering — ระบุ functional viewpoint ความสัมพันธ์ และ interfaces ของแต่ละโมดูล",
+            "scope": "all"
+          },
+          {
+            "code": "ISO 11783 (ISOBUS TC)",
+            "th": "Task Controller — ควบคุมฟังก์ชันเครื่องจักรกลเกษตร เช่น หว่านปุ๋ยตามพิกัด (VRA)",
+            "scope": "SFAM"
+          },
+          {
+            "code": "IEC 61131-3",
+            "th": "สถาปัตยกรรมซอฟต์แวร์และการเขียนโปรแกรมควบคุมอุปกรณ์อัตโนมัติ (PLC)",
+            "scope": "RAMI"
+          },
+          {
+            "code": "OpenAPI (OAS)",
+            "th": "ออกแบบ RESTful API ให้แอปเรียกใช้ฟังก์ชันข้ามระบบได้",
+            "scope": "all"
+          },
+          {
+            "code": "OGC SOS",
+            "th": "Sensor Observation Service — เข้าถึงฟังก์ชันวิเคราะห์ข้อมูลเซนเซอร์เชิงพื้นที่",
+            "scope": "SCIAM"
+          }
+        ]
+      },
+      "INT": {
+        "view": "มองระบบในมิติของ AI/ML, อัลกอริทึมขั้นสูง, Cloud/Edge Computing และ Big Data Analytics",
+        "items": [
+          {
+            "code": "ISO/IEC 42001",
+            "th": "AI Management System (AIMS) — บริหารความเสี่ยง จริยธรรมการใช้ AI และกำกับความถูกต้องของโมเดล",
+            "scope": "all"
+          },
+          {
+            "code": "ISO/IEC 22989 · 23053",
+            "th": "นิยาม คำศัพท์ และกรอบสถาปัตยกรรมสำหรับระบบ AI และ Machine Learning",
+            "scope": "all"
+          },
+          {
+            "code": "IEEE P2863",
+            "th": "Organizational Governance of AI — การกำกับดูแลการนำ AI มาใช้ในอุตสาหกรรมและโครงสร้างพื้นฐาน",
+            "scope": "all"
+          }
+        ]
+      },
+      "INF": {
+        "view": "มองระบบในมิติของ “พจนานุกรมข้อมูล” — Semantic Interoperability, data model ตรงกันทุกระบบ",
+        "items": [
+          {
+            "code": "IEC 61970 (CIM)",
+            "th": "CIM for Power Systems — จำลองโครงสร้างสายส่งแรงสูงและระบบ EMS",
+            "scope": "SGAM"
+          },
+          {
+            "code": "IEC 61968 (CIM)",
+            "th": "CIM for Distribution — โครงข่ายจำหน่ายและการจัดการทรัพย์สิน",
+            "scope": "SGAM"
+          },
+          {
+            "code": "IEC 62325",
+            "th": "CIM for Energy Market — ราคาค่าไฟ ผลประมูล และตารางปริมาณซื้อขายข้ามพรมแดน",
+            "scope": "SGAM"
+          },
+          {
+            "code": "IEC 62056 (DLMS/COSEM)",
+            "th": "Object Model ข้อมูลพลังงานไฟฟ้าภายใน Smart Meter",
+            "scope": "SGAM"
+          },
+          {
+            "code": "IEC 61850-7 (SCL)",
+            "th": "Substation Configuration Language — XML ระบุการตั้งค่าอุปกรณ์ทั้งสถานี",
+            "scope": "SGAM"
+          },
+          {
+            "code": "AgGateway ADAPT",
+            "th": "โมเดลข้อมูลและปลั๊กอินกลางแปลงข้อมูลข้ามค่ายในภาคเกษตร",
+            "scope": "SFAM"
+          },
+          {
+            "code": "W3C SSN/SOSA",
+            "th": "ออนโทโลยีข้อมูลเซนเซอร์ การสังเกตการณ์ และอุปกรณ์ขับเคลื่อน",
+            "scope": "SCIAM"
+          },
+          {
+            "code": "GS1 EPCIS",
+            "th": "โครงสร้างข้อมูลเหตุการณ์ในโซ่อุปทาน ใช้ตรวจสอบย้อนกลับผลผลิต",
+            "scope": "SFAM"
+          },
+          {
+            "code": "ISO 11783-10",
+            "th": "ISOBUS Data Dictionary — นิยามตัวแปรทางเกษตรให้บันทึกรูปแบบเดียวกัน",
+            "scope": "SFAM"
+          }
+        ]
+      },
+      "COM": {
+        "view": "มองระบบในมิติของ Syntactic Interoperability — encoding, packet formatting และโปรโตคอลบนเครือข่าย",
+        "items": [
+          {
+            "code": "IEC 61850 MMS",
+            "th": "Client/Server บน TCP/IP สำหรับ reporting และควบคุมอุปกรณ์ระยะไกล",
+            "scope": "SGAM"
+          },
+          {
+            "code": "IEC 61850 GOOSE",
+            "th": "Layer 2 Multicast ความเร็วสูง ส่งภายใน < 3 ms สำหรับงาน Protection",
+            "scope": "SGAM"
+          },
+          {
+            "code": "IEC 61850 SV",
+            "th": "Sampled Values — สตรีมคลื่นแรงดันและกระแสความละเอียดสูงจาก CT/PT",
+            "scope": "SGAM"
+          },
+          {
+            "code": "IEC 60870-5-104 · DNP3 (IEEE 1815)",
+            "th": "เชื่อม SCADA ส่วนกลางเข้ากับ RTU และ Recloser นอกสถานี",
+            "scope": "SGAM"
+          },
+          {
+            "code": "IEEE 2030.5 (SEP 2.0)",
+            "th": "Application layer บน IP ควบคุม DER หลังมิเตอร์ — อินเวอร์เตอร์ PV, BESS, EV charger",
+            "scope": "SGAM"
+          },
+          {
+            "code": "IEC 62746-10-1 (OpenADR 2.0)",
+            "th": "สั่งการ Demand Response บนคลาวด์ระหว่างการไฟฟ้ากับระบบบริหารพลังงานในอาคาร",
+            "scope": "SGAM"
+          },
+          {
+            "code": "IEC 61334 (DLMS over PLC)",
+            "th": "DLMS วิ่งบนสายส่งไฟฟ้า — ใช้ในระบบ Smart Metering",
+            "scope": "SGAM"
+          },
+          {
+            "code": "MQTT (ISO/IEC 20922) · CoAP",
+            "th": "โปรโตคอลขนาดเล็กประหยัดพลังงาน เหมาะกับ IoT และเซนเซอร์ในฟาร์ม",
+            "scope": "SFAM"
+          },
+          {
+            "code": "OPC UA (IEC 62541)",
+            "th": "สื่อสารปลอดภัยจากระบบควบคุม (SCADA/PLC) ขึ้นคลาวด์หรือ Enterprise",
+            "scope": "RAMI"
+          },
+          {
+            "code": "LoRaWAN · NB-IoT (3GPP)",
+            "th": "LPWAN ระยะไกลพลังงานต่ำ เหมาะกับฟาร์มเปิดขนาดใหญ่",
+            "scope": "SFAM"
+          },
+          {
+            "code": "IEEE 802.11ax (Wi-Fi 6) · 5G",
+            "th": "เครือข่ายความเร็วสูง สำหรับกล้อง AI หรือโดรน",
+            "scope": "SCIAM"
+          }
+        ]
+      },
+      "CYB": {
+        "view": "มองระบบในมิติของ ซอฟต์แวร์ แอพพลิเคชัน และระบบดิจิทัล",
+        "items": [
+          {
+            "code": "IEEE 1451",
+            "th": "อินเทอร์เฟซสากลสำหรับ Smart Transducers",
+            "scope": "SGAM"
+          },
+          {
+            "code": "ISO/IEC 27019",
+            "th": "Information Security Controls สำหรับอุตสาหกรรมพลังงานและระบบควบคุมกระบวนการผลิต",
+            "scope": "SGAM"
+          },
+          {
+            "code": "IEC 62443-2-1",
+            "th": "CSMS — ระบบบริหารจัดการความปลอดภัยไซเบอร์สำหรับ Asset Owner",
+            "scope": "all"
+          },
+          {
+            "code": "NIST Framework · BSI IT-Grundschutz",
+            "th": "กรอบบริหารความเสี่ยงไซเบอร์ ประเมินความพร้อมและมาตรการตอบสนอง",
+            "scope": "all"
+          },
+          {
+            "code": "IEEE 1686",
+            "th": "ความปลอดภัยและการควบคุมสิทธิ์การเข้าใช้งานอุปกรณ์ IED",
+            "scope": "SGAM"
+          },
+          {
+            "code": "IEC 63278 (AAS)",
+            "th": "Asset Administration Shell — พาสปอร์ตดิจิทัลของสินทรัพย์ แกนหลักจาก RAMI 4.0",
+            "scope": "RAMI"
+          },
+          {
+            "code": "ISO 11783-2",
+            "th": "ISOBUS Physical Layer — CAN-bus บนเครื่องจักรกลเกษตร",
+            "scope": "SFAM"
+          },
+          {
+            "code": "Modbus RTU/TCP · IO-Link (IEC 61131-9)",
+            "th": "เชื่อมสัญญาณเซนเซอร์อุตสาหกรรมระดับ Field แปลงอนาล็อกเป็นดิจิทัล",
+            "scope": "RAMI"
+          }
+        ]
+      },
+      "CMP": {
+        "view": "มองระบบในมิติของ ฮาร์ดแวร์จริง อุปกรณ์ไฟฟ้า และ Physical Infrastructure",
+        "items": [
+          {
+            "code": "IEC 61850-3",
+            "th": "Industrial Grade — อุปกรณ์ IT/network ในสถานีต้องทน EMI/EMC อุณหภูมิวิกฤต และแรงสั่นสะเทือน",
+            "scope": "SGAM"
+          },
+          {
+            "code": "IEEE 1547 · IEC 62898",
+            "th": "DER Interconnection — ข้อกำหนดและการทดสอบอินเวอร์เตอร์เชื่อม Solar/Wind/Battery เข้ากริด",
+            "scope": "SGAM"
+          },
+          {
+            "code": "IEC 62052 · IEC 62053",
+            "th": "Smart Meter Hardware — ความแม่นยำระดับ Class 0.5S / Class 1",
+            "scope": "SGAM"
+          },
+          {
+            "code": "IEC 61439",
+            "th": "ตู้จ่ายไฟ บัสบาร์ และชุดสวิตช์บอร์ดแรงดันต่ำ",
+            "scope": "SGAM"
+          },
+          {
+            "code": "IEC 60794 · IEEE 802.3 / 802.11",
+            "th": "โครงสร้างสายสัญญาณ ไฟเบอร์ออปติก และอุปกรณ์เราเตอร์สวิตช์",
+            "scope": "all"
+          },
+          {
+            "code": "GS1 GTIN · RFID (ISO/IEC 18000)",
+            "th": "แท็กระบุตัวตนทางกายภาพ เช่น ear tag บาร์โค้ดลังผลผลิต ชิปติดรถขนส่ง",
+            "scope": "SFAM"
+          },
+          {
+            "code": "ISO 5001",
+            "th": "การจัดการพลังงานของเครื่องจักร อาคารจัดเก็บ และระบบทำความเย็นในฟาร์ม",
+            "scope": "SFAM"
+          },
+          {
+            "code": "UNE-EN 13031-1",
+            "th": "การออกแบบและโครงสร้างทางวิศวกรรมของโรงเรือนกระจก",
+            "scope": "SFAM"
+          }
+        ]
+      }
+    }
+  },
+  "domainReports": {
+    "note": "รายงานของทีม Smart Architecture รายโดเมน — เนื้อหาถอดจากเอกสารต้นทางตรง ๆ",
+    "reports": [
+      {
+        "domain": "CUS",
+        "title": "Smart Grid for Customer Premise",
+        "ref": "R5",
+        "status": "reported",
+        "summary": "ยกกรอบเป็น 4 เสาหลัก แต่ละเสามีมาตรฐานกำกับและชุดความสามารถของตัวเอง",
+        "pillars": [
+          {
+            "name": "Intelligent Energy Optimization",
+            "standards": [
+              "IEC 61970",
+              "IEC 61968",
+              "IEC 61850",
+              "IEC 61883-1",
+              "IEC 62746",
+              "IEC 62056",
+              "ISO 50001",
+              "IEC 61869"
+            ],
+            "capabilities": [
+              "Energy Monitoring & Analytics",
+              "Forecasting & Optimization",
+              "Demand Flexibility Management",
+              "Distributed Energy Optimization",
+              "Peer-to-Peer Energy Management"
+            ]
+          },
+          {
+            "name": "Power Resilience Management",
+            "standards": [
+              "IEC 61850",
+              "IEC 61970",
+              "IEC 62933"
+            ],
+            "capabilities": [
+              "Power Quality & Reliability",
+              "Protection & Resilience",
+              "Critical Power Management",
+              "Microgrid Operation",
+              "Grid Flexibility Service"
+            ]
+          },
+          {
+            "name": "Asset Performance Management",
+            "standards": [
+              "IEC 61970",
+              "IEC 60300",
+              "IEC 60812",
+              "ISO 55000"
+            ],
+            "capabilities": [
+              "Asset Health Management",
+              "Maintenance Management",
+              "Digital Asset Management"
+            ]
+          },
+          {
+            "name": "Energy & Carbon Market Participation",
+            "standards": [
+              "IEC 61970",
+              "IEC 60300",
+              "IEC 60812",
+              "IEC 27019"
+            ],
+            "capabilities": [
+              "Carbon & Sustainability Management",
+              "Market Participation"
+            ]
+          }
+        ],
+        "lifecycle": {
+          "title": "Total Lifecycle Costing · Lifecycle Intelligence",
+          "th": "ไม่ได้มองแค่การลงทุนเริ่มต้น แต่บริหาร “ต้นทุนทั้งหมด” ตลอดอายุการใช้งานของระบบ",
+          "stages": [
+            "Purchase",
+            "Operation",
+            "Service & Maintenance",
+            "Environmental Impact",
+            "Decommissioning"
+          ]
+        }
+      },
+      {
+        "domain": "DIS",
+        "title": "SGAM Domain — Distribution",
+        "ref": "R6",
+        "status": "reported",
+        "summary": "รับไฟจากระบบส่ง แล้วจ่ายให้บ้าน อาคาร และโรงงาน — เน้นโครงข่ายจำหน่าย ไม่ใช่ทั้งระบบไฟฟ้า",
+        "goal": "จ่ายไฟที่ปลอดภัย เชื่อถือได้ และคุณภาพสูง",
+        "scope": [
+          "สถานีและหม้อแปลงแรงต่ำ/แรงปานกลาง",
+          "Feeder, switch และ circuit breaker",
+          "Relay, sensor, RTU และ IED",
+          "SCADA, DMS หรือ ADMS สำหรับควบคุมการจำหน่าย"
+        ],
+        "byZone": [
+          {
+            "zone": "MKT",
+            "th": "ตลาดพลังงาน / ราคา / Aggregator"
+          },
+          {
+            "zone": "ENT",
+            "th": "บริหารจัดการองค์กร: maintenance, asset, GIS, ERP"
+          },
+          {
+            "zone": "OPS",
+            "th": "ศูนย์ควบคุม: SCADA, DMS, ADMS"
+          },
+          {
+            "zone": "STA",
+            "th": "ระบบในสถานี: Gateway, Substation SCADA, HMI Workstation"
+          },
+          {
+            "zone": "FLD",
+            "th": "อุปกรณ์ตรวจวัดและควบคุม: sensor, relay, RTU, IED, Digital Revenue Meter, Merging Unit"
+          },
+          {
+            "zone": "PRO",
+            "th": "อุปกรณ์กายภาพ: สายเคเบิล, หม้อแปลง, circuit breaker, disconnecting switch"
+          }
+        ],
+        "byLayer": [
+          {
+            "layer": "BUS",
+            "q": "ทำไปทำไม?",
+            "th": "ลด loss และ %SG&A, ทำตาม SLA, ปฏิบัติตามกฎระเบียบ"
+          },
+          {
+            "layer": "FUN",
+            "q": "ต้องทำอะไรได้?",
+            "th": "ตรวจจับ fault, ควบคุมแรงดัน, คืนระบบหลังไฟดับ"
+          },
+          {
+            "layer": "INT",
+            "q": "ต้องตัดสินใจอะไร?",
+            "th": "Agentic AI และอัลกอริทึมช่วยวิเคราะห์และตัดสินใจ · predictive monitoring เพื่อลด loss, value chain, life cycle costing"
+          },
+          {
+            "layer": "INF",
+            "q": "แลกเปลี่ยนข้อมูลอะไร?",
+            "th": "กระแส, แรงดัน, active power, reactive power, สถานะสวิตช์, alarm, event"
+          },
+          {
+            "layer": "COM",
+            "q": "ส่งข้อมูลอย่างไร?",
+            "th": "IEC 61850 (GOOSE, MMS), IEC 61850-9-2 (SV), MODBUS, IP"
+          },
+          {
+            "layer": "CYB",
+            "q": "ป้องกันระบบอย่างไร?",
+            "th": "Device hardening, secure access, authentication"
+          },
+          {
+            "layer": "CMP",
+            "q": "ใช้อุปกรณ์อะไร?",
+            "th": "Relay, RTU, Gateway, SCADA, DMS และอุปกรณ์แรงต่ำ"
+          }
+        ],
+        "keyPoint": "ทุก zone มองผ่านได้ทุก layer — ไม่ใช่ความสัมพันธ์แบบหนึ่งต่อหนึ่ง"
+      },
+      {
+        "domain": "TRA",
+        "title": "SGAM — Transmission Domain",
+        "ref": "R7",
+        "status": "reported",
+        "summary": "ผังเต็ม 7 interoperability layer × 6 zone พร้อมตัวอย่าง information flow และการเชื่อมข้ามโดเมน",
+        "goal": "Interoperability เกิดขึ้นเมื่อ business objective, function, information, communication, intelligence และ component ตรงกันทุก zone และเชื่อมกันข้าม domain",
+        "grid": {
+          "BUS": {
+            "PRO": [
+              "Safety of asset",
+              "Continuity of supply",
+              "Electrical limits"
+            ],
+            "FLD": [
+              "Protection philosophy",
+              "Reliability / Selectivity",
+              "Redundancy"
+            ],
+            "STA": [
+              "Operations procedure",
+              "Local/Remote authority",
+              "Safety & security"
+            ],
+            "OPS": [
+              "System security (N-1)",
+              "Reliability / Voltage / Freq.",
+              "Congestion mgmt.",
+              "Restoration"
+            ],
+            "ENT": [
+              "Asset strategy",
+              "Maintenance policy",
+              "Compliance",
+              "Investment plan"
+            ],
+            "MKT": [
+              "Market rules",
+              "Capacity allocation",
+              "Settlement",
+              "Transparency"
+            ]
+          },
+          "FUN": {
+            "PRO": [
+              "Power transfer",
+              "Switching",
+              "Monitoring",
+              "Reactive power ctrl."
+            ],
+            "FLD": [
+              "Protection",
+              "Measurement",
+              "Monitoring",
+              "Auto-reclosing",
+              "Local control"
+            ],
+            "STA": [
+              "Data concentration",
+              "Station interlocking",
+              "Alarm processing",
+              "Event recording",
+              "Local SCADA"
+            ],
+            "OPS": [
+              "SCADA / EMS",
+              "State estimation",
+              "Load flow",
+              "Contingency analysis",
+              "AGC / WAM",
+              "WAMS / Restoration"
+            ],
+            "ENT": [
+              "Asset management",
+              "Maintenance mgmt.",
+              "Work orders",
+              "Network planning",
+              "Asset health"
+            ],
+            "MKT": [
+              "Bidding",
+              "Scheduling",
+              "Capacity alloc.",
+              "Reserve mgmt.",
+              "Settlement"
+            ]
+          },
+          "INT": {
+            "PRO": [
+              "Signal quality check",
+              "Anomaly detection",
+              "Equipment health index",
+              "Local analytics"
+            ],
+            "FLD": [
+              "Fault classification",
+              "Protection performance",
+              "Event correlation",
+              "Predictive diagnostics"
+            ],
+            "STA": [
+              "Alarm & event analytics",
+              "Topology awareness",
+              "Digital twin (station)",
+              "Load monitoring"
+            ],
+            "OPS": [
+              "State estimation engine",
+              "Security assessment",
+              "Short-term forecasting",
+              "Optimization (OPF)",
+              "Decision support"
+            ],
+            "ENT": [
+              "Asset risk analytics",
+              "Predictive maintenance",
+              "RCFA / FMEA",
+              "Investment analytics"
+            ],
+            "MKT": [
+              "Price forecasting",
+              "Capacity forecasting",
+              "Market risk analytics",
+              "Settlement analytics"
+            ]
+          },
+          "INF": {
+            "PRO": [
+              "Voltage, Current",
+              "P, Q, V meas.",
+              "Breaker status",
+              "Trip position",
+              "Equipment cond."
+            ],
+            "FLD": [
+              "Protection settings",
+              "Measurement data",
+              "Alarms, Events",
+              "Time stamp",
+              "Setting groups"
+            ],
+            "STA": [
+              "Single line status",
+              "Topology (ICD, CID)",
+              "Alarms, Events",
+              "Availability",
+              "Control authority"
+            ],
+            "OPS": [
+              "Real-time telemetry",
+              "Network topology",
+              "State estimation",
+              "Security limit",
+              "Outage data",
+              "Contingencies"
+            ],
+            "ENT": [
+              "Asset info / Spec.",
+              "Maintenance history",
+              "Failure history",
+              "GIS / Location",
+              "Work order"
+            ],
+            "MKT": [
+              "Bid offer / Nominations",
+              "Schedules",
+              "Imbalance",
+              "Settlement result"
+            ]
+          },
+          "COM": {
+            "PRO": [
+              "Sampled Values",
+              "GOOSE (IEC 61850)",
+              "Hardwired I/O"
+            ],
+            "FLD": [
+              "GOOSE",
+              "MMS (IEC 61850)",
+              "Modbus / Serial",
+              "Time Sync (IEEE 1588)"
+            ],
+            "STA": [
+              "IEC 61850 (Station Bus)",
+              "MMS / GOOSE",
+              "Ethernet / TCP-IP",
+              "Redundancy (PRP/HSR)",
+              "SNTP / PTP"
+            ],
+            "OPS": [
+              "IEC 61850 / 101",
+              "ICCP / TASE.2",
+              "Northbound: IEC 62351 / TLS",
+              "Secure WAN"
+            ],
+            "ENT": [
+              "API / Web Services",
+              "Enterprise Service Bus",
+              "Message Broker",
+              "Data Replication",
+              "Secure File / VPN"
+            ],
+            "MKT": [
+              "EDI / AS2",
+              "Market Mgmt. System",
+              "Secure File Transfer",
+              "Digital Certificate",
+              "B2B Communication"
+            ]
+          },
+          "CYB": {
+            "PRO": [
+              "Device hardening",
+              "Secure access",
+              "Tamper protection"
+            ],
+            "FLD": [
+              "IED authentication",
+              "Secure settings",
+              "Security logging"
+            ],
+            "STA": [
+              "Firewall / IDS",
+              "Network segmentation",
+              "RBAC",
+              "Patch management"
+            ],
+            "OPS": [
+              "SIEM / SOC",
+              "Identity & access mgmt.",
+              "Remote access control",
+              "Incident response"
+            ],
+            "ENT": [
+              "Governance",
+              "Vulnerability mgmt.",
+              "Backup & recovery",
+              "Compliance"
+            ],
+            "MKT": [
+              "PKI / Certificates",
+              "Secure B2B exchange",
+              "Audit trail",
+              "Non-repudiation"
+            ]
+          },
+          "CMP": {
+            "PRO": [
+              "Transmission line",
+              "Transformer",
+              "Circuit Breaker",
+              "Current Transformer",
+              "CT / VT, Shunt",
+              "FACTS, Reactor"
+            ],
+            "FLD": [
+              "Protection Relay",
+              "PQ Meter / IED",
+              "PMU, RTU",
+              "IED, I/O Module",
+              "Disturbance Recorder"
+            ],
+            "STA": [
+              "Station Gateway",
+              "Historian / HMI / SCADA",
+              "Server / Historian",
+              "Redundancy WS",
+              "Ethernet Switch",
+              "Firewall / Clock"
+            ],
+            "OPS": [
+              "SCADA / EMS Server",
+              "WAMS / Historian",
+              "Operator WS",
+              "Domain / Gateway",
+              "Backup Control Center",
+              "Network & Security"
+            ],
+            "ENT": [
+              "EAM / ERP",
+              "GIS",
+              "Planning System",
+              "Document Mgmt.",
+              "Data Platform",
+              "Reporting System"
+            ],
+            "MKT": [
+              "Market Mgmt. System",
+              "Interface Adapter",
+              "EDI Gateway",
+              "Digital Certificate",
+              "B2B Server"
+            ]
+          }
+        },
+        "flows": [
+          {
+            "a": "MKT",
+            "b": "ENT",
+            "dir": "both",
+            "what": "Bids, Schedule, Settlement"
+          },
+          {
+            "a": "ENT",
+            "b": "OPS",
+            "dir": "both",
+            "what": "Outage plan, Asset data, Performance"
+          },
+          {
+            "a": "OPS",
+            "b": "STA",
+            "dir": "both",
+            "what": "Telemetry, Control cmds"
+          },
+          {
+            "a": "STA",
+            "b": "FLD",
+            "dir": "both",
+            "what": "Measurements, Events, Controls"
+          },
+          {
+            "a": "FLD",
+            "b": "PRO",
+            "dir": "down",
+            "what": "V, I, Status, Trip cmds"
+          }
+        ],
+        "standards": [
+          {
+            "code": "IEC 61850",
+            "where": "Devices / Field / Station"
+          },
+          {
+            "code": "IEC 60870-5-101/104",
+            "where": "Station / Operation"
+          },
+          {
+            "code": "ICCP / TASE.2",
+            "where": "Operation / Operation"
+          },
+          {
+            "code": "IEC 62351",
+            "where": "Security for Power Systems"
+          },
+          {
+            "code": "IEC 62443",
+            "where": "Industrial Cybersecurity"
+          },
+          {
+            "code": "IEC 61970 (CIM)",
+            "where": "Enterprise / Market"
+          },
+          {
+            "code": "IEC 62325",
+            "where": "Market Communication"
+          },
+          {
+            "code": "IEC 62361",
+            "where": "Cybersecurity"
+          }
+        ],
+        "crossDomain": [
+          {
+            "with": "GEN",
+            "what": [
+              "Generation output",
+              "Plant status",
+              "Fuel status",
+              "Emissions"
+            ]
+          },
+          {
+            "with": "DIS",
+            "what": [
+              "Load / Demand",
+              "Volt/VAR support",
+              "Outage info",
+              "Switch status"
+            ]
+          },
+          {
+            "with": "DER",
+            "what": [
+              "DER output / Status",
+              "Power quality",
+              "Islanding / Microgrid",
+              "Flexibility"
+            ]
+          },
+          {
+            "with": "CUS",
+            "what": [
+              "Demand / Load",
+              "DR / Load flexibility",
+              "PQ / Disturbance",
+              "Energy Mgmt."
+            ]
+          },
+          {
+            "with": "EXT",
+            "what": [
+              "Interchange schedules",
+              "Tie flows",
+              "Emergency support",
+              "Security alerts",
+              "Regulator / Govt.",
+              "Weather Service",
+              "SCADA Vendors",
+              "Market Operator"
+            ],
+            "note": "Other TSO / Control Areas และ External Parties — อยู่นอกแกน domain ทั้งห้าของ SGAM"
+          }
+        ]
+      },
+      {
+        "domain": "GEN",
+        "title": "Generation",
+        "ref": null,
+        "status": "notReported",
+        "summary": "ยังไม่มีรายงานจากทีม"
+      },
+      {
+        "domain": "DER",
+        "title": "DER / Microgrid",
+        "ref": null,
+        "status": "notReported",
+        "summary": "ยังไม่มีรายงานจากทีม"
+      }
+    ]
+  },
+  "boardReport": {
+    "meeting": "Executive Board Meeting",
+    "asOf": "2026-08-08",
+    "note": "สรุปความคืบหน้าของทีม Smart Architecture รายสถาปัตยกรรม · ตัวเลขทุกตัวคำนวณจากโมเดล ไม่ได้พิมพ์ทับ",
+    "towerStatus": [
+      {
+        "tower": "SGAM",
+        "reporting": "active",
+        "th": "มีรายงานรายโดเมนแล้ว 3 จาก 5 · มีผังทีมทั้ง layer และ domain · มีมาตรฐานกำกับครบทั้ง 7 layer"
+      },
+      {
+        "tower": "RAMI",
+        "reporting": "referenceOnly",
+        "th": "อ้างอิงเป็นแบบจำลองเทียบเคียง ยังไม่มีทีมรายงาน · แกนที่ 3 เป็น Life Cycle ไม่ใช่ Zone"
+      },
+      {
+        "tower": "SCIAM",
+        "reporting": "referenceOnly",
+        "th": "อ้างอิงเป็นแบบจำลองเทียบเคียง ยังไม่มีทีมรายงาน"
+      },
+      {
+        "tower": "SFAM",
+        "reporting": "referenceOnly",
+        "th": "อ้างอิงเป็นแบบจำลองเทียบเคียง ยังไม่มีทีมรายงาน"
+      }
+    ],
+    "asks": [
+      {
+        "id": "ASK-1",
+        "th": "ยืนยันเจ้าของ domain ที่เหลือ — 2 กลุ่มต่อ 3 domain แปลว่ามี 1 domain ไม่มีเจ้าของ",
+        "owner": "ทีม Smart Architecture",
+        "evidence": "team.unresolved"
+      },
+      {
+        "id": "ASK-2",
+        "th": "ยืนยันจำนวนแกนของ SCIAM, SFAM และ RAMI — ปัจจุบันอ่านจากไดอะแกรม ยังไม่ใช่ตัวเลขที่ verified",
+        "owner": "เจ้าของหัวข้อ 12–14",
+        "evidence": "scopeLimits"
+      },
+      {
+        "id": "ASK-3",
+        "th": "ตั้งเจ้าของสัญญารอยต่อ 24 ตำแหน่งที่ยังว่างจาก 39 ตำแหน่งที่มีสิทธิ์",
+        "owner": "Architecture Review Board",
+        "evidence": "meta.sgamSeamEligible"
+      },
+      {
+        "id": "ASK-4",
+        "th": "อนุมัติให้เริ่มเขียน authored fields — ตอนนี้ 0 จาก 3,084 ช่อง เว้นไว้ตั้งใจ",
+        "owner": "Architecture Review Board",
+        "evidence": "cubeAttributes.authored"
+      },
+      {
+        "id": "ASK-5",
+        "th": "รับรอง Intelligence Layer และ Cyber Layer เป็นส่วนขยายของ PCC — ยังไม่อยู่ใน 5 layer ฐานของ IEC SRD 63200:2021",
+        "owner": "Architecture Review Board",
+        "evidence": "towers.SGAM.layers"
+      }
+    ]
   }
 }

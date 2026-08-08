@@ -103,6 +103,26 @@ enforced rather than described:
 Response bands come from the zone, so a life cycle axis must never carry one. RAMI is
 excluded by construction, not by discipline — verify.py fails if a band appears there.
 
+## The team's reporting — measured, or marked unresolved
+
+`team`, `layerStandards`, `domainReports` and `boardReport` come from four decks the
+Smart Architecture team produced (references R4–R7). They drive the **รายงานบอร์ด** mode,
+the third view alongside 3D and 2D. Two rules hold that section together:
+
+- **Ownership is measured, not inferred.** The layer owners were read by matching each
+  name's text-box centre against the layer planes in the same slide's diagram — every one
+  lands within 0.04 in, so `confidence: "measured"`. The domain owners are placed along
+  the Domains arrow instead of under each domain, and only the two ends resolve. Those
+  two are measured; the middle three are `"unresolved"` with the candidate list recorded.
+  `verify.py` fails if a row claims owners without being marked measured, or vice versa.
+- **The unresolved note has to stay true.** Two owner groups over three candidate domains
+  means one domain has nobody. If that ever balances, the gap is gone and check 10 fails
+  until the note goes too.
+
+R4 slide 2 also corrects the tower's provenance: SGAM is **IEC SRD 63200:2021**, and its
+baseline is **5 layers**. Intelligence (L6) and Cyber (L3) are additions the team proposed —
+that is now what the layer `source` says, and it is ASK-5 on the board's list.
+
 ## Never do
 
 - Do not present the numbers as verified. Axis counts for SCIAM, SFAM and RAMI were read
@@ -111,3 +131,7 @@ excluded by construction, not by discipline — verify.py fails if a band appear
   gap is the finding; 12,350 plausible sentences would bury it.
 - Do not describe the 30 couplings as standards-based. They are proposals derived from
   PCC's business context. Type A is the most defensible; type D needs the most scrutiny.
+- Do not settle the three unresolved domain owners by picking whichever mapping looks
+  tidiest. The deck genuinely does not say. Two groups over three domains means one
+  domain has no owner, and finding out which is ASK-1 — a question for the team, not a
+  gap to close with a plausible guess.
