@@ -293,6 +293,16 @@ def main() -> int:
               f"digitalTwin.video: file is {secs}s but the model says {vid['seconds']}s")
         print(f"  video: {vpath.name} · {len(blob)//1024//1024} MB · {secs}s · H.264 · streams progressively")
 
+        # and the file has to actually reach the published site. The Pages workflow
+        # copies a named list of paths into _site, so an asset can exist, pass every
+        # check above, and still 404 in the browser because its directory was never
+        # staged. That happened once; this is the guard.
+        wf = (ROOT / ".github" / "workflows" / "pages.yml").read_text(encoding="utf-8")
+        staged = next((l for l in wf.splitlines() if "_site/" in l and l.strip().startswith("cp ")), "")
+        top = pathlib.PurePosixPath(vid["src"].replace("../", "")).parts[0]
+        check(top in staged.split(),
+              f"the Pages workflow does not stage {top}/ — {vid['src']} would 404 on the published site")
+
     nrep = sum(1 for r in lr.values() if r["status"] == "reported")
     print(f"  layer reports: {nrep}/{len(sgam_layers)} · digital twin: "
           f"{len(dt['layers'])} layers x {len(dt['domains'])} domains, "
