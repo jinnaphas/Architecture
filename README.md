@@ -85,6 +85,16 @@ the page cannot drift from the data the other two modes draw.
 Coverage is shown as coverage: a domain with no owner gets a highlighted row and a `ยังไม่ระบุ`
 pill rather than being left off the table, and the footer states the authored gap in full.
 
+The same mode carries the **vertical axis** — one expandable section per interoperability
+layer, four of seven reported: Business and Function through a single substation, Intelligence
+with its gap taxonomy and autonomy ladder, Communication by domain and by zone. Cyber,
+Information and Component are listed as not reported rather than left out.
+
+**Digital Twin** sits below it: the 5 × 5 matrix, the capabilities row, and a 106-second
+demo video served from `assets/`. That matrix is drawn on the five-layer baseline, so it has
+no Intelligence or Cyber row — `verify.py` recomputes which layers the grid omits and fails
+if the model's own list of them disagrees.
+
 ---
 
 ## Verify after editing the model
@@ -115,6 +125,11 @@ and — the one that matters — `team.unresolved` must keep describing a genuin
 number of owner groups ever equals the number of candidate domains, no domain is left
 unowned, and `verify.py` fails until the stale note is removed.
 
+The demo video is checked as a file, not just as a path: byte length first — an MP4's header
+survives truncation, so every other check still passes on a half-copied file — then the `ftyp`
+box, an H.264 track, `moov` ahead of `mdat` so it starts before it has fully downloaded, and
+a duration matching what the model claims.
+
 ---
 
 ## Layout
@@ -125,6 +140,7 @@ README.md
 index.html                     redirect to app/ so the site root works
 app/index.html                 the app
 data/architecture-model.json   the model — the app fetches this at runtime
+assets/digital-twin-demo.mp4   the Digital Twin walkthrough played in the board mode
 tools/verify.py                invariant checks, also run by CI
 tools/derive_analysis.py       regenerates the derived risk, impact and response bands
 docs/KNOWLEDGE.md              the architecture reasoning behind all of it
