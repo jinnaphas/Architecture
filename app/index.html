@@ -1064,6 +1064,80 @@ function boardTwin(){
     <p class="lead">${esc(DT.baseline)}<br>ชั้นที่ยังไม่มีในผังนี้ ${miss}</p>
     <p class="lead">มาตรฐานหลัก ${pills(DT.standards)}</p>`;
 }
+/* ---- concepts for the three non-SGAM towers ---- */
+const ACON=M.architectureConcepts;
+function conRAMI(c){
+  return `<p class="v"><b>พัฒนาโดย</b> ${esc(c.by)} · <b>มาตรฐานอ้างอิง</b> ${esc(c.standard)}</p>
+    <div class="cards">${c.why.map(w=>`<div class="cd"><div class="k">${esc(w.k)}</div><p>${esc(w.v)}</p></div>`).join("")}</div>
+    <p class="v"><b>เทียบ layer กับ SGAM</b></p>
+    <table><thead><tr><th>RAMI 4.0</th><th>SGAM</th></tr></thead><tbody>${
+      c.layerMap.map(x=>`<tr><td class="c">${esc(x.rami)}</td><td class="c">${esc(x.sgam)}</td></tr>`).join("")}</tbody></table>
+    <p class="v"><b>ข้อสังเกต</b> — ${esc(c.insight)}</p>
+    <p class="v" style="color:var(--L3)"><b>ข้อควรระวัง</b> — ${esc(c.caution)}</p>
+    <p class="v"><b>ทักษะที่ใช้ร่วมกันได้ตาม layer</b></p>
+    <table><thead><tr><th>Layer</th><th>ฝั่ง SGAM</th><th>ฝั่ง RAMI</th></tr></thead><tbody>${
+      c.skills.map(s=>`<tr><td class="c">${esc(s.layer)}</td><td>${esc(s.sgam)}</td><td>${esc(s.rami)}</td></tr>`).join("")}</tbody></table>
+    <p class="v"><b>เทคโนโลยีที่ใช้ร่วมกันได้</b></p>
+    <div class="cards">${c.shared.map(s=>`<div class="cd"><div class="k">${esc(s.k)}</div><p>${esc(s.v)}</p></div>`).join("")}</div>
+    <p class="v"><b>แนวทางพัฒนาองค์กร</b><br>${c.orgSteps.map((s,i)=>
+      `<span class="pill">${i+1} · ${esc(s)}</span>`).join("")}</p>`;
+}
+function conSCIAM(c){
+  const k=c.conflict;
+  return `<p class="v"><b>เป้าหมาย</b> — ${esc(c.goal)}</p>
+    <p class="v"><b>แนวทาง</b> ${pills(c.approach)}</p>
+    <p class="v"><b>หลักการสำคัญ</b> ${esc(c.principles)}</p>
+    <p class="v"><b>SCIAM Core</b> ${pills(c.core)}</p>
+    <p class="v"><b>ภาคที่ครอบคลุม</b> ${pills(c.sectors)}</p>
+    <p class="v"><b>Interoperability สามระดับ</b></p>
+    <table><tbody>${c.interop.map(x=>
+      `<tr><td class="c">${x.n} · ${esc(x.k)}</td><td>${esc(x.v)}</td></tr>`).join("")}</tbody></table>
+    <p class="v"><b>การทำงาน</b><br>${chain(c.flow)}</p>
+    <p class="v"><b>ประโยชน์</b> ${pills(c.benefits)}</p>
+    <p class="v"><b>ความเชื่อมโยงกับ SGAM</b> — ${esc(c.lineage)}</p>
+    <div class="cd" style="border-color:var(--L3);margin-top:12px">
+      <div class="k">${esc(k.ask)} · เอกสารขัดกันเอง เรื่องจำนวน layer</div>
+      <p>${esc(k.th)}</p>
+      <p style="margin-top:7px"><b>ถ้าเป็น 6</b> — ${esc(k.ifSix)}</p>
+      <p style="margin-top:5px;color:var(--L3)"><b>และจะกระทบ</b> — ${esc(k.andThen)}</p></div>`;
+}
+function conSFAM(c){
+  const b=c.instantiation;
+  const dom=b.domains.map(d=>`<tr><td class="c">${esc(d.id)}</td><td><b>${esc(d.name)}</b><br>
+    <span style="color:var(--ink3)">${esc(d.scope)}</span></td><td>${pills(d.standards)}</td></tr>`).join("");
+  return `<p class="v"><b>แกนของโมเดล</b></p>
+    <table><thead><tr><th>แกน</th><th>จำนวน</th><th>รายการ</th></tr></thead><tbody>${
+      c.axes.map(a=>`<tr><td class="c">${esc(a.axis)}</td><td class="c">${a.n}</td>
+        <td>${a.items.map(esc).join(" · ")}</td></tr>`).join("")}</tbody></table>
+    <p class="v" style="color:var(--L4)">${esc(c.note)}</p>
+    <details><summary><b>${esc(b.id)}</b> ${esc(b.title)}<span>${esc(b.ask)} · ${b.domains.length} โดเมน</span></summary>
+      <div class="dbody"><p class="v">${esc(b.th)}</p>
+      <p class="v" style="color:var(--L3)"><b>${esc(b.ask)}</b> — ${esc(b.askTh)}</p>
+      <table><thead><tr><th>#</th><th>โดเมน</th><th>มาตรฐาน</th></tr></thead><tbody>${dom}</tbody></table>
+      <p class="v"><b>มาตรฐานรายชั้น</b></p>
+      <table><tbody>${b.layerStandards.map(l=>
+        `<tr><td class="c">${esc(l.layer)}</td><td>${pills(l.items)}</td></tr>`).join("")}</tbody></table>
+      <p class="v"><b>สายการตรวจสอบย้อนกลับ</b><br>${chain(b.traceChain)}</p>
+      <p class="v"><b>กระแสที่ไหลในระบบ</b> ${pills(b.flows)}</p>
+      <p class="v"><b>ประเด็นตัดขวาง</b> ${pills(b.crossCutting)}</p></div></details>`;
+}
+function boardConcepts(){
+  const n=ACON.concepts.filter(c=>c.axesConfirmed).length;
+  const cards=ACON.concepts.map(c=>{
+    const T=TW[c.tower],s=twStats(T);
+    const inner=c.tower==="RAMI"?conRAMI(c):c.tower==="SCIAM"?conSCIAM(c):conSFAM(c);
+    return `<details><summary><b>${esc(c.tower)}</b> ${esc(c.title)}
+      <span>${esc(c.ref)} · ${c.axesConfirmed
+        ?`<span class="pill g">แกนยืนยันแล้ว</span>`
+        :`<span class="pill w">แกนยังไม่ยืนยัน</span>`}</span></summary>
+      <div class="dbody"><p class="v">${esc(c.what)}</p>
+        <p class="v"><span class="pill">${s.cubes} cubes</span><span class="pill">${s.levels}/8 ระดับ</span>
+        <span class="pill">${s.cpl} คู่เชื่อม</span></p>${inner}</div></details>`;
+  }).join("");
+  return `<h2>Concept รายสถาปัตยกรรม<s>ยืนยันแกนแล้ว ${n} จาก ${ACON.concepts.length}</s></h2>
+    <p class="lead">${esc(ACON.note)}</p>
+    <div class="cov"><i style="width:${n/ACON.concepts.length*100}%"></i></div>${cards}`;
+}
 let brdDone=false;
 function drawBoard(){
   if(brdDone)return;
@@ -1073,7 +1147,7 @@ function drawBoard(){
       <span>${esc(M.meta.doc)} · v${esc(M.meta.version)} · ณ ${esc(BRD.asOf)}</span>
       <span style="margin-left:auto">${esc(M.meta.status)}</span></div>
     <p class="lead">${esc(BRD.note)}</p>
-    ${boardTowers()}${boardDomains()}${boardLayers()}${boardTwin()}${boardTeam()}${boardStandards()}${boardAsks()}
+    ${boardTowers()}${boardConcepts()}${boardDomains()}${boardLayers()}${boardTwin()}${boardTeam()}${boardStandards()}${boardAsks()}
     <div class="foot">ช่องที่ต้องมีคนเขียน — ${authored.filled} จาก ${authored.of}
       (${authored.fields.join(", ")}) · งบของคู่เชื่อม ${M.couplings.filter(c=>c.analysis.budget.status==="unassigned").length}
       จาก ${M.couplings.length} ยังไม่มีเจ้าของ · เว้นว่างไว้ตั้งใจ ตัวเลขนี้คือประเด็น ไม่ใช่ความบกพร่องของเครื่องมือ<br>
@@ -1476,7 +1550,7 @@ if(M.scopeLimits){
 $("refList").innerHTML=(M.references||[]).map(r=>
   `<span title="${esc(r.title)}${r.restriction?" — "+esc(r.restriction):""}">${esc(r.id)} <b>${esc(r.publisher)}</b>${r.restriction?" ⚠":""}</span>`).join("");
 syncUI();stats();detail();draw();
-Object.assign(window,{M,S,SC,applyLayout,ROW_K,HUB_U,HUB_V,CT,LV,TOWERS,TW,BLOCKLINKS,FLAT,drawFlat,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs,drawBoard,TEAM,LSTD,DREP,BRD,twStats,LREP,DT,boardLayers,boardTwin});
+Object.assign(window,{M,S,SC,applyLayout,ROW_K,HUB_U,HUB_V,CT,LV,TOWERS,TW,BLOCKLINKS,FLAT,drawFlat,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs,drawBoard,TEAM,LSTD,DREP,BRD,twStats,LREP,DT,boardLayers,boardTwin,ACON,boardConcepts});
 </script>
 </body>
 </html>

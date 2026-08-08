@@ -28,7 +28,7 @@ jobs:
       - name: Stage the site
         run: |
           mkdir -p _site
-          cp -r index.html app data docs README.md _site/
+          cp -r index.html app data docs assets README.md _site/
           touch _site/.nojekyll
           find _site -type f | sort
       - uses: actions/configure-pages@v5

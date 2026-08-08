@@ -3028,6 +3028,27 @@
       "publisher": "อ้างอิงภายนอก (ภาพประกอบ)",
       "date": "2026-08",
       "role": "โมเดลใกล้เคียง 8 ชั้น รวม Social และ Regulation — บันทึกไว้เทียบ ยังไม่รวมเข้าตึกใด"
+    },
+    {
+      "id": "R13",
+      "title": "One Page Summary: RAMI 4.0 และการประยุกต์ใช้ความรู้และกำลังคนจาก SGAM Interoperability Layer",
+      "publisher": "Precise Corporation — Smart Architecture team",
+      "date": "2026-08",
+      "role": "concept ของ RAMI 4.0 และการเทียบ layer กับ SGAM"
+    },
+    {
+      "id": "R14",
+      "title": "SCIAM Concept — Smart City Infrastructure Architecture Model",
+      "publisher": "Precise Corporation — Smart Architecture team",
+      "date": "2026-08",
+      "role": "concept ของ SCIAM · สไลด์ 1 แสดง 5 layer สไลด์ 2 แสดง 6 layer"
+    },
+    {
+      "id": "R15",
+      "title": "Conceptual SFAM — Smart Farming Architecture Model with Interoperability Layers, และ BCDA-SFAM",
+      "publisher": "Precise Corporation — Smart Architecture team",
+      "date": "2026-08",
+      "role": "concept ของ SFAM ทั่วไป และการนำไปใช้จริงเป็น BCDA-SFAM"
     }
   ],
   "_tupleSchema": {
@@ -4159,7 +4180,7 @@
       },
       {
         "id": "ASK-2",
-        "th": "ยืนยันจำนวนแกนของ SCIAM, SFAM และ RAMI — ปัจจุบันอ่านจากไดอะแกรม ยังไม่ใช่ตัวเลขที่ verified",
+        "th": "ยืนยันจำนวนแกนของ SCIAM และ SFAM — RAMI ยืนยันแล้วจาก R13 (6 layer × 7 hierarchy level × 4 life cycle step = 168)",
         "owner": "เจ้าของหัวข้อ 12–14",
         "evidence": "scopeLimits"
       },
@@ -4180,6 +4201,18 @@
         "th": "รับรอง Intelligence Layer (ข้อเสนอ DTU 2022) และ Cyber Layer เป็นส่วนขยายที่ PCC ใช้ — ทั้งคู่ยังไม่อยู่ใน 5 layer ฐานของ IEC SRD 63200:2021",
         "owner": "Architecture Review Board",
         "evidence": "towers.SGAM.layers"
+      },
+      {
+        "id": "ASK-6",
+        "th": "ยืนยันจำนวน layer ของ SCIAM — R14 สไลด์ 1 แสดง 5 layer (ตรงกับโมเดล) สไลด์ 2 แสดง 6 layer โดยเพิ่ม Intelligence · ถ้าเป็น 6 ยอด cube รวมจะเปลี่ยนจาก 798 เป็น 846 และ finding F2 จะเปลี่ยนไปด้วย",
+        "owner": "เจ้าของหัวข้อ SCIAM",
+        "evidence": "architectureConcepts.SCIAM.conflict"
+      },
+      {
+        "id": "ASK-7",
+        "th": "ตัดสินสถานะของ BCDA-SFAM — เป็นตึกแยกของตัวเอง (6 × 7 × 6 = 252 cubes) หรือเป็นมุมมองที่วางทับตึก SFAM เดิม · ตอนนี้บันทึกเป็นมุมมอง แกน SFAM จึงยังเป็น 180",
+        "owner": "เจ้าของหัวข้อ SFAM",
+        "evidence": "architectureConcepts.SFAM.instantiation"
       }
     ]
   },
@@ -4876,6 +4909,422 @@
     "missingLayers": [
       "INT",
       "CYB"
+    ]
+  },
+  "architectureConcepts": {
+    "note": "concept รายสถาปัตยกรรมของสามตึกที่ไม่ใช่ SGAM · แกนของโมเดลไม่ได้แก้ในรอบนี้ — สองตึกยืนยันตรงกับที่มีอยู่ ส่วน SCIAM เอกสารขัดกันเอง จึงยกเป็นคำถาม",
+    "concepts": [
+      {
+        "tower": "RAMI",
+        "ref": "R13",
+        "title": "RAMI 4.0 — Reference Architecture Model Industrie 4.0",
+        "axesConfirmed": true,
+        "what": "โมเดลอ้างอิงสำหรับอุตสาหกรรม 4.0 · ไม่ใช่มาตรฐานเดี่ยว แต่เป็นกรอบจัดระเบียบมาตรฐานสากลที่มีอยู่แล้วให้เข้าที่",
+        "by": "Plattform Industrie 4.0 · ZVEI · VDI/VDE-GMA",
+        "standard": "DIN SPEC 91345 (เมษายน 2016)",
+        "axes": [
+          {
+            "axis": "Layers",
+            "n": 6,
+            "items": [
+              "Business",
+              "Functional",
+              "Information",
+              "Communication",
+              "Integration",
+              "Asset"
+            ]
+          },
+          {
+            "axis": "Hierarchy Levels",
+            "n": 7,
+            "items": [
+              "Product",
+              "Field Device",
+              "Control Device",
+              "Station",
+              "Work Centers",
+              "Enterprise",
+              "Connected World"
+            ]
+          },
+          {
+            "axis": "Life Cycle & Value Stream",
+            "n": 4,
+            "items": [
+              "Type / Development",
+              "Type / Maintenance-Usage",
+              "Instance / Production",
+              "Instance / Maintenance-Usage"
+            ]
+          }
+        ],
+        "why": [
+          {
+            "k": "Utilization",
+            "v": "ใช้ทรัพยากรและ skill competency ข้ามโดเมนได้ระหว่าง Manufacturing กับ Smart Grid · ลดการสร้างทักษะซ้ำซ้อน"
+          },
+          {
+            "k": "Common Standard",
+            "v": "ใช้ layer เป็นภาษากลางระหว่างธุรกิจ วิศวกรรมระบบ วิศวกรรมข้อมูล และวิศวกรภาคสนาม · อ้างอิง IEC 62264, IEC 61512, IEC 62890, IEC 62559-2"
+          }
+        ],
+        "layerMap": [
+          {
+            "rami": "Business",
+            "sgam": "Business"
+          },
+          {
+            "rami": "Functional",
+            "sgam": "Function"
+          },
+          {
+            "rami": "Information",
+            "sgam": "Information"
+          },
+          {
+            "rami": "Communication",
+            "sgam": "Communication"
+          },
+          {
+            "rami": "Integration + Asset",
+            "sgam": "Component"
+          }
+        ],
+        "insight": "RAMI 4.0 แยก Integration ออกจาก Asset ขณะที่ SGAM รวมทั้งสองไว้ใต้ Component — คนที่คุ้นโมเดลหนึ่งจึงต่อยอดไปอีกโมเดลได้",
+        "caution": "เชื่อมต่อกันได้ (Communication) ไม่ได้แปลว่าเข้าใจกัน (Information) — ปัญหาการบูรณาการมักเกิดที่ชั้นนี้",
+        "skills": [
+          {
+            "layer": "Business",
+            "sgam": "ดูค่าไฟ / Feed-in Tariff",
+            "rami": "ดูกฎความปลอดภัยเครื่องจักร"
+          },
+          {
+            "layer": "Functional",
+            "sgam": "ระบบแจ้งเตือนเมื่อไฟฟ้าให้เกิน",
+            "rami": "สายพานหยุดเมื่อเครื่องร้อนเกิน"
+          },
+          {
+            "layer": "Information",
+            "sgam": "นิยามค่า kWh คืออะไร",
+            "rami": "นิยามค่าคุณภาพเครื่องจักรคืออะไร"
+          },
+          {
+            "layer": "Communication",
+            "sgam": "เชื่อมมิเตอร์ด้วย Modbus",
+            "rami": "เชื่อมเครื่องจักรด้วย Modbus"
+          },
+          {
+            "layer": "Integration",
+            "sgam": "ควบคุมสถานีไฟฟ้า",
+            "rami": "ควบคุมสายการผลิต"
+          },
+          {
+            "layer": "Asset",
+            "sgam": "ซ่อม / ปรับเทียบมิเตอร์",
+            "rami": "ซ่อม / ปรับเทียบเซนเซอร์เครื่องจักร"
+          }
+        ],
+        "shared": [
+          {
+            "k": "Communication Layer — Protocol",
+            "v": "Modbus (TCP/RTU) ใช้ทั้งมิเตอร์และควบคุม PLC · MQTT ส่ง telemetry จาก IoT sensor · OPC UA เดินหน้าในโรงงานและเริ่มใช้ใน Smart Grid มากขึ้น"
+          },
+          {
+            "k": "Information Layer — Time Series Data",
+            "v": "Interval Load และข้อมูลเซนเซอร์เครื่องจักรเป็น time series เหมือนกัน · InfluxDB, TimescaleDB · forecasting และ anomaly detection ด้วย Moving Average, ARIMA, LSTM"
+          }
+        ],
+        "orgSteps": [
+          "สร้างภาษากลางระดับ competency ตาม layer เดียวกันทั้งองค์กร",
+          "ระบุช่องว่าง (gap) โดยใช้ layer เป็น checklist",
+          "ทำ Knowledge Technology Inventory สำรวจเทคโนโลยีที่ใช้ซ้ำและต่อยอดได้",
+          "ใช้ mapping เป็น requirement ตรวจสอบว่าครอบทุกชั้นหรือไม่",
+          "ทบทวนและพัฒนาต่อเนื่อง เช่น Asset Administration Shell (AAS, IEC 63278-1)"
+        ]
+      },
+      {
+        "tower": "SCIAM",
+        "ref": "R14",
+        "title": "SCIAM — Smart City Infrastructure Architecture Model",
+        "axesConfirmed": false,
+        "what": "กรอบสถาปัตยกรรมสำหรับเมืองอัจฉริยะ ที่นำองค์ความรู้จาก SGAM มาประยุกต์ใช้ เพื่อให้ระบบและข้อมูลของหลายหน่วยงานเชื่อมโยงและทำงานร่วมกันได้",
+        "goal": "บูรณาการระบบและข้อมูลของหลายหน่วยงานในเมือง ให้เชื่อมโยง แลกเปลี่ยน และใช้ประโยชน์ร่วมกันได้อย่างปลอดภัยและมีมาตรฐาน",
+        "approach": [
+          "ใช้มาตรฐานเดียวกัน",
+          "เชื่อมโยงข้อมูลแบบ interoperability",
+          "ไม่ต้องเปลี่ยนระบบเดิมทั้งหมด",
+          "ขยายผลและต่อยอดในอนาคตได้"
+        ],
+        "principles": "People · Process · Data · Technology · Governance",
+        "core": [
+          "มาตรฐานและกฎหมาย (Standards & Policies)",
+          "การกำกับดูแลข้อมูล (Data Governance)",
+          "การแลกเปลี่ยนข้อมูล (Data Interoperability)",
+          "ความมั่นคงปลอดภัย (Cybersecurity)",
+          "บริการร่วม (Common Services)"
+        ],
+        "sectors": [
+          "พลังงาน (Energy)",
+          "น้ำ (Water)",
+          "คมนาคม (Transport)",
+          "อาคาร (Building)",
+          "บริหารจัดการขยะ (Waste Management)",
+          "ภาคธุรกิจและบริการ (Business & Service)",
+          "ความปลอดภัยสาธารณะ (Public Safety)",
+          "สาธารณสุข (Health)"
+        ],
+        "interop": [
+          {
+            "n": 1,
+            "k": "Data Interoperability",
+            "v": "รูปแบบและความหมายข้อมูลเป็นมาตรฐานเดียวกัน"
+          },
+          {
+            "n": 2,
+            "k": "Service Interoperability",
+            "v": "บริการ/ระบบสามารถเรียกใช้และทำงานร่วมกันได้"
+          },
+          {
+            "n": 3,
+            "k": "Business Interoperability",
+            "v": "กระบวนการทำงานของหน่วยงานสอดคล้องและสนับสนุนกัน"
+          }
+        ],
+        "flow": [
+          "เชื่อมโยงระบบและข้อมูลจากหลายหน่วยงาน",
+          "แลกเปลี่ยนข้อมูลตามมาตรฐานที่กำหนด",
+          "วิเคราะห์และบูรณาการเพื่อสร้างสารสนเทศเชิงลึก",
+          "สนับสนุนการตัดสินใจให้บริการประชาชนอย่างมีประสิทธิภาพ",
+          "พัฒนาและต่อยอดบริการเมืองอัจฉริยะอย่างยั่งยืน"
+        ],
+        "benefits": [
+          "ข้อมูลถูกต้อง ครบถ้วน น่าเชื่อถือ",
+          "เพิ่มประสิทธิภาพการบริหารจัดการและการตัดสินใจ",
+          "ลดความซ้ำซ้อน ประหยัดเวลาและงบประมาณ",
+          "ให้บริการประชาชนได้รวดเร็วและตรงความต้องการ",
+          "รองรับการขยายตัวและเทคโนโลยีใหม่ในอนาคต"
+        ],
+        "lineage": "SGAM สร้างมาตรฐานและแนวทางสำหรับระบบไฟฟ้าอัจฉริยะ → SCIAM ต่อยอดองค์ความรู้นั้นไปสู่โครงสร้างพื้นฐานของเมือง",
+        "domains8": [
+          "Energy Infrastructure",
+          "Water & Wastewater Infrastructure",
+          "Transportation & Mobility",
+          "Environment & Climate",
+          "Buildings & Facilities",
+          "Waste & Circular Economy",
+          "Public Safety & Security",
+          "Digital & ICT Infrastructure"
+        ],
+        "zones6": [
+          "Process",
+          "Field",
+          "Station",
+          "Operation",
+          "Enterprise",
+          "City / Ecosystem"
+        ],
+        "conflict": {
+          "ask": "ASK-6",
+          "th": "สไลด์ 1 ของ R14 แสดง 5 layer (Business, Function, Information, Communication, Component) ตรงกับที่โมเดลใช้อยู่ · แต่สไลด์ 2 แสดง 6 layer โดยเพิ่ม Intelligence Layer เอกสารชุดเดียวกันขัดกันเอง จึงยังไม่แก้แกนของตึกนี้",
+          "ifSix": "ถ้ายืนยันเป็น 6 layer ตึกนี้จะเป็น 6 × 8 × 6 = 288 cubes และยอดรวมจะเปลี่ยนจาก 798 เป็น 846",
+          "andThen": "จะกระทบ finding F2 โดยตรง เพราะ L6 Intelligence จะไม่ได้มีแค่ใน SGAM อีกต่อไป — CPL-20 และ CPL-21 ที่ตอนนี้เป็นเส้นเอียงข้ามชั้น จะกลายเป็นเส้นตรง L6↔L6 สำหรับคู่ SGAM–SCIAM"
+        }
+      },
+      {
+        "tower": "SFAM",
+        "ref": "R15",
+        "title": "SFAM — Smart Farming Architecture Model",
+        "axesConfirmed": true,
+        "what": "โมเดลอ้างอิงสำหรับเกษตรอัจฉริยะ ประยุกต์โครงสร้างมาจาก RAMI 4.0 และ SGAM",
+        "axes": [
+          {
+            "axis": "Layers",
+            "n": 6,
+            "items": [
+              "Business",
+              "Function",
+              "Information",
+              "Communication",
+              "Integration",
+              "Asset"
+            ]
+          },
+          {
+            "axis": "Domains",
+            "n": 5,
+            "items": [
+              "Cultivation Area",
+              "Livestock",
+              "Storage",
+              "Processing",
+              "Distribution"
+            ]
+          },
+          {
+            "axis": "Zones",
+            "n": 6,
+            "items": [
+              "Physical Objects",
+              "Sensing & Actuation",
+              "Production Control",
+              "Operation Execution",
+              "Management Information",
+              "Connected World"
+            ]
+          }
+        ],
+        "note": "ภาพ Figure 4.4 ในเอกสารตรงกับแกนที่โมเดลใช้อยู่ทุกแกน — ยืนยันได้",
+        "instantiation": {
+          "id": "BCDA-SFAM",
+          "title": "BCDA-SFAM — Bamboo–CCHP–Data Center & AIaaS Architecture Model",
+          "th": "การนำ SFAM ไปใช้จริงกับสายธุรกิจของ PCC · เป็นการวางโดเมนใหม่ทับกรอบเดิม ไม่ใช่การนิยาม SFAM ใหม่ แกนของตึก SFAM จึงไม่เปลี่ยน",
+          "ask": "ASK-7",
+          "askTh": "ต้องตัดสินว่า BCDA-SFAM เป็นตึกแยกของตัวเอง หรือเป็นมุมมองหนึ่งที่วางทับตึก SFAM เดิม",
+          "domains": [
+            {
+              "id": "D1",
+              "name": "Bamboo Cultivation",
+              "scope": "Land, crop, harvest and sustainable feedstock",
+              "standards": [
+                "ISO 11783",
+                "ISO 19115"
+              ]
+            },
+            {
+              "id": "D2",
+              "name": "Collection & Logistics",
+              "scope": "Collection, weighing, transport and chain of custody",
+              "standards": [
+                "GS1 EPCIS",
+                "ISO 28000"
+              ]
+            },
+            {
+              "id": "D3",
+              "name": "Biomass Preparation",
+              "scope": "Storage, chipping, drying, sizing and blending",
+              "standards": [
+                "ISO 17225",
+                "ISO 18134"
+              ]
+            },
+            {
+              "id": "D4",
+              "name": "CCHP Conversion",
+              "scope": "Biomass-to-electricity, heat and cooling",
+              "standards": [
+                "IEC 61511",
+                "IEC 62264"
+              ]
+            },
+            {
+              "id": "D5",
+              "name": "Energy & Cooling Distribution",
+              "scope": "Microgrid, switchgear, thermal loops and storage",
+              "standards": [
+                "IEC 61850",
+                "ISO 50001"
+              ]
+            },
+            {
+              "id": "D6",
+              "name": "Colocation Data Center",
+              "scope": "Power, cooling, racks, facility operations and SLA",
+              "standards": [
+                "ISO/IEC 22237",
+                "ISO/IEC 30134"
+              ]
+            },
+            {
+              "id": "D7",
+              "name": "AIaaS Ecosystem",
+              "scope": "GPU capacity, AI workloads, tenants and digital services",
+              "standards": [
+                "ISO/IEC 27001",
+                "ISO/IEC 20000-1"
+              ]
+            }
+          ],
+          "layerStandards": [
+            {
+              "layer": "Business",
+              "items": [
+                "ISO 14001",
+                "ISO 50001",
+                "ISO/IEC 27001",
+                "GHG Protocol"
+              ]
+            },
+            {
+              "layer": "Functional",
+              "items": [
+                "IEC 62559-2",
+                "IEC 62264 / ISA-95",
+                "ISO 30141"
+              ]
+            },
+            {
+              "layer": "Information",
+              "items": [
+                "ISO 19115",
+                "GS1 EPCIS",
+                "ISO 11783",
+                "OPC UA Information Models"
+              ]
+            },
+            {
+              "layer": "Communication",
+              "items": [
+                "ISO/IEC 30141",
+                "IEC 62541",
+                "IEC 62443",
+                "TLS / IPsec"
+              ]
+            },
+            {
+              "layer": "Integration",
+              "items": [
+                "IEC 61131-3",
+                "IEC 62443",
+                "OPC UA",
+                "BACnet"
+              ]
+            },
+            {
+              "layer": "Asset",
+              "items": [
+                "ISO 55001",
+                "ISO 14224",
+                "ISO 11783",
+                "IEC 61850"
+              ]
+            }
+          ],
+          "traceChain": [
+            "Plot",
+            "Harvest Lot",
+            "Shipment",
+            "Fuel Batch",
+            "CCHP Run",
+            "Energy Batch",
+            "AI Workload"
+          ],
+          "flows": [
+            "Bamboo & Fuel Flow",
+            "Electricity / Heat / Cooling",
+            "Demand, SLA & Carbon Signals"
+          ],
+          "crossCutting": [
+            "Cybersecurity",
+            "Safety",
+            "Resilience",
+            "Data Governance",
+            "ESG & Carbon",
+            "Lifecycle Management"
+          ]
+        }
+      }
     ]
   }
 }

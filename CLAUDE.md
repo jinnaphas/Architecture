@@ -139,6 +139,31 @@ are reported and the rest say so. Two things here are easy to get wrong:
   which layers the grid actually omits and fails if the two disagree. Do not "complete"
   the matrix by inventing those two rows — the omission is what it shows.
 
+## Concepts for the other three towers — and what they confirmed
+
+`architectureConcepts` holds one concept per non-SGAM tower (R13–R15). Two of them
+answer ASK-2 and one reopens a harder question:
+
+- **RAMI is confirmed.** R13 states 6 layers × 7 hierarchy levels × 4 life cycle
+  steps = 168, matching the tower exactly. It also confirms invariant 1 from the
+  other side: RAMI splits Integration from Asset where SGAM merges both into
+  Component, which is why SGAM has no L2.
+- **SFAM is confirmed at 5 domains.** The generic model (Figure 4.4) is exactly
+  what the tower already had. **BCDA-SFAM is an instantiation, not a redefinition** —
+  PCC's bamboo/CCHP/data-centre value chain laid over the same frame with 7 domains
+  of its own. It is recorded as an instantiation and is ASK-7. Do not fold its
+  domains into the SFAM axis without that decision.
+- **SCIAM is not confirmed.** R14 slide 1 shows 5 layers, matching the tower;
+  slide 2 shows 6, adding Intelligence. The deck contradicts itself, so nothing
+  was changed. This is ASK-6, and it matters more than it looks: if SCIAM really
+  has an Intelligence layer, L6 stops being SGAM-only, the total goes 798 → 846,
+  and `CPL-20`/`CPL-21` stop being asymmetric for the SGAM–SCIAM pair — which is
+  finding F2 itself.
+
+`verify.py` check 12 ties a concept's claim to the tower: anything marked
+`axesConfirmed` must multiply out to that tower's real cube count, and anything
+not confirmed must cite an ask that exists on the board's list.
+
 ## Never do
 
 - Do not present the numbers as verified. Axis counts for SCIAM, SFAM and RAMI were read
