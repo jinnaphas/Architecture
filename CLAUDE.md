@@ -164,6 +164,20 @@ answer ASK-2 and one reopens a harder question:
 `axesConfirmed` must multiply out to that tower's real cube count, and anything
 not confirmed must cite an ask that exists on the board's list.
 
+## The executive summary is bilingual by construction
+
+`executive` holds the board-facing summary and every leaf in it is a `{th, en}` pair, as are
+the seven `boardReport.asks` because they render inside it. `verify.py` walks the block and
+fails if either language is missing, so the English version cannot quietly rot behind the Thai
+one. The **สรุปผู้บริหาร** mode is the only place the language toggle appears; the three working
+views stay Thai per the convention above.
+
+Each tower carries a `diagram` — the canonical figure for that model, from the team's own
+decks — recording what it depicts. Check 13 compares that against the tower and fails on a
+mismatch. The SCIAM figure showing five layers is a deliberate data point on ASK-6, not an
+oversight: it is the source figure R14 says SCIAM is built from. It does not close the ask,
+because the same deck's slide 2 still shows six.
+
 ## Never do
 
 - Do not present the numbers as verified. Axis counts for SCIAM, SFAM and RAMI were read

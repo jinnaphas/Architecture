@@ -350,6 +350,59 @@ def main() -> int:
     print(f"  concepts: {len(ac)} towers · axes confirmed {', '.join(sorted(conf)) or 'none'} · "
           f"open {', '.join(sorted(set(ac) - set(conf))) or 'none'}")
 
+    # 13 — each tower's reference diagram has to be the diagram of *that* tower.
+    #      A five-layer figure filed under a seven-layer tower is exactly the sort
+    #      of thing that survives a slide review and misleads a board.
+    staged_line = next((l for l in (ROOT / ".github" / "workflows" / "pages.yml")
+                        .read_text(encoding="utf-8").splitlines()
+                        if "_site/" in l and l.strip().startswith("cp ")), "")
+    for t in m["towers"]:
+        d = t.get("diagram")
+        check(bool(d), f"{t['id']}: no reference diagram")
+        if not d:
+            continue
+        p = (ROOT / "app" / d["src"]).resolve()
+        check(p.is_file(), f"{t['id']}: diagram {d['src']} does not resolve to a file")
+        if p.is_file():
+            check(p.stat().st_size == d["bytes"],
+                  f"{t['id']}: diagram is {p.stat().st_size} bytes but the model says {d['bytes']}")
+        check(pathlib.PurePosixPath(d["src"].replace("../", "")).parts[0] in staged_line.split(),
+              f"{t['id']}: the Pages workflow does not stage the diagram's directory — it would 404")
+        check(d["ref"] in {x["id"] for x in m["references"]}, f"{t['id']}: diagram cites unknown reference {d['ref']}")
+        shows = d["shows"]
+        check(shows["layers"] == len(t["layers"]),
+              f"{t['id']}: diagram shows {shows['layers']} layers but the tower has {len(t['layers'])}")
+        check(shows["domains"] == len(t["xAxis"]["items"]),
+              f"{t['id']}: diagram shows {shows['domains']} domains but the tower has {len(t['xAxis']['items'])}")
+        check(shows["zones"] == len(t["yAxis"]["items"]),
+              f"{t['id']}: diagram shows {shows['zones']} zones but the tower has {len(t['yAxis']['items'])}")
+        check(bool(d["th"]) and bool(d["en"]), f"{t['id']}: diagram caption must exist in both languages")
+
+    # 14 — the executive summary is bilingual or it is not shippable. Every leaf
+    #      that carries th must carry en, and neither may be empty.
+    def bilingual(node, path):
+        if isinstance(node, dict):
+            if "th" in node or "en" in node:
+                check(bool(node.get("th")) and bool(node.get("en")),
+                      f"executive.{path}: needs both th and en, has {sorted(k for k in node if node.get(k))}")
+            for k, v in node.items():
+                bilingual(v, f"{path}.{k}" if path else k)
+        elif isinstance(node, list):
+            for i, v in enumerate(node):
+                bilingual(v, f"{path}[{i}]")
+    bilingual(m["executive"], "")
+    # the asks are rendered inside the executive summary, so they carry the same rule
+    for a in bs["asks"]:
+        check(bool(a.get("th")) and bool(a.get("en")),
+              f"{a['id']}: shown in the executive summary, so it needs both th and en")
+    ex = m["executive"]
+    check(len(ex["sections"]) >= 3, "executive: too few sections to brief a board")
+    check({f["id"] for f in ex["findings"]} <= {f["id"] for f in m["structuralFindings"]},
+          "executive: cites a finding that is not in structuralFindings")
+    print(f"  executive: {len(ex['sections'])} sections · {len(ex['findings'])} findings · "
+          f"{len(ex['labels'])} labels · th+en · diagrams "
+          + " ".join(f"{t['id']}:{t['diagram']['bytes']//1024}KB" for t in m["towers"]))
+
     print(f"  couplings: {len(ids)} · irregular: {sorted(irregular)} (all flagged)")
     if fail:
         print("\nFAILED:")
