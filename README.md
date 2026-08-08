@@ -47,7 +47,7 @@ aws s3 sync . s3://YOUR-BUCKET/ --delete --exclude '.git/*' --exclude '.github/*
 
 | | |
 |---|---|
-| Mode | **3D** isometric · **2D ผังตึก** — four towers as columns, the eight levels as rows · **รายงานบอร์ด** — the Smart Architecture team's report, for the executive meeting |
+| Mode | **3D** isometric · **2D ผังตึก** — four towers as columns, the eight levels as rows · **รายงานบอร์ด** — the Smart Architecture team's report · **สรุปผู้บริหาร** — a one-screen executive summary, Thai or English |
 | Layout (3D) | **ตาราง 2×2**, or **เรียงแถว + hub** — the towers on one line with the shared level scale standing between them, each level's guide becoming a spoke out to every tower |
 | Drag | rotate azimuth (3D only) |
 | Wheel | zoom |
@@ -84,6 +84,19 @@ the page cannot drift from the data the other two modes draw.
 
 Coverage is shown as coverage: a domain with no owner gets a highlighted row and a `ยังไม่ระบุ`
 pill rather than being left off the table, and the footer states the authored gap in full.
+
+**สรุปผู้บริหาร** is the fourth mode and the one to open in the meeting: the thesis in a
+sentence, nine headline numbers, the four reference diagrams side by side, the shared scale
+showing which towers carry which level, both structural findings, and the open decisions —
+on one scrolling screen. A **ไทย / EN** toggle appears only in this mode and switches every
+string, including the diagram captions and the board's asks. The other three modes stay Thai,
+which is the convention for the working views.
+
+`verify.py` enforces the bilingual rule structurally: it walks the executive block and fails
+if any leaf carrying `th` is missing `en` or vice versa, so a half-translated summary cannot
+ship. Each tower's diagram also records how many layers, domains and zones it depicts, and
+that is checked against the tower itself — a five-layer figure filed under a seven-layer
+tower is exactly the sort of thing that survives a slide review and misleads a board.
 
 **Concept รายสถาปัตยกรรม** covers the three non-SGAM towers — what each model is, who
 wrote it, and whether its axes are confirmed. RAMI and SFAM are; SCIAM is not, and the
@@ -147,6 +160,7 @@ index.html                     redirect to app/ so the site root works
 app/index.html                 the app
 data/architecture-model.json   the model — the app fetches this at runtime
 assets/digital-twin-demo.mp4   the Digital Twin walkthrough played in the board mode
+assets/arch/*.jpg              the reference diagram for each of the four towers
 tools/verify.py                invariant checks, also run by CI
 tools/derive_analysis.py       regenerates the derived risk, impact and response bands
 docs/KNOWLEDGE.md              the architecture reasoning behind all of it

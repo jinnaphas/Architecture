@@ -336,7 +336,19 @@
       ],
       "layerNote": "SGAM มาตรฐานมี 5 ชั้น (BUS, FUN, INF, COM, CMP) ตาม SG-CG/M490/K Table 3 ชั้น INT และ CYB เป็นส่วนที่ PCC เพิ่มเอง ดู deviations",
       "domainBoundaryRule": "DER กับ Customer Premises แยกกันที่ **เจตนาทางธุรกิจ ไม่ใช่เทคโนโลยี** — ทั้งสอง domain ผลิตไฟได้เหมือนกัน DER คือของที่มีเป้าหมายธุรกิจหลักคือป้อนเข้ากริด (production / storage / ancillary services) ส่วน Customer Premises คือกระบวนการที่ ไม่ได้มีเป้าหมายนั้น แต่ใช้กริดเป็นแหล่งพลังงาน เช่น home / building / industry management หรือ e-mobility (SG-CG/M490/K §412–418)",
-      "note": "7 ชั้น × 5 domain × 6 zone = 210 cubes · เพิ่ม Intelligence และ Cyber จาก SGAM มาตรฐาน แต่ขาดชั้น L2 Digitization ทั้งที่ PCC ผลิตอุปกรณ์เอง"
+      "note": "7 ชั้น × 5 domain × 6 zone = 210 cubes · เพิ่ม Intelligence และ Cyber จาก SGAM มาตรฐาน แต่ขาดชั้น L2 Digitization ทั้งที่ PCC ผลิตอุปกรณ์เอง",
+      "diagram": {
+        "src": "../assets/arch/sgam.jpg",
+        "bytes": 79999,
+        "ref": "R4",
+        "shows": {
+          "layers": 7,
+          "domains": 5,
+          "zones": 6
+        },
+        "th": "SGAM ที่ PCC ต่อเติม — เพิ่ม Intelligence และ Cyber บนฐาน 5 ชั้นของ IEC SRD 63200",
+        "en": "SGAM as PCC extends it — Intelligence and Cyber added to the five-layer IEC SRD 63200 baseline"
+      }
     },
     {
       "id": "RAMI",
@@ -484,7 +496,19 @@
         "L3"
       ],
       "uniqueLevels": [],
-      "note": "6 ชั้น × 7 hierarchy × 4 life cycle = 168 cubes · ตึกเดียวที่แกนที่สามเป็น Life Cycle ไม่ใช่ Zone อย่าเอาไปเทียบกับ Zone ของตึกอื่นตรง ๆ"
+      "note": "6 ชั้น × 7 hierarchy × 4 life cycle = 168 cubes · ตึกเดียวที่แกนที่สามเป็น Life Cycle ไม่ใช่ Zone อย่าเอาไปเทียบกับ Zone ของตึกอื่นตรง ๆ",
+      "diagram": {
+        "src": "../assets/arch/rami.jpg",
+        "bytes": 36738,
+        "ref": "R13",
+        "shows": {
+          "layers": 6,
+          "domains": 7,
+          "zones": 4
+        },
+        "th": "RAMI 4.0 สามแกน — Hierarchy Levels ตาม IEC 62264/61512 และ Life Cycle Value Stream ตาม IEC 62890",
+        "en": "The three axes of RAMI 4.0 — hierarchy levels per IEC 62264/61512, life cycle value stream per IEC 62890"
+      }
     },
     {
       "id": "SCIAM",
@@ -659,7 +683,19 @@
         "L2"
       ],
       "uniqueLevels": [],
-      "note": "5 ชั้น × 8 domain × 6 zone = 240 cubes · ตึกที่กว้างที่สุดแต่เตี้ยที่สุด เน้นความกว้างของบริการมากกว่าความลึกทางเทคนิค"
+      "note": "5 ชั้น × 8 domain × 6 zone = 240 cubes · ตึกที่กว้างที่สุดแต่เตี้ยที่สุด เน้นความกว้างของบริการมากกว่าความลึกทางเทคนิค",
+      "diagram": {
+        "src": "../assets/arch/sciam.jpg",
+        "bytes": 75966,
+        "ref": "R14",
+        "shows": {
+          "layers": 5,
+          "domains": 8,
+          "zones": 6
+        },
+        "th": "SCIAM ที่สร้างบน SGAM — ห้าชั้น แปดโดเมนของเมือง หกโซน",
+        "en": "SCIAM built on SGAM — five layers, eight city domains, six zones"
+      }
     },
     {
       "id": "SFAM",
@@ -826,7 +862,19 @@
         "L3"
       ],
       "uniqueLevels": [],
-      "note": "6 ชั้น × 5 domain × 6 zone = 180 cubes · รอยต่อผ่านธุรกิจไผ่ของ PCC — เพาะเลี้ยงเนื้อเยื่อ แปลงปลูก biochar และ biomass power"
+      "note": "6 ชั้น × 5 domain × 6 zone = 180 cubes · รอยต่อผ่านธุรกิจไผ่ของ PCC — เพาะเลี้ยงเนื้อเยื่อ แปลงปลูก biochar และ biomass power",
+      "diagram": {
+        "src": "../assets/arch/sfam.jpg",
+        "bytes": 152196,
+        "ref": "R15",
+        "shows": {
+          "layers": 6,
+          "domains": 5,
+          "zones": 6
+        },
+        "th": "SFAM ทั่วไป (Figure 4.4) — หกชั้น ห้าโดเมนของฟาร์ม หกโซน",
+        "en": "The generic SFAM (Figure 4.4) — six layers, five farm domains, six zones"
+      }
     }
   ],
   "sgamPopulation": {
@@ -4176,43 +4224,50 @@
         "id": "ASK-1",
         "th": "ยืนยันเจ้าของ domain ที่เหลือ — 2 กลุ่มต่อ 3 domain แปลว่ามี 1 domain ไม่มีเจ้าของ",
         "owner": "ทีม Smart Architecture",
-        "evidence": "team.unresolved"
+        "evidence": "team.unresolved",
+        "en": "Confirm the remaining domain owners — two owner groups over three domains means one domain has nobody."
       },
       {
         "id": "ASK-2",
         "th": "ยืนยันจำนวนแกนของ SCIAM และ SFAM — RAMI ยืนยันแล้วจาก R13 (6 layer × 7 hierarchy level × 4 life cycle step = 168)",
         "owner": "เจ้าของหัวข้อ 12–14",
-        "evidence": "scopeLimits"
+        "evidence": "scopeLimits",
+        "en": "Confirm the axis counts for SCIAM and SFAM. RAMI is now confirmed by R13 (6 layers x 7 hierarchy levels x 4 life cycle steps = 168)."
       },
       {
         "id": "ASK-3",
         "th": "ตั้งเจ้าของสัญญารอยต่อ 24 ตำแหน่งที่ยังว่างจาก 39 ตำแหน่งที่มีสิทธิ์",
         "owner": "Architecture Review Board",
-        "evidence": "meta.sgamSeamEligible"
+        "evidence": "meta.sgamSeamEligible",
+        "en": "Appoint contract owners for the 24 seam positions still unassigned out of the 39 eligible."
       },
       {
         "id": "ASK-4",
         "th": "อนุมัติให้เริ่มเขียน authored fields — ตอนนี้ 0 จาก 3,084 ช่อง เว้นไว้ตั้งใจ",
         "owner": "Architecture Review Board",
-        "evidence": "cubeAttributes.authored"
+        "evidence": "cubeAttributes.authored",
+        "en": "Approve a start on the authored fields — 0 of 3,084 are filled, deliberately left empty and counted."
       },
       {
         "id": "ASK-5",
         "th": "รับรอง Intelligence Layer (ข้อเสนอ DTU 2022) และ Cyber Layer เป็นส่วนขยายที่ PCC ใช้ — ทั้งคู่ยังไม่อยู่ใน 5 layer ฐานของ IEC SRD 63200:2021",
         "owner": "Architecture Review Board",
-        "evidence": "towers.SGAM.layers"
+        "evidence": "towers.SGAM.layers",
+        "en": "Ratify the Intelligence Layer (a DTU 2022 proposal) and the Cyber Layer as PCC extensions — neither is in the five-layer IEC SRD 63200:2021 baseline."
       },
       {
         "id": "ASK-6",
         "th": "ยืนยันจำนวน layer ของ SCIAM — R14 สไลด์ 1 แสดง 5 layer (ตรงกับโมเดล) สไลด์ 2 แสดง 6 layer โดยเพิ่ม Intelligence · ถ้าเป็น 6 ยอด cube รวมจะเปลี่ยนจาก 798 เป็น 846 และ finding F2 จะเปลี่ยนไปด้วย",
         "owner": "เจ้าของหัวข้อ SCIAM",
-        "evidence": "architectureConcepts.SCIAM.conflict"
+        "evidence": "architectureConcepts.SCIAM.conflict",
+        "en": "Confirm SCIAM's layer count. R14 slide 1 shows 5 layers (matching the model), slide 2 shows 6 by adding Intelligence. At 6 the total moves from 798 to 846 and finding F2 changes."
       },
       {
         "id": "ASK-7",
         "th": "ตัดสินสถานะของ BCDA-SFAM — เป็นตึกแยกของตัวเอง (6 × 7 × 6 = 252 cubes) หรือเป็นมุมมองที่วางทับตึก SFAM เดิม · ตอนนี้บันทึกเป็นมุมมอง แกน SFAM จึงยังเป็น 180",
         "owner": "เจ้าของหัวข้อ SFAM",
-        "evidence": "architectureConcepts.SFAM.instantiation"
+        "evidence": "architectureConcepts.SFAM.instantiation",
+        "en": "Decide the status of BCDA-SFAM — a tower in its own right (6 x 7 x 6 = 252 cells) or a view laid over the existing SFAM tower. Recorded as a view for now, so SFAM stays at 180."
       }
     ]
   },
@@ -5128,7 +5183,8 @@
           "ask": "ASK-6",
           "th": "สไลด์ 1 ของ R14 แสดง 5 layer (Business, Function, Information, Communication, Component) ตรงกับที่โมเดลใช้อยู่ · แต่สไลด์ 2 แสดง 6 layer โดยเพิ่ม Intelligence Layer เอกสารชุดเดียวกันขัดกันเอง จึงยังไม่แก้แกนของตึกนี้",
           "ifSix": "ถ้ายืนยันเป็น 6 layer ตึกนี้จะเป็น 6 × 8 × 6 = 288 cubes และยอดรวมจะเปลี่ยนจาก 798 เป็น 846",
-          "andThen": "จะกระทบ finding F2 โดยตรง เพราะ L6 Intelligence จะไม่ได้มีแค่ใน SGAM อีกต่อไป — CPL-20 และ CPL-21 ที่ตอนนี้เป็นเส้นเอียงข้ามชั้น จะกลายเป็นเส้นตรง L6↔L6 สำหรับคู่ SGAM–SCIAM"
+          "andThen": "จะกระทบ finding F2 โดยตรง เพราะ L6 Intelligence จะไม่ได้มีแค่ใน SGAM อีกต่อไป — CPL-20 และ CPL-21 ที่ตอนนี้เป็นเส้นเอียงข้ามชั้น จะกลายเป็นเส้นตรง L6↔L6 สำหรับคู่ SGAM–SCIAM",
+          "figure": "ภาพต้นทางที่ R14 อ้างว่า SCIAM สร้างต่อจาก SGAM แสดง 5 layer ซึ่งตรงกับที่ตึกนี้ใช้อยู่ — เป็นน้ำหนักฝั่ง 5 layer แต่ยังไม่ปิดคำถาม เพราะสไลด์ 2 ของเอกสารชุดเดียวกันยังแสดง 6 layer"
         }
       },
       {
@@ -5323,6 +5379,192 @@
             "ESG & Carbon",
             "Lifecycle Management"
           ]
+        }
+      }
+    ]
+  },
+  "executive": {
+    "title": {
+      "th": "สถาปัตยกรรมองค์กร — สรุปสำหรับคณะกรรมการ",
+      "en": "Enterprise Architecture — Executive Summary"
+    },
+    "subtitle": {
+      "th": "หัวข้อ 17 · Architecture Structure to be Architecture Resiliency Development",
+      "en": "Topic 17 · Architecture Structure to be Architecture Resiliency Development"
+    },
+    "thesis": {
+      "th": "สถาปัตยกรรมมาตรฐานสี่ชุด วางบนสเกลความสนใจร่วมชุดเดียว เพื่อให้เห็นว่าอะไรเชื่อมกันได้ อะไรยังขาด และใครต้องตัดสินใจ",
+      "en": "Four industry architectures placed on one shared scale of concerns, so that what connects, what is missing, and who has to decide all become visible."
+    },
+    "status": {
+      "th": "เอกสารฉบับร่างสำหรับ workshop — ยังไม่ baseline ต้องผ่าน Architecture Review Board",
+      "en": "Workshop draft — not baselined, pending Architecture Review Board"
+    },
+    "sections": [
+      {
+        "k": "what",
+        "n": 1,
+        "h": {
+          "th": "เราทำอะไร",
+          "en": "What we did"
+        },
+        "p": {
+          "th": "นำสถาปัตยกรรมอ้างอิงสี่ชุดที่ใช้กันคนละอุตสาหกรรม มาวางบนสเกลเดียวกัน 8 ระดับ ตั้งแต่สินทรัพย์กายภาพขึ้นไปถึงเจตนาธุรกิจ แล้ววาดจุดที่ทั้งสี่ต้องเชื่อมถึงกัน",
+          "en": "We placed four reference architectures from four different industries onto a single eight-level scale — from physical assets up to business intent — and drew the points where they have to meet."
+        },
+        "why": {
+          "th": "ถ้าไม่วางบนสเกลเดียวกัน จะเทียบกันไม่ได้ และจะไม่มีทางเห็นว่าชั้นไหนหายไป",
+          "en": "Without a shared scale they cannot be compared, and a missing layer never becomes visible."
+        }
+      },
+      {
+        "k": "scale",
+        "n": 2,
+        "h": {
+          "th": "สเกลร่วม 8 ระดับ",
+          "en": "The shared eight-level scale"
+        },
+        "p": {
+          "th": "แต่ละตึกวางชั้นของตัวเองลงบนสเกลนี้ · ชั้นที่ตึกไหนไม่มี จะเห็นเป็นช่องว่าง ไม่ถูกซ่อน",
+          "en": "Each tower places its own layers onto this scale. Where a tower has no layer, a gap is left visible rather than hidden."
+        },
+        "why": {
+          "th": "ช่องว่างคือสาระของภาพ ไม่ใช่ข้อบกพร่องของภาพ",
+          "en": "The gaps are the point of the picture, not a defect in it."
+        }
+      },
+      {
+        "k": "found",
+        "n": 3,
+        "h": {
+          "th": "สิ่งที่พบ",
+          "en": "What we found"
+        },
+        "p": {
+          "th": "จากคู่เชื่อม 30 คู่ที่ตั้งชื่อไว้ มี 4 คู่ที่ต้องเชื่อมข้ามระดับ เพราะชั้น Intelligence และ Cyber มีอยู่ในตึก SGAM ตึกเดียว และมี 1 คู่ที่ PCC ไม่มีที่ยืนอยู่ในนั้นเลย",
+          "en": "Of the thirty named couplings, four have to dock onto a different level because the Intelligence and Cyber layers exist in the SGAM tower alone; and one links two other towers with no PCC endpoint at all."
+        },
+        "why": {
+          "th": "ทั้งสองอย่างเป็นข้อค้นพบเชิงโครงสร้าง ไม่ใช่ความผิดพลาดในการวาด",
+          "en": "Both are structural findings, not drafting mistakes."
+        }
+      },
+      {
+        "k": "where",
+        "n": 4,
+        "h": {
+          "th": "อยู่ตรงไหนแล้ว",
+          "en": "Where we are"
+        },
+        "p": {
+          "th": "ตัวเลขความคืบหน้าทุกตัวคำนวณจากโมเดลโดยตรง ไม่ได้พิมพ์ทับ · ช่องที่ยังว่างถูกนับไว้ ไม่ได้เติมด้วยข้อความที่สร้างขึ้นเอง",
+          "en": "Every progress figure is computed from the model rather than typed in, and the fields nobody has written yet are counted rather than filled with generated text."
+        },
+        "why": {
+          "th": "ตัวเลขที่เติมให้ครบได้ จะกลบสิ่งที่ต้องตัดสินใจ",
+          "en": "Numbers padded to look complete would bury the thing that needs deciding."
+        }
+      },
+      {
+        "k": "ask",
+        "n": 5,
+        "h": {
+          "th": "ขอจากคณะกรรมการ",
+          "en": "What we need from the board"
+        },
+        "p": {
+          "th": "ประเด็นที่ค้างอยู่ทั้งหมดมีเจ้าของและมีหลักฐานกำกับ · ข้อที่กระทบโครงสร้างมากที่สุดคือจำนวนชั้นของ SCIAM",
+          "en": "Every open item has an owner and a pointer to its evidence. The one with the widest structural consequence is the layer count of SCIAM."
+        },
+        "why": {
+          "th": "ถ้า SCIAM มีชั้น Intelligence จริง ข้อค้นพบหลักของงานนี้จะเปลี่ยนไป",
+          "en": "If SCIAM really has an Intelligence layer, the central finding of this work changes."
+        }
+      }
+    ],
+    "labels": {
+      "cubes": {
+        "th": "ช่องสถาปัตยกรรม",
+        "en": "architecture cells"
+      },
+      "couplings": {
+        "th": "คู่เชื่อมข้ามตึก",
+        "en": "cross-model couplings"
+      },
+      "levels": {
+        "th": "ระดับที่ตึกนี้มี",
+        "en": "levels present"
+      },
+      "asks": {
+        "th": "ประเด็นค้าง",
+        "en": "open decisions"
+      },
+      "seams": {
+        "th": "รอยต่อที่ยังไม่มีสัญญากำกับ",
+        "en": "seams with no contract owner"
+      },
+      "authored": {
+        "th": "ช่องที่ต้องมีคนเขียน ยังว่าง",
+        "en": "fields awaiting a human author"
+      },
+      "domainReports": {
+        "th": "รายงานรายโดเมน",
+        "en": "domain reports filed"
+      },
+      "layerReports": {
+        "th": "รายงานรายชั้น",
+        "en": "layer reports filed"
+      },
+      "owners": {
+        "th": "โดเมนที่ระบุเจ้าของได้",
+        "en": "domains with a named owner"
+      },
+      "confirmed": {
+        "th": "ตึกที่ยืนยันแกนแล้ว",
+        "en": "towers with confirmed axes"
+      },
+      "diagram": {
+        "th": "ผังต้นฉบับ",
+        "en": "reference diagram"
+      },
+      "of": {
+        "th": "จาก",
+        "en": "of"
+      },
+      "readMore": {
+        "th": "ดูรายละเอียดในโหมดรายงานบอร์ด",
+        "en": "Full detail is in the board report mode"
+      }
+    },
+    "findings": [
+      {
+        "id": "F2",
+        "h": {
+          "th": "ชั้นที่มีตึกเดียว",
+          "en": "The layers only one tower has"
+        },
+        "p": {
+          "th": "SGAM ของ PCC มีชั้น Intelligence (L6) และ Cyber (L3) ที่อีกสามตึกไม่มี คู่เชื่อมสี่คู่จึงต้องลงไปเกาะชั้นอื่นแทน — วาดเป็นเส้นประที่เอียง",
+          "en": "PCC's SGAM carries an Intelligence layer (L6) and a Cyber layer (L3) that the other three towers do not, so four couplings have to dock onto a different level instead — drawn as sloped dashed lines."
+        },
+        "so": {
+          "th": "ทุกครั้งที่ระบบอัจฉริยะของเราคุยกับโรงงาน เมือง หรือฟาร์ม จะไม่มีชั้นที่ตรงกันรองรับ ต้องออกแบบตัวกลางเอง",
+          "en": "Every time our intelligent systems talk to a factory, a city or a farm, there is no matching layer to land on — the intermediary has to be designed."
+        }
+      },
+      {
+        "id": "F3",
+        "h": {
+          "th": "บทสนทนาที่เราไม่ได้อยู่ในนั้น",
+          "en": "The conversation we are not in"
+        },
+        "p": {
+          "th": "CPL-30 เชื่อม RAMI กับ SFAM ที่ระดับ L2 โดยไม่มีปลายทางฝั่ง SGAM เลย",
+          "en": "CPL-30 links RAMI to SFAM at level L2 with no SGAM endpoint at all."
+        },
+        "so": {
+          "th": "โรงงานกับฟาร์มแลกเปลี่ยนกันได้ที่ชั้นนี้ โดยไม่ต้องผ่าน PCC — เป็นการถูกกันออกเชิงโครงสร้าง ไม่ใช่การมองข้าม",
+          "en": "A factory and a farm can exchange at this level without going through PCC — a structural exclusion, not an oversight."
         }
       }
     ]

@@ -222,6 +222,32 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
 .brd .cov{height:4px;border-radius:99px;background:var(--panel2);overflow:hidden;margin-top:7px}
 .brd .cov i{display:block;height:100%;background:var(--L4);border-radius:99px}
 .brd .foot{margin-top:30px;padding-top:12px;border-top:1px solid var(--line);font-size:10px;color:var(--ink3);line-height:1.6}
+/* executive summary — bigger type, fewer things, meant for a projector */
+.exc .w{max-width:1080px}
+.exc .thesis{font-size:15px;line-height:1.65;margin:16px 0 4px;color:var(--ink);max-width:820px}
+.exc h2{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);
+  border-bottom:1px solid var(--line);margin:30px 0 12px}
+.exc .xnums{display:grid;grid-template-columns:repeat(auto-fit,minmax(126px,1fr));gap:9px;margin-top:18px}
+.exc .xn{border:1px solid var(--line);border-radius:5px;padding:11px 12px;background:var(--panel)}
+.exc .xn.w{border-color:color-mix(in srgb,var(--L3) 55%,var(--line))}
+.exc .xn em{display:block;font-family:var(--mono);font-size:19px;font-weight:600;font-style:normal;color:var(--ink)}
+.exc .xn.w em{color:var(--L3)}
+.exc .xn i{display:block;font-style:normal;font-size:9.5px;color:var(--ink3);margin-top:3px;line-height:1.35}
+.exc .tfs{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.exc .tf{margin:0;border:1px solid var(--line);border-radius:5px;overflow:hidden;background:var(--panel)}
+.exc .tf img{width:100%;height:auto;display:block;background:#fff}
+.exc .tf figcaption{padding:9px 11px;border-top:1px solid var(--line)}
+.exc .tf b{font-family:var(--mono);font-size:11px}
+.exc .tf span{display:block;font-size:10.5px;color:var(--ink2);line-height:1.5;margin-top:3px}
+.exc .tf em{display:block;font-family:var(--mono);font-style:normal;font-size:9px;color:var(--ink3);margin-top:5px}
+.exc .xs{display:flex;gap:14px;padding:15px 0;border-bottom:1px solid var(--line);align-items:flex-start}
+.exc .xs i{font-family:var(--mono);font-style:normal;font-size:17px;color:var(--ink3);width:26px;flex-shrink:0;line-height:1.2}
+.exc .xs h3{font-size:12.5px;font-weight:600;margin:0 0 5px}
+.exc .xs p{font-size:11.5px;line-height:1.65;color:var(--ink2);margin:0;max-width:760px}
+.exc .xs p.wy{margin-top:6px;color:var(--ink3);font-style:italic}
+.exc .tk{display:inline-block;font-family:var(--mono);font-size:9px;padding:1px 6px;border-radius:99px;
+  border:1px solid var(--line);color:var(--ink3);margin-right:4px;opacity:.4}
+.exc .tk.on{opacity:1;border-color:var(--ink3);color:var(--ink)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -243,7 +269,11 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
       <div class="grp"><span class="lb">Mode</span>
         <button class="vb" data-v="m3d" aria-pressed="true">3D</button>
         <button class="vb" data-v="m2d">2D ผังตึก</button>
-        <button class="vb" data-v="mbd">รายงานบอร์ด</button></div>
+        <button class="vb" data-v="mbd">รายงานบอร์ด</button>
+        <button class="vb" data-v="mex">สรุปผู้บริหาร</button></div>
+      <div class="grp" id="langGrp" style="display:none"><span class="lb">Lang</span>
+        <button class="vb" data-v="lth" aria-pressed="true">ไทย</button>
+        <button class="vb" data-v="len">EN</button></div>
       <div class="grp" id="layGrp"><span class="lb">Layout</span>
         <button class="vb" data-v="lgrid" aria-pressed="true">ตาราง 2×2</button>
         <button class="vb" data-v="lrow">เรียงแถว + hub</button></div>
@@ -267,6 +297,7 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
     <div class="stage" id="stage">
       <svg id="scene" viewBox="0 0 1080 800" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Four architecture towers with cross-model couplings"></svg>
       <div class="brd" id="brd" hidden></div>
+      <div class="brd exc" id="exc" hidden></div>
       <div class="tip" id="tip"><div><span class="a"></span><br><span class="b"></span></div></div>
       <div class="hint" id="hint"><b>ลาก</b> = หมุน · <b>ล้อ</b> = ซูม · <b>คลิกจุด</b> = ดู cube · <b>คลิกเส้น</b> = ดูรายละเอียดการเชื่อม · เลือกตึก 2–3 ตึกเพื่อดูเฉพาะคู่นั้น</div>
       <div class="story" id="story" hidden>
@@ -327,6 +358,7 @@ const TOWERS=M.towers.map(t=>({
   ys:t.yAxis.items.map(ax),
   ls:t.layers.map(l=>[l[0], l[1], +String(l[2]).slice(1), l[5]||"", l[3]||"", l[4]||""]),
   note:t.note||"",
+  diagram:t.diagram||null,
   layerNote:t.layerNote||"",
   domainRule:t.domainBoundaryRule||"",
   zoneConcepts:t.yAxis.concepts||null,
@@ -357,7 +389,7 @@ SEAMS.forEach((s,i)=>{if(BY[s[0]])BY[s[0]].seams.push(i);if(BY[s[1]])BY[s[1]].se
 const NTOT=CUBES.length;
 /* ============ state ============ */
 const S={az:0,zoom:1,explode:1,seams:true,guides:true,sel:null,selS:null,
-  tw:new Set(TOWERS.map(t=>t.k)),lv:new Set(),ct:new Set(),dragging:false,story:false,view:"iso",layout:"grid",selB:null,selP:null};
+  tw:new Set(TOWERS.map(t=>t.k)),lv:new Set(),ct:new Set(),dragging:false,story:false,view:"iso",lang:"th",layout:"grid",selB:null,selP:null};
 const CX=540,CY=420,CU=8.5,CV=7.5;
 /* Two arrangements for the same four towers. The grid is the default 2x2 plot. The
    row places every tower centre on the line u+v=16, which is exactly the set of
@@ -1138,6 +1170,71 @@ function boardConcepts(){
     <p class="lead">${esc(ACON.note)}</p>
     <div class="cov"><i style="width:${n/ACON.concepts.length*100}%"></i></div>${cards}`;
 }
+/* ---- executive summary, bilingual ---- */
+const EX=M.executive;
+const L=o=>o&&(o[S.lang]||o.th)||"";      /* every bilingual leaf goes through here */
+const lb=k=>L(EX.labels[k]);
+function exStats(){
+  const seam=M.meta.sgamSeamEligible,named=SEAMS.filter(s=>{
+    const a=BY[s[0]];return a.T.k==="SGAM"&&(a.lc==="BUS"||a.lc==="CMP");}).length;
+  const dr=DREP.reports.filter(r=>r.status==="reported").length;
+  const lr=LREP.reports.filter(r=>r.status==="reported").length;
+  const own=TEAM.domainExperts.filter(x=>x.owners.length).length;
+  const conf=ACON.concepts.filter(c=>c.axesConfirmed).length;
+  const au=M.cubeAttributes.authored;
+  return [
+    {v:M.meta.totalCubes, k:"cubes"},
+    {v:SEAMS.length, k:"couplings"},
+    {v:`${seam-named}/${seam}`, k:"seams", warn:true},
+    {v:`${au.filled}/${au.of}`, k:"authored", warn:true},
+    {v:`${dr}/${DREP.reports.length}`, k:"domainReports"},
+    {v:`${lr}/${LREP.reports.length}`, k:"layerReports"},
+    {v:`${own}/${TEAM.domainExperts.length}`, k:"owners", warn:own<TEAM.domainExperts.length},
+    {v:`${conf}/${ACON.concepts.length}`, k:"confirmed", warn:conf<ACON.concepts.length},
+    {v:BRD.asks.length, k:"asks", warn:true},
+  ];
+}
+function exTowers(){
+  return TOWERS.map(T=>{
+    const s=twStats(T),d=T.diagram;
+    return `<figure class="tf">
+      <img src="${esc(d.src)}" alt="${esc(L(d))}" loading="lazy" width="${'auto'}">
+      <figcaption><b>${esc(T.k)}</b> <span>${esc(L(d))}</span>
+        <em>${s.cubes} ${esc(lb("cubes"))} · ${s.levels}/8 ${esc(lb("levels"))} ·
+        ${s.cpl} ${esc(lb("couplings"))}</em></figcaption></figure>`;}).join("");
+}
+function exLevels(){
+  return LV.slice().sort((a,b)=>b.p-a.p).map(l=>{
+    const has=TOWERS.filter(T=>T.ls.some(x=>x[2]===l.p));
+    return `<tr><td class="c">${lvDot(l.p)}L${l.p}</td>
+      <td>${esc(l.n)}${S.lang==="th"?" · "+esc(l.th):""}</td>
+      <td>${TOWERS.map(T=>`<span class="tk${has.includes(T)?" on":""}">${esc(T.k)}</span>`).join("")}</td>
+      <td class="c">${has.length===4?"":`<span class="pill w">${has.length}/4</span>`}</td></tr>`;}).join("");
+}
+function drawExec(){
+  const sec=EX.sections.map(s=>`<div class="xs"><i>${s.n}</i>
+    <div><h3>${esc(L(s.h))}</h3><p>${esc(L(s.p))}</p>
+    <p class="wy">${esc(L(s.why))}</p></div></div>`).join("");
+  const fnd=EX.findings.map(f=>`<div class="cd"><div class="k">${esc(f.id)} · ${esc(L(f.h))}</div>
+    <p>${esc(L(f.p))}</p><p style="margin-top:7px;color:var(--L3)"><b>${esc(L(f.so))}</b></p></div>`).join("");
+  const st=exStats().map(x=>`<div class="xn${x.warn?" w":""}"><em>${esc(String(x.v))}</em>
+    <i>${esc(lb(x.k))}</i></div>`).join("");
+  const asks=BRD.asks.map(a=>`<div class="ask"><div class="id">${esc(a.id)}</div>
+    <div class="tx">${esc(L(a))}</div><div class="ow">${esc(a.owner)}</div></div>`).join("");
+  $("exc").innerHTML=`<div class="w">
+    <div class="hd"><b>${esc(L(EX.title))}</b>
+      <span>${esc(L(EX.subtitle))}</span>
+      <span style="margin-left:auto">${esc(L(EX.status))}</span></div>
+    <p class="thesis">${esc(L(EX.thesis))}</p>
+    <div class="xnums">${st}</div>
+    <h2>${esc(lb("diagram"))}</h2><div class="tfs">${exTowers()}</div>
+    ${sec}
+    <h2>L1–L8</h2>
+    <table><tbody>${exLevels()}</tbody></table>
+    <h2>F2 · F3</h2><div class="cards">${fnd}</div>
+    <h2>${esc(L(EX.sections[4].h))}</h2>${asks}
+    <p class="foot">${esc(lb("readMore"))}</p></div>`;
+}
 let brdDone=false;
 function drawBoard(){
   if(brdDone)return;
@@ -1156,11 +1253,13 @@ function drawBoard(){
 }
 function draw(){
   if(!SC)build();
-  const board=S.view==="board",flat=S.view==="flat";
-  $("brd").hidden=!board;
-  svg.style.display=board?"none":"";
-  $("hint").style.display=board?"none":"";
+  const board=S.view==="board",exec=S.view==="exec",flat=S.view==="flat";
+  const doc=board||exec;
+  $("brd").hidden=!board; $("exc").hidden=!exec;
+  svg.style.display=doc?"none":"";
+  $("hint").style.display=doc?"none":"";
   if(board){drawBoard();return;}
+  if(exec){drawExec();return;}
   SC.isoG.style.display=flat?"none":"";
   if(flat)drawFlat(); else drawIso();
   if(FLAT.g)FLAT.g.style.display=flat?"":"none";
@@ -1287,13 +1386,21 @@ document.querySelectorAll(".vb").forEach(b=>b.onclick=()=>{
     document.querySelector('[data-v="lrow"]').setAttribute("aria-pressed",S.layout==="row");
     req();return;
   }
-  else if(v==="m3d"||v==="m2d"||v==="mbd"){
+  else if(v==="lth"||v==="len"){
+    S.lang=(v==="len")?"en":"th";
+    document.querySelector('[data-v="lth"]').setAttribute("aria-pressed",S.lang==="th");
+    document.querySelector('[data-v="len"]').setAttribute("aria-pressed",S.lang==="en");
+    drawExec();return;
+  }
+  else if(v==="m3d"||v==="m2d"||v==="mbd"||v==="mex"){
     if(S.story)storyOn(false);
-    S.view=(v==="m2d")?"flat":(v==="mbd")?"board":"iso";
+    S.view=(v==="m2d")?"flat":(v==="mbd")?"board":(v==="mex")?"exec":"iso";
     S.sel=S.selB=S.selP=null;S.selS=null;
     document.querySelector('[data-v="m3d"]').setAttribute("aria-pressed",S.view==="iso");
     document.querySelector('[data-v="m2d"]').setAttribute("aria-pressed",S.view==="flat");
     document.querySelector('[data-v="mbd"]').setAttribute("aria-pressed",S.view==="board");
+    document.querySelector('[data-v="mex"]').setAttribute("aria-pressed",S.view==="exec");
+    $("langGrp").style.display=S.view==="exec"?"":"none";
     $("rotGrp").style.display=S.view==="iso"?"":"none";
     $("layGrp").style.display=S.view==="iso"?"":"none";
     $("hint").innerHTML=S.view==="flat"
@@ -1550,7 +1657,7 @@ if(M.scopeLimits){
 $("refList").innerHTML=(M.references||[]).map(r=>
   `<span title="${esc(r.title)}${r.restriction?" — "+esc(r.restriction):""}">${esc(r.id)} <b>${esc(r.publisher)}</b>${r.restriction?" ⚠":""}</span>`).join("");
 syncUI();stats();detail();draw();
-Object.assign(window,{M,S,SC,applyLayout,ROW_K,HUB_U,HUB_V,CT,LV,TOWERS,TW,BLOCKLINKS,FLAT,drawFlat,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs,drawBoard,TEAM,LSTD,DREP,BRD,twStats,LREP,DT,boardLayers,boardTwin,ACON,boardConcepts});
+Object.assign(window,{M,S,SC,applyLayout,ROW_K,HUB_U,HUB_V,CT,LV,TOWERS,TW,BLOCKLINKS,FLAT,drawFlat,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs,drawBoard,TEAM,LSTD,DREP,BRD,twStats,LREP,DT,boardLayers,boardTwin,ACON,boardConcepts,EX,drawExec,exStats,L});
 </script>
 </body>
 </html>
