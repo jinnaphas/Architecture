@@ -157,6 +157,70 @@ def main() -> int:
     print(f"  cube attributes: 2 derived · authored {ca['authored']['filled']}/{ca['authored']['of']} "
           f"({', '.join(ca['authored']['fields'])})")
 
+    # 10 — the Smart Architecture team's reporting must point at things that
+    #      exist, and must keep counting what it has not got rather than
+    #      quietly covering the whole grid.
+    sgam_layers = [l[0] for l in sgam["layers"]]
+    sgam_domains = [i[0] for i in sgam["xAxis"]["items"]]
+    sgam_zones = [i[0] for i in sgam["yAxis"]["items"]]
+
+    ls = m["layerStandards"]["byLayer"]
+    check(set(ls) == set(sgam_layers), f"layerStandards covers {sorted(ls)}, SGAM has {sorted(sgam_layers)}")
+    for lay, blk in ls.items():
+        check(bool(blk.get("view")), f"layerStandards.{lay}: no view statement")
+        check(bool(blk["items"]), f"layerStandards.{lay}: no standards")
+        for it in blk["items"]:
+            check(it["scope"] in {"all"} | set(towers),
+                  f"layerStandards.{lay}/{it['code']}: scope {it['scope']} is not a tower")
+
+    reports = {r["domain"]: r for r in m["domainReports"]["reports"]}
+    check(set(reports) == set(sgam_domains),
+          f"domainReports covers {sorted(reports)}, SGAM domains are {sorted(sgam_domains)}")
+    for d, r in reports.items():
+        if r["status"] != "reported":
+            check(r["ref"] is None, f"{d}: not reported but cites {r['ref']}")
+            continue
+        check(r["ref"] in {x["id"] for x in m["references"]}, f"{d}: cites unknown reference {r['ref']}")
+        for z in r.get("byZone", []):
+            check(z["zone"] in sgam_zones, f"{d}: byZone has unknown zone {z['zone']}")
+        for l in r.get("byLayer", []):
+            check(l["layer"] in sgam_layers, f"{d}: byLayer has unknown layer {l['layer']}")
+        for lay, row in r.get("grid", {}).items():
+            check(lay in sgam_layers, f"{d}: grid has unknown layer {lay}")
+            check(set(row) == set(sgam_zones), f"{d}.{lay}: grid zones {sorted(row)} != {sorted(sgam_zones)}")
+        for f in r.get("flows", []):
+            for role in ("a", "b"):
+                check(f[role] in sgam_zones, f"{d}: flow endpoint {f[role]} is not a zone")
+
+    team = m["team"]
+    check([x["layer"] for x in team["layerExperts"]] == sgam_layers,
+          "team.layerExperts must list every SGAM layer, in order")
+    check([x["domain"] for x in team["domainExperts"]] == sgam_domains,
+          "team.domainExperts must list every SGAM domain, in order")
+    for x in team["layerExperts"] + team["domainExperts"]:
+        check(bool(x["owners"]) == (x["confidence"] == "measured"),
+              f"team: {x.get('layer') or x['domain']} has owners but is not marked measured, or vice versa")
+    unowned = [x["domain"] for x in team["domainExperts"] if not x["owners"]]
+    check(set(unowned) == set(team["unresolved"]["candidates"]),
+          f"team.unresolved.candidates {team['unresolved']['candidates']} "
+          f"disagrees with the domains left without owners {unowned}")
+    check(len(team["unresolved"]["groups"]) < len(unowned),
+          "team.unresolved: as many owner groups as candidate domains — nothing would be left unowned, "
+          "so the gap this records has gone away and the note should go with it")
+
+    bs = m["boardReport"]
+    check({t["tower"] for t in bs["towerStatus"]} == set(towers),
+          "boardReport.towerStatus must cover every tower")
+    check(sum(1 for t in bs["towerStatus"] if t["reporting"] == "active") >= 1,
+          "boardReport: no architecture is reporting")
+    for a in bs["asks"]:
+        check(bool(a["owner"]) and bool(a["evidence"]), f"{a['id']}: an ask needs an owner and evidence")
+    reported = sum(1 for r in m["domainReports"]["reports"] if r["status"] == "reported")
+    print(f"  team: layer experts {sum(1 for x in team['layerExperts'] if x['owners'])}/{len(sgam_layers)} · "
+          f"domain experts {sum(1 for x in team['domainExperts'] if x['owners'])}/{len(sgam_domains)} · "
+          f"domain reports {reported}/{len(sgam_domains)} · "
+          f"standards {sum(len(v['items']) for v in ls.values())} · asks {len(bs['asks'])}")
+
     print(f"  couplings: {len(ids)} · irregular: {sorted(irregular)} (all flagged)")
     if fail:
         print("\nFAILED:")
