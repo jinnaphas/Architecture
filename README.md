@@ -56,7 +56,7 @@ aws s3 sync . s3://YOUR-BUCKET/ --delete --exclude '.git/*' --exclude '.github/*
 | Click a tower name | isolate that tower |
 | Tower buttons | multi-select; the shortcut chips jump to common pairs and triples |
 | Level rows | isolate one of L1–L8 across all towers — this is how the missing floors become obvious |
-| Coupling type rows | filter A–E |
+| Coupling type rows | filter A–E · the swatch shows each type's dash pattern |
 | Theme | light (default) / dark |
 
 Both modes carry the **Z backbone**: the shared level scale as a thing you can see rather
@@ -71,6 +71,11 @@ screen are the four that dock onto a different level. That is finding F2, drawn 
 than explained. Clicking a block opens that layer; clicking a line opens the couplings
 it bundles.
 
+Colour carries one meaning only: the level. A coupling line is drawn in the colour of the
+level it sits on, and its **type is a dash pattern** — A solid, B long dash, C dotted,
+D dash-dot, E short dash. The five type colours this replaced measured 4.6–10.8 ΔE from the
+level colours beside them, close enough to read as the same hue on a projector.
+
 Two entry paths into the same information: node-first or line-first. Both reach the same
 detail, so pick whichever matches how the question was asked.
 
@@ -84,6 +89,13 @@ the page cannot drift from the data the other two modes draw.
 
 Coverage is shown as coverage: a domain with no owner gets a highlighted row and a `ยังไม่ระบุ`
 pill rather than being left off the table, and the footer states the authored gap in full.
+
+It also carries the **Seam Contract Register** and a CSV export of it: all 39 eligible
+positions on SGAM's BUS and CMP layers, 15 with a named coupling and 24 without, one row
+each with layer, domain, zone, scope, response band, coupling, type, partner, risk and
+blast radius already filled in — and owner, contract id and budget left deliberately blank
+for whoever takes them. CSV rather than XLSX because the project has no build step and no
+dependencies; a UTF-8 BOM makes Excel open the Thai columns correctly.
 
 **สรุปผู้บริหาร** is the fourth mode and the one to open in the meeting: the thesis in a
 sentence, nine headline numbers, the four reference diagrams side by side, the shared scale
