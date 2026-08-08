@@ -195,6 +195,11 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
 .brd .pill{display:inline-block;font-family:var(--mono);font-size:8.5px;letter-spacing:.05em;
   padding:1px 6px;border-radius:99px;border:1px solid var(--line);color:var(--ink3);margin:1px 3px 1px 0}
 .brd .pill.w{border-color:var(--L3);color:var(--L3)}
+.brd .pill.g{border-color:var(--L4);color:var(--L4)}
+.brd .pill.hi{border-color:var(--L6);color:var(--L6);font-weight:600}
+.brd .vid{width:100%;max-width:720px;display:block;margin:12px 0 4px;border:1px solid var(--line);
+  border-radius:5px;background:#000;height:auto}
+.brd tr.cap td{background:color-mix(in srgb,var(--L5) 10%,transparent)}
 .brd .lvb{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:-1px}
 .brd details{border:1px solid var(--line);border-radius:5px;margin-top:7px;background:var(--panel)}
 .brd summary{cursor:pointer;padding:9px 12px;font-size:11px;display:flex;align-items:center;gap:8px;list-style:none}
@@ -947,6 +952,118 @@ function boardAsks(){
     BRD.asks.map(a=>`<div class="ask"><div class="id">${esc(a.id)}</div>
       <div class="tx">${esc(a.th)}</div><div class="ow">${esc(a.owner)}</div></div>`).join("");
 }
+/* ---- the vertical axis, layer by layer ---- */
+const LREP=M.layerReports,DT=M.digitalTwin;
+const pills=a=>a.map(x=>`<span class="pill">${esc(x)}</span>`).join("");
+const chain=a=>a.map(x=>`<span class="pill">${esc(x)}</span>`).join(" → ");
+
+function repBUS(r){
+  return `<table><tbody>${r.blocks.map(b=>
+    `<tr><td class="c">${esc(b.k)}</td><td>${esc(b.v)}</td></tr>`).join("")}</tbody></table>
+    <p class="v">${esc(r.closing)}</p>`;
+}
+function repFUN(r){
+  return `<p class="v">${chain(r.chain)}</p>
+    <table><thead><tr><th>Zone</th><th>ทำอะไรในโซนนี้</th></tr></thead><tbody>${
+    r.byZone.map(z=>`<tr><td class="c">${esc(z.zone)}</td><td>${esc(z.v)}</td></tr>`).join("")}</tbody></table>
+    <p class="v">${esc(r.closing)}</p>`;
+}
+function repINT(r){
+  const vc=r.valueChain.map(x=>`<span class="pill${x==="Intelligence"?" hi":""}">${esc(x)}</span>`).join(" → ");
+  const tw=r.twoWayCheck.map(c=>`<div class="cd"><div class="k">${esc(c.k)}</div>
+    <p>${esc(c.v)}</p><p style="margin-top:6px"><span class="pill ${c.kind==="risk"?"w":"g"}">${
+    c.kind==="risk"?"ความเสี่ยง":"โอกาส"}</span></p></div>`).join("");
+  const gt=r.gapTypes.map(g=>`<tr><td class="c">${g.n}</td><td><b>${esc(g.k)}</b><br>
+    <span style="color:var(--ink3)">${esc(g.v)}</span></td><td>${esc(g.verdict)}</td></tr>`).join("");
+  const pr=r.process.map(p=>`<div class="cd"><div class="k">${p.n} · ${esc(p.k)}</div><p>${esc(p.v)}</p>
+    ${p.note?`<p style="margin-top:6px;color:var(--L3)">${esc(p.note)}</p>`:""}</div>`).join("");
+  const au=r.autonomy.map(a=>`<tr><td class="c">ระดับ ${a.n}</td><td><b>${esc(a.k)}</b></td>
+    <td>${esc(a.who)}</td><td>${esc(a.scale)}</td></tr>`).join("");
+  const cs=r.cases.map(c=>`<details><summary><b>กรณี ${c.n}</b> ${esc(c.title)}
+    <span>ช่องว่างประเภท ${c.gapType}</span></summary><div class="dbody">
+    <table><tbody>
+      <tr><td class="c">สินทรัพย์ที่มี</td><td>${esc(c.asset)}</td></tr>
+      ${c.missing!=="—"?`<tr><td class="c">ข้อมูลที่ยังไม่ใช้</td><td>${esc(c.missing)}</td></tr>`:""}
+      <tr><td class="c">ตัดสินใจเพิ่มได้</td><td>${esc(c.decision)}</td></tr>
+      <tr><td class="c">หน้าที่ใหม่</td><td>${esc(c.newFunction)}</td></tr>
+      <tr><td class="c">ผลตอบแทน</td><td>${esc(c.value)}</td></tr>
+      <tr><td class="c">ต้นทุน</td><td>${esc(c.cost)}</td></tr>
+    </tbody></table></div></details>`).join("");
+  return `<p class="v"><b>ที่มา</b> — ${esc(r.provenance)}</p>
+    <p class="v"><b>ทิศทางการเพิ่มคุณค่าของข้อมูล</b><br>${vc}</p>
+    <p class="v"><b>วิธีทำงาน — ย้อนกลับไปตั้งต้นที่ข้อมูลเสมอ</b><br>${chain(r.method.steps)}<br>
+      <span style="color:var(--ink3)">${esc(r.method.rule)}</span></p>
+    <div class="cards">${r.method.paths.map(p=>`<div class="cd"><div class="k">${esc(p.k)}</div>
+      <p>${esc(p.v)}</p></div>`).join("")}</div>
+    <p class="v"><b>ตรวจสองทางระหว่างข้อมูลกับการตัดสินใจ</b></p><div class="cards">${tw}</div>
+    <p class="v"><b>ประเภทของช่องว่างและความคุ้มค่า</b></p>
+    <table><thead><tr><th>#</th><th>ช่องว่าง</th><th>ความคุ้มค่า</th></tr></thead><tbody>${gt}</tbody></table>
+    <p class="v"><b>กระบวนการค้นหาโอกาส</b></p><div class="cards">${pr}</div>
+    <p class="v"><b>ระดับความเป็นอิสระในการตัดสินใจ</b> — ตัวคูณผลตอบแทน เป็นประเด็นเชิงนโยบาย ไม่ใช่ระดับปฏิบัติการ</p>
+    <table><thead><tr><th>ระดับ</th><th>ทำอะไร</th><th>ใครตัดสิน</th><th>ขยายผลได้แค่ไหน</th></tr></thead>
+      <tbody>${au}</tbody></table>
+    <p class="v"><b>กรณีศึกษา</b></p>${cs}
+    <p class="v" style="color:var(--L4)"><b>${esc(r.closing)}</b></p>`;
+}
+function repCOM(r){
+  const bd=r.byDomain.map(d=>`<tr><td class="c">${esc(d.domain)}</td>
+    <td>${d.carries.map(esc).join(" · ")}</td><td>${pills(d.protocols)}</td></tr>`).join("");
+  const bz=r.byZone.map(z=>`<tr><td class="c">${esc(z.zone)}</td><td>${esc(z.systems)}</td>
+    <td>${pills(z.protocols)}</td></tr>`).join("");
+  const pl=r.pillars.map(p=>`<div class="cd"><div class="k">${esc(p.k)}</div><p>${esc(p.v)}</p></div>`).join("");
+  const g=r.gateway;
+  return `<p class="v"><b>แนวนอน — เชื่อมทุกโดเมน</b></p>
+    <table><thead><tr><th>Domain</th><th>ส่งอะไร</th><th>ด้วยโปรโตคอลอะไร</th></tr></thead><tbody>${bd}</tbody></table>
+    <p class="v"><b>แนวตั้ง — เชื่อมทุกโซน</b></p>
+    <table><thead><tr><th>Zone</th><th>ระบบอะไรอยู่ตรงนั้น</th><th>ด้วยโปรโตคอลอะไร</th></tr></thead><tbody>${bz}</tbody></table>
+    <p class="v"><b>ห้าเสาของชั้นนี้</b></p><div class="cards">${pl}</div>
+    <p class="v"><b>${esc(g.title)}</b> — ${esc(g.why)}<br>
+      ${pills(g.from)} <b>⇄</b> ${pills(g.to)}</p>
+    <p class="v">${pills(g.does)}</p>
+    <p class="v" style="color:var(--L4)"><b>${esc(r.closing)}</b></p>`;
+}
+function boardLayers(){
+  const done=LREP.reports.filter(r=>r.status==="reported").length;
+  const order=TW.SGAM.ls.map(l=>l[0]);
+  const cards=order.map(code=>{
+    const r=LREP.reports.find(x=>x.layer===code),L=TW.SGAM.ls.find(l=>l[0]===code);
+    if(r.status!=="reported")
+      return `<details><summary>${lvDot(L[2])}<b>${esc(code)}</b> ${esc(L[1])} Layer — ${esc(r.question)}
+        <span><span class="pill w">ยังไม่รายงาน</span></span></summary>
+        <div class="dbody"><p class="v">${esc(r.summary)}</p></div></details>`;
+    const inner=code==="BUS"?repBUS(r):code==="FUN"?repFUN(r):code==="INT"?repINT(r):repCOM(r);
+    return `<details><summary>${lvDot(L[2])}<b>${esc(code)}</b> ${esc(L[1])} Layer — ${esc(r.question)}
+      <span>${esc(r.ref)}</span></summary>
+      <div class="dbody"><p class="v">${esc(r.summary)}</p>${inner}</div></details>`;
+  }).join("");
+  return `<h2>แกนแนวตั้ง — รายงานรายชั้น<s>${done} จาก ${order.length} ชั้น</s></h2>
+    <p class="lead">${esc(LREP.note)}</p>
+    <div class="cov"><i style="width:${done/order.length*100}%"></i></div>${cards}`;
+}
+function boardTwin(){
+  const rows=DT.layers.map(lay=>{
+    const L=TW.SGAM.ls.find(l=>l[0]===lay);
+    return `<tr><td class="c">${lvDot(L[2])}${esc(lay)}</td>${
+      DT.domains.map(d=>`<td>${DT.grid[lay][d].map(v=>`<u>${esc(v)}</u>`).join("")}</td>`).join("")}</tr>`;
+  }).join("");
+  const cap=`<tr class="cap"><td class="c">DT</td>${DT.domains.map(d=>
+    `<td>${DT.capabilities.byDomain[d].map(v=>`<u>${esc(v)}</u>`).join("")}</td>`).join("")}</tr>`;
+  const miss=DT.missingLayers.map(x=>{
+    const L=TW.SGAM.ls.find(l=>l[0]===x);return `<span class="pill w">${esc(x)} ${esc(L[1])}</span>`;}).join("");
+  const v=DT.video;
+  return `<h2>Digital Twin<s>${esc(DT.ref)} · ${DT.layers.length}×${DT.domains.length} + capabilities</s></h2>
+    <p class="lead">${esc(DT.purpose)}</p>
+    <video class="vid" controls preload="metadata" width="${v.width}" height="${v.height}"
+      aria-label="${esc(v.th)}"><source src="${esc(v.src)}" type="video/mp4">
+      เบราว์เซอร์นี้เล่นวิดีโอไม่ได้ — <a href="${esc(v.src)}">ดาวน์โหลดไฟล์</a></video>
+    <p class="lead">${esc(v.th)} · ${v.seconds} วินาที</p>
+    <div class="grid"><table><thead><tr><th>Layer</th>${
+      DT.domains.map(d=>`<th class="z">${esc(d)}</th>`).join("")}</tr></thead>
+      <tbody>${rows}${cap}</tbody></table></div>
+    <p class="lead"><b>แถว DT</b> = ${esc(DT.capabilities.label)}</p>
+    <p class="lead">${esc(DT.baseline)}<br>ชั้นที่ยังไม่มีในผังนี้ ${miss}</p>
+    <p class="lead">มาตรฐานหลัก ${pills(DT.standards)}</p>`;
+}
 let brdDone=false;
 function drawBoard(){
   if(brdDone)return;
@@ -956,7 +1073,7 @@ function drawBoard(){
       <span>${esc(M.meta.doc)} · v${esc(M.meta.version)} · ณ ${esc(BRD.asOf)}</span>
       <span style="margin-left:auto">${esc(M.meta.status)}</span></div>
     <p class="lead">${esc(BRD.note)}</p>
-    ${boardTowers()}${boardDomains()}${boardTeam()}${boardStandards()}${boardAsks()}
+    ${boardTowers()}${boardDomains()}${boardLayers()}${boardTwin()}${boardTeam()}${boardStandards()}${boardAsks()}
     <div class="foot">ช่องที่ต้องมีคนเขียน — ${authored.filled} จาก ${authored.of}
       (${authored.fields.join(", ")}) · งบของคู่เชื่อม ${M.couplings.filter(c=>c.analysis.budget.status==="unassigned").length}
       จาก ${M.couplings.length} ยังไม่มีเจ้าของ · เว้นว่างไว้ตั้งใจ ตัวเลขนี้คือประเด็น ไม่ใช่ความบกพร่องของเครื่องมือ<br>
@@ -1359,7 +1476,7 @@ if(M.scopeLimits){
 $("refList").innerHTML=(M.references||[]).map(r=>
   `<span title="${esc(r.title)}${r.restriction?" — "+esc(r.restriction):""}">${esc(r.id)} <b>${esc(r.publisher)}</b>${r.restriction?" ⚠":""}</span>`).join("");
 syncUI();stats();detail();draw();
-Object.assign(window,{M,S,SC,applyLayout,ROW_K,HUB_U,HUB_V,CT,LV,TOWERS,TW,BLOCKLINKS,FLAT,drawFlat,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs,drawBoard,TEAM,LSTD,DREP,BRD,twStats});
+Object.assign(window,{M,S,SC,applyLayout,ROW_K,HUB_U,HUB_V,CT,LV,TOWERS,TW,BLOCKLINKS,FLAT,drawFlat,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs,drawBoard,TEAM,LSTD,DREP,BRD,twStats,LREP,DT,boardLayers,boardTwin});
 </script>
 </body>
 </html>

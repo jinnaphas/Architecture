@@ -10,6 +10,7 @@ What matters now is that the model is internally consistent.
 Exits non-zero on the first broken invariant.
 """
 import json
+import struct
 import pathlib
 import sys
 
@@ -220,6 +221,82 @@ def main() -> int:
           f"domain experts {sum(1 for x in team['domainExperts'] if x['owners'])}/{len(sgam_domains)} · "
           f"domain reports {reported}/{len(sgam_domains)} · "
           f"standards {sum(len(v['items']) for v in ls.values())} · asks {len(bs['asks'])}")
+
+    # 11 — the vertical-axis reports and the Digital Twin overlay. Same rule as
+    #      check 10: point at things that exist, and keep counting what is missing.
+    lr = {r["layer"]: r for r in m["layerReports"]["reports"]}
+    check(set(lr) == set(sgam_layers),
+          f"layerReports covers {sorted(lr)}, SGAM has {sorted(sgam_layers)}")
+    for lay, r in lr.items():
+        check(bool(r["question"]), f"layerReports.{lay}: no question")
+        if r["status"] != "reported":
+            check(r["ref"] is None, f"layerReports.{lay}: not reported but cites {r['ref']}")
+            continue
+        check(r["ref"] in {x["id"] for x in m["references"]},
+              f"layerReports.{lay}: cites unknown reference {r['ref']}")
+        for z in r.get("byZone", []):
+            check(z["zone"] in sgam_zones, f"layerReports.{lay}: unknown zone {z['zone']}")
+        for d in r.get("byDomain", []):
+            check(d["domain"] in sgam_domains, f"layerReports.{lay}: unknown domain {d['domain']}")
+
+    # the Intelligence layer's own story has to stay internally consistent: every
+    # case study must cite a gap type that is actually defined.
+    intel = lr.get("INT", {})
+    if intel.get("status") == "reported":
+        types = {g["n"] for g in intel["gapTypes"]}
+        for c in intel["cases"]:
+            check(c["gapType"] in types, f"INT case {c['n']}: gap type {c['gapType']} is not defined")
+        check([a["n"] for a in intel["autonomy"]] == sorted(a["n"] for a in intel["autonomy"]),
+              "INT: autonomy levels must be listed in order")
+        check(intel["valueChain"][-1] == "Business" and intel["valueChain"][0] == "Component",
+              "INT: the value chain runs Component to Business")
+        check("Intelligence" in intel["valueChain"], "INT: the decision layer is missing from its own value chain")
+
+    dt = m["digitalTwin"]
+    check(dt["ref"] in {x["id"] for x in m["references"]}, f"digitalTwin: unknown reference {dt['ref']}")
+    check(set(dt["domains"]) == set(sgam_domains), "digitalTwin: domains must be SGAM's five")
+    check(set(dt["layers"]) <= set(sgam_layers), "digitalTwin: layers must all exist on SGAM")
+    for lay, row in dt["grid"].items():
+        check(lay in dt["layers"], f"digitalTwin.grid has {lay}, not in its declared layers")
+        check(set(row) == set(dt["domains"]), f"digitalTwin.{lay}: domains {sorted(row)} != {sorted(dt['domains'])}")
+    check(set(dt["grid"]) == set(dt["layers"]), "digitalTwin: every declared layer needs a grid row")
+    check(set(dt["capabilities"]["byDomain"]) == set(dt["domains"]),
+          "digitalTwin.capabilities must cover every domain")
+    # the overlay is drawn on the 5-layer baseline, so the two added layers are
+    # absent — that absence is the finding and must stay counted, not quietly filled.
+    missing = sorted(set(sgam_layers) - set(dt["layers"]))
+    check(sorted(dt["missingLayers"]) == missing,
+          f"digitalTwin.missingLayers says {sorted(dt['missingLayers'])} but the grid actually omits {missing}")
+
+    # the demo video ships as a repository asset, so check the file the app points
+    # at actually exists, is whole, and is H.264 — browsers will not play anything
+    # else, and a silently broken asset would only show up in the meeting.
+    vid = dt["video"]
+    vpath = (ROOT / "app" / vid["src"]).resolve()
+    check(vpath.is_file(), f"digitalTwin.video: {vid['src']} does not resolve to a file ({vpath})")
+    if vpath.is_file():
+        blob = vpath.read_bytes()
+        # size first: an MP4's header survives truncation intact, so every other
+        # check below still passes on a half-downloaded file.
+        check(len(blob) == vid["bytes"],
+              f"digitalTwin.video: file is {len(blob)} bytes but the model says {vid['bytes']} — truncated or replaced")
+        check(blob[4:8] == b"ftyp", "digitalTwin.video: not an MP4 (no ftyp box)")
+        check(b"avc1" in blob, "digitalTwin.video: no H.264 track — browsers will not play it")
+        check(blob.find(b"moov") < blob.find(b"mdat"),
+              "digitalTwin.video: moov sits after mdat, so it will not start until fully downloaded")
+        i = blob.find(b"mvhd")
+        ver = blob[i + 4]
+        off = i + 8 + (16 if ver == 1 else 8)
+        ts, dur = struct.unpack(">IQ" if ver == 1 else ">II", blob[off:off + (12 if ver == 1 else 8)])
+        secs = round(dur / ts)
+        check(secs == vid["seconds"],
+              f"digitalTwin.video: file is {secs}s but the model says {vid['seconds']}s")
+        print(f"  video: {vpath.name} · {len(blob)//1024//1024} MB · {secs}s · H.264 · streams progressively")
+
+    nrep = sum(1 for r in lr.values() if r["status"] == "reported")
+    print(f"  layer reports: {nrep}/{len(sgam_layers)} · digital twin: "
+          f"{len(dt['layers'])} layers x {len(dt['domains'])} domains, "
+          f"omits {', '.join(dt['missingLayers'])} · video {dt['video']['seconds']}s")
 
     print(f"  couplings: {len(ids)} · irregular: {sorted(irregular)} (all flagged)")
     if fail:

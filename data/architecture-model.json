@@ -290,7 +290,7 @@
           "Intelligence",
           "L6",
           "ชั้นที่ PCC เพิ่มเอง — agent ตัดสินใจอะไรได้ ระดับไหน ใครกำกับ ไม่มีใน SGAM มาตรฐาน",
-          "ชั้นที่ทีม Smart Architecture เสนอเพิ่ม (R4 สไลด์ 3) — ยังไม่อยู่ใน 5 layer ฐานของ IEC SRD 63200:2021 เพื่อรองรับ Active and Intelligent Agents (Agentic AI)",
+          "ข้อเสนอทางวิชาการของ Leiva Vilaplana และคณะ, Technical University of Denmark, 2022 (R9) — วางไว้ระหว่าง Function กับ Information · ทีม Smart Architecture รับมาใช้ต่อ (R4 สไลด์ 3) ยังไม่ใช่ชั้นมาตรฐานใน IEC SRD 63200:2021",
           "agent ตัดสินใจอะไรได้ ระดับไหน ใครกำกับ"
         ],
         [
@@ -2993,6 +2993,41 @@
       "publisher": "Precise Corporation — Smart Architecture team",
       "date": "2026-08",
       "role": "รายงาน domain Transmission — ผังเต็ม 7 layer × 6 zone"
+    },
+    {
+      "id": "R8",
+      "title": "Communication Layer in SGAM — ระบบโครงข่ายของข้อมูล (Digital Nervous System)",
+      "publisher": "Precise Corporation — Smart Architecture team",
+      "date": "2026-08",
+      "role": "รายงานชั้น Communication — โปรโตคอลรายโดเมนและรายโซน, gateway, ห้าเสาโครงสร้าง"
+    },
+    {
+      "id": "R9",
+      "title": "การใช้กรอบ SGAM เพื่อค้นหาโอกาสพัฒนาระบบ — บทบาทของ Intelligence Layer",
+      "publisher": "Agentic SGAM Lab",
+      "date": "2026-08",
+      "role": "รายงานชั้น Intelligence — วิธีหาโอกาส, ประเภทช่องว่าง, ระดับความเป็นอิสระ, กรณีศึกษา 3 เรื่อง"
+    },
+    {
+      "id": "R10",
+      "title": "SGAM Stage — Substation · Function → Business",
+      "publisher": "Precise Corporation — Smart Architecture team",
+      "date": "2026-08",
+      "role": "รายงานชั้น Function และ Business ผ่านสถานีไฟฟ้าหนึ่งสถานี"
+    },
+    {
+      "id": "R11",
+      "title": "DIGITAL TWIN SGAM — ผัง 5 layer × 5 domain พร้อมแถว Digital Twin Capabilities",
+      "publisher": "Precise Corporation — Smart Architecture team",
+      "date": "2026-08",
+      "role": "แนวคิด Digital Twin ที่วางทับกรอบ SGAM · มีวิดีโอสาธิต 106 วินาที"
+    },
+    {
+      "id": "R12",
+      "title": "CPES — Cyber-Physical Energy Systems layered view (Social / Cyber / Physical)",
+      "publisher": "อ้างอิงภายนอก (ภาพประกอบ)",
+      "date": "2026-08",
+      "role": "โมเดลใกล้เคียง 8 ชั้น รวม Social และ Regulation — บันทึกไว้เทียบ ยังไม่รวมเข้าตึกใด"
     }
   ],
   "_tupleSchema": {
@@ -4142,10 +4177,705 @@
       },
       {
         "id": "ASK-5",
-        "th": "รับรอง Intelligence Layer และ Cyber Layer เป็นส่วนขยายของ PCC — ยังไม่อยู่ใน 5 layer ฐานของ IEC SRD 63200:2021",
+        "th": "รับรอง Intelligence Layer (ข้อเสนอ DTU 2022) และ Cyber Layer เป็นส่วนขยายที่ PCC ใช้ — ทั้งคู่ยังไม่อยู่ใน 5 layer ฐานของ IEC SRD 63200:2021",
         "owner": "Architecture Review Board",
         "evidence": "towers.SGAM.layers"
       }
+    ]
+  },
+  "layerReports": {
+    "note": "รายงานแกนแนวตั้งของ SGAM · แต่ละชั้นถอดจากเอกสารของทีมโดยตรง · ชั้นที่ยังไม่มีเอกสารเฉพาะจะขึ้นว่ายังไม่รายงาน ไม่เติมแทน",
+    "reports": [
+      {
+        "layer": "BUS",
+        "ref": "R10",
+        "status": "reported",
+        "question": "ทำไปเพื่ออะไร",
+        "summary": "Business กำหนด WHY และ Function แปลง WHY นั้นให้เป็น WHAT ที่ระบบต้องทำ",
+        "example": "สถานีไฟฟ้าหนึ่งสถานี",
+        "blocks": [
+          {
+            "k": "Business Objective",
+            "v": "ลด SAIDI / SAIFI ของฟีดเดอร์"
+          },
+          {
+            "k": "Business Process",
+            "v": "ขั้นตอนแจ้งเหตุ · คืนไฟ · ปิดงาน"
+          },
+          {
+            "k": "Economic & Regulatory",
+            "v": "เกณฑ์ กกพ. · ค่าปรับ · งบลงทุน"
+          }
+        ],
+        "closing": "ธุรกิจของลูกค้าเรา — เข้าใจชั้นนี้ = พูดภาษาเดียวกับผู้ว่าจ้าง"
+      },
+      {
+        "layer": "FUN",
+        "ref": "R10",
+        "status": "reported",
+        "question": "ต้องทำอะไรให้ได้",
+        "summary": "ฟังก์ชันเขียนไว้โดยไม่ผูกยี่ห้อและไม่ผูก protocol — ถ้าพรุ่งนี้เปลี่ยนอุปกรณ์ทุกตัวเป็นอีกยี่ห้อ สิ่งที่ยังต้องอยู่เหมือนเดิมคือชั้นนี้",
+        "example": "สถานีไฟฟ้าหนึ่งสถานี",
+        "chain": [
+          "ตรวจจับ",
+          "ระบุตำแหน่ง",
+          "Clear ความผิดปกติ",
+          "จ่ายไฟคืน",
+          "ยืนยันผล"
+        ],
+        "byZone": [
+          {
+            "zone": "PRO",
+            "v": "Protection · Measurement"
+          },
+          {
+            "zone": "FLD",
+            "v": "Protection · Measurement (Bay level)"
+          },
+          {
+            "zone": "STA",
+            "v": "Interlocking · Data Concentration"
+          },
+          {
+            "zone": "OPS",
+            "v": "Supervisory Control · Event Recording · Fault Location · Restoration"
+          },
+          {
+            "zone": "ENT",
+            "v": "Outage Reporting"
+          },
+          {
+            "zone": "MKT",
+            "v": "Regulator · ตลาดไฟฟ้า"
+          }
+        ],
+        "closing": "Business ถามว่าทำไปทำไม · Function ถามว่าต้องทำอะไรให้ได้ — ตอบสองข้อนี้ให้ชัดก่อนเสมอ"
+      },
+      {
+        "layer": "INT",
+        "ref": "R9",
+        "status": "reported",
+        "question": "ต้องตัดสินใจอะไร",
+        "summary": "ชั้นการตัดสินใจอยู่ระหว่าง Information กับ Function · Information กำหนดขอบเขตบนของสิ่งที่ตัดสินใจได้ Function กำหนดขอบเขตบนของสิ่งที่ควรตัดสินใจ",
+        "provenance": "Leiva Vilaplana และคณะ, Technical University of Denmark, 2022 — ยังเป็นข้อเสนอทางวิชาการ ยังไม่ใช่ชั้นมาตรฐานใน IEC SRD 63200",
+        "valueChain": [
+          "Component",
+          "Communication",
+          "Information",
+          "Intelligence",
+          "Function",
+          "Business"
+        ],
+        "method": {
+          "steps": [
+            "ข้อมูลที่มีอยู่",
+            "การตัดสินใจที่เป็นไปได้",
+            "หน้าที่ระบบทำอยู่",
+            "ตรงกับความต้องการหรือไม่"
+          ],
+          "rule": "หากยังไม่ตอบโจทย์ ให้ย้อนกลับไปตั้งต้นที่ข้อมูลอีกครั้ง",
+          "paths": [
+            {
+              "k": "เส้นทางที่หนึ่ง · ปรับสิ่งที่ทำอยู่",
+              "v": "หน้าที่ปัจจุบันตอบโจทย์แล้วแต่ยังทำได้ไม่ดีพอ — ปรับคุณภาพข้อมูลหรือยกระดับความเป็นอิสระของการตัดสินใจ"
+            },
+            {
+              "k": "เส้นทางที่สอง · สร้างหน้าที่ใหม่จากข้อมูลเดิม",
+              "v": "ข้อมูลเปิดโอกาสให้ตัดสินใจได้มากกว่าที่ใช้อยู่ ส่วนที่เกินคือหน้าที่ใหม่ และอาจเป็นโอกาสทางธุรกิจ"
+            }
+          ]
+        },
+        "twoWayCheck": [
+          {
+            "k": "มีการตัดสินใจ แต่ไม่มีข้อมูลรองรับ",
+            "v": "ถือเป็นความเสี่ยง ต้องจัดหาข้อมูลก่อน หรือลดระดับการตัดสินใจลง",
+            "kind": "risk"
+          },
+          {
+            "k": "มีข้อมูล แต่ยังไม่มีการตัดสินใจใด",
+            "v": "ถือเป็นโอกาส เนื่องจากต้นทุนหลักเกิดขึ้นไปแล้ว · มักไม่ถูกตรวจพบเพราะระบบยังทำงานได้ตามปกติทุกประการ",
+            "kind": "opportunity"
+          }
+        ],
+        "gapTypes": [
+          {
+            "n": 1,
+            "k": "มีอุปกรณ์ แต่ไม่ได้จัดเก็บข้อมูล",
+            "v": "มีเครื่องมือวัดอยู่แล้วแต่ไม่ได้เก็บค่า",
+            "verdict": "ต้นทุนต่ำที่สุด ไม่ต้องลงทุนฮาร์ดแวร์"
+          },
+          {
+            "n": 2,
+            "k": "มีข้อมูล แต่ไม่ได้นำไปตัดสินใจ",
+            "v": "จัดเก็บข้อมูลไว้แล้วแต่ไม่มีผู้ใช้",
+            "verdict": "ผลตอบแทนต่อต้นทุนสูงที่สุด"
+          },
+          {
+            "n": 3,
+            "k": "ตัดสินใจได้ แต่ไม่มีผู้รับประโยชน์",
+            "v": "พัฒนาความสามารถโดยไม่มีความต้องการรองรับ",
+            "verdict": "ควรทบทวนที่ระดับนโยบายก่อน"
+          },
+          {
+            "n": 4,
+            "k": "ยังไม่ได้ดำเนินการทั้งโดเมน",
+            "v": "ยังไม่เคยเข้าไปในส่วนนั้นของระบบ",
+            "verdict": "โอกาสสูงสุดและความเสี่ยงสูงสุด"
+          }
+        ],
+        "process": [
+          {
+            "n": 1,
+            "k": "สำรวจอุปกรณ์",
+            "v": "อุปกรณ์แต่ละรายการวัดอะไรได้ และรับคำสั่งใดได้"
+          },
+          {
+            "n": 2,
+            "k": "ตรวจข้อมูล",
+            "v": "ข้อมูลใดถูกจัดเก็บแล้ว ใดยังไม่ได้จัดเก็บ"
+          },
+          {
+            "n": 3,
+            "k": "ระบุการตัดสินใจ",
+            "v": "หากมีข้อมูลนี้ จะตัดสินใจสิ่งใดเพิ่มได้",
+            "note": "ขั้นที่ชั้นการตัดสินใจเข้ามาทำหน้าที่ และเป็นขั้นที่มักถูกข้ามเมื่อวิเคราะห์ด้วยกรอบเดิม"
+          },
+          {
+            "n": 4,
+            "k": "แปลงเป็นหน้าที่",
+            "v": "เขียนเป็นบริการหรือกระบวนการที่ระบบต้องทำ"
+          },
+          {
+            "n": 5,
+            "k": "ตรวจความคุ้มค่า",
+            "v": "ผู้ใดได้ประโยชน์ และคิดเป็นมูลค่าเท่าใด"
+          }
+        ],
+        "autonomy": [
+          {
+            "n": 1,
+            "k": "แสดงผลให้พิจารณา",
+            "who": "ระบบคำนวณและแสดงผล บุคลากรตัดสินใจเอง",
+            "scale": "จำกัดตามจำนวนผู้เฝ้าระวัง"
+          },
+          {
+            "n": 2,
+            "k": "เสนอแผนเพื่อขออนุมัติ",
+            "who": "ระบบเสนอ บุคลากรยืนยัน",
+            "scale": "ยังติดข้อจำกัดด้านกำลังคน"
+          },
+          {
+            "n": 3,
+            "k": "ดำเนินการแล้วรายงาน",
+            "who": "ระบบดำเนินการ บุคลากรตรวจสอบย้อนหลัง",
+            "scale": "ขยายผลได้เต็มที่ ต้องมีความเชื่อมั่นสูง"
+          },
+          {
+            "n": 4,
+            "k": "ดำเนินการเองทั้งหมด",
+            "who": "ไม่แจ้งและไม่รอ ใช้เฉพาะกรณีที่เร็วเกินกว่ามนุษย์จะรับมือ",
+            "scale": "ขยายผลได้เต็มที่"
+          }
+        ],
+        "cases": [
+          {
+            "n": 1,
+            "gapType": 1,
+            "title": "การใช้ประโยชน์จากมิเตอร์ที่ติดตั้งแล้ว",
+            "asset": "มิเตอร์อัจฉริยะที่ติดตั้งครบแล้วเพื่อการเรียกเก็บเงิน",
+            "missing": "สัญญาณแจ้งเหตุขัดข้องและเวลาที่จ่ายไฟกลับ",
+            "decision": "ทราบขอบเขตพื้นที่ไฟดับภายในไม่กี่วินาที",
+            "newFunction": "จัดทำแผนที่เหตุขัดข้องแบบทันที และยืนยันการคืนไฟ",
+            "value": "ลดระยะเวลาไฟดับเฉลี่ยให้เข้าเกณฑ์ของผู้กำกับดูแล ลดค่าปรับด้านคุณภาพบริการ ลดปริมาณสายเข้าศูนย์ลูกค้าสัมพันธ์ และเปิดโอกาสให้เสนอบริการแจ้งเตือนล่วงหน้า",
+            "cost": "ไม่มีการจัดซื้ออุปกรณ์ใหม่ในกรณีนี้"
+          },
+          {
+            "n": 2,
+            "gapType": 2,
+            "title": "การใช้ข้อมูลย้อนหลังเพื่อวางแผนสินทรัพย์",
+            "asset": "ค่าโหลดย้อนหลังสิบปี และอุณหภูมิน้ำมันหม้อแปลง ซึ่งถูกใช้เพียงจัดทำรายงานประจำเดือน",
+            "missing": "—",
+            "decision": "คำนวณอายุจำนวนที่ถูกใช้ไปจริง แทนการประเมินจากอายุการติดตั้ง",
+            "newFunction": "จัดลำดับการเปลี่ยนหม้อแปลงตามความเสี่ยงจริง และคำนวณพิกัดที่รับได้ตามสภาพอากาศ",
+            "value": "เลื่อนการลงทุนเปลี่ยนหม้อแปลงที่ยังมีอายุใช้งานเหลือ และรองรับโหลดเพิ่มได้ในช่วงอากาศเย็น โดยไม่ต้องลงทุน ซึ่งแปลงเป็นการรับลูกค้ารายใหม่ได้ทันที",
+            "cost": "ต้นทุนหลักคือการพัฒนาแบบจำลอง เนื่องจากข้อมูลมีอยู่แล้วทั้งหมด"
+          },
+          {
+            "n": 3,
+            "gapType": 4,
+            "title": "โดเมนที่ยังไม่ได้ดำเนินการ",
+            "asset": "แหล่งพลังงานกระจายเข้ามาในพื้นที่",
+            "missing": "ทุกชั้นมีองค์ประกอบพร้อมกันทั้งโดเมน ตั้งแต่อุปกรณ์ที่ติดตั้ง ไปจนถึงสัญญาในชั้นธุรกิจ",
+            "decision": "ระดับตลาดซึ่งเดิมว่าง จะมีองค์ประกอบ",
+            "newFunction": "การจ่ายไฟแบบแยกอิสระโดยใช้แหล่งพลังงานของลูกค้าระหว่างรอการซ่อม",
+            "value": "โครงสร้างธุรกิจเปลี่ยน จากการจำหน่ายไฟฟ้าอย่างเดียว เป็นทั้งจำหน่ายและจัดซื้อจากลูกค้ารายเดียวกัน",
+            "cost": "ต้องมีข้อตกลงระหว่างองค์กรและอาจต้องได้รับความเห็นชอบจากผู้กำกับดูแลก่อนดำเนินการ"
+          }
+        ],
+        "closing": "ช่องว่างในตารางถือเป็นสารสนเทศ ไม่ใช่ข้อบกพร่อง"
+      },
+      {
+        "layer": "COM",
+        "ref": "R8",
+        "status": "reported",
+        "question": "ส่งกันด้วยอะไร",
+        "summary": "ระบบโครงข่ายของข้อมูล (Digital Nervous System) — Vertical เชื่อมทุก Zone · Horizontal เชื่อมทุก Domain · มาตรฐานเดียว",
+        "byDomain": [
+          {
+            "domain": "GEN",
+            "carries": [
+              "Generator Status",
+              "MW, Frequency",
+              "Protection",
+              "PMU"
+            ],
+            "protocols": [
+              "IEC 61850",
+              "IEC 60870-5-104",
+              "Modbus",
+              "GOOSE"
+            ]
+          },
+          {
+            "domain": "TRA",
+            "carries": [
+              "PMU",
+              "Protection",
+              "Relay",
+              "Wide Area Monitoring"
+            ],
+            "protocols": [
+              "IEC 61850",
+              "IEC 62351 (VPN)",
+              "PRP/HSR",
+              "MPLS"
+            ]
+          },
+          {
+            "domain": "DIS",
+            "carries": [
+              "RTU / FRTU",
+              "Smart Switch",
+              "Fault Indicator",
+              "Volt/Var, FLISR"
+            ],
+            "protocols": [
+              "DNP3.0",
+              "IEC 60870-5-104",
+              "MQTT",
+              "IEC 61850",
+              "4G / LTE450 / RF"
+            ]
+          },
+          {
+            "domain": "DER",
+            "carries": [
+              "Solar, Battery",
+              "EV Charger",
+              "EMS",
+              "Microgrid"
+            ],
+            "protocols": [
+              "IEEE 2030.5",
+              "OpenADR",
+              "MQTT",
+              "IEC 61850"
+            ]
+          },
+          {
+            "domain": "CUS",
+            "carries": [
+              "Smart Meter",
+              "HEMS / Gateway",
+              "IoT Devices",
+              "Load Control"
+            ],
+            "protocols": [
+              "DLMS/COSEM",
+              "Modbus",
+              "MQTT",
+              "WiFi, Zigbee, LoRaWAN",
+              "IEC 62541 (OPC UA)",
+              "HPLC"
+            ]
+          }
+        ],
+        "byZone": [
+          {
+            "zone": "MKT",
+            "systems": "Energy Market, Aggregator, Trading Platform, Cloud",
+            "protocols": [
+              "API",
+              "HTTPS",
+              "OpenADR",
+              "IEC 62325"
+            ]
+          },
+          {
+            "zone": "ENT",
+            "systems": "ERP, Asset, GIS, MDMS, SAP, Business System",
+            "protocols": [
+              "REST API",
+              "SQL",
+              "Kafka",
+              "AMQP"
+            ]
+          },
+          {
+            "zone": "OPS",
+            "systems": "SCADA, EMS, ADMS, DMS, Control Center",
+            "protocols": [
+              "IEC 60870-5-104",
+              "DNP3.0",
+              "OPC UA",
+              "MQTT",
+              "REST API"
+            ]
+          },
+          {
+            "zone": "STA",
+            "systems": "Substation LAN, HMI, Gateway, Historian",
+            "protocols": [
+              "IEC 61850",
+              "MMS",
+              "GOOSE",
+              "PRP/HSR",
+              "VLAN"
+            ]
+          },
+          {
+            "zone": "FLD",
+            "systems": "RTU, IED, FRTU, Switch, Gateway, PLC",
+            "protocols": [
+              "IEC 61850",
+              "DNP3.0",
+              "Modbus",
+              "MQTT",
+              "IEC 60870-5-101/104"
+            ]
+          },
+          {
+            "zone": "PRO",
+            "systems": "Sensor, CT/VT, Meter, Actuator, Temperature",
+            "protocols": [
+              "4–20 mA",
+              "HART",
+              "Modbus",
+              "I/O (IEC 61850-9-2)"
+            ]
+          }
+        ],
+        "pillars": [
+          {
+            "k": "Physical / Network",
+            "v": "Fiber + Photonic, MPLS, 4G/5G, LTE450, Wi-Fi, LoRaWAN, RF, HPLC"
+          },
+          {
+            "k": "Communication Protocol",
+            "v": "IEC 61850, DNP3.0, IEC 60870-5-101/104, OPC UA, DLMS/COSEM, Modbus, CoAP, MQTT, LoRaWAN, AMQP"
+          },
+          {
+            "k": "Security",
+            "v": "IEC 62351, IEC 62443, TLS/SSL, VPN, PKI, Firewall"
+          },
+          {
+            "k": "Time Synchronization",
+            "v": "IEEE 1588 (PTP), NTP, GPS"
+          },
+          {
+            "k": "Smart Grid Architecture",
+            "v": "IEC 62559 (SGAM), IEC 62541, IEC 61970, IEC 61968, IEC 62361"
+          }
+        ],
+        "gateway": {
+          "title": "Protocol Converter (Gateway)",
+          "why": "แปลงและเชื่อมต่อโปรโตคอลต่าง ๆ ให้ทำงานร่วมกันข้าม vendor ระบบ และเทคโนโลยี",
+          "from": [
+            "IEC 61850",
+            "DNP3.0",
+            "Modbus",
+            "DLMS/COSEM"
+          ],
+          "to": [
+            "MQTT",
+            "OPC UA",
+            "REST API",
+            "DLMS/COSEM"
+          ],
+          "does": [
+            "Protocol Translation",
+            "Security & Authentication",
+            "Data Mapping & Normalization",
+            "Time Synchronization (IEEE 1588)",
+            "Buffer / Store and Forward",
+            "Redundancy & High Availability"
+          ]
+        },
+        "closing": "Communication Layer = Data Highway & Interoperability Enabler"
+      },
+      {
+        "layer": "CYB",
+        "ref": null,
+        "status": "notReported",
+        "question": "ป้องกันระบบอย่างไร",
+        "summary": "ยังไม่มีเอกสารเฉพาะของชั้นนี้ · ที่มีอยู่คือรายการมาตรฐานใน R4 สไลด์ 20 และหัวข้อความปลอดภัยที่กระจายอยู่ในรายงานชั้นอื่น"
+      },
+      {
+        "layer": "INF",
+        "ref": null,
+        "status": "notReported",
+        "question": "ข้อมูลชื่ออะไร",
+        "summary": "ยังไม่มีเอกสารเฉพาะของชั้นนี้ · ไม่อยู่ในรายการที่ขอรอบนี้"
+      },
+      {
+        "layer": "CMP",
+        "ref": null,
+        "status": "notReported",
+        "question": "ของจริงตั้งอยู่ที่ไหน",
+        "summary": "ยังไม่มีเอกสารเฉพาะของชั้นนี้ · ไม่อยู่ในรายการที่ขอรอบนี้"
+      }
+    ]
+  },
+  "digitalTwin": {
+    "ref": "R11",
+    "title": "Digital Twin SGAM",
+    "purpose": "Digital Twin ทำงานเชื่อมโยงข้อมูลจาก Component Layer สู่ Business Layer เพื่อการตัดสินใจเชิงรุก",
+    "baseline": "ผังนี้วางบน 5 interoperability layer ฐาน (Business, Function, Information, Communication, Component) × 5 domain — ยังไม่มีแถว Intelligence และ Cyber ซึ่งเป็นสองชั้นที่ตึกนี้เพิ่มเข้ามา",
+    "standards": [
+      "IEC 61850",
+      "IEC 61970/61968 (CIM)",
+      "IEC 62325",
+      "IEEE 1547",
+      "IEEE 2030.5",
+      "OpenADR 2.0b"
+    ],
+    "domains": [
+      "GEN",
+      "TRA",
+      "DIS",
+      "DER",
+      "CUS"
+    ],
+    "layers": [
+      "BUS",
+      "FUN",
+      "INF",
+      "COM",
+      "CMP"
+    ],
+    "grid": {
+      "BUS": {
+        "GEN": [
+          "Asset Investment Planning",
+          "Generation Portfolio Optimization",
+          "Regulatory Compliance",
+          "Carbon / ESG Management"
+        ],
+        "TRA": [
+          "Grid Investment Planning",
+          "Asset Risk Management",
+          "Regulatory Compliance",
+          "Congestion Revenue Mgmt."
+        ],
+        "DIS": [
+          "Reliability and Resilience Mgmt.",
+          "Quality of Service (SAIDI/SAIFI)",
+          "OPEX Optimization",
+          "Regulatory Compliance"
+        ],
+        "DER": [
+          "DER Portfolio Optimization",
+          "VPP & Flexibility Business",
+          "Market Participation Strategy",
+          "Incentive & Tariff Programs"
+        ],
+        "CUS": [
+          "Energy Cost Management",
+          "Demand Response Programs",
+          "Customer Engagement",
+          "ESG / Carbon Management"
+        ]
+      },
+      "FUN": {
+        "GEN": [
+          "Power Forecasting",
+          "Unit Commitment Support",
+          "Plant Performance Mgmt.",
+          "Predictive Maintenance"
+        ],
+        "TRA": [
+          "Power Flow & Stability Analysis",
+          "Contingency (N-1/N-k) Analysis",
+          "Congestion Management",
+          "Oscillation Monitoring"
+        ],
+        "DIS": [
+          "Load Forecasting",
+          "Volt/VAR Optimization (VVO)",
+          "FLISR / Self-Healing",
+          "DMS / Outage Management"
+        ],
+        "DER": [
+          "DER Forecasting & Scheduling",
+          "VPP Aggregation & Dispatch",
+          "Flexibility / Ancillary Services",
+          "Curtailment Optimization"
+        ],
+        "CUS": [
+          "Load Forecasting",
+          "Demand Response Mgmt.",
+          "Building / Home Energy Mgmt.",
+          "EV Charging Management"
+        ]
+      },
+      "INF": {
+        "GEN": [
+          "Generator / Plant Model",
+          "Turbine, Boiler, Inverter Model",
+          "Performance & Health Model",
+          "Emission & Efficiency Model"
+        ],
+        "TRA": [
+          "Line / Transformer Model",
+          "Switchgear / Breaker Model",
+          "Power System Model (CIM)",
+          "Stability & Dynamic Model"
+        ],
+        "DIS": [
+          "Feeder / Transformer Model",
+          "Network Topology (CIM)",
+          "Load, DER, EV Model",
+          "Power Quality Model"
+        ],
+        "DER": [
+          "PV / Wind / BESS Model",
+          "Inverter / Converter Model",
+          "PV / Charger Model",
+          "VPP Aggregation Model"
+        ],
+        "CUS": [
+          "Building / Home Model (BIM)",
+          "Appliance / HVAC Model",
+          "PV / BESS / EV Model",
+          "Customer Behavior Model"
+        ]
+      },
+      "COM": {
+        "GEN": [
+          "IEC 61850 (IED Communication)",
+          "IEC 60870-5-104",
+          "OPC UA",
+          "MQTT / AMQP"
+        ],
+        "TRA": [
+          "IEC 61850",
+          "IEC 60870-5-104",
+          "IEEE C37.118 (PMU)",
+          "MPLS / SD-WAN"
+        ],
+        "DIS": [
+          "IEC 61850 / IEC 60870-5-104",
+          "IEC 62056 (DLMS/COSEM)",
+          "DNP3 / Modbus",
+          "LTE / 5G / NB-IoT / Fiber"
+        ],
+        "DER": [
+          "IEEE 2030.5 (SEP2)",
+          "IEC 61850-7-420 / -90-7",
+          "MQTT / AMQP",
+          "OpenADR 2.0b"
+        ],
+        "CUS": [
+          "IEC 62056 (DLMS/COSEM)",
+          "IEEE 2030.5 (SEP2)",
+          "Zigbee / Wi-Fi / BLE / Thread",
+          "OpenADR 2.0b"
+        ]
+      },
+      "CMP": {
+        "GEN": [
+          "Generator, Turbine, Boiler",
+          "Inverter, Excitation System",
+          "Plant Controller (DCS/PLC)",
+          "Sensors, Meters, IEDs"
+        ],
+        "TRA": [
+          "Transmission Line",
+          "Power Transformer",
+          "Circuit Breaker, GIS",
+          "Protection Relay, PMU"
+        ],
+        "DIS": [
+          "Feeder, Transformer",
+          "Recloser, RMU, Switchgear",
+          "Smart Meter, Capacitor Bank",
+          "IED, Sensor, Data Concentrator"
+        ],
+        "DER": [
+          "Solar PV, Wind Turbine",
+          "Battery Energy Storage (BESS)",
+          "Smart Inverter / Controller",
+          "EV Charger, Microgrid Ctrl."
+        ],
+        "CUS": [
+          "Smart Meter, HEMS/BEMS",
+          "HVAC, Lighting, Appliances",
+          "Rooftop PV, BESS, EV Charger",
+          "Sensors, IoT Devices"
+        ]
+      }
+    },
+    "capabilities": {
+      "label": "Digital Twin Capabilities (API / Platform)",
+      "byDomain": {
+        "GEN": [
+          "Real-time Monitoring",
+          "Predictive Analytics",
+          "Scenario Simulation",
+          "What-if Analysis",
+          "AI / Machine Learning"
+        ],
+        "TRA": [
+          "Digital Twin Simulation",
+          "Contingency Analysis",
+          "Dynamic Stability",
+          "Risk Assessment",
+          "AI / Machine Learning"
+        ],
+        "DIS": [
+          "State Estimation",
+          "Outage Prediction",
+          "Optimization (VVO, Reconfig.)",
+          "Self-Healing Simulation",
+          "AI / Machine Learning"
+        ],
+        "DER": [
+          "Forecasting & Scheduling",
+          "Flexibility & VPP Mgmt.",
+          "DER Health Monitoring",
+          "Curtailment & Dispatch Opt.",
+          "AI / Machine Learning"
+        ],
+        "CUS": [
+          "Energy Forecasting",
+          "Demand Response",
+          "Energy Optimization",
+          "Cost & Carbon Prediction",
+          "AI / Machine Learning"
+        ]
+      }
+    },
+    "video": {
+      "src": "../assets/digital-twin-demo.mp4",
+      "seconds": 106,
+      "width": 960,
+      "height": 540,
+      "th": "ตัวอย่างการทำงานของ Digital Twin ที่ทีมจัดทำ",
+      "bytes": 23633894
+    },
+    "missingLayers": [
+      "INT",
+      "CYB"
     ]
   }
 }

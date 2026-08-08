@@ -120,8 +120,24 @@ the third view alongside 3D and 2D. Two rules hold that section together:
   until the note goes too.
 
 R4 slide 2 also corrects the tower's provenance: SGAM is **IEC SRD 63200:2021**, and its
-baseline is **5 layers**. Intelligence (L6) and Cyber (L3) are additions the team proposed —
+baseline is **5 layers**. Intelligence (L6) and Cyber (L3) are additions on top of it —
 that is now what the layer `source` says, and it is ASK-5 on the board's list.
+
+## The vertical axis, and who actually proposed Intelligence
+
+`layerReports` covers the interoperability layers one at a time (R8–R10); four of seven
+are reported and the rest say so. Two things here are easy to get wrong:
+
+- **Intelligence is not PCC's idea.** It comes from Leiva Vilaplana et al., Technical
+  University of Denmark, 2022, and R9 states plainly that it is still an academic proposal
+  rather than a standard layer in IEC SRD 63200. An earlier commit attributed it to the
+  Smart Architecture team; that was wrong and is now fixed. The team adopted it. Its
+  position — between Function and Information — is the paper's, and matches L6 on the
+  shared scale.
+- **The Digital Twin matrix is drawn on the 5-layer baseline**, so it has no Intelligence
+  and no Cyber row. `digitalTwin.missingLayers` records that, and `verify.py` recomputes
+  which layers the grid actually omits and fails if the two disagree. Do not "complete"
+  the matrix by inventing those two rows — the omission is what it shows.
 
 ## Never do
 
