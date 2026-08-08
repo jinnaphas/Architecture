@@ -57,9 +57,10 @@ the app says so. Run `python3 tools/verify.py` after editing the model.
 ## Deliberate irregularities — these are correct, do not "fix" them
 
 - `CPL-20`, `CPL-21` — SGAM L6 agent docks onto the other tower's **L7**, because no other
-  tower has an Intelligence layer. Rendered dashed.
-- `CPL-28`, `CPL-29` — SGAM L3 trust flows down into the other tower's **L2 / L4**.
-  Rendered dashed.
+  tower has an Intelligence layer. Drawn with extra stroke weight; the geometry already
+  shows it, since they span two levels in 3D and slope in 2D.
+- `CPL-28`, `CPL-29` — SGAM L3 trust flows down into the other tower's **L2 / L4**. Same
+  treatment.
 - `CPL-30` — RAMI ↔ SFAM at L2 with **no SGAM endpoint**. PCC is structurally excluded
   from this conversation. That is the finding, not a bug.
 
@@ -70,8 +71,14 @@ the app says so. Run `python3 tools/verify.py` after editing the model.
 - Thai UI copy with English technical terms inline. Keep it that way.
 - Fonts: Sarabun (body) + IBM Plex Mono (codes, IDs, numbers).
 - Light theme is the default; dark is a toggle. Both must stay legible on a projector.
-- Colour encodes **level** (L1–L8) for planes and nodes, **coupling type** (A–E) for lines.
-  Never reuse a level colour for a coupling type.
+- Colour encodes **level** (L1–L8), and nothing else. A coupling line takes the colour of
+  the level it sits on. **Coupling type A–E is a dash pattern**, not a colour — A solid,
+  B long dash, C dotted, D dash-dot, E short dash. The five type colours used to exist and
+  measured **4.6–10.8 ΔE** from the level colours they were drawn against, which is
+  indistinguishable on a projector; `--cA`..`--cE` are retired and `verify.py` check 15
+  fails if they reappear. A node's ring means "this cube carries a coupling" and is neutral.
+  Asymmetric couplings carry extra stroke weight — they no longer need a dash of their own,
+  because they already span two levels in 3D and slope in 2D.
 - No labels rendered on nodes. Hover for tooltip, click for the panel. The reference tool
   this replaced was unreadable because it drew every label at once.
 - Custom isometric projection in `proj()`. Azimuth rotates; elevation is fixed on purpose —
@@ -81,8 +88,10 @@ the app says so. Run `python3 tools/verify.py` after editing the model.
 
 ## Known gaps worth building next
 
-- Seam Contract Register export (CSV/XLSX): 39 eligible positions, 15 named contracts,
-  24 unassigned — the gap is the agenda item for the Architecture Review Board.
+The Seam Contract Register export is **done** — the board mode carries the register and a
+CSV of all 39 positions, with owner, contract id and budget left blank on purpose. What is
+left:
+
 - Population editor for the three non-SGAM towers.
 - Print / PDF export at a fixed camera angle.
 - Deep links (`?tower=SGAM,SFAM&coupling=CPL-16`) for jumping straight to a slide state.

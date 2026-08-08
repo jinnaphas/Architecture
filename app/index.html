@@ -10,18 +10,16 @@
 <style>
 body.light{
   --bg:#EDEFF1; --stage1:#F8FAFB; --stage2:#E4E8EB; --panel:#FFFFFF; --panel2:#F4F7F8; --line:#C7D0D6;
-  --ink:#14212A; --ink2:#4A5C68; --ink3:#7C8C97; --mix:#FFFFFF;
+  --ink:#14212A; --ink2:#4A5C68; --ink3:#59696F; --mix:#FFFFFF;
   --L8:#C2185B; --L7:#1565C0; --L6:#6A3DBF; --L5:#A96A00;
   --L4:#12795A; --L3:#C0392B; --L2:#0E7490; --L1:#5A6B76;
-  --cA:#B0234A; --cB:#0E7C6B; --cC:#B27400; --cD:#5A3FBF; --cE:#B23B1E;
   --hero:#6A3DBF; --white:#14212A;
 }
 body.dark{
   --bg:#0A1317; --stage1:#0F2029; --stage2:#0A1317; --panel:#101D24; --panel2:#152530; --line:#22353F;
-  --ink:#D9E4E9; --ink2:#8FA5B0; --ink3:#5D7480; --mix:#0A1317;
+  --ink:#D9E4E9; --ink2:#8FA5B0; --ink3:#93AAB6; --mix:#0A1317;
   --L8:#E2679B; --L7:#5AA9E6; --L6:#A78BFA; --L5:#E8A33D;
   --L4:#4FBF8B; --L3:#E0685E; --L2:#6EC7D6; --L1:#93A6B1;
-  --cA:#FF6F91; --cB:#5ED4C0; --cC:#F0A868; --cD:#B78BFA; --cE:#FF9B6A;
   --hero:#A78BFA; --white:#FFFFFF;
 }
 :root{--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;--body:"Sarabun","TH Sarabun New",-apple-system,BlinkMacSystemFont,sans-serif}
@@ -50,7 +48,7 @@ button{font-family:inherit;color:inherit;cursor:pointer}
 .vb:focus-visible{outline:2px solid var(--hero);outline-offset:1px}
 .right{margin-left:auto;display:flex;gap:9px;flex-wrap:wrap}
 .body{display:grid;grid-template-columns:minmax(0,1fr) 360px;overflow:hidden}
-@media (max-width:1060px){.body{grid-template-columns:1fr}.side{display:none}}
+@media (max-width:1060px){.body{grid-template-columns:1fr}.body>.side{display:none}}
 .stage{position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 40%,var(--stage1) 0%,var(--stage2) 72%)}
 svg#scene{width:100%;height:100%;display:block;cursor:grab;touch-action:none}
 svg#scene.drag{cursor:grabbing}
@@ -164,6 +162,11 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
 .lk .t{flex:1;min-width:0}
 .lk .a{font-family:var(--mono);font-size:10.5px;color:var(--ink);display:block}
 .lk .w{font-size:10.5px;color:var(--ink3);line-height:1.45;display:block;margin-top:1px}
+.brd .dl{font-family:var(--mono);font-size:11px;padding:7px 13px;border:1px solid var(--ink);
+  background:var(--ink);color:var(--mix);border-radius:4px;cursor:pointer;margin-right:9px}
+.brd .dl:hover{opacity:.85}
+.brd .dl:focus-visible{outline:2px solid var(--hero);outline-offset:2px}
+.row .dash{width:22px;height:8px;flex-shrink:0;color:var(--ink2)}
 .stat{display:flex;flex-wrap:wrap;gap:9px;font-family:var(--mono);font-size:9.5px;color:var(--ink3);margin-top:7px}
 .stat b{color:var(--ink);font-weight:500}
 /* board — the Smart Architecture team's report, read top to bottom */
@@ -174,25 +177,25 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
 .brd .hd{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding-bottom:14px;border-bottom:2px solid var(--ink)}
 .brd .hd b{font-size:15px;font-weight:600}
 .brd .hd span{font-family:var(--mono);font-size:9.5px;color:var(--ink3)}
-.brd .lead{font-size:11px;color:var(--ink2);line-height:1.6;margin:9px 0 0}
+.brd .lead{font-size:12px;color:var(--ink2);line-height:1.6;margin:9px 0 0}
 .brd .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px}
 .brd .cd{border:1px solid var(--line);border-radius:5px;padding:11px 12px;background:var(--panel)}
 .brd .cd .k{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.04em}
-.brd .cd .st{font-family:var(--mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:99px;float:right}
+.brd .cd .st{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:99px;float:right}
 .brd .st.on{background:color-mix(in srgb,var(--L4) 22%,transparent);color:var(--L4)}
 .brd .st.off{background:var(--panel2);color:var(--ink3)}
 .brd .cd .n{display:flex;gap:12px;margin-top:9px;flex-wrap:wrap}
 .brd .cd .n div{font-family:var(--mono)}
 .brd .cd .n em{display:block;font-style:normal;font-size:14px;color:var(--ink);font-weight:600}
 .brd .cd .n i{font-style:normal;font-size:8.5px;color:var(--ink3);letter-spacing:.04em}
-.brd .cd p{font-size:10.5px;color:var(--ink2);line-height:1.55;margin:8px 0 0}
-.brd table{width:100%;border-collapse:collapse;font-size:10.5px}
-.brd th{text-align:left;font-family:var(--mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;
+.brd .cd p{font-size:11.5px;color:var(--ink2);line-height:1.55;margin:8px 0 0}
+.brd table{width:100%;border-collapse:collapse;font-size:11.5px}
+.brd th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;
   color:var(--ink3);font-weight:400;padding:0 8px 5px;border-bottom:1px solid var(--line)}
-.brd td{padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5}
+.brd td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5}
 .brd td.c{font-family:var(--mono);font-size:10px;white-space:nowrap}
 .brd tr.gap td{background:color-mix(in srgb,var(--L3) 8%,transparent)}
-.brd .pill{display:inline-block;font-family:var(--mono);font-size:8.5px;letter-spacing:.05em;
+.brd .pill{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;
   padding:1px 6px;border-radius:99px;border:1px solid var(--line);color:var(--ink3);margin:1px 3px 1px 0}
 .brd .pill.w{border-color:var(--L3);color:var(--L3)}
 .brd .pill.g{border-color:var(--L4);color:var(--L4)}
@@ -202,26 +205,26 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
 .brd tr.cap td{background:color-mix(in srgb,var(--L5) 10%,transparent)}
 .brd .lvb{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:-1px}
 .brd details{border:1px solid var(--line);border-radius:5px;margin-top:7px;background:var(--panel)}
-.brd summary{cursor:pointer;padding:9px 12px;font-size:11px;display:flex;align-items:center;gap:8px;list-style:none}
+.brd summary{cursor:pointer;padding:10px 12px;font-size:12px;display:flex;align-items:center;gap:8px;list-style:none}
 .brd summary::-webkit-details-marker{display:none}
 .brd summary::before{content:"▸";font-size:9px;color:var(--ink3);transition:.12s}
 .brd details[open] summary::before{transform:rotate(90deg)}
 .brd summary b{font-family:var(--mono);font-size:10.5px;font-weight:600}
-.brd summary span{color:var(--ink3);font-size:10px;margin-left:auto;font-family:var(--mono)}
+.brd summary span{color:var(--ink3);font-size:11px;margin-left:auto;font-family:var(--mono)}
 .brd .dbody{padding:2px 13px 13px;border-top:1px solid var(--line)}
-.brd .dbody p.v{font-size:10.5px;color:var(--ink2);line-height:1.6;margin:10px 0}
+.brd .dbody p.v{font-size:11.5px;color:var(--ink2);line-height:1.6;margin:10px 0}
 .brd .grid{overflow-x:auto;margin-top:9px}
-.brd .grid table{min-width:840px;font-size:9.5px}
+.brd .grid table{min-width:880px;font-size:10.5px}
 .brd .grid td{padding:5px 7px}
 .brd .grid td u{text-decoration:none;display:block;color:var(--ink2)}
 .brd .grid th.z{font-size:8px}
 .brd .ask{display:flex;gap:11px;padding:9px 0;border-bottom:1px solid var(--line);align-items:flex-start}
 .brd .ask .id{font-family:var(--mono);font-size:9.5px;color:var(--hero);flex-shrink:0;width:52px;padding-top:1px}
-.brd .ask .tx{flex:1;font-size:11px;line-height:1.55}
-.brd .ask .ow{font-family:var(--mono);font-size:9px;color:var(--ink3);flex-shrink:0;text-align:right;max-width:160px;line-height:1.4}
+.brd .ask .tx{flex:1;font-size:12px;line-height:1.55}
+.brd .ask .ow{font-family:var(--mono);font-size:10px;color:var(--ink3);flex-shrink:0;text-align:right;max-width:160px;line-height:1.4}
 .brd .cov{height:4px;border-radius:99px;background:var(--panel2);overflow:hidden;margin-top:7px}
 .brd .cov i{display:block;height:100%;background:var(--L4);border-radius:99px}
-.brd .foot{margin-top:30px;padding-top:12px;border-top:1px solid var(--line);font-size:10px;color:var(--ink3);line-height:1.6}
+.brd .foot{margin-top:30px;padding-top:12px;border-top:1px solid var(--line);font-size:11px;color:var(--ink3);line-height:1.6}
 /* executive summary — bigger type, fewer things, meant for a projector */
 .exc .w{max-width:1080px}
 .exc .thesis{font-size:15px;line-height:1.65;margin:16px 0 4px;color:var(--ink);max-width:820px}
@@ -341,6 +344,15 @@ try{
   throw err;
 }
 
+/* Coupling type used to be a colour, but the five type colours sat 4.6-10.8 dE
+   from the level colours they were drawn against — indistinguishable on a
+   projector, and a direct contradiction of the rule that colour means level.
+   Type is now a dash pattern; the line takes the colour of the level it sits on.
+   Asymmetric couplings are already obvious from geometry (they span two levels
+   in 3D and slope in 2D), so they get extra weight rather than a pattern. */
+const DASH={A:"",B:"11 4",C:"2 3.5",D:"10 3 2.5 3",E:"5.5 4.5"};
+const DASHN={A:"เส้นทึบ",B:"ขีดยาว",C:"จุด",D:"ขีด-จุด",E:"ขีดสั้น"};
+const seamLv=s=>BY[s[0]].pam;
 const CT={};
 for(const [k,v] of Object.entries(M.couplingTypes))
   CT[k]={k,n:v.name,th:v.th,lv:v.levels.join(", "),risk:v.riskTh,dir:v.directionTh,d:v.desc,g:v.requires};
@@ -498,7 +510,8 @@ function build(){
     g.append(t1,t2);f.appendChild(g);return{T,g,t1,t2};});
   const seams=SEAMS.map((s,i)=>{
     const hit=mk("path",{class:"sl","data-si":i,fill:"none",stroke:"transparent","stroke-width":"14",style:"cursor:pointer;pointer-events:stroke"});
-    const line=mk("path",{fill:"none","pointer-events":"none",stroke:`var(--c${s[2]})`,"stroke-dasharray":s[6]?"6 4":""});
+    const line=mk("path",{fill:"none","pointer-events":"none",stroke:`var(--L${seamLv(s)})`,
+      "stroke-dasharray":DASH[s[2]],"stroke-linecap":"round"});
     f.append(hit,line);return{s,i,hit,line};});
   /* the Z backbone as an object in the scene: one plate per shared level, standing
      where the four towers' row converges. Only drawn in the row arrangement. */
@@ -600,7 +613,10 @@ function drawIso(){
       e.setAttribute("cx",g.x.toFixed(1));e.setAttribute("cy",g.y.toFixed(1));
       e.setAttribute("r",(r*(big?1.9:1)).toFixed(1));
       e.setAttribute("fill-opacity",op.toFixed(2));
-      e.setAttribute("stroke",big?"var(--ink)":(hs?"var(--c"+SEAMS[c.seams[0]][2]+")":"none"));
+      /* a ring means "this cube carries a cross-model coupling" — a yes/no fact.
+         It used to be tinted by coupling type, which is now a line pattern, so a
+         neutral ring says the same thing without competing with the level colour. */
+      e.setAttribute("stroke",big?"var(--ink)":(hs?"var(--ink2)":"none"));
       e.setAttribute("stroke-width",big?2:(hs?1.4:0));
       e.setAttribute("stroke-opacity",op.toFixed(2));
     });
@@ -628,7 +644,7 @@ function drawIso(){
     const mx=(p1.x+p2.x)/2,my=(p1.y+p2.y)/2-34*S.zoom;
     const d=`M${p1.x.toFixed(1)} ${p1.y.toFixed(1)} Q${mx.toFixed(1)} ${my.toFixed(1)} ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}`;
     hit.setAttribute("d",d);line.setAttribute("d",d);
-    line.setAttribute("stroke-width",S.selS===i?2.8:(on?1.5:0.7));
+    line.setAttribute("stroke-width",S.selS===i?2.8:(on?(s[6]?2.2:1.5):0.7));
     line.setAttribute("stroke-opacity",on?t.lnOn:t.lnOff);
     if(S.selS===i)lab={s,mx,my};
   });
@@ -636,7 +652,7 @@ function drawIso(){
     show(SC.seamLabel,true);
     SC.seamLabel.setAttribute("x",lab.mx.toFixed(1));
     SC.seamLabel.setAttribute("y",(lab.my-6).toFixed(1));
-    SC.seamLabel.setAttribute("fill",`var(--c${lab.s[2]})`);
+    SC.seamLabel.setAttribute("fill",`var(--L${seamLv(lab.s)})`);
     SC.seamLabel.textContent=`${lab.s[2]} · ${lab.s[3].slice(0,34)}`;
   }else show(SC.seamLabel,false);
 
@@ -724,7 +740,7 @@ function buildFlat(){
     const nm=mk("text",{x:HUBX0+10,y:y-FLAT.bh/2+13,"font-size":"10",fill:"var(--ink3)"});
     nm.textContent=L.th;
     const ct=mk("text",{x:HUBX1-9,y:y-FLAT.bh/2-1,"text-anchor":"end","font-family":"var(--mono)",
-      "font-size":"9.5","font-weight":"600",fill:`var(--c${L.ct})`});
+      "font-size":"9.5","font-weight":"600",fill:`var(--L${L.p})`});
     ct.textContent=L.ct;
     const cnt=mk("text",{x:HUBX1-9,y:y-FLAT.bh/2+13,"text-anchor":"end","font-family":"var(--mono)",
       "font-size":"9",fill:"var(--ink3)"});
@@ -791,10 +807,10 @@ function buildFlat(){
     const ia=TOWERS.findIndex(t=>t.k===P.a.k), ib=TOWERS.findIndex(t=>t.k===P.b.k);
     const hit=mk("path",{class:"fl","data-fp":P.key,fill:"none",stroke:"transparent","stroke-width":"11",
       style:"cursor:pointer;pointer-events:stroke"});
-    const line=mk("path",{fill:"none","pointer-events":"none",stroke:`var(--c${P.type})`,
-      "stroke-dasharray":P.a.p!==P.b.p?"6 4":""});
+    const line=mk("path",{fill:"none","pointer-events":"none",stroke:`var(--L${P.a.p})`,
+      "stroke-dasharray":DASH[P.type],"stroke-linecap":"round"});
     const badge=mk("text",{"text-anchor":"middle","font-family":"var(--mono)","font-size":"9.5",
-      "font-weight":"600",fill:`var(--c${P.type})`,"pointer-events":"none"});
+      "font-weight":"600",fill:`var(--L${P.a.p})`,"pointer-events":"none"});
     badge.textContent=P.list.length>1?`${P.list.length}×${P.type}`:P.type;
     f.append(hit,line,badge);
     return{P,ia,ib,hit,line,badge};
@@ -856,7 +872,7 @@ function drawFlat(){
     hit.setAttribute("d",`M${xa} ${ya} Q${mx} ${my} ${xb} ${yb}`);
     line.setAttribute("d",`M${xa} ${ya} Q${mx} ${my} ${xb} ${yb}`);
     const lit=!anySel||litPairs.has(P.key);
-    line.setAttribute("stroke-width",litPairs.has(P.key)?3:(lit?1.8:0.8));
+    line.setAttribute("stroke-width",litPairs.has(P.key)?3:(lit?(P.a.p!==P.b.p?2.6:1.8):0.8));
     line.setAttribute("stroke-opacity",lit?t.lnOn:t.lnOff);
     badge.setAttribute("x",mx);
     badge.setAttribute("y",(ya+yb)/2-lift/2-5);
@@ -978,6 +994,26 @@ function boardTowers(){
         <div><em>${s.levels}/8</em><i>ระดับที่มี</i></div>
         <div><em>${s.cpl}</em><i>คู่เชื่อม</i></div></div>
       <p>${esc(b.th)}</p></div>`;}).join("")}</div>`;
+}
+function boardSeams(){
+  const rows=seamRegister();
+  const un=rows.filter(r=>!r.coupling).length,named=rows.filter(r=>r.coupling).length;
+  const byDom={};
+  rows.filter(r=>!r.coupling).forEach(r=>{(byDom[r.domain]=byDom[r.domain]||[]).push(r);});
+  const tbl=Object.entries(byDom).map(([d,rs])=>{
+    const X=TW.SGAM.xs.find(i=>i[0]===d);
+    return `<tr class="gap"><td class="c">${esc(d)}</td><td>${esc(X[1])}</td>
+      <td class="c">${rs.length}</td>
+      <td>${rs.map(r=>`<span class="pill w">${esc(r.layer)}·${esc(r.zone)}</span>`).join("")}</td></tr>`;
+  }).join("");
+  return `<h2>Seam Contract Register<s>${M.meta.sgamSeamEligible} ตำแหน่ง · ${named} มีสัญญา · ${un} ยังไม่มี</s></h2>
+    <p class="lead">ตำแหน่งบนชั้น BUS และ CMP ของ SGAM ที่มีสิทธิ์ผูกสัญญาข้ามตึก ·
+      ช่องเจ้าของ เลขที่สัญญา และงบประมาณ เว้นว่างไว้ให้กรอก ไม่ได้เติมแทน</p>
+    <div class="cov"><i style="width:${named/(named+un)*100}%"></i></div>
+    <table><thead><tr><th>Domain</th><th>ชื่อโดเมน</th><th>ยังไม่มีสัญญา</th><th>ตำแหน่ง</th></tr></thead>
+      <tbody>${tbl}</tbody></table>
+    <p class="lead"><button class="dl" id="dlSeam">⤓ ส่งออก Seam Register (CSV)</button>
+      <span style="color:var(--ink3)">${rows.length} แถว · ${CSVCOL.length} คอลัมน์ · UTF-8 BOM เปิดใน Excel ได้ตรง ๆ</span></p>`;
 }
 function boardAsks(){
   return `<h2>ประเด็นเสนอบอร์ด<s>${BRD.asks.length} ข้อ</s></h2>`+
@@ -1235,6 +1271,69 @@ function drawExec(){
     <h2>${esc(L(EX.sections[4].h))}</h2>${asks}
     <p class="foot">${esc(lb("readMore"))}</p></div>`;
 }
+/* ---- Seam Contract Register ----------------------------------------------
+   39 positions on SGAM's BUS and CMP layers are eligible to carry a cross-model
+   contract; 15 have a named coupling and 24 do not. That gap is the standing
+   agenda item, so it has to leave the screen as a file someone can fill in.
+   CSV rather than XLSX on purpose: the project has no build step and no
+   dependencies, and a UTF-8 BOM makes Excel open Thai correctly. */
+function seamRegister(){
+  const T=TW.SGAM,rows=[];
+  for(const lay of ["BUS","CMP"]){
+    const L=T.ls.find(l=>l[0]===lay);
+    T.xs.forEach((x,xi)=>T.ys.forEach((y,yi)=>{
+      const pop=+POP[lay][xi][yi];
+      if(!pop)return;
+      const id=`SGAM.${lay}.${x[0]}.${y[0]}`;
+      const hits=SEAMS.map((sm,i)=>({sm,i})).filter(({sm})=>sm[0]===id||sm[1]===id);
+      const base={position:id,layer:lay,layerName:L[1],level:"L"+L[2],
+        domain:x[0],domainName:x[1],zone:y[0],zoneName:y[1],
+        scope:LVN[pop],band:(T.ys[yi][4]||{}).responseBand||""};
+      if(!hits.length){rows.push({...base,coupling:"",type:"",typePattern:"",partner:"",
+        flag:"",risk:"",blast:"",status:"unassigned",owner:"",contractId:"",estimate:""});return;}
+      for(const {sm,i} of hits){
+        const other=sm[0]===id?sm[1]:sm[0],a=SEAM_AN[i]||{};
+        rows.push({...base,coupling:SEAM_ID[i],type:sm[2],typePattern:DASHN[sm[2]],
+          partner:other,flag:sm[6]||"",risk:a.risk?`${a.risk.score}/${a.risk.of} ${a.risk.level}`:"",
+          blast:a.impact?a.impact.blastRadius:"",
+          status:(a.budget&&a.budget.status)||"named",
+          owner:(a.budget&&a.budget.owner)||"",contractId:(a.budget&&a.budget.contractId)||"",
+          estimate:(a.budget&&a.budget.estimate)||""});
+      }
+    }));
+  }
+  rows.sort((a,b)=>(a.status===b.status?0:a.status==="unassigned"?-1:1)
+    ||a.position.localeCompare(b.position));
+  return rows;
+}
+const CSVCOL=[["position","ตำแหน่ง"],["layer","layer"],["layerName","ชื่อชั้น"],["level","ระดับร่วม"],
+  ["domain","domain"],["domainName","ชื่อโดเมน"],["zone","zone"],["zoneName","ชื่อโซน"],
+  ["scope","ขอบเขต"],["band","response band"],["coupling","coupling"],["type","ชนิด"],
+  ["typePattern","ลายเส้น"],["partner","ปลายทาง"],["flag","หมายเหตุโครงสร้าง"],["risk","ความเสี่ยง"],
+  ["blast","blast radius"],["status","สถานะสัญญา"],["owner","เจ้าของ"],["contractId","เลขที่สัญญา"],
+  ["estimate","งบประมาณ"]];
+function seamCSV(){
+  const q=v=>{v=v==null?"":String(v);return /[",\r\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
+  const rows=seamRegister();
+  const meta=[
+    [`# Seam Contract Register · ${M.meta.doc} v${M.meta.version}`],
+    [`# ${M.meta.status}`],
+    [`# eligible ${M.meta.sgamSeamEligible} · named ${rows.filter(r=>r.coupling).length} · `
+     +`unassigned ${rows.filter(r=>!r.coupling).length} · exported ${BRD.asOf}`],
+    [`# เจ้าของ เลขที่สัญญา และงบประมาณ เว้นว่างไว้ให้กรอก — ยังไม่มีใครรับผิดชอบ`],
+    [],
+  ];
+  const body=[CSVCOL.map(c=>c[1]),...rows.map(r=>CSVCOL.map(c=>r[c[0]]))];
+  return "\uFEFF"+[...meta,...body].map(r=>r.map(q).join(",")).join("\r\n")+"\r\n";
+}
+function downloadCSV(){
+  const blob=new Blob([seamCSV()],{type:"text/csv;charset=utf-8"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=`seam-register-${M.meta.doc}-${BRD.asOf.replace(/-/g,"")}.csv`;
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+}
 let brdDone=false;
 function drawBoard(){
   if(brdDone)return;
@@ -1244,11 +1343,12 @@ function drawBoard(){
       <span>${esc(M.meta.doc)} · v${esc(M.meta.version)} · ณ ${esc(BRD.asOf)}</span>
       <span style="margin-left:auto">${esc(M.meta.status)}</span></div>
     <p class="lead">${esc(BRD.note)}</p>
-    ${boardTowers()}${boardConcepts()}${boardDomains()}${boardLayers()}${boardTwin()}${boardTeam()}${boardStandards()}${boardAsks()}
+    ${boardTowers()}${boardConcepts()}${boardDomains()}${boardLayers()}${boardTwin()}${boardTeam()}${boardStandards()}${boardSeams()}${boardAsks()}
     <div class="foot">ช่องที่ต้องมีคนเขียน — ${authored.filled} จาก ${authored.of}
       (${authored.fields.join(", ")}) · งบของคู่เชื่อม ${M.couplings.filter(c=>c.analysis.budget.status==="unassigned").length}
       จาก ${M.couplings.length} ยังไม่มีเจ้าของ · เว้นว่างไว้ตั้งใจ ตัวเลขนี้คือประเด็น ไม่ใช่ความบกพร่องของเครื่องมือ<br>
       ที่มา: ${M.references.map(r=>esc(r.id)+" "+esc(r.title.slice(0,46))).join(" · ")}</div></div>`;
+  const dl=$("dlSeam");if(dl)dl.onclick=downloadCSV;
   brdDone=true;
 }
 function draw(){
@@ -1455,8 +1555,11 @@ const ctHost=document.getElementById("ctList");
 Object.values(CT).forEach(C=>{
   const n=SEAMS.filter(s=>s[2]===C.k).length;
   const b=document.createElement("button");b.className="row";b.dataset.ct=C.k;b.setAttribute("aria-pressed","true");
-  b.innerHTML=`<span class="dot" style="background:var(--c${C.k})"></span><span class="c">${C.k}</span>
+  b.innerHTML=`<svg class="dash" viewBox="0 0 22 8" aria-hidden="true"><line x1="1" y1="4" x2="21" y2="4"
+      stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+      stroke-dasharray="${DASH[C.k]}"/></svg><span class="c">${C.k}</span>
     <span class="n">${C.th}</span><span class="m">${n}</span>`;
+  b.title=`${C.th} — ${DASHN[C.k]}`;
   b.title=C.d;
   b.onclick=()=>{S.ct.has(C.k)?S.ct.delete(C.k):S.ct.add(C.k);syncUI();stats();req();};
   ctHost.appendChild(b);
@@ -1477,8 +1580,8 @@ function endCard(id,role){
 function seamCard(i,compact){
   const s=SEAMS[i],C=CT[s[2]],a=BY[s[0]],b=BY[s[1]],L=LV.find(l=>l.p===a.pam);
   const flag=s[6]==="asymmetric"?" · ไม่สมมาตร":s[6]==="excluded"?" · PCC เข้าร่วมไม่ได้":"";
-  return `<div class="seambox" style="border-color:var(--c${s[2]})">
-    <b style="color:var(--c${s[2]})">ชนิด ${s[2]} · ${esc(C.th)}${flag}</b>
+  return `<div class="seambox" style="border-color:var(--L${seamLv(s)})">
+    <b style="color:var(--L${seamLv(s)})">ชนิด ${s[2]} · ${esc(C.th)}${flag} · ${DASHN[s[2]]}</b>
     <p style="color:var(--ink)"><strong>${esc(s[3])}</strong></p>
     <p style="color:var(--ink2);margin-top:5px">${esc(s[4])}</p>
     ${compact?"":`<div class="ends">${endCard(s[0],"ต้นทาง")}<span class="arrw">↔</span>${endCard(s[1],"ปลายทาง")}</div>`}
@@ -1498,7 +1601,7 @@ function anBlock(i){
   const a=SEAM_AN[i];if(!a)return"";
   const bars=n=>"\u25a0".repeat(n)+"\u25a1".repeat(6-n);
   return `<div class="anx">
-    <div class="anr"><i>ความเสี่ยง</i><span><b style="color:var(--c${SEAMS[i][2]})">${esc(a.risk.level)}</b>
+    <div class="anr"><i>ความเสี่ยง</i><span><b style="color:var(--L${seamLv(SEAMS[i])})">${esc(a.risk.level)}</b>
       <span class="bars">${bars(a.risk.score)}</span> ${a.risk.score}/${a.risk.of}<br>
       <span class="w">${esc(a.risk.basis)}</span></span></div>
     <div class="anr"><i>ผลกระทบ</i><span><b>${a.impact.blastRadius}</b> เส้นต้องทบทวนตาม
@@ -1539,7 +1642,7 @@ function detail(){
       ${ly[4]?`<div class="std"><i>นิยามตามมาตรฐาน</i>${esc(ly[4])}</div>`:""}
       <div class="sub">เชื่อมข้ามตึกจากชั้นนี้ · ${touching.length} เส้น</div>
       ${touching.map(([s,i])=>{const a=BY[s[0]],b=BY[s[1]];
-        return `<button class="lk" data-seam="${i}"><span class="r" style="color:var(--c${s[2]})">${SEAM_ID[i]}</span>
+        return `<button class="lk" data-seam="${i}"><span class="r" style="color:var(--L${seamLv(s)})">${SEAM_ID[i]}</span>
           <span class="t"><span class="a">${a.T.k}.${a.lc} → ${b.T.k}.${b.lc}</span>
           <span class="w">${esc(s[3])}</span></span></button>`;}).join("")
         ||`<p style="color:var(--ink3)">ชั้นนี้ยังไม่มีรอยต่อข้ามตึกที่ระบุสัญญาไว้</p>`}`;
@@ -1551,14 +1654,14 @@ function detail(){
     const P=BLOCKLINKS.find(x=>x.key===S.selP);
     det.innerHTML=detHead("รายละเอียดการเชื่อม")+`
       <div class="adr">${P.a.k} L${P.a.p} ↔ ${P.b.k} L${P.b.p}</div>
-      <div class="tags"><span class="tg" style="border-color:var(--c${P.type});color:var(--c${P.type})">coupling ${P.type}</span>
+      <div class="tags"><span class="tg" style="border-color:var(--L${P.a.p});color:var(--L${P.a.p})">coupling ${P.type} · ${DASHN[P.type]}</span>
         <span class="tg">${P.list.length} เส้น</span>
         ${P.a.p!==P.b.p?`<span class="tg" style="border-color:var(--L6);color:var(--L6)">ไม่สมมาตร</span>`:""}</div>
       <p>${esc(CT[P.type].d)}</p>
       ${P.a.p!==P.b.p?`<div class="std"><i>ทำไมเส้นนี้เอียง</i>ชั้น ${P.a.k} L${P.a.p} ไม่มีคู่ที่ ${P.b.k} จึงต้อง dock ลงชั้น L${P.b.p} แทน — ภาระการกำกับตกอยู่ฝั่ง ${P.a.k} ดู structuralFindings F2</div>`:""}
       <div class="sub">รายการ · คลิกเพื่อดูทีละเส้น</div>
       ${P.list.map(i=>{const s=SEAMS[i],a=BY[s[0]],b=BY[s[1]];
-        return `<button class="lk" data-seam="${i}"><span class="r" style="color:var(--c${s[2]})">${SEAM_ID[i]}</span>
+        return `<button class="lk" data-seam="${i}"><span class="r" style="color:var(--L${seamLv(s)})">${SEAM_ID[i]}</span>
           <span class="t"><span class="a">${a.lc}.${a.xc}.${a.yc} → ${b.lc}.${b.xc}.${b.yc}</span>
           <span class="w">${esc(s[3])}</span></span></button>`;}).join("")}`;
     return;
@@ -1567,7 +1670,7 @@ function detail(){
   if(S.selS!==null){
     const s=SEAMS[S.selS],a=BY[s[0]],b=BY[s[1]];
     det.innerHTML=detHead("รายละเอียดการเชื่อม")+`<div class="adr">${a.T.k} ↔ ${b.T.k}</div>
-      <div class="tags"><span class="tg" style="border-color:var(--c${s[2]});color:var(--c${s[2]})">coupling ${s[2]}</span>
+      <div class="tags"><span class="tg" style="border-color:var(--L${seamLv(s)});color:var(--L${seamLv(s)})">coupling ${s[2]} · ${DASHN[s[2]]}</span>
         <span class="tg" style="border-color:var(--L${a.pam});color:var(--L${a.pam})">L${a.pam}</span>
         ${s[6]?`<span class="tg">${s[6]==="asymmetric"?"asymmetric":"excluded"}</span>`:""}</div>
       ${seamCard(S.selS,false)}`;
@@ -1588,7 +1691,7 @@ function detail(){
         <div class="kv">${Object.entries(byT).map(([k,v])=>`<b>ชนิด ${k}</b><span>${v} เส้น · ${esc(CT[k].th)}</span>`).join("")||"<b>—</b><span>ไม่มีรอยต่อระหว่างตึกที่เลือก</span>"}</div>
         <div class="sub">รายการ</div>
         ${rel.map(([s,i])=>{const a=BY[s[0]],b=BY[s[1]];
-          return `<button class="lk" data-seam="${i}"><span class="r" style="color:var(--c${s[2]})">${s[2]} · L${a.pam}</span>
+          return `<button class="lk" data-seam="${i}"><span class="r" style="color:var(--L${a.pam})">${s[2]} · L${a.pam}</span>
             <span class="t"><span class="a">${a.T.k}.${a.lc}.${a.xc} → ${b.T.k}.${b.lc}.${b.xc}</span>
             <span class="w">${esc(s[3])}</span></span></button>`;}).join("")}`;
       return;
@@ -1609,7 +1712,7 @@ function detail(){
     <div class="adr">${T.k} · ${c.lc}.${c.xc}.${c.yc}</div>
     <div class="tags">${T.hero?`<span class="tg ${LVC[c.lvl]}">${LVN[c.lvl]}</span>`:""}
       <span class="tg" style="border-color:var(--L${c.pam});color:var(--L${c.pam})">${L.c} ${L.n}</span>
-      ${c.seams.length?`<span class="tg" style="border-color:var(--c${SEAMS[c.seams[0]][2]});color:var(--c${SEAMS[c.seams[0]][2]})">${c.seams.length} coupling</span>`:""}</div>
+      ${c.seams.length?`<span class="tg" style="border-color:var(--L${c.pam});color:var(--L${c.pam})">${c.seams.length} coupling</span>`:""}</div>
     <h3>${esc(c.ln)} · ${esc(xn)} · ${esc(yn)}</h3>
     <p>${esc(c.lp)}</p>
     <div class="kv"><b>Tower</b><span>${esc(T.name)} — ${esc(T.th)}</span>
@@ -1657,7 +1760,7 @@ if(M.scopeLimits){
 $("refList").innerHTML=(M.references||[]).map(r=>
   `<span title="${esc(r.title)}${r.restriction?" — "+esc(r.restriction):""}">${esc(r.id)} <b>${esc(r.publisher)}</b>${r.restriction?" ⚠":""}</span>`).join("");
 syncUI();stats();detail();draw();
-Object.assign(window,{M,S,SC,applyLayout,ROW_K,HUB_U,HUB_V,CT,LV,TOWERS,TW,BLOCKLINKS,FLAT,drawFlat,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs,drawBoard,TEAM,LSTD,DREP,BRD,twStats,LREP,DT,boardLayers,boardTwin,ACON,boardConcepts,EX,drawExec,exStats,L});
+Object.assign(window,{M,S,SC,applyLayout,ROW_K,HUB_U,HUB_V,CT,LV,TOWERS,TW,BLOCKLINKS,FLAT,drawFlat,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs,drawBoard,TEAM,LSTD,DREP,BRD,twStats,LREP,DT,boardLayers,boardTwin,ACON,boardConcepts,EX,drawExec,exStats,L,DASH,DASHN,seamLv,seamRegister,seamCSV,CSVCOL});
 </script>
 </body>
 </html>
