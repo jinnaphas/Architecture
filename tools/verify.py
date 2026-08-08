@@ -308,6 +308,48 @@ def main() -> int:
           f"{len(dt['layers'])} layers x {len(dt['domains'])} domains, "
           f"omits {', '.join(dt['missingLayers'])} · video {dt['video']['seconds']}s")
 
+    # 12 — a concept that claims the tower's axes are confirmed has to actually
+    #      agree with the tower. This is the check that would catch someone editing
+    #      the geometry while leaving a deck's "confirmed" claim behind it.
+    ac = {c["tower"]: c for c in m["architectureConcepts"]["concepts"]}
+    check(set(ac) == set(towers) - {"SGAM"},
+          f"architectureConcepts covers {sorted(ac)}, expected the three non-SGAM towers")
+    ask_ids = {a["id"] for a in bs["asks"]}
+    for tw, c in ac.items():
+        t = towers[tw]
+        check(c["ref"] in {x["id"] for x in m["references"]}, f"{tw} concept: unknown reference {c['ref']}")
+        if c["axesConfirmed"]:
+            counts = {a["axis"]: a["n"] for a in c["axes"]}
+            for a in c["axes"]:
+                check(len(a["items"]) == a["n"],
+                      f"{tw} concept: axis {a['axis']} says {a['n']} but lists {len(a['items'])}")
+            actual = sorted([len(t["layers"]), len(t["xAxis"]["items"]), len(t["yAxis"]["items"])])
+            check(sorted(counts.values()) == actual,
+                  f"{tw} concept claims axes {sorted(counts.values())} and calls them confirmed, "
+                  f"but the tower is built as {actual}")
+            product = 1
+            for n in counts.values():
+                product *= n
+            check(product == t["cubes"],
+                  f"{tw} concept's axes multiply to {product}, but the tower declares {t['cubes']} cubes")
+        else:
+            # unconfirmed means an open question must exist and be findable
+            conflict = c.get("conflict") or c.get("instantiation")
+            check(bool(conflict), f"{tw} concept: axes not confirmed but no conflict recorded")
+            if conflict:
+                check(conflict.get("ask") in ask_ids,
+                      f"{tw} concept: cites {conflict.get('ask')}, which is not on the board's list")
+    # an instantiation that redraws a domain axis must not silently become the tower
+    sfam_inst = ac["SFAM"].get("instantiation")
+    if sfam_inst:
+        check(sfam_inst["ask"] in ask_ids, f"SFAM instantiation cites {sfam_inst['ask']}, not on the board's list")
+        check(len(sfam_inst["domains"]) != len(towers["SFAM"]["xAxis"]["items"]),
+              "SFAM instantiation now has the same number of domains as the tower — "
+              "either it was folded in and should stop being called an instantiation, or a domain was lost")
+    conf = [t for t, c in ac.items() if c["axesConfirmed"]]
+    print(f"  concepts: {len(ac)} towers · axes confirmed {', '.join(sorted(conf)) or 'none'} · "
+          f"open {', '.join(sorted(set(ac) - set(conf))) or 'none'}")
+
     print(f"  couplings: {len(ids)} · irregular: {sorted(irregular)} (all flagged)")
     if fail:
         print("\nFAILED:")

@@ -85,6 +85,12 @@ the page cannot drift from the data the other two modes draw.
 Coverage is shown as coverage: a domain with no owner gets a highlighted row and a `ยังไม่ระบุ`
 pill rather than being left off the table, and the footer states the authored gap in full.
 
+**Concept รายสถาปัตยกรรม** covers the three non-SGAM towers — what each model is, who
+wrote it, and whether its axes are confirmed. RAMI and SFAM are; SCIAM is not, and the
+section says why rather than picking a reading. `verify.py` checks that a concept marked
+confirmed multiplies out to that tower's actual cube count, so the claim cannot outlive
+an edit to the geometry.
+
 The same mode carries the **vertical axis** — one expandable section per interoperability
 layer, four of seven reported: Business and Function through a single substation, Intelligence
 with its gap taxonomy and autonomy ladder, Communication by domain and by zone. Cyber,
