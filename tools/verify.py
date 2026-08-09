@@ -403,6 +403,20 @@ def main() -> int:
           f"{len(ex['labels'])} labels · th+en · diagrams "
           + " ".join(f"{t['id']}:{t['diagram']['bytes']//1024}KB" for t in m["towers"]))
 
+    # 15 — colour means level, and only level. Coupling type is a dash pattern now,
+    #      because the five type colours sat 4.6-10.8 dE from the level colours they
+    #      were drawn against. Reintroducing --cA..--cE would quietly bring the
+    #      collision back, so the app is checked for them.
+    app = (ROOT / "app" / "index.html").read_text(encoding="utf-8")
+    revived = sorted({f"--c{k}" for k in "ABCDE" if f"--c{k}" in app})
+    check(not revived,
+          f"the retired coupling-type colours are back in app/index.html: {revived} — "
+          f"colour encodes level only; type is a dash pattern")
+    check("const DASH=" in app, "app/index.html: the coupling-type dash patterns are gone")
+    n_dash = app.count('"stroke-dasharray":DASH[')
+    check(n_dash >= 2, f"only {n_dash} render paths use the type dash patterns, expected the 3D and 2D lines")
+    print(f"  encoding: colour=level only · type=dash pattern ({n_dash} render paths)")
+
     print(f"  couplings: {len(ids)} · irregular: {sorted(irregular)} (all flagged)")
     if fail:
         print("\nFAILED:")
