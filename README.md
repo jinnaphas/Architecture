@@ -79,6 +79,12 @@ level colours beside them, close enough to read as the same hue on a projector.
 Two entry paths into the same information: node-first or line-first. Both reach the same
 detail, so pick whichever matches how the question was asked.
 
+**On a phone** the side panel becomes a bottom sheet: parked off-screen until you tap a cube,
+a coupling or a block, then it slides up over the drawing with that detail and a close button.
+Selecting fewer towers does not raise it — only tapping a thing does. The toolbar collapses to
+one row that scrolls sideways with **Mode** at the start, which takes 55px instead of the 223px
+it used to spend wrapping over four rows, and every button is at least 40px tall for a finger.
+
 **รายงานบอร์ด** is the third mode and the only one that is not a drawing. It reports what
 the Smart Architecture team has actually delivered per architecture: which towers have a
 team reporting against them, the three of five SGAM domains that have filed a report, who
