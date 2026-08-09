@@ -48,7 +48,46 @@ button{font-family:inherit;color:inherit;cursor:pointer}
 .vb:focus-visible{outline:2px solid var(--hero);outline-offset:1px}
 .right{margin-left:auto;display:flex;gap:9px;flex-wrap:wrap}
 .body{display:grid;grid-template-columns:minmax(0,1fr) 360px;overflow:hidden}
-@media (max-width:1060px){.body{grid-template-columns:1fr}.body>.side{display:none}}
+/* Below 1060px the side panel becomes a bottom sheet rather than disappearing.
+   Hiding it outright took the cube and coupling detail with it — the drawing was
+   tappable but had nowhere to answer. It stays out of the way until something is
+   actually selected, then slides up over the stage. */
+@media (max-width:1060px){
+  .body{grid-template-columns:1fr}
+  .body>.side{position:fixed;left:0;right:0;bottom:0;top:auto;z-index:40;
+    max-height:70vh;max-height:70svh;border-left:0;border-top:1px solid var(--line);
+    border-radius:13px 13px 0 0;box-shadow:0 -10px 30px rgba(0,0,0,.22);
+    transform:translateY(101%);transition:transform .2s ease;
+    overscroll-behavior:contain;padding-bottom:env(safe-area-inset-bottom)}
+  .body>.side.sheet-open{transform:translateY(0)}
+  .body>.side .sheet{display:flex}
+  .body>.side .sec{display:none}
+  /* the sheet has its own close, so the panel's inline one is redundant here */
+  .body>.side .dethead .xbtn{display:none}
+  .hint{display:none}
+  /* The toolbar wrapped to four rows on a phone and took a quarter of the screen.
+     One row that scrolls sideways costs 52px instead of 223px, and Mode — the only
+     group you need to reach constantly — sits at the start where it is already
+     visible. The version string goes; it is on the board report anyway. */
+  .bar{flex-wrap:nowrap;gap:8px;padding:7px 10px;overflow:hidden}
+  .brand{flex-shrink:0}
+  .brand h1{font-size:13px}
+  .brand span{display:none}
+  .bar .right{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;gap:12px;min-width:0;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;
+    -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 18px),transparent);
+    mask-image:linear-gradient(90deg,#000 calc(100% - 18px),transparent)}
+  .bar .right::-webkit-scrollbar{display:none}
+  .grp{flex-shrink:0}
+}
+/* Touch pointers need a target you can actually hit — every button in the toolbar
+   measured under 40px. This lifts them without changing the desktop density. */
+@media (pointer:coarse){
+  .vb{min-height:40px;padding:9px 12px;font-size:11px}
+  .sheetX{width:38px;height:38px}
+  .row{min-height:38px}
+}
+@media (prefers-reduced-motion:reduce){.body>.side{transition:none}}
 .stage{position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 40%,var(--stage1) 0%,var(--stage2) 72%)}
 svg#scene{width:100%;height:100%;display:block;cursor:grab;touch-action:none}
 svg#scene.drag{cursor:grabbing}
@@ -166,6 +205,12 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
   background:var(--ink);color:var(--mix);border-radius:4px;cursor:pointer;margin-right:9px}
 .brd .dl:hover{opacity:.85}
 .brd .dl:focus-visible{outline:2px solid var(--hero);outline-offset:2px}
+.sheet{display:none;order:-2;position:sticky;top:0;z-index:2;align-items:center;gap:8px;
+  padding:8px 12px 7px;background:var(--panel);border-bottom:1px solid var(--line)}
+.sheet i{flex:1;height:4px;border-radius:99px;background:var(--line);max-width:46px;margin:0 auto}
+.sheetX{width:30px;height:30px;flex-shrink:0;border:1px solid var(--line);background:var(--panel2);
+  color:var(--ink2);border-radius:50%;font-size:13px;line-height:1;cursor:pointer}
+.sheetX:focus-visible{outline:2px solid var(--hero);outline-offset:2px}
 .row .dash{width:22px;height:8px;flex-shrink:0;color:var(--ink2)}
 .stat{display:flex;flex-wrap:wrap;gap:9px;font-family:var(--mono);font-size:9.5px;color:var(--ink3);margin-top:7px}
 .stat b{color:var(--ink);font-weight:500}
@@ -318,6 +363,8 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
       <div class="sec"><h2>เบี่ยงจากมาตรฐาน <em>ประกาศไว้ ไม่ได้ซ่อน</em></h2><div id="devList"></div></div>
       <div class="sec"><h2>ขอบเขตที่ SGAM ไม่ทำ <em id="limSrc"></em></h2><div id="limList"></div>
         <div id="refList" class="stat"></div></div>
+      <div class="sheet" id="sheet"><i></i>
+        <button class="sheetX" id="sheetX" aria-label="ปิดรายละเอียด" title="ปิด">✕</button></div>
       <div class="det" id="det"></div>
     </aside>
   </div>
@@ -1619,6 +1666,9 @@ function anBlock(i){
 function detail(){
   const picked=(S.sel!==null||S.selS!==null||S.selB||S.selP||S.tw.size<TOWERS.length);
   side.classList.toggle("sel",picked);
+  /* the sheet is for a thing you tapped. Narrowing the tower filter also counts as
+     "picked" for the desktop ordering, but must not throw a sheet over the drawing. */
+  side.classList.toggle("sheet-open",S.sel!==null||S.selS!==null||!!S.selB||!!S.selP);
   if(picked)side.scrollTop=0;
 
   /* a layer block in the flat view — the tower/level cell, not a single cube */
@@ -1759,6 +1809,7 @@ if(M.scopeLimits){
 }
 $("refList").innerHTML=(M.references||[]).map(r=>
   `<span title="${esc(r.title)}${r.restriction?" — "+esc(r.restriction):""}">${esc(r.id)} <b>${esc(r.publisher)}</b>${r.restriction?" ⚠":""}</span>`).join("");
+$("sheetX").onclick=()=>{S.sel=null;S.selS=null;S.selB=null;S.selP=null;detail();req();};
 syncUI();stats();detail();draw();
 Object.assign(window,{M,S,SC,applyLayout,ROW_K,HUB_U,HUB_V,CT,LV,TOWERS,TW,BLOCKLINKS,FLAT,drawFlat,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs,drawBoard,TEAM,LSTD,DREP,BRD,twStats,LREP,DT,boardLayers,boardTwin,ACON,boardConcepts,EX,drawExec,exStats,L,DASH,DASHN,seamLv,seamRegister,seamCSV,CSVCOL});
 </script>
