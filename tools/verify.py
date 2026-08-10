@@ -391,6 +391,29 @@ def main() -> int:
             for i, v in enumerate(node):
                 bilingual(v, f"{path}[{i}]")
     bilingual(m["executive"], "")
+    # Figure slots the owner fills by dropping a file into the repository. The file is
+    # allowed to be absent — the app says so in place. What must hold is that its
+    # directory is staged for Pages, or a file dropped there would 404 exactly the way
+    # the demo video did; and that a file which *is* present is a real image.
+    for where in ("foundation", "revenue"):
+        fig = m["executive"][where].get("figure")
+        check(bool(fig), f"executive.{where}: no figure slot declared")
+        if not fig:
+            continue
+        top = pathlib.PurePosixPath(fig["src"].replace("../", "")).parts[0]
+        check(top in staged_line.split(),
+              f"executive.{where}.figure: the Pages workflow does not stage {top}/ — "
+              f"a file dropped at {fig['src']} would 404")
+        fp = (ROOT / "app" / fig["src"]).resolve()
+        if fp.is_file():
+            head = fp.read_bytes()[:12]
+            png, jpg, webp = head[:8] == b"\x89PNG\r\n\x1a\n", head[:3] == b"\xff\xd8\xff", head[8:12] == b"WEBP"
+            check(png or jpg or webp,
+                  f"executive.{where}.figure: {fig['src']} is not a PNG, JPEG or WebP")
+            check(fp.stat().st_size > 1024, f"executive.{where}.figure: {fig['src']} is suspiciously small")
+            print(f"  figure {where}: {fp.name} present · {fp.stat().st_size//1024} KB")
+        else:
+            print(f"  figure {where}: awaiting {fig['src']} — the app shows a placeholder naming the path")
     # the asks are rendered inside the executive summary, so they carry the same rule
     for a in bs["asks"]:
         check(bool(a.get("th")) and bool(a.get("en")),

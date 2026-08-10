@@ -323,6 +323,18 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
 .exc .rb i{display:block;height:100%;background:var(--ink3);border-radius:99px}
 .exc .rb i.c{background:var(--hero);opacity:.85}
 .exc tr.con td{background:color-mix(in srgb,var(--hero) 7%,transparent)}
+.exc .xfig{margin:16px 0 0;border:1px solid var(--line);border-radius:6px;overflow:hidden;
+  background:var(--panel)}
+.exc .xfig img{width:100%;height:auto;display:block;background:#fff}
+.exc .xfig .ph{display:none}
+.exc .xfig.missing .ph{display:block;padding:22px 18px;text-align:center;
+  border:1px dashed var(--line);border-radius:6px;margin:9px;background:var(--panel2)}
+.exc .xfig.missing .ph b{display:block;font-size:11.5px;color:var(--ink2);margin-bottom:7px}
+.exc .xfig.missing .ph code{font-family:var(--mono);font-size:11px;color:var(--ink);
+  background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:4px 9px;display:inline-block}
+.exc .xfig.missing .ph span{display:block;font-size:10.5px;color:var(--ink3);margin-top:9px}
+.exc .xfig figcaption{padding:9px 12px;border-top:1px solid var(--line);font-size:11px;color:var(--ink2)}
+.exc .xfig.missing figcaption{border-top:0}
 .exc .tk{display:inline-block;font-family:var(--mono);font-size:9px;padding:1px 6px;border-radius:99px;
   border:1px solid var(--line);color:var(--ink3);margin-right:4px;opacity:.4}
 .exc .tk.on{opacity:1;border-color:var(--ink3);color:var(--ink)}
@@ -1324,6 +1336,20 @@ function exLevels(){
       <td>${TOWERS.map(T=>`<span class="tk${has.includes(T)?" on":""}">${esc(T.k)}</span>`).join("")}</td>
       <td class="c">${has.length===4?"":`<span class="pill w">${has.length}/4</span>`}</td></tr>`;}).join("");
 }
+/* A figure slot the owner fills by dropping a file into assets/exec/ on GitHub.
+   The image reports its own absence: on error the <img> is replaced by a panel naming
+   the exact path, so a missing file is visible and actionable rather than a broken
+   icon or a silent gap. No build step, no code change when the file arrives. */
+function exFigure(f){
+  if(!f)return"";
+  const path=f.src.replace("../","");
+  return `<figure class="xfig">
+    <img src="${esc(f.src)}" alt="${esc(L(f))}" decoding="async"
+      onerror="this.closest('.xfig').classList.add('missing');this.remove()">
+    <div class="ph"><b>${esc(lb("figurePending"))}</b><code>${esc(path)}</code>
+      <span>${esc(lb("figureHow"))}</span></div>
+    <figcaption>${esc(L(f))}</figcaption></figure>`;
+}
 /* The competency foundation. Each criterion is scored against a figure the model
    already computes, so the moat is evidenced rather than asserted — and a short
    number is not a defect, it is where the moat is thin. */
@@ -1353,7 +1379,8 @@ function exFoundation(){
     <p class="lead"><b>${esc(L(F.test))}</b></p>
     <div class="cards">${cards}</div>
     <div class="moat"><b>${esc(L(F.moat.k))}</b><span>${esc(L(F.moat.v))}</span></div>
-    <p class="lead" style="color:var(--L3)">${esc(L(F.note))}</p>`;
+    <p class="lead" style="color:var(--L3)">${esc(L(F.note))}</p>
+    ${exFigure(F.figure)}`;
 }
 /* The revenue mix. Percentages come from the model and the bar is drawn from them,
    so the picture cannot disagree with the table beside it. */
@@ -1374,7 +1401,8 @@ function exRevenue(){
     <div class="skey"><span><i class="c"></i>${esc(lb("contracted"))} ${contracted}%</span>
       <span><i></i>${esc(lb("perProject"))} ${tot-contracted}%</span></div>
     <table><tbody>${rows}</tbody></table>
-    <p class="lead">${esc(L(R.note))}</p>`;
+    <p class="lead">${esc(L(R.note))}</p>
+    ${exFigure(R.figure)}`;
 }
 function drawExec(){
   const sec=EX.sections.map(s=>`<div class="xs"><i>${s.n}</i>
@@ -1897,7 +1925,7 @@ $("refList").innerHTML=(M.references||[]).map(r=>
   `<span title="${esc(r.title)}${r.restriction?" — "+esc(r.restriction):""}">${esc(r.id)} <b>${esc(r.publisher)}</b>${r.restriction?" ⚠":""}</span>`).join("");
 $("sheetX").onclick=()=>{S.sel=null;S.selS=null;S.selB=null;S.selP=null;detail();req();};
 syncUI();stats();detail();draw();
-Object.assign(window,{M,S,SC,applyLayout,ROW_K,HUB_U,HUB_V,CT,LV,TOWERS,TW,BLOCKLINKS,FLAT,drawFlat,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs,drawBoard,TEAM,LSTD,DREP,BRD,twStats,LREP,DT,boardLayers,boardTwin,ACON,boardConcepts,EX,drawExec,exStats,exFoundation,exRevenue,L,DASH,DASHN,seamLv,seamRegister,seamCSV,CSVCOL});
+Object.assign(window,{M,S,SC,applyLayout,ROW_K,HUB_U,HUB_V,CT,LV,TOWERS,TW,BLOCKLINKS,FLAT,drawFlat,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs,drawBoard,TEAM,LSTD,DREP,BRD,twStats,LREP,DT,boardLayers,boardTwin,ACON,boardConcepts,EX,drawExec,exStats,exFoundation,exRevenue,exFigure,L,DASH,DASHN,seamLv,seamRegister,seamCSV,CSVCOL});
 </script>
 </body>
 </html>

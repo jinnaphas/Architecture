@@ -5554,6 +5554,14 @@
       "perProject": {
         "th": "ได้มาเป็นครั้ง ๆ",
         "en": "won project by project"
+      },
+      "figurePending": {
+        "th": "ยังไม่มีไฟล์รูป — วางไฟล์ไว้ที่",
+        "en": "No image yet — drop the file at"
+      },
+      "figureHow": {
+        "th": "วางไฟล์ใน GitHub แล้วรูปจะขึ้นเองโดยไม่ต้องแก้โค้ด",
+        "en": "Drop the file into GitHub and it appears here — no code change needed"
       }
     },
     "findings": [
@@ -5668,6 +5676,11 @@
       "note": {
         "th": "ช่องที่ยังว่างในตัวเลขสามข้อนี้ ไม่ใช่ข้อบกพร่องของเครื่องมือ แต่คือจุดที่คูเมืองยังตื้น",
         "en": "Where these three numbers fall short, that is not a defect in the tooling — it is where the moat is still shallow."
+      },
+      "figure": {
+        "src": "../assets/exec/core-competency.png",
+        "th": "รายงานสมรรถนะหลักและความได้เปรียบในการแข่งขันที่ยั่งยืนของ Precise",
+        "en": "Precise — core competencies and sustainable competitive advantage"
       }
     },
     "revenue": {
@@ -5737,7 +5750,12 @@
         "recurring",
         "ppa",
         "invest"
-      ]
+      ],
+      "figure": {
+        "src": "../assets/exec/revenue-target.png",
+        "th": "ภาพเป้าหมายโครงสร้างรายได้",
+        "en": "The revenue mix we are aiming at"
+      }
     },
     "chain": {
       "k": {

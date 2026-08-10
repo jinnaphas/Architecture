@@ -121,6 +121,13 @@ summing to 100%, with the 55% tied to contracts and assets marked apart from the
 project by project. Both were supplied as pictures and are rebuilt as data, so they follow
 the theme, switch language with everything else, and cannot disagree with the model.
 
+Both sections carry a **figure slot** the owner fills without touching code: drop
+`core-competency.png` or `revenue-target.png` into `assets/exec/` on GitHub and it appears.
+Until then the slot renders a panel naming the exact path, so a missing figure is visible
+and actionable rather than a broken icon or an empty box. `verify.py` checks that the
+directory is staged for Pages — otherwise a file dropped there would 404 the way the demo
+video once did — and that any file which *is* present is a real PNG, JPEG or WebP.
+
 `verify.py` enforces the bilingual rule structurally: it walks the executive block and fails
 if any leaf carrying `th` is missing `en` or vice versa, so a half-translated summary cannot
 ship. Each tower's diagram also records how many layers, domains and zones it depicts, and
