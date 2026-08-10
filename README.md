@@ -110,6 +110,24 @@ on one scrolling screen. A **ไทย / EN** toggle appears only in this mode a
 string, including the diagram captions and the board's asks. The other three modes stay Thai,
 which is the convention for the working views.
 
+It opens on the **foundation**: the three tests of a core competency that resists
+imitation — complexity, organisational diffuseness, well-developed interfaces — each
+scored against a figure this repository already computes. Complexity is the mapped
+structure; diffuseness is ownership actually named by layer and by domain; interfaces are
+seams with a contract behind them. Two of the three fall short today, and the cards say so
+rather than rounding up: that is where the moat is thin, and it is the same gap the board
+report counts. It closes on the **destination** — the targeted revenue mix, six streams
+summing to 100%, with the 55% tied to contracts and assets marked apart from the 45% won
+project by project. Both were supplied as pictures and are rebuilt as data, so they follow
+the theme, switch language with everything else, and cannot disagree with the model.
+
+Both sections carry a **figure slot** the owner fills without touching code: drop
+`core-competency.png` or `revenue-target.png` into `assets/exec/` on GitHub and it appears.
+Until then the slot renders a panel naming the exact path, so a missing figure is visible
+and actionable rather than a broken icon or an empty box. `verify.py` checks that the
+directory is staged for Pages — otherwise a file dropped there would 404 the way the demo
+video once did — and that any file which *is* present is a real PNG, JPEG or WebP.
+
 `verify.py` enforces the bilingual rule structurally: it walks the executive block and fails
 if any leaf carrying `th` is missing `en` or vice versa, so a half-translated summary cannot
 ship. Each tower's diagram also records how many layers, domains and zones it depicts, and
