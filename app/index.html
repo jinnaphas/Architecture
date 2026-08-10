@@ -293,6 +293,36 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
 .exc .xs h3{font-size:12.5px;font-weight:600;margin:0 0 5px}
 .exc .xs p{font-size:11.5px;line-height:1.65;color:var(--ink2);margin:0;max-width:760px}
 .exc .xs p.wy{margin-top:6px;color:var(--ink3);font-style:italic}
+.exc .cd.fdn{display:flex;flex-direction:column}
+.exc .cd.fdn .ev{font-size:10.5px;color:var(--ink3);margin-top:7px;line-height:1.5;flex:1}
+.exc .mtr{height:5px;border-radius:99px;background:var(--panel2);overflow:hidden;margin-top:10px}
+.exc .mtr i{display:block;height:100%;background:var(--L4);border-radius:99px}
+.exc .cd.thin .mtr i{background:var(--L3)}
+.exc .mtx{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;margin-top:5px}
+.exc .mtx b{font-weight:600;color:var(--ink)}
+.exc .mtx span{color:var(--ink3)}
+.exc .cd.thin{border-color:color-mix(in srgb,var(--L3) 45%,var(--line))}
+.exc .moat{margin-top:14px;padding:13px 15px;border-radius:6px;border:1px solid var(--line);
+  background:var(--panel2)}
+.exc .moat b{display:block;font-size:12.5px;margin-bottom:4px}
+.exc .moat span{font-size:11.5px;color:var(--ink2);line-height:1.6}
+.exc .chain{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:22px 0 4px;
+  padding:11px 13px;border:1px dashed var(--line);border-radius:6px}
+.exc .chain span{font-size:11.5px;color:var(--ink2)}
+.exc .chain b{font-family:var(--mono);color:var(--ink3)}
+.exc .stack{display:flex;height:30px;border-radius:5px;overflow:hidden;margin:14px 0 8px;
+  border:1px solid var(--line)}
+.exc .stack i{display:block;background:var(--panel2);border-right:1px solid var(--panel)}
+.exc .stack i.c{background:var(--hero);opacity:.85}
+.exc .stack i:last-child{border-right:0}
+.exc .skey{display:flex;gap:16px;font-family:var(--mono);font-size:10px;color:var(--ink3);margin-bottom:6px}
+.exc .skey i{display:inline-block;width:11px;height:11px;border-radius:2px;background:var(--panel2);
+  border:1px solid var(--line);vertical-align:-2px;margin-right:5px}
+.exc .skey i.c{background:var(--hero);border-color:var(--hero);opacity:.85}
+.exc .rb{height:8px;border-radius:99px;background:var(--panel2);overflow:hidden}
+.exc .rb i{display:block;height:100%;background:var(--ink3);border-radius:99px}
+.exc .rb i.c{background:var(--hero);opacity:.85}
+.exc tr.con td{background:color-mix(in srgb,var(--hero) 7%,transparent)}
 .exc .tk{display:inline-block;font-family:var(--mono);font-size:9px;padding:1px 6px;border-radius:99px;
   border:1px solid var(--line);color:var(--ink3);margin-right:4px;opacity:.4}
 .exc .tk.on{opacity:1;border-color:var(--ink3);color:var(--ink)}
@@ -1294,6 +1324,58 @@ function exLevels(){
       <td>${TOWERS.map(T=>`<span class="tk${has.includes(T)?" on":""}">${esc(T.k)}</span>`).join("")}</td>
       <td class="c">${has.length===4?"":`<span class="pill w">${has.length}/4</span>`}</td></tr>`;}).join("");
 }
+/* The competency foundation. Each criterion is scored against a figure the model
+   already computes, so the moat is evidenced rather than asserted — and a short
+   number is not a defect, it is where the moat is thin. */
+function exFoundation(){
+  const F=EX.foundation;
+  const sg=TW.SGAM;
+  const named=SEAMS.filter(x=>{const a=BY[x[0]];return a.T.k==="SGAM"&&(a.lc==="BUS"||a.lc==="CMP");}).length;
+  const seamAll=M.meta.sgamSeamEligible;
+  const lay=TEAM.layerExperts.filter(x=>x.owners.length).length;
+  const dom=TEAM.domainExperts.filter(x=>x.owners.length).length;
+  const MET={
+    structure:{a:M.meta.totalCubes,b:null,txt:`${M.meta.totalCubes} cubes · ${SEAMS.length} couplings`,pct:100},
+    ownership:{a:dom,b:TEAM.domainExperts.length,
+      txt:`${lay}/${TEAM.layerExperts.length} layers · ${dom}/${TEAM.domainExperts.length} domains`,
+      pct:Math.round(dom/TEAM.domainExperts.length*100)},
+    seams:{a:named,b:seamAll,txt:`${named}/${seamAll}`,pct:Math.round(named/seamAll*100)},
+  };
+  const cards=F.criteria.map(c=>{const m=MET[c.metric],full=m.pct>=100;
+    return `<div class="cd fdn${full?"":" thin"}">
+      <div class="k">${esc(L(c.k))}</div>
+      <p>${esc(L(c.v))}</p>
+      <p class="ev">${esc(lb("evidence"))} — ${esc(L(c.evidence))}</p>
+      <div class="mtr"><i style="width:${m.pct}%"></i></div>
+      <div class="mtx"><b>${esc(m.txt)}</b><span>${m.pct}%</span></div></div>`;}).join("");
+  return `<h2>${esc(L(F.title))}<s>${esc(lb("foundationOf"))}</s></h2>
+    <p class="thesis" style="font-size:13px">${esc(L(F.lead))}</p>
+    <p class="lead"><b>${esc(L(F.test))}</b></p>
+    <div class="cards">${cards}</div>
+    <div class="moat"><b>${esc(L(F.moat.k))}</b><span>${esc(L(F.moat.v))}</span></div>
+    <p class="lead" style="color:var(--L3)">${esc(L(F.note))}</p>`;
+}
+/* The revenue mix. Percentages come from the model and the bar is drawn from them,
+   so the picture cannot disagree with the table beside it. */
+function exRevenue(){
+  const R=EX.revenue,tot=R.streams.reduce((a,b)=>a+b.pct,0);
+  const set=new Set(R.recurringIds),contracted=R.streams.filter(x=>set.has(x.id))
+    .reduce((a,b)=>a+b.pct,0);
+  const bar=R.streams.map(x=>`<i class="${set.has(x.id)?"c":""}" style="width:${x.pct/tot*100}%"
+      title="${esc(L(x.n))} ${x.pct}%"></i>`).join("");
+  const rows=R.streams.map(x=>`<tr${set.has(x.id)?' class="con"':''}>
+      <td>${esc(L(x.n))}</td>
+      <td class="c" style="width:44px">${x.pct}%</td>
+      <td style="width:46%"><div class="rb"><i class="${set.has(x.id)?"c":""}"
+        style="width:${x.pct/25*100}%"></i></div></td></tr>`).join("");
+  return `<h2>${esc(L(R.title))}<s>${esc(lb("target"))} · ${tot}%</s></h2>
+    <p class="lead">${esc(L(R.lead))}</p>
+    <div class="stack">${bar}</div>
+    <div class="skey"><span><i class="c"></i>${esc(lb("contracted"))} ${contracted}%</span>
+      <span><i></i>${esc(lb("perProject"))} ${tot-contracted}%</span></div>
+    <table><tbody>${rows}</tbody></table>
+    <p class="lead">${esc(L(R.note))}</p>`;
+}
 function drawExec(){
   const sec=EX.sections.map(s=>`<div class="xs"><i>${s.n}</i>
     <div><h3>${esc(L(s.h))}</h3><p>${esc(L(s.p))}</p>
@@ -1310,11 +1392,15 @@ function drawExec(){
       <span style="margin-left:auto">${esc(L(EX.status))}</span></div>
     <p class="thesis">${esc(L(EX.thesis))}</p>
     <div class="xnums">${st}</div>
+    ${exFoundation()}
+    <div class="chain">${EX.chain.steps.map((x,i)=>
+      `<span>${esc(L(x))}</span>`).join('<b>→</b>')}</div>
     <h2>${esc(lb("diagram"))}</h2><div class="tfs">${exTowers()}</div>
     ${sec}
     <h2>L1–L8</h2>
-    <table><tbody>${exLevels()}</tbody></table>
+    <table class="lvtab"><tbody>${exLevels()}</tbody></table>
     <h2>F2 · F3</h2><div class="cards">${fnd}</div>
+    ${exRevenue()}
     <h2>${esc(L(EX.sections[4].h))}</h2>${asks}
     <p class="foot">${esc(lb("readMore"))}</p></div>`;
 }
@@ -1811,7 +1897,7 @@ $("refList").innerHTML=(M.references||[]).map(r=>
   `<span title="${esc(r.title)}${r.restriction?" — "+esc(r.restriction):""}">${esc(r.id)} <b>${esc(r.publisher)}</b>${r.restriction?" ⚠":""}</span>`).join("");
 $("sheetX").onclick=()=>{S.sel=null;S.selS=null;S.selB=null;S.selP=null;detail();req();};
 syncUI();stats();detail();draw();
-Object.assign(window,{M,S,SC,applyLayout,ROW_K,HUB_U,HUB_V,CT,LV,TOWERS,TW,BLOCKLINKS,FLAT,drawFlat,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs,drawBoard,TEAM,LSTD,DREP,BRD,twStats,LREP,DT,boardLayers,boardTwin,ACON,boardConcepts,EX,drawExec,exStats,L,DASH,DASHN,seamLv,seamRegister,seamCSV,CSVCOL});
+Object.assign(window,{M,S,SC,applyLayout,ROW_K,HUB_U,HUB_V,CT,LV,TOWERS,TW,BLOCKLINKS,FLAT,drawFlat,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs,drawBoard,TEAM,LSTD,DREP,BRD,twStats,LREP,DT,boardLayers,boardTwin,ACON,boardConcepts,EX,drawExec,exStats,exFoundation,exRevenue,L,DASH,DASHN,seamLv,seamRegister,seamCSV,CSVCOL});
 </script>
 </body>
 </html>

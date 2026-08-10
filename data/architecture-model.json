@@ -5534,6 +5534,26 @@
       "readMore": {
         "th": "ดูรายละเอียดในโหมดรายงานบอร์ด",
         "en": "Full detail is in the board report mode"
+      },
+      "foundationOf": {
+        "th": "ฐานของทั้งสี่สถาปัตยกรรม",
+        "en": "the foundation under all four architectures"
+      },
+      "evidence": {
+        "th": "วัดจาก",
+        "en": "measured by"
+      },
+      "target": {
+        "th": "เป้าหมาย",
+        "en": "target"
+      },
+      "contracted": {
+        "th": "ผูกกับสัญญาและสินทรัพย์",
+        "en": "tied to contracts and assets"
+      },
+      "perProject": {
+        "th": "ได้มาเป็นครั้ง ๆ",
+        "en": "won project by project"
       }
     },
     "findings": [
@@ -5567,6 +5587,177 @@
           "en": "A factory and a farm can exchange at this level without going through PCC — a structural exclusion, not an oversight."
         }
       }
-    ]
+    ],
+    "foundation": {
+      "title": {
+        "th": "ฐาน — สมรรถนะหลักที่คู่แข่งเลียนแบบได้ยาก",
+        "en": "The foundation — core competencies a competitor cannot easily copy"
+      },
+      "lead": {
+        "th": "สถาปัตยกรรมทั้งสี่ไม่ได้ลอยอยู่เฉย ๆ มันคือโครงสร้างที่ทำให้สมรรถนะหลักขององค์กรกระจายตัวและต่อกันติด",
+        "en": "The four architectures are not an exercise in themselves. They are the structure that spreads the firm's core competencies across the organisation and makes them join up."
+      },
+      "test": {
+        "th": "เกณฑ์สามข้อที่ใช้ตัดสินว่าสมรรถนะหนึ่งเลียนแบบยากจริงหรือไม่",
+        "en": "The three tests of whether a competency is genuinely hard to imitate"
+      },
+      "criteria": [
+        {
+          "id": "complexity",
+          "k": {
+            "th": "ความซับซ้อน",
+            "en": "Complexity"
+          },
+          "v": {
+            "th": "สมรรถนะหลักเกิดจากกระบวนการทางธุรกิจที่ซับซ้อนมาก และแข็งแรงขึ้นผ่านการเรียนรู้ขององค์กรที่ต้องอาศัยความอดทนและเวลา",
+            "en": "Core competencies grow out of highly complex business processes, and are strengthened by organisational learning that takes patience and time."
+          },
+          "evidence": {
+            "th": "โครงสร้างที่วาดไว้แล้ว — cube และคู่เชื่อมข้ามตึกที่ตั้งชื่อแล้ว",
+            "en": "The structure already mapped — cubes, and named cross-model couplings"
+          },
+          "metric": "structure"
+        },
+        {
+          "id": "diffuseness",
+          "k": {
+            "th": "การกระจายตัวทั่วทั้งองค์กร",
+            "en": "Organizational diffuseness"
+          },
+          "v": {
+            "th": "สมรรถนะหลักพาดผ่านหลายสายงานภายในบริษัท และมักดึงคนนอกเข้ามาร่วมด้วย เช่น ซัพพลายเออร์รายสำคัญ พันธมิตรทางธุรกิจ และลูกค้ากลุ่มชั้นนำ",
+            "en": "A core competency cuts across functions inside the company, and often draws outsiders in — key suppliers, business partners, leading-edge customers."
+          },
+          "evidence": {
+            "th": "เจ้าของที่ระบุตัวได้จริง ตามชั้นและตามโดเมน · โดเมนที่ยังไม่มีเจ้าของคือจุดที่ยังไม่กระจาย",
+            "en": "Ownership actually named, by layer and by domain. The domains with no owner are where it has not spread yet."
+          },
+          "metric": "ownership"
+        },
+        {
+          "id": "interfaces",
+          "k": {
+            "th": "ปฏิสัมพันธ์ที่พัฒนามาอย่างดี",
+            "en": "Well-developed interfaces"
+          },
+          "v": {
+            "th": "สมรรถนะหลักขึ้นอยู่กับวิธีที่คนและองค์กรเรียนรู้ที่จะทำงานร่วมกัน มากกว่าจะขึ้นอยู่กับทักษะทางเทคนิคเฉพาะด้านของแต่ละบุคคล",
+            "en": "A core competency rests on how people and organisations have learned to work together, more than on any one person's technical skill."
+          },
+          "evidence": {
+            "th": "รอยต่อที่มีสัญญากำกับจริง จากตำแหน่งที่มีสิทธิ์ทั้งหมด · ที่เหลือคือปฏิสัมพันธ์ที่ยังไม่ถูกพัฒนา",
+            "en": "Seams with a contract actually behind them, out of every eligible position. The rest are interfaces not yet developed."
+          },
+          "metric": "seams"
+        }
+      ],
+      "moat": {
+        "k": {
+          "th": "คูเมืองกว้าง = ข้อได้เปรียบที่ยั่งยืน",
+          "en": "A wide moat is the durable advantage"
+        },
+        "v": {
+          "th": "ยิ่งทั้งสามข้อจริงมากเท่าไร คูเมืองยิ่งกว้าง และธุรกิจยิ่งป้องกันตัวเองได้ในระยะ 20–30 ปีข้างหน้า",
+          "en": "The more of the three that hold, the wider the moat, and the longer the business defends itself over the next 20–30 years."
+        },
+        "horizon": {
+          "th": "อีก 20–30 ปีข้างหน้า",
+          "en": "the next 20–30 years"
+        }
+      },
+      "note": {
+        "th": "ช่องที่ยังว่างในตัวเลขสามข้อนี้ ไม่ใช่ข้อบกพร่องของเครื่องมือ แต่คือจุดที่คูเมืองยังตื้น",
+        "en": "Where these three numbers fall short, that is not a defect in the tooling — it is where the moat is still shallow."
+      }
+    },
+    "revenue": {
+      "title": {
+        "th": "ปลายทาง — โครงสร้างรายได้ที่ตั้งเป้า",
+        "en": "The destination — the revenue mix we are aiming at"
+      },
+      "lead": {
+        "th": "สัดส่วนที่ตั้งเป้าไว้ รวมกันได้ 100% · เป็นเป้าหมาย ยังไม่ใช่ผลจริง",
+        "en": "The targeted mix, summing to 100%. These are targets, not actuals."
+      },
+      "streams": [
+        {
+          "id": "tender",
+          "pct": 15,
+          "n": {
+            "th": "การประมูลงาน",
+            "en": "Tendering"
+          }
+        },
+        {
+          "id": "omni",
+          "pct": 10,
+          "n": {
+            "th": "ช่องทางขายแบบ Omni",
+            "en": "Omni Channel"
+          }
+        },
+        {
+          "id": "solution",
+          "pct": 20,
+          "n": {
+            "th": "โซลูชันครบวงจรให้ลูกค้า",
+            "en": "Total Customer Solution"
+          }
+        },
+        {
+          "id": "recurring",
+          "pct": 25,
+          "n": {
+            "th": "รายได้ประจำ",
+            "en": "Recurring Revenue"
+          }
+        },
+        {
+          "id": "ppa",
+          "pct": 20,
+          "n": {
+            "th": "สัญญาระยะยาว / PPA",
+            "en": "Long-term Contract / PPA"
+          }
+        },
+        {
+          "id": "invest",
+          "pct": 10,
+          "n": {
+            "th": "รายได้จากการลงทุน",
+            "en": "Investment Income"
+          }
+        }
+      ],
+      "note": {
+        "th": "สามรายการล่างรวมกัน 55% เป็นรายได้ที่ผูกกับสัญญาและสินทรัพย์ ไม่ใช่การชนะประมูลเป็นครั้ง ๆ — นั่นคือส่วนที่สถาปัตยกรรมนี้รองรับโดยตรง",
+        "en": "The bottom three come to 55% and are tied to contracts and assets rather than to winning one tender at a time — and that is the part this architecture directly underwrites."
+      },
+      "recurringIds": [
+        "recurring",
+        "ppa",
+        "invest"
+      ]
+    },
+    "chain": {
+      "k": {
+        "th": "ฐาน → โครงสร้าง → ปลายทาง",
+        "en": "foundation → structure → destination"
+      },
+      "steps": [
+        {
+          "th": "สมรรถนะหลักที่เลียนแบบยาก",
+          "en": "Core competencies that resist imitation"
+        },
+        {
+          "th": "สถาปัตยกรรมสี่ชุดบนสเกลร่วม",
+          "en": "Four architectures on one shared scale"
+        },
+        {
+          "th": "โครงสร้างรายได้ที่ตั้งเป้า",
+          "en": "The revenue mix we are aiming at"
+        }
+      ]
+    }
   }
 }
