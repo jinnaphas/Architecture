@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 800" width="1180" height="800">
+<defs>
+  <marker id="me" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,1 L9,5 L0,9 z" fill="#1a1a1a"/></marker>
+  <marker id="ms" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M9,1 L0,5 L9,9 z" fill="#1a1a1a"/></marker>
+</defs>
+<rect width="1180" height="800" fill="#ffffff"/>
+<rect x="0" y="0" width="1180" height="6" fill="#4a90c2"/>
+<text x="44" y="62" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="26" font-weight="700" fill="#14212a">Domain 3 · Process &amp; Distribution</text>
+<text x="44" y="90" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="15" fill="#4a90c2" font-weight="600">Products</text>
+<text x="44" y="114" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="11.5" fill="#7c8c97">SFAM · Processing + Distribution · 6 interoperability layers x 6 zones = 72 cells</text>
+<text x="44" y="140" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="10.5" font-weight="600" fill="#7c8c97" letter-spacing="1.4">THIS DOMAIN IN THE SFAM VALUE CHAIN</text>
+<rect x="44" y="152" width="206" height="34" rx="5" fill="#f4f7f8" stroke="#c7d0d6" stroke-width="1"/>
+<text x="147" y="174" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="12" font-weight="400" fill="#7c8c97">Cultivation area</text>
+<text x="254" y="174" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="12" fill="#c7d0d6">›</text>
+<rect x="258" y="152" width="206" height="34" rx="5" fill="#f4f7f8" stroke="#c7d0d6" stroke-width="1"/>
+<text x="361" y="174" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="12" font-weight="400" fill="#7c8c97">Livestock</text>
+<text x="468" y="174" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="12" fill="#c7d0d6">›</text>
+<rect x="472" y="152" width="206" height="34" rx="5" fill="#f4f7f8" stroke="#c7d0d6" stroke-width="1"/>
+<text x="575" y="174" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="12" font-weight="400" fill="#7c8c97">Storage</text>
+<text x="682" y="174" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="12" fill="#c7d0d6">›</text>
+<rect x="686" y="152" width="206" height="34" rx="5" fill="#4a90c2" stroke="#4a90c2" stroke-width="2"/>
+<text x="789" y="174" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="12" font-weight="700" fill="#ffffff">Processing</text>
+<text x="896" y="174" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="12" fill="#c7d0d6">›</text>
+<rect x="900" y="152" width="206" height="34" rx="5" fill="#4a90c2" stroke="#4a90c2" stroke-width="2"/>
+<text x="1003" y="174" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="12" font-weight="700" fill="#ffffff">Distribution</text>
+<text x="44" y="224" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="10.5" font-weight="600" fill="#7c8c97" letter-spacing="1.4">ZONES →</text>
+<text x="274" y="252" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="10.5" font-weight="600" fill="#14212a">Physical objects</text>
+<text x="434" y="252" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="10.5" font-weight="600" fill="#14212a">Sensing &amp; actuation</text>
+<text x="594" y="252" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="10.5" font-weight="600" fill="#14212a">Production control</text>
+<text x="754" y="252" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="10.5" font-weight="600" fill="#14212a">Operation execution</text>
+<text x="914" y="252" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="10.5" font-weight="600" fill="#14212a">Management information</text>
+<text x="1074" y="252" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="10.5" font-weight="600" fill="#14212a">Connected world</text>
+<rect x="44" y="268" width="146" height="76" rx="4" fill="#f2a9a4" fill-opacity=".45" stroke="#d9534f" stroke-width="1"/>
+<text x="56" y="298" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="13" font-weight="700" fill="#14212a">Business</text>
+<text x="56" y="316" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="10" fill="#5f7078">BUS Layer</text>
+<rect x="194" y="268" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="354" y="268" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="514" y="268" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="674" y="268" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="834" y="268" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="994" y="268" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="44" y="350" width="146" height="76" rx="4" fill="#f7dda8" fill-opacity=".45" stroke="#e0a33a" stroke-width="1"/>
+<text x="56" y="380" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="13" font-weight="700" fill="#14212a">Function</text>
+<text x="56" y="398" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="10" fill="#5f7078">FUN Layer</text>
+<rect x="194" y="350" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="354" y="350" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="514" y="350" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="674" y="350" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="834" y="350" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="994" y="350" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="44" y="432" width="146" height="76" rx="4" fill="#a9dabd" fill-opacity=".45" stroke="#4da97c" stroke-width="1"/>
+<text x="56" y="462" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="13" font-weight="700" fill="#14212a">Information</text>
+<text x="56" y="480" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="10" fill="#5f7078">INF Layer</text>
+<rect x="194" y="432" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="354" y="432" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="514" y="432" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="674" y="432" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="834" y="432" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="994" y="432" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="44" y="514" width="146" height="76" rx="4" fill="#a0d7d5" fill-opacity=".45" stroke="#2f9e9e" stroke-width="1"/>
+<text x="56" y="544" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="13" font-weight="700" fill="#14212a">Communication</text>
+<text x="56" y="562" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="10" fill="#5f7078">COM Layer</text>
+<rect x="194" y="514" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="354" y="514" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="514" y="514" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="674" y="514" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="834" y="514" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="994" y="514" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="44" y="596" width="146" height="76" rx="4" fill="#a9cee5" fill-opacity=".45" stroke="#4a90c2" stroke-width="1"/>
+<text x="56" y="626" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="13" font-weight="700" fill="#14212a">Integration</text>
+<text x="56" y="644" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="10" fill="#5f7078">ITG Layer</text>
+<rect x="194" y="596" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="354" y="596" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="514" y="596" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="674" y="596" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="834" y="596" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="994" y="596" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="44" y="678" width="146" height="76" rx="4" fill="#e6e8ea" fill-opacity=".45" stroke="#9aa0a6" stroke-width="1"/>
+<text x="56" y="708" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="13" font-weight="700" fill="#14212a">Asset</text>
+<text x="56" y="726" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="10" fill="#5f7078">AST Layer</text>
+<rect x="194" y="678" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="354" y="678" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="514" y="678" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="674" y="678" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="834" y="678" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<rect x="994" y="678" width="154" height="76" rx="4" fill="#ffffff" stroke="#c7d0d6" stroke-width="1"/>
+<text x="44" y="782" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans Thai', sans-serif" font-size="11" fill="#7c8c97">Write the value, actor and asset for this domain into each cell. A cell left empty is a gap, not a mistake.</text>
+</svg>
