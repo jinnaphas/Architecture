@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1220 980" width="1220" height="980">
+<defs>
+  <marker id="me" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,1 L9,5 L0,9 z" fill="#1a1a1a"/></marker>
+  <marker id="ms" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M9,1 L0,5 L9,9 z" fill="#1a1a1a"/></marker>
+</defs>
+<rect width="1220" height="980" fill="#ffffff"/>
+<polygon points="250.0,690.0 640.0,787.5 1018.0,634.5 628.0,537.0" fill="#e6e8ea" fill-opacity="0.55" stroke="#9aa0a6" stroke-width="1.5"/>
+<line x1="328.0" y1="709.5" x2="706.0" y2="556.5" stroke="#9aa0a6" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="406.0" y1="729.0" x2="784.0" y2="576.0" stroke="#9aa0a6" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="484.0" y1="748.5" x2="862.0" y2="595.5" stroke="#9aa0a6" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="562.0" y1="768.0" x2="940.0" y2="615.0" stroke="#9aa0a6" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="313.0" y1="664.5" x2="703.0" y2="762.0" stroke="#9aa0a6" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="376.0" y1="639.0" x2="766.0" y2="736.5" stroke="#9aa0a6" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="439.0" y1="613.5" x2="829.0" y2="711.0" stroke="#9aa0a6" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="502.0" y1="588.0" x2="892.0" y2="685.5" stroke="#9aa0a6" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="565.0" y1="562.5" x2="955.0" y2="660.0" stroke="#9aa0a6" stroke-width=".7" stroke-opacity=".85"/>
+<polygon points="363.3,663.0 383.6,668.1 403.7,660.0 383.4,654.9" fill="#f0a848" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="489.3,612.0 509.6,617.1 529.7,609.0 509.4,603.9" fill="#f0a848" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="615.3,561.0 635.6,566.1 655.7,558.0 635.4,552.9" fill="#f0a848" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="441.3,682.5 461.6,687.6 481.7,679.5 461.4,674.4" fill="#f0a848" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="567.3,631.5 587.6,636.6 607.7,628.5 587.4,623.4" fill="#f0a848" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="693.3,580.5 713.6,585.6 733.7,577.5 713.4,572.4" fill="#f0a848" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="519.3,702.0 539.6,707.1 559.7,699.0 539.4,693.9" fill="#f0a848" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="645.3,651.0 665.6,656.1 685.7,648.0 665.4,642.9" fill="#f0a848" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="771.3,600.0 791.6,605.1 811.7,597.0 791.4,591.9" fill="#f0a848" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="597.3,721.5 617.6,726.6 637.7,718.5 617.4,713.4" fill="#f0a848" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="723.3,670.5 743.6,675.6 763.7,667.5 743.4,662.4" fill="#f0a848" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="849.3,619.5 869.6,624.6 889.7,616.5 869.4,611.4" fill="#f0a848" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="675.3,741.0 695.6,746.1 715.7,738.0 695.4,732.9" fill="#f0a848" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="801.3,690.0 821.6,695.1 841.7,687.0 821.4,681.9" fill="#f0a848" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="927.3,639.0 947.6,644.1 967.7,636.0 947.4,630.9" fill="#f0a848" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="250.0,606.0 640.0,703.5 1018.0,550.5 628.0,453.0" fill="#a9cee5" fill-opacity="0.38" stroke="#4a90c2" stroke-width="1.5"/>
+<line x1="328.0" y1="625.5" x2="706.0" y2="472.5" stroke="#4a90c2" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="406.0" y1="645.0" x2="784.0" y2="492.0" stroke="#4a90c2" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="484.0" y1="664.5" x2="862.0" y2="511.5" stroke="#4a90c2" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="562.0" y1="684.0" x2="940.0" y2="531.0" stroke="#4a90c2" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="313.0" y1="580.5" x2="703.0" y2="678.0" stroke="#4a90c2" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="376.0" y1="555.0" x2="766.0" y2="652.5" stroke="#4a90c2" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="439.0" y1="529.5" x2="829.0" y2="627.0" stroke="#4a90c2" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="502.0" y1="504.0" x2="892.0" y2="601.5" stroke="#4a90c2" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="565.0" y1="478.5" x2="955.0" y2="576.0" stroke="#4a90c2" stroke-width=".7" stroke-opacity=".85"/>
+<polygon points="350.8,575.9 396.0,587.2 416.2,579.1 371.0,567.8" fill="#4a86c8" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="476.8,524.9 522.0,536.2 542.2,528.1 497.0,516.8" fill="#3fa9a2" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="602.8,473.9 648.0,485.2 668.2,477.1 623.0,465.8" fill="#4a86c8" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="428.8,595.4 474.0,606.7 494.2,598.6 449.0,587.3" fill="#8f6fc0" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="554.8,544.4 600.0,555.7 620.2,547.6 575.0,536.3" fill="#5fae6a" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="680.8,493.4 726.0,504.7 746.2,496.6 701.0,485.3" fill="#8f6fc0" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="506.8,614.9 552.0,626.2 572.2,618.1 527.0,606.8" fill="#3fa9a2" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="632.8,563.9 678.0,575.2 698.2,567.1 653.0,555.8" fill="#4a86c8" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="758.8,512.9 804.0,524.2 824.2,516.1 779.0,504.8" fill="#3fa9a2" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="584.8,634.4 630.0,645.7 650.2,637.6 605.0,626.3" fill="#5fae6a" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="710.8,583.4 756.0,594.7 776.2,586.6 731.0,575.3" fill="#8f6fc0" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="836.8,532.4 882.0,543.7 902.2,535.6 857.0,524.3" fill="#5fae6a" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="662.8,653.9 708.0,665.2 728.2,657.1 683.0,645.8" fill="#4a86c8" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="788.8,602.9 834.0,614.2 854.2,606.1 809.0,594.8" fill="#3fa9a2" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="914.8,551.9 960.0,563.2 980.2,555.1 935.0,543.8" fill="#4a86c8" stroke="#ffffff" stroke-width=".6"/>
+<polygon points="250.0,522.0 640.0,619.5 1018.0,466.5 628.0,369.0" fill="#a0d7d5" fill-opacity="0.38" stroke="#2f9e9e" stroke-width="1.5"/>
+<line x1="328.0" y1="541.5" x2="706.0" y2="388.5" stroke="#2f9e9e" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="406.0" y1="561.0" x2="784.0" y2="408.0" stroke="#2f9e9e" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="484.0" y1="580.5" x2="862.0" y2="427.5" stroke="#2f9e9e" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="562.0" y1="600.0" x2="940.0" y2="447.0" stroke="#2f9e9e" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="313.0" y1="496.5" x2="703.0" y2="594.0" stroke="#2f9e9e" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="376.0" y1="471.0" x2="766.0" y2="568.5" stroke="#2f9e9e" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="439.0" y1="445.5" x2="829.0" y2="543.0" stroke="#2f9e9e" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="502.0" y1="420.0" x2="892.0" y2="517.5" stroke="#2f9e9e" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="565.0" y1="394.5" x2="955.0" y2="492.0" stroke="#2f9e9e" stroke-width=".7" stroke-opacity=".85"/>
+<polygon points="250.0,438.0 640.0,535.5 1018.0,382.5 628.0,285.0" fill="#a9dabd" fill-opacity="0.38" stroke="#4da97c" stroke-width="1.5"/>
+<line x1="328.0" y1="457.5" x2="706.0" y2="304.5" stroke="#4da97c" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="406.0" y1="477.0" x2="784.0" y2="324.0" stroke="#4da97c" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="484.0" y1="496.5" x2="862.0" y2="343.5" stroke="#4da97c" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="562.0" y1="516.0" x2="940.0" y2="363.0" stroke="#4da97c" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="313.0" y1="412.5" x2="703.0" y2="510.0" stroke="#4da97c" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="376.0" y1="387.0" x2="766.0" y2="484.5" stroke="#4da97c" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="439.0" y1="361.5" x2="829.0" y2="459.0" stroke="#4da97c" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="502.0" y1="336.0" x2="892.0" y2="433.5" stroke="#4da97c" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="565.0" y1="310.5" x2="955.0" y2="408.0" stroke="#4da97c" stroke-width=".7" stroke-opacity=".85"/>
+<polygon points="250.0,354.0 640.0,451.5 1018.0,298.5 628.0,201.0" fill="#f7dda8" fill-opacity="0.4" stroke="#e0a33a" stroke-width="1.5"/>
+<line x1="328.0" y1="373.5" x2="706.0" y2="220.5" stroke="#e0a33a" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="406.0" y1="393.0" x2="784.0" y2="240.0" stroke="#e0a33a" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="484.0" y1="412.5" x2="862.0" y2="259.5" stroke="#e0a33a" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="562.0" y1="432.0" x2="940.0" y2="279.0" stroke="#e0a33a" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="313.0" y1="328.5" x2="703.0" y2="426.0" stroke="#e0a33a" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="376.0" y1="303.0" x2="766.0" y2="400.5" stroke="#e0a33a" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="439.0" y1="277.5" x2="829.0" y2="375.0" stroke="#e0a33a" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="502.0" y1="252.0" x2="892.0" y2="349.5" stroke="#e0a33a" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="565.0" y1="226.5" x2="955.0" y2="324.0" stroke="#e0a33a" stroke-width=".7" stroke-opacity=".85"/>
+<polygon points="250.0,270.0 640.0,367.5 1018.0,214.5 628.0,117.0" fill="#f2a9a4" fill-opacity="0.42" stroke="#d9534f" stroke-width="1.5"/>
+<line x1="328.0" y1="289.5" x2="706.0" y2="136.5" stroke="#d9534f" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="406.0" y1="309.0" x2="784.0" y2="156.0" stroke="#d9534f" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="484.0" y1="328.5" x2="862.0" y2="175.5" stroke="#d9534f" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="562.0" y1="348.0" x2="940.0" y2="195.0" stroke="#d9534f" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="313.0" y1="244.5" x2="703.0" y2="342.0" stroke="#d9534f" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="376.0" y1="219.0" x2="766.0" y2="316.5" stroke="#d9534f" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="439.0" y1="193.5" x2="829.0" y2="291.0" stroke="#d9534f" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="502.0" y1="168.0" x2="892.0" y2="265.5" stroke="#d9534f" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="565.0" y1="142.5" x2="955.0" y2="240.0" stroke="#d9534f" stroke-width=".7" stroke-opacity=".85"/>
+<line x1="383.5" y1="661.5" x2="383.5" y2="577.5" stroke="#c0392b" stroke-width="1.5" stroke-opacity=".85"/>
+<line x1="509.5" y1="610.5" x2="509.5" y2="526.5" stroke="#c0392b" stroke-width="1.5" stroke-opacity=".85"/>
+<line x1="635.5" y1="559.5" x2="635.5" y2="475.5" stroke="#c0392b" stroke-width="1.5" stroke-opacity=".85"/>
+<line x1="461.5" y1="681.0" x2="461.5" y2="597.0" stroke="#c0392b" stroke-width="1.5" stroke-opacity=".85"/>
+<line x1="587.5" y1="630.0" x2="587.5" y2="546.0" stroke="#c0392b" stroke-width="1.5" stroke-opacity=".85"/>
+<line x1="713.5" y1="579.0" x2="713.5" y2="495.0" stroke="#c0392b" stroke-width="1.5" stroke-opacity=".85"/>
+<line x1="539.5" y1="700.5" x2="539.5" y2="616.5" stroke="#c0392b" stroke-width="1.5" stroke-opacity=".85"/>
+<line x1="665.5" y1="649.5" x2="665.5" y2="565.5" stroke="#c0392b" stroke-width="1.5" stroke-opacity=".85"/>
+<line x1="791.5" y1="598.5" x2="791.5" y2="514.5" stroke="#c0392b" stroke-width="1.5" stroke-opacity=".85"/>
+<line x1="617.5" y1="720.0" x2="617.5" y2="636.0" stroke="#c0392b" stroke-width="1.5" stroke-opacity=".85"/>
+<line x1="743.5" y1="669.0" x2="743.5" y2="585.0" stroke="#c0392b" stroke-width="1.5" stroke-opacity=".85"/>
+<line x1="869.5" y1="618.0" x2="869.5" y2="534.0" stroke="#c0392b" stroke-width="1.5" stroke-opacity=".85"/>
+<line x1="695.5" y1="739.5" x2="695.5" y2="655.5" stroke="#c0392b" stroke-width="1.5" stroke-opacity=".85"/>
+<line x1="821.5" y1="688.5" x2="821.5" y2="604.5" stroke="#c0392b" stroke-width="1.5" stroke-opacity=".85"/>
+<line x1="947.5" y1="637.5" x2="947.5" y2="553.5" stroke="#c0392b" stroke-width="1.5" stroke-opacity=".85"/>
+<text x="212" y="625.7" text-anchor="end" font-family="Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Noto Serif', 'Times New Roman', serif" font-size="15" fill="#1a1a1a">Asset Layer</text>
+<text x="212" y="541.7" text-anchor="end" font-family="Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Noto Serif', 'Times New Roman', serif" font-size="15" fill="#1a1a1a">Integration Layer</text>
+<text x="212" y="457.7" text-anchor="end" font-family="Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Noto Serif', 'Times New Roman', serif" font-size="15" fill="#1a1a1a">Communication Layer</text>
+<text x="212" y="373.7" text-anchor="end" font-family="Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Noto Serif', 'Times New Roman', serif" font-size="15" fill="#1a1a1a">Information Layer</text>
+<text x="212" y="289.7" text-anchor="end" font-family="Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Noto Serif', 'Times New Roman', serif" font-size="15" fill="#1a1a1a">Function Layer</text>
+<text x="212" y="205.7" text-anchor="end" font-family="Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Noto Serif', 'Times New Roman', serif" font-size="15" fill="#1a1a1a">Business Layer</text>
+<text x="254.0" y="724.0" font-family="Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Noto Serif', 'Times New Roman', serif" font-size="11.5" fill="#1a1a1a" transform="rotate(14 254.0 724.0)">Cultivation area</text>
+<line x1="250.0" y1="696.0" x2="246.0" y2="708.0" stroke="#1a1a1a" stroke-width=".9"/>
+<text x="332.0" y="743.5" font-family="Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Noto Serif', 'Times New Roman', serif" font-size="11.5" fill="#1a1a1a" transform="rotate(14 332.0 743.5)">Livestock</text>
+<line x1="328.0" y1="715.5" x2="324.0" y2="727.5" stroke="#1a1a1a" stroke-width=".9"/>
+<text x="410.0" y="763.0" font-family="Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Noto Serif', 'Times New Roman', serif" font-size="11.5" fill="#1a1a1a" transform="rotate(14 410.0 763.0)">Storage</text>
+<line x1="406.0" y1="735.0" x2="402.0" y2="747.0" stroke="#1a1a1a" stroke-width=".9"/>
+<text x="488.0" y="782.5" font-family="Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Noto Serif', 'Times New Roman', serif" font-size="11.5" fill="#1a1a1a" transform="rotate(14 488.0 782.5)">Processing</text>
+<line x1="484.0" y1="754.5" x2="480.0" y2="766.5" stroke="#1a1a1a" stroke-width=".9"/>
+<text x="566.0" y="802.0" font-family="Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Noto Serif', 'Times New Roman', serif" font-size="11.5" fill="#1a1a1a" transform="rotate(14 566.0 802.0)">Distribution</text>
+<line x1="562.0" y1="774.0" x2="558.0" y2="786.0" stroke="#1a1a1a" stroke-width=".9"/>
+<line x1="224.0" y1="756.0" x2="634.0" y2="853.5" stroke="#1a1a1a" stroke-width="1.6" marker-start="url(#ms)" marker-end="url(#me)"/>
+<text x="429.0" y="826.8" text-anchor="middle" font-family="Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Noto Serif', 'Times New Roman', serif" font-size="16" fill="#1a1a1a">Domains</text>
+<text x="684.0" y="804.6" font-family="Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Noto Serif', 'Times New Roman', serif" font-size="11" fill="#1a1a1a" transform="rotate(-22 684.0 804.6)">Physical<tspan x="684.0" dy="12.5">objects</tspan></text>
+<text x="747.0" y="779.1" font-family="Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Noto Serif', 'Times New Roman', serif" font-size="11" fill="#1a1a1a" transform="rotate(-22 747.0 779.1)">Sensing<tspan x="747.0" dy="12.5">&amp; actuation</tspan></text>
+<text x="810.0" y="753.6" font-family="Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Noto Serif', 'Times New Roman', serif" font-size="11" fill="#1a1a1a" transform="rotate(-22 810.0 753.6)">Production<tspan x="810.0" dy="12.5">control</tspan></text>
+<text x="873.0" y="728.1" font-family="Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Noto Serif', 'Times New Roman', serif" font-size="11" fill="#1a1a1a" transform="rotate(-22 873.0 728.1)">Operation<tspan x="873.0" dy="12.5">execution</tspan></text>
+<text x="936.0" y="702.6" font-family="Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Noto Serif', 'Times New Roman', serif" font-size="11" fill="#1a1a1a" transform="rotate(-22 936.0 702.6)">Management<tspan x="936.0" dy="12.5">information</tspan></text>
+<text x="999.0" y="677.1" font-family="Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Noto Serif', 'Times New Roman', serif" font-size="11" fill="#1a1a1a" transform="rotate(-22 999.0 677.1)">Connected<tspan x="999.0" dy="12.5">world</tspan></text>
+<line x1="736.0" y1="883.5" x2="1114.0" y2="730.5" stroke="#1a1a1a" stroke-width="1.6" marker-start="url(#ms)" marker-end="url(#me)"/>
+<text x="957.0" y="815.0" text-anchor="middle" font-family="Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Noto Serif', 'Times New Roman', serif" font-size="16" fill="#1a1a1a" transform="rotate(-22 957.0 815.0)">Zones</text>
+<text x="610.0" y="954" text-anchor="middle" font-family="Charter, 'Bitstream Charter', 'Sitka Text', Cambria, 'Noto Serif', 'Times New Roman', serif" font-size="17" fill="#1a1a1a"><tspan font-weight="700">Figure 4.4:</tspan> The Smart Farming Architecture Model with interoperability layers</text>
+</svg>

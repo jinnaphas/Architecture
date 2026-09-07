@@ -197,8 +197,10 @@ app/index.html                 the app
 data/architecture-model.json   the model — the app fetches this at runtime
 assets/digital-twin-demo.mp4   the Digital Twin walkthrough played in the board mode
 assets/arch/*.jpg              the reference diagram for each of the four towers
+assets/figures/*.svg           SFAM Figure 4.4 and the three domain worksheets
 tools/verify.py                invariant checks, also run by CI
 tools/derive_analysis.py       regenerates the derived risk, impact and response bands
+tools/draw_sfam.py             redraws assets/figures/ from the model
 docs/KNOWLEDGE.md              the architecture reasoning behind all of it
 .github/workflows/pages.yml    verify, then deploy to GitHub Pages
 .nojekyll                      serve files as-is, no Jekyll processing
@@ -206,6 +208,28 @@ docs/KNOWLEDGE.md              the architecture reasoning behind all of it
 
 The app fetches the JSON at runtime, so the data lives in exactly one place. Editing the
 model means editing that file and running `tools/verify.py`.
+
+---
+
+## SFAM figures
+
+`tools/draw_sfam.py` redraws the SFAM material as SVG:
+
+```bash
+python3 tools/draw_sfam.py       # writes assets/figures/
+```
+
+`sfam-figure-4-4.svg` is a vector recreation of the published Smart Farming Architecture
+Model — six interoperability layers floating over the Domains × Zones floor, with the
+asset risers standing up through them. `sfam-domain-1..3.svg` pull the three business
+domains out of it as blank worksheets: layers down, zones across, one empty cell each,
+to be filled in by hand with the value, the actor and the asset. Domain 3 spans two
+columns (Processing + Distribution), so it is 72 cells where the others are 36.
+
+The script reads the domains, zones and layers straight out of
+`data/architecture-model.json` rather than repeating them, so a figure cannot drift from
+the tower it depicts — edit the model and the drawing follows. The cell count printed at
+the top of each worksheet is computed the same way.
 
 ---
 
