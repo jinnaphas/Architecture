@@ -381,6 +381,8 @@ body.dark .tg.sup{background:#123A34;border-color:#1B5F51;color:#7FCBB4}
       <div class="grp"><span class="lb">Theme</span>
         <button class="vb" data-v="theme">Dark</button>
         <button class="vb" data-v="reset">Reset</button></div>
+      <div class="grp"><span class="lb">Link</span>
+        <button class="vb" data-v="link" title="คัดลอกลิงก์ที่เปิดหน้านี้กลับมาในสภาพเดิม">คัดลอกลิงก์</button></div>
     </div>
   </div>
   <div class="body">
@@ -1634,6 +1636,20 @@ addEventListener("keydown",e=>{
   if(e.key==="ArrowLeft"){e.preventDefault();storyGo(stIdx-1);}
   else if(e.key==="ArrowRight"||e.key===" "){e.preventDefault();storyGo(stIdx+1);}
 });
+/* Every route into a mode goes through here — the toolbar button and a ?view= on the
+   URL alike — so the two cannot drift apart. */
+function applyMode(){
+  document.querySelector('[data-v="m3d"]').setAttribute("aria-pressed",S.view==="iso");
+  document.querySelector('[data-v="m2d"]').setAttribute("aria-pressed",S.view==="flat");
+  document.querySelector('[data-v="mbd"]').setAttribute("aria-pressed",S.view==="board");
+  document.querySelector('[data-v="mex"]').setAttribute("aria-pressed",S.view==="exec");
+  $("langGrp").style.display=S.view==="exec"?"":"none";
+  $("rotGrp").style.display=S.view==="iso"?"":"none";
+  $("layGrp").style.display=S.view==="iso"?"":"none";
+  $("hint").innerHTML=S.view==="flat"
+    ? "<b>คลิกบล็อก</b> = ดูชั้นนั้น · <b>คลิกเส้น</b> = ดูการเชื่อม · <b>ล้อ</b> = ซูม · กรอบประคือชั้นที่ตึกนั้นไม่มี · เส้นเอียง = เชื่อมข้ามชั้น"
+    : "<b>ลาก</b> = หมุน · <b>ล้อ</b> = ซูม · <b>คลิกจุด</b> = ดู cube · <b>คลิกเส้น</b> = ดูรายละเอียดการเชื่อม · เลือกตึก 2–3 ตึกเพื่อดูเฉพาะคู่นั้น";
+}
 let pend=false;function req(){if(pend)return;pend=true;requestAnimationFrame(()=>{pend=false;draw();});}
 document.querySelectorAll(".vb").forEach(b=>b.onclick=()=>{
   const v=b.dataset.v;
@@ -1657,18 +1673,10 @@ document.querySelectorAll(".vb").forEach(b=>b.onclick=()=>{
     if(S.story)storyOn(false);
     S.view=(v==="m2d")?"flat":(v==="mbd")?"board":(v==="mex")?"exec":"iso";
     S.sel=S.selB=S.selP=null;S.selS=null;
-    document.querySelector('[data-v="m3d"]').setAttribute("aria-pressed",S.view==="iso");
-    document.querySelector('[data-v="m2d"]').setAttribute("aria-pressed",S.view==="flat");
-    document.querySelector('[data-v="mbd"]').setAttribute("aria-pressed",S.view==="board");
-    document.querySelector('[data-v="mex"]').setAttribute("aria-pressed",S.view==="exec");
-    $("langGrp").style.display=S.view==="exec"?"":"none";
-    $("rotGrp").style.display=S.view==="iso"?"":"none";
-    $("layGrp").style.display=S.view==="iso"?"":"none";
-    $("hint").innerHTML=S.view==="flat"
-      ? "<b>คลิกบล็อก</b> = ดูชั้นนั้น · <b>คลิกเส้น</b> = ดูการเชื่อม · <b>ล้อ</b> = ซูม · กรอบประคือชั้นที่ตึกนั้นไม่มี · เส้นเอียง = เชื่อมข้ามชั้น"
-      : "<b>ลาก</b> = หมุน · <b>ล้อ</b> = ซูม · <b>คลิกจุด</b> = ดู cube · <b>คลิกเส้น</b> = ดูรายละเอียดการเชื่อม · เลือกตึก 2–3 ตึกเพื่อดูเฉพาะคู่นั้น";
+    applyMode();
     detail();stats();req();return;
   }
+  else if(v==="link"){copyLink(b);return;}
   else if(v==="story"){storyOn(!S.story);return;}
   else if(v==="theme"){const d=isDark();document.body.className=d?"light":"dark";b.textContent=d?"Dark":"Light";}
   else if(v==="reset"){if(S.story)storyOn(false);
@@ -1924,8 +1932,115 @@ if(M.scopeLimits){
 $("refList").innerHTML=(M.references||[]).map(r=>
   `<span title="${esc(r.title)}${r.restriction?" — "+esc(r.restriction):""}">${esc(r.id)} <b>${esc(r.publisher)}</b>${r.restriction?" ⚠":""}</span>`).join("");
 $("sheetX").onclick=()=>{S.sel=null;S.selS=null;S.selB=null;S.selP=null;detail();req();};
+/* ============ deep links ============ */
+/* A presentation runs off URLs. Every control writes its state into the query string
+   and the app reads it back on load, so a slide can point at ?tower=SFAM&view=2d
+   instead of "open it, then click these five things". Only values that differ from
+   the default are written, so a shared link stays short enough to read aloud. */
+const TWK=new Set(TOWERS.map(t=>t.k));
+const VIEWQ={iso:"3d",flat:"2d",board:"board",exec:"exec"};
+const QVIEW={"3d":"iso","2d":"flat",board:"board",exec:"exec"};
+
+function writeURL(){
+  const q=new URLSearchParams();
+  if(S.view!=="iso")q.set("view",VIEWQ[S.view]);
+  if(S.tw.size!==TOWERS.length)q.set("tower",TOWERS.filter(t=>S.tw.has(t.k)).map(t=>t.k).join(","));
+  if(S.lv.size)q.set("level",[...S.lv].sort((a,b)=>a-b).join(","));
+  if(S.ct.size)q.set("type",[...S.ct].sort().join(","));
+  if(S.sel)q.set("cube",S.sel);
+  if(S.selS!==null&&SEAM_ID[S.selS])q.set("coupling",SEAM_ID[S.selS]);
+  if(S.selB)q.set("block",S.selB);
+  if(S.selP)q.set("pair",S.selP);
+  if(S.lang!=="th")q.set("lang",S.lang);
+  if(S.layout!=="grid")q.set("layout",S.layout);
+  const deg=((Math.round(S.az*180/Math.PI)%360)+360)%360;
+  if(deg)q.set("az",deg);
+  if(Math.abs(S.zoom-1)>0.01)q.set("zoom",S.zoom.toFixed(2));
+  if(S.explode>1)q.set("explode","1");
+  if(!S.seams)q.set("couplings","0");
+  if(!S.guides)q.set("guides","0");
+  if(isDark())q.set("theme","dark");
+  /* URLSearchParams escapes comma and colon, which both stay legal in a query string.
+     A link that has to survive being read aloud or retyped into a slide keeps them. */
+  const t=q.toString().replace(/%2C/g,",").replace(/%3A/g,":");
+  history.replaceState(null,"",t?location.pathname+"?"+t:location.pathname);
+}
+
+/* Read is deliberately forgiving: an unknown tower, level or coupling id is dropped
+   rather than throwing, because these URLs get retyped by hand into slide decks. */
+function applyURL(){
+  const q=new URLSearchParams(location.search);
+  if(![...q.keys()].length)return;
+  const list=k=>(q.get(k)||"").split(",").map(x=>x.trim()).filter(Boolean);
+
+  if(q.get("theme")==="dark"){document.body.className="dark";
+    document.querySelector('[data-v="theme"]').textContent="Light";}
+
+  const v=q.get("view"); if(v&&QVIEW[v])S.view=QVIEW[v];
+  if(q.get("lang")==="en")S.lang="en";
+  document.querySelector('[data-v="lth"]').setAttribute("aria-pressed",S.lang==="th");
+  document.querySelector('[data-v="len"]').setAttribute("aria-pressed",S.lang==="en");
+
+  const tw=list("tower").map(x=>x.toUpperCase()).filter(x=>TWK.has(x));
+  if(tw.length)S.tw=new Set(tw);
+  list("level").forEach(x=>{const n=+x;if(LV.some(l=>l.p===n))S.lv.add(n);});
+  list("type").forEach(x=>{const k=x.toUpperCase();if(CT[k])S.ct.add(k);});
+
+  if(q.get("layout")==="row"){S.layout="row";applyLayout();}
+  document.querySelector('[data-v="lgrid"]').setAttribute("aria-pressed",S.layout==="grid");
+  document.querySelector('[data-v="lrow"]').setAttribute("aria-pressed",S.layout==="row");
+
+  const az=parseFloat(q.get("az")); if(isFinite(az))S.az=az*Math.PI/180;
+  const zm=parseFloat(q.get("zoom")); if(isFinite(zm))S.zoom=Math.max(.5,Math.min(2.6,zm));
+  if(q.get("explode")==="1"){S.explode=1.7;
+    document.querySelector('[data-v="explode"]').setAttribute("aria-pressed","true");}
+  if(q.get("couplings")==="0"){S.seams=false;
+    document.querySelector('[data-v="seams"]').setAttribute("aria-pressed","false");}
+  if(q.get("guides")==="0"){S.guides=false;
+    document.querySelector('[data-v="guides"]').setAttribute("aria-pressed","false");}
+
+  /* a selection only means something in the two drawing modes */
+  if(S.view==="iso"||S.view==="flat"){
+    const cu=q.get("cube"); if(cu&&BY[cu])S.sel=cu;
+    const cp=q.get("coupling"); const ci=cp?SEAM_ID.indexOf(cp.toUpperCase()):-1;
+    if(ci>=0){S.selS=ci;S.sel=null;}
+    const bl=q.get("block"); if(bl&&/^[A-Z]+:[1-8]$/.test(bl)){S.selB=bl;S.sel=null;S.selS=null;}
+    const pr=q.get("pair"); if(pr&&BLOCKLINKS.some(x=>x.key===pr)){S.selP=pr;S.sel=null;S.selS=null;S.selB=null;}
+  }
+  applyMode();
+}
+
+/* One listener registered after every element handler, so it sees the state those
+   handlers just produced without any of them having to remember to call it. */
+let urlT=0;
+const markURL=()=>{clearTimeout(urlT);urlT=setTimeout(writeURL,250);};
+
+async function copyLink(b){
+  writeURL();
+  const txt=location.href, was=b.textContent;
+  let ok=false;
+  try{await navigator.clipboard.writeText(txt);ok=true;}
+  catch(e){
+    /* navigator.clipboard needs a secure context, and this app is often served from
+       python3 -m http.server on a LAN address, which is not one. */
+    const ta=document.createElement("textarea");
+    ta.value=txt;ta.style.cssText="position:fixed;opacity:0";
+    document.body.appendChild(ta);ta.select();
+    try{ok=document.execCommand("copy");}catch(e2){ok=false;}
+    ta.remove();
+  }
+  b.textContent=ok?"คัดลอกแล้ว ✓":"กด Ctrl+C";
+  if(!ok)window.prompt("คัดลอกลิงก์นี้",txt);
+  setTimeout(()=>{b.textContent=was;},1600);
+}
+
+applyURL();
 syncUI();stats();detail();draw();
-Object.assign(window,{M,S,SC,applyLayout,ROW_K,HUB_U,HUB_V,CT,LV,TOWERS,TW,BLOCKLINKS,FLAT,drawFlat,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs,drawBoard,TEAM,LSTD,DREP,BRD,twStats,LREP,DT,boardLayers,boardTwin,ACON,boardConcepts,EX,drawExec,exStats,exFoundation,exRevenue,exFigure,L,DASH,DASHN,seamLv,seamRegister,seamCSV,CSVCOL});
+writeURL();
+document.addEventListener("click",markURL);
+svg.addEventListener("wheel",markURL,{passive:true});
+window.addEventListener("pointerup",markURL);
+Object.assign(window,{M,S,SC,applyLayout,ROW_K,HUB_U,HUB_V,CT,LV,TOWERS,TW,BLOCKLINKS,FLAT,drawFlat,CUBES,BY,SEAMS,SEAM_ID,POP,STORY,draw,detail,stats,syncUI,storyGo,storyOn,proj,nbrs,drawBoard,TEAM,LSTD,DREP,BRD,twStats,LREP,DT,boardLayers,boardTwin,ACON,boardConcepts,EX,drawExec,exStats,exFoundation,exRevenue,exFigure,L,DASH,DASHN,seamLv,seamRegister,seamCSV,CSVCOL,applyMode,applyURL,writeURL,copyLink});
 </script>
 </body>
 </html>

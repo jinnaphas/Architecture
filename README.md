@@ -58,6 +58,7 @@ aws s3 sync . s3://YOUR-BUCKET/ --delete --exclude '.git/*' --exclude '.github/*
 | Level rows | isolate one of L1–L8 across all towers — this is how the missing floors become obvious |
 | Coupling type rows | filter A–E · the swatch shows each type's dash pattern |
 | Theme | light (default) / dark |
+| คัดลอกลิงก์ | copies a URL that reopens the app in exactly this state |
 
 Both modes carry the **Z backbone**: the shared level scale as a thing you can see rather
 than a set of faint guide lines. In 2D it is a column on the left whose chip is solid when
@@ -208,6 +209,50 @@ docs/KNOWLEDGE.md              the architecture reasoning behind all of it
 
 The app fetches the JSON at runtime, so the data lives in exactly one place. Editing the
 model means editing that file and running `tools/verify.py`.
+
+---
+
+## Deep links
+
+Every control writes its state into the query string, and the app reads it back on
+load. A slide can point at the thing itself rather than saying "open it, then click
+these five things":
+
+```
+?tower=SFAM                      just the SFAM tower
+?tower=SFAM&view=2d              SFAM in the 2D floor plan
+?tower=SGAM,SFAM&coupling=CPL-16 both towers with one coupling open
+?cube=SFAM.BUS.CUL.CW            one cube, panel open
+?view=exec&lang=en               the executive summary in English
+?level=2,4&type=A,C              filtered to two levels and two coupling types
+?layout=row&az=90&zoom=1.4       the row layout, rotated and zoomed
+```
+
+| Parameter | Values |
+|---|---|
+| `view` | `3d` (default) · `2d` · `board` · `exec` |
+| `tower` | comma list of `SGAM` `RAMI` `SCIAM` `SFAM` |
+| `level` | comma list of `1`–`8` |
+| `type` | comma list of `A`–`E` |
+| `cube` | `TOWER.LAYER.X.Y`, e.g. `SFAM.BUS.CUL.CW` |
+| `coupling` | `CPL-01` … `CPL-30` |
+| `block` `pair` | a 2D block (`SFAM:5`) or the line between two |
+| `lang` | `th` (default) · `en` — only visible in the executive mode |
+| `layout` | `grid` (default) · `row` |
+| `az` `zoom` | azimuth in degrees · zoom factor |
+| `explode` `couplings` `guides` `theme` | `1` · `0` · `0` · `dark` |
+
+Only values that differ from the default are written, so the URL stays short enough
+to read aloud. Reading is deliberately forgiving — an unknown tower, level or
+coupling id is dropped rather than throwing, because these get retyped by hand into
+slide decks.
+
+The **คัดลอกลิงก์** button copies the current URL. It falls back to a hidden textarea
+when `navigator.clipboard` is unavailable, which is the case whenever the app is served
+from `python3 -m http.server` on a LAN address rather than over https.
+
+State is written with `replaceState`, so the browser's back button leaves the app
+instead of stepping backwards through every rotation made during a presentation.
 
 ---
 

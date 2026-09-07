@@ -440,6 +440,32 @@ def main() -> int:
     check(n_dash >= 2, f"only {n_dash} render paths use the type dash patterns, expected the 3D and 2D lines")
     print(f"  encoding: colour=level only · type=dash pattern ({n_dash} render paths)")
 
+    # 16 — deep links. The README publishes a parameter table and the presentation is
+    #      built on those URLs, so a parameter that stops being read, or stops being
+    #      written, breaks a link already pasted into a slide. Both directions are
+    #      checked against the same list rather than trusted to stay in step.
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    params = ["view", "tower", "level", "type", "cube", "coupling",
+              "block", "pair", "lang", "layout", "az", "zoom",
+              "explode", "couplings", "guides", "theme"]
+    try:
+        write_fn = app.split("function writeURL()")[1].split("\nfunction ")[0]
+        read_fn = app.split("function applyURL()")[1].split("\n/* One listener")[0]
+    except IndexError:
+        write_fn = read_fn = ""
+    check(bool(write_fn) and bool(read_fn),
+          "app/index.html: writeURL()/applyURL() are gone — deep links no longer work")
+    unwritten = [k for k in params if f'"{k}"' not in write_fn]
+    unread = [k for k in params if f'"{k}"' not in read_fn]
+    check(not unwritten, f"deep link parameters never written to the URL: {unwritten}")
+    check(not unread, f"deep link parameters never read back: {unread}")
+    undocumented = [k for k in params if f"`{k}`" not in readme]
+    check(not undocumented, f"deep link parameters missing from the README table: {undocumented}")
+    check("replaceState" in write_fn,
+          "deep links must use replaceState — pushState makes the back button "
+          "step through every rotation made during a presentation")
+    print(f"  deep links: {len(params)} parameters · read, written and documented")
+
     print(f"  couplings: {len(ids)} · irregular: {sorted(irregular)} (all flagged)")
     if fail:
         print("\nFAILED:")

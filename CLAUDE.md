@@ -94,7 +94,20 @@ left:
 
 - Population editor for the three non-SGAM towers.
 - Print / PDF export at a fixed camera angle.
-- Deep links (`?tower=SGAM,SFAM&coupling=CPL-16`) for jumping straight to a slide state.
+
+**Deep links are done.** Sixteen parameters — `?tower=SGAM,SFAM&coupling=CPL-16` and the
+rest, listed in the README — round-trip through the query string, and the toolbar carries a
+**คัดลอกลิงก์** button. Two rules hold it together:
+
+- **Every parameter goes both ways.** `verify.py` check 16 splits `writeURL()` and
+  `applyURL()` out of the app and fails if a parameter appears in one but not the other,
+  or is missing from the README table. A link already pasted into a slide cannot be
+  silently broken by a rename.
+- **`replaceState`, never `pushState`** — also enforced. During a presentation the back
+  button has to leave the app, not step backwards through forty azimuth changes.
+
+Reading is deliberately forgiving: an unknown tower, level or coupling id is dropped
+rather than throwing, because these URLs get retyped by hand into decks.
 
 ## Three buckets, kept apart
 
