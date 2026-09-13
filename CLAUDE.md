@@ -27,6 +27,7 @@ README.md                      ← how to run and deploy
 index.html                     ← redirect stub so the site root opens app/
 app/index.html                 ← the whole app, single file, no build, no deps
 data/architecture-model.json   ← the model · single source of truth · fetched at runtime
+skills/level-placement/        ← takeaway skill: place anything on the L1–L8 scale
 tools/verify.py                ← invariant checks (run after any model edit)
 tools/derive_analysis.py       ← regenerates derived risk / impact / response bands
 docs/KNOWLEDGE.md              ← the architecture knowledge base
@@ -108,6 +109,22 @@ rest, listed in the README — round-trip through the query string, and the tool
 
 Reading is deliberately forgiving: an unknown tower, level or coupling id is dropped
 rather than throwing, because these URLs get retyped by hand into decks.
+
+## The takeaway skill
+
+`skills/level-placement/SKILL.md` packages the placement method — the L1–L8 scale, the
+tower/level grid, the A–E coupling types and the honesty rules — so it can be used in a
+session that has none of this repository. It is meant to leave the building.
+
+That is exactly why it is checked. A prose copy of the model drifts silently, and it
+drifts where nobody can see the model to compare. **Check 17 re-reads all three tables
+out of the skill and compares them to the model cell by cell** — 8 levels, 5 coupling
+types, 32 tower-level cells, layer names included. Edit the geometry and the skill fails
+until it is updated too.
+
+The case that matters: if ASK-6 is ever resolved by giving SCIAM an Intelligence layer,
+check 17 fails on the skill's L6 row. The skill cannot keep telling people L6 is
+SGAM-only after the model stops saying so.
 
 ## Three buckets, kept apart
 
