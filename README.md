@@ -199,6 +199,7 @@ data/architecture-model.json   the model — the app fetches this at runtime
 assets/digital-twin-demo.mp4   the Digital Twin walkthrough played in the board mode
 assets/arch/*.jpg              the reference diagram for each of the four towers
 assets/figures/*.svg           SFAM Figure 4.4 and the three domain worksheets
+skills/level-placement/        the placement method as a portable skill
 tools/verify.py                invariant checks, also run by CI
 tools/derive_analysis.py       regenerates the derived risk, impact and response bands
 tools/draw_sfam.py             redraws assets/figures/ from the model
@@ -209,6 +210,19 @@ docs/KNOWLEDGE.md              the architecture reasoning behind all of it
 
 The app fetches the JSON at runtime, so the data lives in exactly one place. Editing the
 model means editing that file and running `tools/verify.py`.
+
+---
+
+## The placement skill
+
+`skills/level-placement/SKILL.md` is the one piece of this repository meant to be used
+somewhere else. It carries the L1–L8 scale, which layers each tower puts on it, the five
+coupling types, and the method for placing an arbitrary system, product or project onto
+that scale — then reporting the gap between the levels it *reaches* and the levels it
+*claims*, which is usually the whole finding.
+
+`verify.py` check 17 compares all three of its tables against the model cell by cell, so
+the copy that leaves the building cannot quietly stop matching the one that stays.
 
 ---
 

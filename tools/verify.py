@@ -9,6 +9,7 @@ What matters now is that the model is internally consistent.
 
 Exits non-zero on the first broken invariant.
 """
+import re
 import json
 import struct
 import pathlib
@@ -465,6 +466,50 @@ def main() -> int:
           "deep links must use replaceState — pushState makes the back button "
           "step through every rotation made during a presentation")
     print(f"  deep links: {len(params)} parameters · read, written and documented")
+
+    # 17 — the level-placement skill restates the scale, the tower/level grid and the
+    #      coupling types as prose tables. Prose copies of the model drift silently and
+    #      the skill is meant to be taken away and used elsewhere, where nobody can see
+    #      the model to check it against. So the tables are re-read from the file and
+    #      compared cell by cell.
+    skill_p = ROOT / "skills" / "level-placement" / "SKILL.md"
+    if skill_p.exists():
+        sk = skill_p.read_text(encoding="utf-8")
+        for lv in m["commonLevels"]:
+            row = re.search(r"\*\*" + lv["id"] + r"\*\*\s*\|\s*([^|]+)\|\s*([^|]+)\|[^|]*\|\s*([A-E])\s*\|", sk)
+            check(bool(row), f"level-placement skill: {lv['id']} missing from the scale table")
+            if row:
+                nm, th, cp = (x.strip() for x in row.groups())
+                check(nm == lv["name"], f"skill {lv['id']}: name {nm!r} != model {lv['name']!r}")
+                check(th == lv["th"], f"skill {lv['id']}: thai {th!r} != model {lv['th']!r}")
+                check(cp == lv["coupling"], f"skill {lv['id']}: coupling {cp} != model {lv['coupling']}")
+        for k, v in m["couplingTypes"].items():
+            row = re.search(r"\*\*" + k + r"\*\*\s*\|[^|]+\|\s*([^|]+)\|\s*([^|]+)\|", sk)
+            check(bool(row), f"level-placement skill: coupling type {k} missing")
+            if row:
+                lvls, risk = (x.strip() for x in row.groups())
+                check(lvls == ", ".join(v["levels"]), f"skill type {k}: levels {lvls!r} != model {v['levels']}")
+                check(risk == v["risk"], f"skill type {k}: risk {risk!r} != model {v['risk']!r}")
+        order = ["SGAM", "RAMI", "SCIAM", "SFAM"]
+        has = {t["id"]: {l[2]: l[1] for l in t["layers"]} for t in m["towers"]}
+        cells = 0
+        for lv in m["commonLevels"]:
+            row = re.search(r"\|\s*" + lv["id"] + " " + lv["name"] + r"\s*\|([^\n]+)\n", sk)
+            check(bool(row), f"level-placement skill: {lv['id']} missing from the tower grid")
+            if not row:
+                continue
+            got = [c.strip().strip("*") for c in row.group(1).split("|")][:4]
+            for tk, cell in zip(order, got):
+                cells += 1
+                present = cell not in ("\u2014", "")
+                if present != (lv["id"] in has[tk]):
+                    check(False, f"skill {lv['id']}/{tk}: grid says "
+                                 f"{'has a layer' if present else 'no layer'}, model disagrees")
+                elif present:
+                    check(cell == has[tk][lv["id"]],
+                          f"skill {lv['id']}/{tk}: named {cell!r}, model says {has[tk][lv['id']]!r}")
+        print(f"  level-placement skill: {len(m['commonLevels'])} levels · "
+              f"{len(m['couplingTypes'])} coupling types · {cells} tower-level cells match")
 
     print(f"  couplings: {len(ids)} · irregular: {sorted(irregular)} (all flagged)")
     if fail:
